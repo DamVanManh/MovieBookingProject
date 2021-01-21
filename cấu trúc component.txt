@@ -1,0 +1,68 @@
+*** TÀI KHOẢN ADMIN: 
+"taiKhoan": "123@admin", "matKhau": "123123123",
+"taiKhoan": "anhkiet", "matKhau": "anhkiet123",
+*** CẤU TRÚC THƯ MỤC TRONG REACTJS
+components: Header.js, Carousel.js, lichChieu.js, cumRap.js, TinTuc.js, 
+			UngDung.js, Footer.js, loading.js,
+layouts:
+	+ MainLayout.js: ["/", "/phim/:movieId", "/datve/:movieId"]
+		<Header />
+			{props.children}
+		<Footer />
+	+ AdminLayout.js: ["/admin/users","/admin/movies"]
+	+ AuthLayout.js: ["/dangnhap", "/dangky"]
+*** pages: 
+	+ Homepage: 
+		<Header />
+		<Carousel />
+		<lichChieu />
+		<cumRap />
+		<TinTuc />
+		<UngDung />
+		<Footer />
+	+ Bookticket
+	+ Login
+	+ Register
+	+ MovieDetail
+	+ MoviesManagement
+	+ UsersManagement
+
+*** CẤU TRÚC ROUTER TRONG App.js
+    <BrowserRouter >
+      <Switch>
+
+        {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
+        <Route exact path={["/", "/phim/:movieId", "/datve/:movieId"]}>
+          <MainLayout >
+            <Switch >
+              <Route exact path="/" component={Homepage} />
+              <Route exact path="/phim/:movieId" component={MovieDetail} />
+              <Route exact path="/datve/:movieId" component={BookTickets} />
+            </Switch>
+          </MainLayout>
+        </Route>
+
+        {/* component trong này chỉ cho phép truy cập khi tài khoản là admin */}
+        <Route exact path={["/admin/users","/admin/movies"]}>
+          <AdminLayout >
+            <Switch >
+              <AdminRoute exact path='/admin/users' component={UsersManagement} />
+              <AdminRoute exact path='/admin/movies' component={MoviesManagement} />
+            </Switch>
+          </AdminLayout>
+        </Route>
+
+        {/* component hiển thị bên trong route này luôn có giao diện AuthLayout */}
+        <Route exact path={["/dangnhap", "/dangky"]}>
+          <AuthLayout >
+            <Switch >
+              <Route exact path="/dangnhap" component={Login} />
+              <Route exact path="/dangky" component={Register} />
+            </Switch>
+          </AuthLayout>
+        </Route>
+
+        {/* khi người dùng nhập sai địa chỉ ví dụ localhost:3002/fdsf thì tự động chuyển sang trang home*/}
+        <Redirect to="/" />
+      </Switch>
+    </BrowserRouter>
