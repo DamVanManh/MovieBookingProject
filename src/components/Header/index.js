@@ -40,10 +40,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-import { Link, Hidden, Button } from '@material-ui/core';
+import { Link, Hidden, Button, Chip, Tooltip } from '@material-ui/core';
 import { Link as LinkR } from "react-router-dom";
-const drawerWidth = 240;
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import FaceIcon from '@material-ui/icons/Face';
+import { useSelector, useDispatch } from 'react-redux';
+import {LOGOUT}  from '../../constants/Auth';
 
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -75,14 +79,14 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  // drawerHeader: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   padding: theme.spacing(0, 1),
-  //   // necessary for content to be below app bar
-  //   ...theme.mixins.toolbar,
-  //   justifyContent: 'flex-start',
-  // },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-start',
+  },
   // content: {
   //   flexGrow: 1,
   //   padding: theme.spacing(3),
@@ -110,22 +114,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
+
+  
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  
+  const matches = useMediaQuery(theme.breakpoints.up('lg')); // tự động trả về true khi màn hình từ 1280 trở lên
 
+  // đăng xuất
+  const { currentUser } = useSelector((state) => state.authReducer);
+  const dispatch = useDispatch();
+
+  // tự đóng Drawer lại nếu màn hình lớn
+  if(matches){
+    if(open){
+      setOpen(false)
+    }
+  }
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const handleDelete = () => {
+    dispatch({type: LOGOUT })
+  }
 
   return (
 
     <div className={classes.root}>
       <CssBaseline />
-
+      {console.log("currentUser: ", currentUser, matches)}
       {/* phần hiển thị ngang */}
       <AppBar position="fixed" className={clsx(classes.appBar, { [classes.appBarShift]: open, })} color='default' >
         <Toolbar className={classes.spaceBetween}>
@@ -133,7 +154,7 @@ export default function Header() {
             <img src="https://tix.vn/app/assets/img/icons/web-logo.png" alt="logo" style={{ height: 50 }} />
           </div>
 
-          <Hidden smDown>
+          <Hidden mdDown>
             <List >
               <Link className={classes.link}>Lịch Chiếu</Link>
               <Link className={classes.link}>Cụm Rạp</Link>
@@ -141,19 +162,28 @@ export default function Header() {
               <Link className={classes.link}>Ứng Dụng</Link>
             </List>
           </Hidden>
-          <Hidden xsDown>
+          <Hidden mdDown>
+
+            {currentUser ? 
+            <List >
+            <Tooltip title="Đăng Xuất">
+              <Chip variant="outlined" color="primary" onClick={handleDelete}  label={currentUser.taiKhoan} icon={<FaceIcon />} /> 
+            </Tooltip>
+            </List>
+            : 
             <List >
               <LinkR to="/dangnhap">
-                <Link className={classes.link} >Đăng Nhập</Link>
+                <Button>Đăng Nhập</Button>
               </LinkR>
               <LinkR to="/dangky">
                 <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>
                   Đăng Ký
-              </Button>
+                </Button>
               </LinkR>
             </List>
+            }
           </Hidden>
-          <Hidden mdUp>
+          <Hidden lgUp>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -182,7 +212,6 @@ export default function Header() {
         </Typography>
       </main> */}
 
-
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -191,9 +220,9 @@ export default function Header() {
         classes={{
           paper: classes.drawerPaper,
         }}
+        
       >
-        {/* className={classes.drawerHeader} */}
-        <div >
+        <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
@@ -210,12 +239,24 @@ export default function Header() {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-          <Hidden smUp>
-            <Link className={classes.link} >Đăng Nhập</Link>
-            <Button variant="contained" color="primary">
-              Đăng Ký
+          {currentUser ? 
+            <List style={{ marginLeft: "15px" }} >
+            <Tooltip title="Đăng Xuất" >
+              <Chip variant="outlined" color="primary" onClick={handleDelete}  label={currentUser.taiKhoan} icon={<FaceIcon />} /> 
+            </Tooltip>
+            </List>
+            : 
+            <List >
+              <LinkR to="/dangnhap">
+                <Button>Đăng Nhập</Button>
+              </LinkR>
+              <LinkR to="/dangky">
+                <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>
+                  Đăng Ký
                 </Button>
-          </Hidden>
+              </LinkR>
+            </List>
+            }
         </List>
 
         <Divider />

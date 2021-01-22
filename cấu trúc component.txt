@@ -1,31 +1,34 @@
 *** TÀI KHOẢN ADMIN: 
 "taiKhoan": "123@admin", "matKhau": "123123123",
 "taiKhoan": "anhkiet", "matKhau": "anhkiet123",
+*** CÁC THƯ VIỆN BẮT BUỘC CÀI ĐỂ CHẠY:
+	+ material ui: npm install @material-ui/core
+	
 *** CẤU TRÚC THƯ MỤC TRONG REACTJS
-components: Header.js, Carousel.js, lichChieu.js, cumRap.js, TinTuc.js, 
-			UngDung.js, Footer.js, loading.js,
-layouts:
-	+ MainLayout.js: ["/", "/phim/:movieId", "/datve/:movieId"]
-		<Header />
-			{props.children}
-		<Footer />
-	+ AdminLayout.js: ["/admin/users","/admin/movies"]
-	+ AuthLayout.js: ["/dangnhap", "/dangky"]
-*** pages: 
-	+ Homepage: 
-		<Header />
-		<Carousel />
-		<lichChieu />
-		<cumRap />
-		<TinTuc />
-		<UngDung />
-		<Footer />
-	+ Bookticket
-	+ Login
-	+ Register
-	+ MovieDetail
-	+ MoviesManagement
-	+ UsersManagement
+	components: Header.js, Carousel.js, lichChieu.js, cumRap.js, TinTuc.js, 
+				UngDung.js, Footer.js, loading.js,
+	layouts:
+		+ MainLayout.js: ["/", "/phim/:movieId", "/datve/:movieId"]
+			<Header />
+				{props.children}
+			<Footer />
+		+ AdminLayout.js: ["/admin/users","/admin/movies"]
+		+ AuthLayout.js: ["/dangnhap", "/dangky"]
+	pages: 
+		+ Homepage: 
+			<Header />
+			<Carousel />
+			<lichChieu />
+			<cumRap />
+			<TinTuc />
+			<UngDung />
+			<Footer />
+		+ Bookticket
+		+ Login
+		+ Register
+		+ MovieDetail
+		+ MoviesManagement
+		+ UsersManagement
 
 *** CẤU TRÚC ROUTER TRONG App.js
     <BrowserRouter >

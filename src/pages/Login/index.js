@@ -112,7 +112,7 @@ function Login() {
   }
 
   return (
-    <div className="container">
+    <div className="text-light">
       <div className="row">
         <div className="col-sm-6 mx-auto">
           <div className="form-group">
