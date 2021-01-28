@@ -1,9 +1,10 @@
 *** TÀI KHOẢN ADMIN: 
-"taiKhoan": "123@admin", "matKhau": "123123123",
+"taiKhoan": "binh12234", "matKhau": "123",
 "taiKhoan": "anhkiet", "matKhau": "anhkiet123",
 *** CÁC THƯ VIỆN BẮT BUỘC CÀI ĐỂ CHẠY:
 	+ material ui: npm install @material-ui/core
-	
+	+ icon: npm install @material-ui/icons
+*** cảnh báo: cảnh báo khi dispatch thay đổi thì sẽ không chạy lại useEfect, trong khi dispatch mình không cần thay đổi
 *** CẤU TRÚC THƯ MỤC TRONG REACTJS
 	components: Header.js, Carousel.js, lichChieu.js, cumRap.js, TinTuc.js, 
 				UngDung.js, Footer.js, loading.js,
