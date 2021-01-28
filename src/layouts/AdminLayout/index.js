@@ -63,7 +63,7 @@ export default function AdminLayout(props) {
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>
-          {props.children}
+            {props.children}
           </div>
         </div>
       </div>

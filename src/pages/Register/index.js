@@ -37,7 +37,7 @@ export default function Register() {
               className="form-control"
               id="taiKhoan"
               name="taiKhoan"
-              // value={user.taiKhoan} // không biết cái này dùng để làm gì?
+              value={user.taiKhoan} // khi đăng ký không thành công thì page sẽ load lại > dữ liệu cũ đã ghi sẽ bị xóa > thao tác này sẽ lấy giữ lại đúng giá trị cũ
               onChange={handleChange}
             />
           </div>
@@ -48,7 +48,7 @@ export default function Register() {
               className="form-control"
               id="matKhau"
               name="matKhau"
-              // value={user.matKhau}
+              value={user.matKhau}
               onChange={handleChange}
             />
           </div>
@@ -59,7 +59,7 @@ export default function Register() {
               className="form-control"
               id="email"
               name="email"
-              // value={user.matKhau}
+              value={user.email}
               onChange={handleChange}
             />
           </div>
@@ -70,7 +70,7 @@ export default function Register() {
               className="form-control"
               id="soDt"
               name="soDt"
-              // value={user.matKhau}
+              value={user.soDt}
               onChange={handleChange}
             />
           </div>
@@ -81,7 +81,7 @@ export default function Register() {
               className="form-control"
               id="hoTen"
               name="hoTen"
-              // value={user.matKhau}
+              value={user.hoTen}
               onChange={handleChange}
             />
           </div>
