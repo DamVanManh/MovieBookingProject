@@ -1,56 +1,3 @@
-// import React from 'react'
-
-// export default function UsersManagement() {
-//   return (
-//     <div>
-//       <h1>quản lý tài khoản người dùng</h1>
-//     </div>
-//   )
-// }
-
-// import React, { useState } from 'react';
-// import {
-//   Box,
-//   Container,
-//   makeStyles
-// } from '@material-ui/core';
-// import Page from 'src/components/Page';
-// import Results from './Results';
-// import Toolbar from './Toolbar';
-// import data from './data';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     backgroundColor: theme.palette.background.dark,
-//     minHeight: '100%',
-//     paddingBottom: theme.spacing(3),
-//     paddingTop: theme.spacing(3)
-//   }
-// }));
-
-// export default function UsersManagement() {
-//   const classes = useStyles();
-//   const [customers] = useState(data);
-
-//   return (
-//     <div>
-//       <h1>quản lý tài khoản người dùng</h1>
-//       <Page
-//         className={classes.root}
-//         title="Customers"
-//       >
-//         <Container maxWidth={false}>
-//           <Toolbar />
-//           <Box mt={3}>
-//             <Results customers={customers} />
-//           </Box>
-//         </Container>
-//       </Page>
-//     </div>
-//   )
-// }
-
-import React,{ useSelector, useDispatch } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -62,27 +9,43 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+
+import { getUsersList } from "../../actions/Users/UsersList";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 const columns = [
-  { id: 'name', label: 'Tài Khoản', minWidth: 170 },
-  { id: 'code', label: 'Mật khẩu', minWidth: 100 },
+  { id: 'action', label: 'Hành Động', minWidth: 170 },
+  { id: 'taiKhoan', label: 'Tài Khoản', minWidth: 170 },
+  { id: 'matKhau', label: 'Mật khẩu', minWidth: 100 },
   {
-    id: 'population',
+    id: 'hoTen',
     label: 'Họ Tên',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'size',
+    id: 'email',
     label: 'Email',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'density',
+    id: 'soDt',
     label: 'Số Điện Thoại',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toFixed(2),
+  },
+  {
+    id: 'maLoaiNguoiDung',
+    label: 'Loại Người Dùng',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toFixed(2),
@@ -130,18 +93,30 @@ export default function UsersManagement() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // usersList chứa toàn bộ tài khoản
+  const { usersList, loading, error } = useSelector((state) => state.usersList);
+  const dispatch = useDispatch();
+  // thực hiện lấy tài khoản về hiển thị
+  useEffect(() => {
+    dispatch(getUsersList())
+  }, [])
 
+  // khi nhấn mũi tên tăng hoặc giảm số page
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);// tự tăng số page lên 1 từ mặc định 0
+    console.log('action 1')
+  };
+  // khi thay đổi Rows per page
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+    console.log('action 2')
   };
 
   return (
 
     <Box px={3} className={classes.box}>
+      {/* {console.log('page page ', usersList[0])} */}
       <Typography variant="h2" gutterBottom>
         Quản Lý Tài Khoản
       </Typography>
@@ -163,14 +138,24 @@ export default function UsersManagement() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              {/* cắt dữ liệu trong mảng ra */}
+              {usersList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.taiKhoan}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number' ? column.format(value) : value}
+                          {/* nếu không tồn tại props thì in ra hành động xóa và chỉnh sửa */}
+                          { typeof value !== "undefined" ? value :
+                            <Grid container direction="row" justify="space-around" alignItems="center" >
+                              <IconButton color="primary" aria-label="upload picture" component="span">
+                                <EditIcon color="primary" />
+                              </IconButton>
+                              <IconButton color="primary" aria-label="upload picture" component="span">
+                                <DeleteForeverIcon color="primary" />
+                              </IconButton>
+                            </Grid>}
                         </TableCell>
                       );
                     })}
@@ -183,9 +168,9 @@ export default function UsersManagement() {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={rows.length}
+          count={usersList.length} // độ dài
           rowsPerPage={rowsPerPage}
-          page={page}
+          page={page}// trang hiện tại
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
