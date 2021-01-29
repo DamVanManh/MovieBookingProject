@@ -64,25 +64,25 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  { id: 'name', label: 'Tài Khoản', minWidth: 170 },
+  { id: 'code', label: 'Mật khẩu', minWidth: 100 },
   {
     id: 'population',
-    label: 'Population',
+    label: 'Họ Tên',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
+    label: 'Email',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'density',
-    label: 'Density',
+    label: 'Số Điện Thoại',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toFixed(2),
@@ -119,6 +119,10 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 440,
   },
+  box: {
+    backgroundColor: "#F4F6F8",
+    minHeight: '90vh',
+  }
 });
 
 export default function UsersManagement() {
@@ -137,7 +141,7 @@ export default function UsersManagement() {
 
   return (
 
-    <Box p={3}>
+    <Box px={3} className={classes.box}>
       <Typography variant="h2" gutterBottom>
         Quản Lý Tài Khoản
       </Typography>

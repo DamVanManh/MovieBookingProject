@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   root: {},
   avatar: {
     width: 60,
-    height: 60
+    height: 60,
   }
 }));
 
