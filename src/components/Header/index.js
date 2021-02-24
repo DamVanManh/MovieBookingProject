@@ -1,24 +1,3 @@
-// import React from 'react';
-// import { Link, useHistory, useLocation, useParams } from "react-router-dom";
-// import Login from '../../pages/Login/';
-// export default function Header() {
-//   const history = useHistory();
-//   const location = useLocation();
-//   const param = useParams();
-//   console.log('headerLLL', history, location, param)
-//   return (
-//     <div className='w-100 d-flex justify-content-between'>
-//       <div>movie</div>
-//       <ul>
-//         <li>
-//           <Link to='dangnhap' >login{Login}</Link>
-//         </li>
-//       </ul>
-
-//     </div>
-//   )
-// }
-
 
 import React, { useState } from 'react';
 import clsx from 'clsx';
@@ -45,7 +24,7 @@ import { Link as LinkR } from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import FaceIcon from '@material-ui/icons/Face';
 import { useSelector, useDispatch } from 'react-redux';
-import {LOGOUT}  from '../../constants/Auth';
+import { LOGOUT } from '../../constants/Auth';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -115,11 +94,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
 
-  
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  
+
   const matches = useMediaQuery(theme.breakpoints.up('lg')); // tự động trả về true khi màn hình từ 1280 trở lên
 
   // đăng xuất
@@ -127,8 +106,8 @@ export default function Header() {
   const dispatch = useDispatch();
 
   // tự đóng Drawer lại nếu màn hình lớn
-  if(matches){
-    if(open){
+  if (matches) {
+    if (open) {
       setOpen(false)
     }
   }
@@ -139,7 +118,7 @@ export default function Header() {
     setOpen(false);
   };
   const handleDelete = () => {
-    dispatch({type: LOGOUT })
+    dispatch({ type: LOGOUT })
   }
 
   return (
@@ -164,23 +143,23 @@ export default function Header() {
           </Hidden>
           <Hidden mdDown>
 
-            {currentUser ? 
-            <List >
-            <Tooltip title="Đăng Xuất">
-              <Chip variant="outlined" color="primary" onClick={handleDelete}  label={currentUser.taiKhoan} icon={<FaceIcon />} /> 
-            </Tooltip>
-            </List>
-            : 
-            <List >
-              <LinkR to="/dangnhap">
-                <Button>Đăng Nhập</Button>
-              </LinkR>
-              <LinkR to="/dangky">
-                <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>
-                  Đăng Ký
+            {currentUser ?
+              <List >
+                <Tooltip title="Đăng Xuất">
+                  <Chip variant="outlined" color="primary" onClick={handleDelete} label={currentUser.taiKhoan} icon={<FaceIcon />} />
+                </Tooltip>
+              </List>
+              :
+              <List >
+                <LinkR to="/dangnhap">
+                  <Button>Đăng Nhập</Button>
+                </LinkR>
+                <LinkR to="/dangky">
+                  <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>
+                    Đăng Ký
                 </Button>
-              </LinkR>
-            </List>
+                </LinkR>
+              </List>
             }
           </Hidden>
           <Hidden lgUp>
@@ -220,7 +199,7 @@ export default function Header() {
         classes={{
           paper: classes.drawerPaper,
         }}
-        
+
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
@@ -239,13 +218,13 @@ export default function Header() {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-          {currentUser ? 
+          {currentUser ?
             <List style={{ marginLeft: "15px" }} >
-            <Tooltip title="Đăng Xuất" >
-              <Chip variant="outlined" color="primary" onClick={handleDelete}  label={currentUser.taiKhoan} icon={<FaceIcon />} /> 
-            </Tooltip>
+              <Tooltip title="Đăng Xuất" >
+                <Chip variant="outlined" color="primary" onClick={handleDelete} label={currentUser.taiKhoan} icon={<FaceIcon />} />
+              </Tooltip>
             </List>
-            : 
+            :
             <List >
               <LinkR to="/dangnhap">
                 <Button>Đăng Nhập</Button>
@@ -256,7 +235,7 @@ export default function Header() {
                 </Button>
               </LinkR>
             </List>
-            }
+          }
         </List>
 
         <Divider />
