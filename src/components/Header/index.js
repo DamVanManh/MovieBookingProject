@@ -24,7 +24,7 @@ import { Link as LinkR } from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import FaceIcon from '@material-ui/icons/Face';
 import { useSelector, useDispatch } from 'react-redux';
-import { LOGOUT } from '../../constants/Auth';
+import { LOGOUT } from '../../reducers/constants/Auth';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({

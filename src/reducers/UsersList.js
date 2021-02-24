@@ -1,26 +1,25 @@
-import { GET_MOVIE_LIST_REQUEST, GET_MOVIE_LIST_SUCCESS, GET_MOVIE_LIST_FAIL } from './constants/Movie';
-
+import { GET_USER_LIST_REQUEST, GET_USER_LIST_SUCCESS, GET_USER_LIST_FAIL } from './constants/Users';
 const initialState = {
-  movieList: [],
+  usersList: [],
   loading: false,
   error: null,
 }
 
-const movieReducer = (state = initialState, action) => {
+const usersList = (state = initialState, action) => {
   switch (action.type) {
-    case GET_MOVIE_LIST_REQUEST: {
+    case GET_USER_LIST_REQUEST: {
       return { ...state, loading: true, error: null };
     }
 
-    case GET_MOVIE_LIST_SUCCESS: {
+    case GET_USER_LIST_SUCCESS: {
       return {
         ...state,
-        movieList: action.payload.data,
+        usersList: action.payload.data,
         loading: false
       };
     }
 
-    case GET_MOVIE_LIST_FAIL: {
+    case GET_USER_LIST_FAIL: {
       return {
         ...state,
         error: action.payload.error,
@@ -32,4 +31,4 @@ const movieReducer = (state = initialState, action) => {
       return state;
   }
 }
-export default movieReducer;
+export default usersList;

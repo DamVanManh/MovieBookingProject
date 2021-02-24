@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMovieList } from '../../actions/Movie';
+import { getMovieList } from '../../reducers/actions/Movie';
 
 export default function Homepage() {
 

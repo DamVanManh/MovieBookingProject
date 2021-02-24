@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { register } from '../../actions/Register';
+import { register } from '../../reducers/actions/Register';
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function Register() {
-  const [user, setUser] = useState({ taiKhoan: "", matKhau: "", email: "", soDt: "", maNhom: "GP01",  maLoaiNguoiDung: "KhachHang", hoTen: ""});
+  const [user, setUser] = useState({ taiKhoan: "", matKhau: "", email: "", soDt: "", maNhom: "GP01", maLoaiNguoiDung: "KhachHang", hoTen: "" });
   // useSelector lấy data từ reducer về
   const { loading, error } = useSelector((state) => state.authReducer);
   // useDispatch: dispatch action
@@ -20,7 +20,7 @@ export default function Register() {
   if (loading) {
     return <div>loading</div>
   }
-  
+
   if (currentUser) {
     console.log('tai khoan hiện tại:', currentUser)
     return <Redirect to='/' />
@@ -86,7 +86,7 @@ export default function Register() {
             />
           </div>
           <button className="btn btn-success"
-            onClick={() => dispatch(register(user))} 
+            onClick={() => dispatch(register(user))}
             disable={loading} // trong trường hợp đang chờ mạng gui api dang ký thì cần disable nút này
           >Đăng Ký</button>
 

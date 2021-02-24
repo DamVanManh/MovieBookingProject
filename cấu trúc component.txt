@@ -1,6 +1,6 @@
 *** TÀI KHOẢN ADMIN: 
 "taiKhoan": "binh12234", "matKhau": "123",
-"taiKhoan": "anhkiet", "matKhau": "anhkiet123",
+"taiKhoan": "khai", "matKhau": "321321",
 *** CÁC THƯ VIỆN BẮT BUỘC CÀI ĐỂ CHẠY:
 	+ material ui: npm install @material-ui/core
 	+ icon: npm install @material-ui/icons

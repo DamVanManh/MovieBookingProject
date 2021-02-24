@@ -14,7 +14,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
-import { getUsersList } from "../../actions/Users/UsersList";
+import { getUsersList } from "../../reducers/actions/UsersList";
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
