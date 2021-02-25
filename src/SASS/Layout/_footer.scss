@@ -1,0 +1,67 @@
+.footer {
+  background: #222;
+  padding: 30px 10px;
+  @include RESPONSIVE("768px") {
+    padding: 25px 10px;
+  }
+
+  a {
+    @include styleText($color-light-0, $fs-12);
+  }
+
+  &__top--title a {
+    @include styleText($color-light-0, $fs-14);
+  }
+
+  &__list {
+    margin: 1.875rem 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    // padding: 0 ;
+    border-bottom: 1px solid $color-light-0;
+  }
+
+  &__item {
+    margin: 0 0 1rem;
+    padding-right: 0.75rem;
+    width: 50%;
+
+    @include RESPONSIVE("768px") {
+      width: calc(100% / 3);
+    }
+    @include RESPONSIVE("992px") {
+      width: calc(100% / 4);
+    }
+  }
+
+  &__bottom {
+    a {
+      @include displayFlex(center, center);
+    }
+    .imgZion {
+      width: 100%;
+      max-width: 80px;
+      text-align: center;
+    }
+    .imgBCT {
+      @extend .imgZion;
+      max-width: 130px;
+    }
+    span {
+      display: block;
+      @include styleText($color-light-0, $fs-12);
+      margin-bottom: 0.25rem;
+
+      &:first-child {
+        color: $color-white-0;
+      }
+
+      a {
+        display: inline;
+        @include styleText($color-red-primary, $fs-12);
+      }
+    }
+  }
+}

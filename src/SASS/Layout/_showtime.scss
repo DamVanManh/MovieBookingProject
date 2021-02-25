@@ -1,0 +1,171 @@
+.showtime {
+  &__panel {
+    // overflow: hidden;
+    .panel__container {
+      display: flex !important;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.movieThumbnail {
+  margin-top: $sp-25;
+  .playBtn__overlay {
+    display: none;
+  }
+
+  //showtime head
+  .green {
+    background: $color-green-primary !important;
+  }
+  & > .showing__age {
+    @extend %showAge;
+    position: absolute;
+    bottom: 12px;
+    left: 25px;
+  }
+  .showing__head {
+    position: relative; //absolute cho overlay
+    width: 100%;
+    margin-top: $sp-15;
+    @include styleText($color-black-0, $fs-16);
+    text-transform: capitalize;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* stylelint-disable-next-line value-no-vendor-prefix */
+    // display: -webkit-inline-box;
+    display: none;
+
+    height: 40px;
+    line-height: 20px;
+
+    .showing__age {
+      @extend %showAge;
+    }
+  }
+  .showing__length {
+    display: none;
+    @include styleText($color-black-2, $fs-14 - 1);
+    margin-bottom: $sp-15;
+    margin-top: 8px;
+  }
+}
+
+//showing__point absolute voi movieThumbnail
+.movieThumbnail {
+  position: relative;
+  .publish__date {
+    @include positionAbsolute(false, false, 12px, 12px);
+    background: $color-dark-1;
+    border-radius: $border-radius;
+    border: 1px solid $color-dark-0;
+    @include displayFlex(center, center, column);
+    @include styleText($color-white-0, $fs-16);
+    font-weight: 400;
+    pointer-events: none;
+    transition: all 0.2s;
+  }
+  .showing__point {
+    @extend .publish__date;
+    width: 55px;
+    height: 40px;
+    top: 12px;
+    right: 25px;
+    bottom: unset;
+    font-weight: 600;
+    span {
+      transform: scale(1.2);
+    }
+    .star {
+      @include displayFlex(center, center);
+
+      img {
+        width: 8px;
+      }
+    }
+  }
+}
+// Custom css for React
+#showing {
+  .movieThumbnail {
+    .publish__date {
+      display: none;
+    }
+    .showing__point {
+      display: flex;
+    }
+  }
+}
+
+#coming {
+  .movieThumbnail {
+    .playBtn__overlay,
+    .showing__point {
+      display: none;
+    }
+  }
+}
+// End Custom css for React
+
+@include RESPONSIVE("768px") {
+  .movieThumbnail {
+    .playBtn__overlay {
+      display: block;
+    }
+    .btnContainer {
+      display: block;
+      width: 100%;
+      height: 40px; // = voi showing title
+      background: linear-gradient(to left, #fb4226, #ce3017 100%);
+    }
+    &:hover {
+      .playBtn__overlay {
+        opacity: 1; // 0 by default
+      }
+    }
+  }
+  .movieThumbnail {
+    cursor: pointer;
+    &__img {
+      position: relative; //absolute cho playBtn__overlay
+      .img__link {
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          border-radius: $border-radius;
+          pointer-events: none;
+          background: linear-gradient(to top, #000, transparent 100%);
+          opacity: 0;
+          transition: all 0.2s;
+        }
+      }
+      //playBtn__overlay ...
+    }
+    &:hover {
+      .img__link::after {
+        opacity: 1;
+      }
+      .showing__length {
+        opacity: 0;
+      }
+    }
+    .showing__length {
+      display: block;
+    }
+    .showing__head {
+      display: -webkit-inline-box;
+    }
+    & > .showing__age {
+      display: none;
+    }
+  }
+}

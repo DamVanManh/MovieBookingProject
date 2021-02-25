@@ -1,0 +1,58 @@
+//slick css for carousel
+.carousel {
+  @extend %modifySlick;
+
+  .slick-prev {
+    left: 3%;
+    // background-image: url("../../images/back-session.png");
+  }
+  .slick-next {
+    right: 3%;
+    // background-image: url("../../images/next-session.png");
+  }
+  .slick-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 12%;
+    transform: translateX(-50%);
+    list-style: none;
+    li {
+      display: inline-block;
+      margin-right: 8px;
+      // &:last-child {
+      //   margin-right: 0;
+      // }
+      button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        color: transparent;
+        background-color: #d8d8d8;
+        outline: 0;
+        border: 0;
+        &::before {
+          content: none;
+        }
+      }
+      &.slick-active {
+        button {
+          background-color: $color-red-primary;
+        }
+      }
+    }
+  }
+}
+
+//slick css for showtime list movie
+.showtime__panel {
+  @extend %modifySlick;
+
+  .slick-prev {
+    left: -50px;
+    // background-image: url("../../images/back-session.png");
+  }
+  .slick-next {
+    right: -50px;
+    // background-image: url("../../images/next-session.png");
+  }
+}

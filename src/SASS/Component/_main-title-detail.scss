@@ -1,0 +1,30 @@
+.main-title-detail {
+  .title {
+    @include styleText($color-white-1, $fs-20);
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+
+    .showing__age {
+      @extend %showAge;
+      font-size: $fs-16;
+      // padding: 0.125rem 0;
+      &.green {
+        background: $color-green-primary;
+      }
+    }
+  }
+  p {
+    margin-bottom: 0.25rem;
+
+    @include RESPONSIVE("768px") {
+      color: $color-white-1;
+    }
+  }
+
+  .btnBuyTicket {
+    display: inline-flex;
+    max-width: 100px;
+    margin: 1.25rem 0;
+    padding: 0.25rem 0;
+  }
+}

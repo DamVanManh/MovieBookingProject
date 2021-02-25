@@ -1,0 +1,318 @@
+// @import "../Layout/process";
+// @import "../Layout/seatsection";
+// @import "../Layout/confirm";
+// @import "../Layout/pay";
+// @import "../Component/preload";
+// body{
+//   background: url("./../../images/background.jpg") center center/cover;
+//   color: $color-black-1;
+// }
+// .body-wrap {
+//   background: url("./../../images/background.jpg") center center/cover;
+//   color: $color-black-1;
+//   position: relative;
+// }
+
+/*.booking {
+  //@include displayGrid(4, 80px);
+
+  #process-section {
+    //@include childGrid(1, 4, 1, 2);
+    @include displayFlex(space-between, center);
+    background-color: $color-white-0;
+    color: $color-black-1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    .process__list {
+      list-style: none;
+      margin: 0;
+      padding-left: $sp-35;
+      .process__item {
+        display: inline-block;
+        line-height: 80px;
+        padding: 0 $sp-35;
+        text-transform: uppercase;
+        border-top: 1px solid transparent;
+        @include styleText($color-black-1, $fs-12);
+        font-weight: 700;
+        &.current-process {
+          color: $color-red-primary;
+          position: relative;
+
+          &::before {
+            content: "";
+            position: absolute;
+            background: $color-red-primary;
+            height: 2px;
+            width: calc(100% - #{$sp-35} * 2);
+          }
+        }
+        span {
+          font-size: $fs-18;
+          margin-right: $sp-5;
+        }
+      }
+    }
+
+    .process__account {
+      position: absolute;
+      top: 50%;
+      right: $sp-35;
+      transform: translateY(-50%);
+      img {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: $sp-5;
+      }
+    }
+  }
+
+  #seat-section {
+    //@include childGrid(1, 4, 2, 3);
+    // width: 95%;
+    // margin-left: auto;
+    padding: 30px 0;
+    background-color: $color-white-0;
+    .seat__section--top {
+      width: 90%;
+      margin: 0 auto;
+      @include displayFlex(space-between, center);
+      .top__left {
+        display: flex;
+        .cinema-logo {
+          margin-right: $sp-5;
+          width: 45px;
+        }
+        .cinema-info {
+          .address {
+            @include styleText($color-black-1, $fs-16);
+            margin-bottom: $sp-10;
+            margin-top: 2px;
+            .cinema-name {
+              color: $color-green-primary;
+            }
+          }
+          .day-show {
+            @include styleText($color-light-1, $fs-14);
+            line-height: 5px;
+            margin: 0;
+          }
+        }
+      }
+      .top__mid {
+        @include styleText($color-choosing, $fs-32);
+        text-align: center;
+        @include RESPONSIVE("768px") {
+          display: none;
+        }
+      }
+      .top__right {
+        @include styleText($color-light-1, $fs-12);
+        text-align: center;
+        p {
+          margin: 0;
+        }
+        #timewaiting {
+          @include styleText($color-red-primary, 29px);
+          line-height: 29px;
+        }
+      }
+    }
+    .seat__map {
+      margin-top: $sp-20;
+      .screen {
+        width: 90%;
+        margin: 0 auto;
+        img {
+          width: 100%;
+        }
+      }
+      .listseat {
+        margin: auto;
+        width: fit-content;
+        .seatrow {
+          @include displayFlex(flex-start, center);
+          .seat-unclickable {
+            @include styleText($color-black-1, $fs-18);
+            display: inline-block;
+            width: 20px; //30px desk
+            height: 20px;
+            line-height: 20px;
+            border-radius: $border-radius;
+            margin-right: 60px;
+            text-align: center;
+            cursor: default;
+          }
+          .seat-clickable {
+            position: relative;
+            margin-top: 5px;
+            &:nth-child(even) {
+              label {
+                &.couple {
+                  border-top-right-radius: 0;
+                  border-bottom-right-radius: 0;
+                  margin-right: 0px;
+                  margin-left: 5px;
+                }
+              }
+            }
+            &:nth-child(odd) {
+              label {
+                &.couple {
+                  border-top-left-radius: 0;
+                  border-bottom-left-radius: 0;
+                }
+              }
+            }
+            label {
+              @extend .seat-unclickable;
+              margin-bottom: 0;
+              margin-right: 5px;
+              background: $color-normal;
+              border: 1px solid #ccc;
+              position: relative;
+              cursor: pointer;
+              &.vip {
+                background: $color-vip;
+              }
+              &.couple {
+                background: $color-couple;
+                border: none;
+                transform: translateX(-2.5px);
+              }
+              .seatnum {
+                visibility: hidden;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                // line-height: ;
+                @include styleText($color-black-1, $fs-14);
+              }
+            }
+            input[type="checkbox"] {
+              position: absolute;
+              visibility: hidden;
+              &:checked {
+                & ~ label {
+                  background-color: $color-choosing;
+                }
+                & ~ label .seatnum {
+                  visibility: visible;
+                }
+              }
+            }
+          }
+        }
+      }
+      .noteseat {
+        @extend .listseat;
+        margin-top: 50px;
+        @include displayFlex(center, center);
+        .note__item {
+          margin-right: $sp-20;
+          @include displayFlex(center, center, column);
+          .seat-normal {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: $border-radius;
+            background: $color-normal;
+          }
+          .seat-vip {
+            @extend .seat-normal;
+            background: $color-vip;
+          }
+          .seat-couple {
+            @extend .seat-normal;
+            background: $color-couple;
+          }
+          .seat-taken {
+            @extend .seat-normal;
+            background: $color-taken;
+          }
+          .seat-info {
+            @include styleText($color-light-1, $fs-12);
+            margin-top: $sp-5;
+          }
+        }
+      }
+    }
+  }
+  #pay-section {
+    //@include childGrid(4, 5, 1, 3);
+    background-color: $color-white-0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    padding: 0 15px;
+    z-index: 3;
+    .pay__item--wrapper {
+      padding: $sp-20 0;
+      border-bottom: 1px dashed #ccc;
+      min-height: 40px;
+      // @include displayFlex(space-between, center);
+    }
+    .total {
+      @include styleText($color-choosing, $fs-32);
+      text-align: center;
+      height: 40px; //bằng với process
+      span {
+        display: inline-block;
+        line-height: 40px;
+        font-weight: 700;
+      }
+    }
+    .seatchosen {
+      .myseat {
+        @include styleText($color-red-primary, $fs-14);
+      }
+      #demoMoney {
+        @include styleText($color-choosing, $fs-16);
+      }
+    }
+    .formsection {
+      position: relative;
+      height: 40px;
+      input {
+        width: 100%;
+        height: 100%;
+        padding-top: 20px;
+        border: none;
+        outline: none;
+        &:focus,
+        &:valid {
+          & + label .label-name {
+            transform: translateY(-150%);
+            @include styleText(#4a90e2, $fs-14);
+          }
+        }
+      }
+      label {
+        @include styleText($color-light-1, $fs-18);
+        // display: block;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        .label-name {
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          transition: all.3s;
+        }
+      }
+      #tbemail {
+        @include styleText($color-red-primary, $fs-12);
+        display: none;
+      }
+      #tbphone {
+        display: none;
+      }
+    }
+  }
+}*/

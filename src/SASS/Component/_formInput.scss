@@ -1,0 +1,39 @@
+.formsection {
+  position: relative;
+  height: 40px;
+  input[type="text"] {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    outline: none;
+    &:focus,
+    &:valid {
+      & + label .label-name {
+        transform: translateY(-50%);
+        @include styleText(#4a90e2, $fs-14);
+      }
+    }
+  }
+  label {
+    @include styleText($color-light-1, $fs-18);
+    // display: block;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    @include positionAbsolute(0, 0);
+    pointer-events: none;
+    .label-name {
+      @include positionAbsolute(false, 0, 50%, false);
+      transform: translateY(50%);
+      transition: all.3s;
+    }
+  }
+  #tbemail {
+    @include styleText($color-red-primary, $fs-12);
+    display: none;
+  }
+  #tbphone {
+    display: none;
+  }
+}

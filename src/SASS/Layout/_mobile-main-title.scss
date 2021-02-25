@@ -1,0 +1,9 @@
+.mobile-main-title {
+  background: $color-dark-2;
+  @include styleText($color-light-1, $fs-14);
+
+  @include RESPONSIVE("768px") {
+    display: none;
+  }
+  //.main-title-detail.scss
+}

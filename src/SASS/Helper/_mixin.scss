@@ -1,0 +1,103 @@
+@mixin styleText($textColor, $fontSize) {
+  color: $textColor;
+  font-size: $fontSize;
+}
+@mixin styleButton($bgColor, $borderColor, $pd-y, $pd-x, $radius) {
+  background: $bgColor;
+  border: 1px solid $borderColor;
+  padding: $pd-y $pd-x;
+  border-radius: $radius;
+}
+@mixin btnHover($bgColor, $borderColor, $txtColor) {
+  background: $bgColor;
+  border-color: $borderColor;
+  color: $txtColor;
+}
+@mixin displayFlex($justify, $align, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+@mixin displayGrid($colTemp, $rowTemp: 2) {
+  display: grid;
+  grid-template-columns: repeat($colTemp, 1fr);
+  @if ($rowTemp == 2) {
+    grid-template-rows: repeat($rowTemp, 1fr);
+  } @else {
+    grid-template-rows: $rowTemp calc(100% - #{$rowTemp});
+  }
+}
+@mixin childGrid($startCol, $endCol, $startRow, $endRow) {
+  grid-column: #{$startCol}/#{$endCol};
+  grid-row: #{$startRow}/#{$endRow};
+}
+// @mixin addBgImg($name, $value) {
+//   @for $i from 0 to $value {
+//     .#{$name}#{$i} {
+//       background: url("../../images/#{$name}#{$i}.jpg") center center/cover,
+//         url("../../images/#{$name}#{$i}.png") center center/cover;
+//     }
+//   }
+// }
+@mixin positionAbsolute($top: false, $left: false, $bottom: false, $right: false) {
+  position: absolute;
+  @if ($top) {
+    top: $top;
+  }
+  @if ($left) {
+    left: $left;
+  }
+  @if ($bottom) {
+    bottom: $bottom;
+  }
+  @if ($right) {
+    right: $right;
+  }
+}
+@mixin roundElement($width, $height, $radius) {
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+}
+@mixin RESPONSIVE($screen) {
+  @if map-has-key($map: $breakpoints, $key: $screen) {
+    $value: map-get(
+      $map: $breakpoints,
+      $key: $screen,
+    );
+    @media screen and (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @error "khong co gia tri";
+  }
+}
+
+@mixin styleScrollBar($scroll-horizon: false) {
+  /* width or height */
+  &::-webkit-scrollbar {
+    @if ($scroll-horizon) {
+      height: 5px;
+    } @else {
+      width: 5px;
+    }
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
