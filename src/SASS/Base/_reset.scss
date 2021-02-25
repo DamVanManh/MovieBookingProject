@@ -1,0 +1,42 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: $color-white-0;
+  color: $color-black-0;
+  line-height: $line-height-default;
+  font-size: $fs-14;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a,
+a:hover {
+  color: $color-black-1;
+  text-decoration: none;
+  // transition: all 0.2s;
+}
+img {
+  border-radius: $border-radius;
+  max-width: 100%;
+  display: block;
+  // width: 100%;
+}
+button:focus,
+.btn:hover {
+  outline: 0;
+  color: unset;
+}
+p {
+  margin-bottom: 10px;
+}
+.row {
+  margin: 0;
+}

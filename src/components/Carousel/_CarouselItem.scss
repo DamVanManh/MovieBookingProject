@@ -1,0 +1,49 @@
+.hero {
+  margin-bottom: 0;
+  @include styleText($color-white-1, $fs-14);
+  .carousel__item {
+    .playBtn__overlay {
+      opacity: 1;
+      .play__link {
+        width: unset !important;
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      @include RESPONSIVE("768px") {
+        display: none;
+      }
+    }
+  }
+  .blur__overlay {
+    background: linear-gradient(to top, $color-dark-2, transparent 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none; // option
+  }
+
+  .img__bg {
+    height: 40vh;
+    object-fit: cover;
+    object-position: center center;
+    @include RESPONSIVE("768px") {
+      height: 80vh;
+      filter: blur(8px);
+      transform: scaleY(0.91); //remove blur on edge
+    }
+  }
+
+  &-detail {
+    @include positionAbsolute(50%, 50%);
+    transform: translate(-50%, -50%);
+    display: none;
+
+    @include RESPONSIVE("768px") {
+      display: block;
+    }
+  }
+}

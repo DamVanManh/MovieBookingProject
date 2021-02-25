@@ -1,0 +1,7 @@
+.pre-icon {
+  @include displayFlex(center, center);
+  i {
+    transform: scale(1.5);
+    // margin-top: 10px;
+  }
+}

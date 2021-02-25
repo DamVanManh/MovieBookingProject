@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieList } from '../../reducers/actions/Movie';
 
+import Carousel from "../../components/Carousel";
 export default function Homepage() {
 
   // useSelector lấy data từ reducer về
@@ -22,8 +23,8 @@ export default function Homepage() {
 
   return (
     <div className='container'>
-
-      <div className='row'>
+      <Carousel />
+      {/* <div className='row'>
         {movieList.map((movie) => {
           return (
             <div className="card col-sm-3" key={movie.maPhim}>
@@ -36,7 +37,9 @@ export default function Homepage() {
           )
         })
         }
-      </div>
+      </div> */}
+
+
     </div>
   )
 }

@@ -1,0 +1,225 @@
+#header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  .header-wrapper {
+    min-height: 8vh;
+    background: $color-white-0;
+    &:hover {
+      background: $color-white-0 !important;
+    }
+    .nav-bar {
+      @include displayFlex(space-between, center);
+      width: 100%;
+      height: 100%;
+    }
+    .logo-img {
+      width: 50px;
+    }
+    .avatar-img {
+      // @include round(....)
+      display: inline-block;
+      margin-right: 10px;
+      @include roundElement(30px, 30px, 50%);
+      // box-sizing: content-box;
+    }
+  }
+}
+
+//ul: nav-list; li: nav-item; a: nav-link
+#header {
+  .nav-list {
+    list-style: none;
+    margin: 0;
+    @include positionAbsolute(0, false, false, 0);
+
+    width: 30vw; //chinh mobile 30vw
+    min-width: 50%;
+    height: 100vh;
+    background-color: $color-white-0;
+    @include displayFlex(flex-start, flex-start, column);
+    z-index: 2;
+    transform: translateX(100%);
+    transition: 0.4s ease transform;
+
+    &.active {
+      transform: translateX(0);
+
+      &::after {
+        //tao vung mau toi khi ul dc active
+        content: "";
+        z-index: 1;
+        background-color: transparentize($color: #000000, $amount: 0.2);
+        height: 100vh;
+        width: 100vw;
+        @include positionAbsolute(0, 0);
+        transform: translateX(-100%);
+        pointer-events: all; //de js co the click dc
+      }
+    }
+
+    .nav-link {
+      font-weight: 500;
+      // letter-spacing: 0.2rem;
+      // text-decoration: none;
+      @include styleText($color-black-1, $fs-18);
+      text-transform: capitalize;
+      padding: $sp-20;
+      display: block;
+      transition: 0.3s ease all;
+    }
+    .nav-item {
+      line-height: 25px;
+      width: 100%;
+      &--login {
+        width: unset;
+      }
+      &--register {
+        order: 10;
+      }
+      &:hover {
+        .nav-link {
+          color: $color-red-primary;
+        }
+      }
+    }
+  }
+}
+
+//hamburger
+.nav-group {
+  .hamburger {
+    @include roundElement(30px, 30px, 50%);
+    display: inline-block;
+    border: 2px solid $color-black-0;
+    position: relative;
+    @include displayFlex(center, center);
+
+    z-index: 100;
+    cursor: pointer;
+
+    .bar {
+      height: 2px;
+      width: 15px;
+      position: absolute;
+      background-color: $color-black-0;
+      z-index: -1;
+      &::after,
+      &::before {
+        content: "";
+        @include positionAbsolute(false, 0);
+        width: 100%;
+        height: 100%;
+        background-color: $color-black-0;
+        transition: 0.3 ease;
+        transition-property: top, bottom;
+      }
+
+      &::after {
+        top: $sp-5;
+      }
+      &::before {
+        bottom: $sp-5;
+      }
+    }
+
+    &.active {
+      margin-right: 17px;
+      .bar {
+        &::after,
+        &::before {
+          top: 0;
+          bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+//header mid
+#header {
+  .header__mid {
+    // @extend .nav-list;
+    display: none;
+  }
+}
+
+// Media Queries
+@include RESPONSIVE("768px") {
+  #header {
+    .hamburger {
+      display: none;
+    }
+    .nav-group .nav-list {
+      position: initial;
+      display: block;
+      height: auto;
+      width: fit-content;
+      background: transparent;
+      transform: translate(0);
+
+      &::after {
+        display: none;
+      }
+
+      .nav-item {
+        display: inline-block;
+        width: unset;
+        &--register {
+          padding-left: $sp-10;
+          margin-left: $sp-10;
+          border-left: 1px solid $color-light-1;
+        }
+        &.hideOnDesk {
+          display: none;
+        }
+        .nav-link {
+          @include styleText($color-light-1, $fs-12 + 1);
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+// Media Queries for header--mid
+@include RESPONSIVE("768px") {
+  #header {
+    .header__mid {
+      margin: 0;
+      margin-right: auto;
+      @include displayFlex(center, center);
+
+      .nav-item {
+        display: none;
+        &.hideOnDesk {
+          width: auto;
+          // margin-right: 10px;
+          display: block;
+        }
+        .nav-link {
+          @include styleText($color-black-1, $fs-14);
+          font-weight: 600;
+          transition: 0.4s ease all;
+        }
+        &:hover {
+          .nav-link {
+            color: $color-red-primary;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 900px) {
+  #header {
+    .header__mid {
+      @include positionAbsolute(50%, 50%);
+      transform: translate(-50%, -50%);
+    }
+  }
+}

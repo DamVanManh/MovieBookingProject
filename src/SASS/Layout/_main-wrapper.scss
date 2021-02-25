@@ -1,0 +1,7 @@
+.main-wrapper {
+  margin-top: 60px;
+  @include RESPONSIVE("768px") {
+    width: 95%;
+    margin-left: auto;
+  }
+}

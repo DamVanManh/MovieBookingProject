@@ -1,0 +1,71 @@
+//spacing
+$sp-em: 1em;
+$sp-rem: 1rem;
+$sp-5: 5px;
+$sp-half: 7.5px;
+$sp-10: 10px;
+$sp-15: 15px;
+$sp-20: 20px;
+$sp-25: 25px;
+$sp-35: 35px;
+$sp-60: 60px;
+$sp-120: 120px;
+
+//line-height
+$line-height-default: calc(20 / 14);
+$line-height-title: 24px;
+
+//border-radius
+$border-radius: 4px;
+
+//font-size
+$fs-12: 12px;
+$fs-14: 14px; //default
+$fs-16: 16px;
+$fs-18: 18px;
+$fs-20: 20px;
+$fs-24: 24px;
+$fs-32: 32px;
+
+//font-weight
+// 700 & 400 & 500
+
+//color
+$color-white-0: #fff; //default bg
+$color-white-1: #e9e9e9; // color for detail page
+
+$color-red-primary: #fb4226; //#FB4226
+$color-red-title: #fa5238;
+$color-green-primary: #108f3e; //time
+$color-green-secondary: #00ac4d;
+
+$color-black-0: #333; //default text
+$color-black-1: #000;
+$color-black-2: #4a4a4a;
+
+$color-dark-0: #1f2e46;
+$color-dark-1: rgba(12, 27, 54, 0.8); //bg-point
+$color-dark-2: #0a2029; //bg-detail page
+
+$color-light-0: #949494;
+$color-light-1: #9b9b9b;
+
+$color-trans: transparent;
+
+$color-choosing: #44c020;
+$color-normal: #3e515d;
+$color-couple: #b03550;
+$color-vip: #f7b500;
+$color-taken: #ccc;
+//con 1 bg-footer: #222;
+// 1 color indicator carousel:#d8d8d8
+// 1 color background newsbloack: #e8e8e8
+
+//Breakpoints
+$breakpoints: (
+  "579px": 579px,
+  "679px": 679px,
+  "740px": 740px,
+  "768px": 768px,
+  "992px": 992px,
+);

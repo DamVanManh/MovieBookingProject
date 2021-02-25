@@ -1,0 +1,19 @@
+#movieTrailer {
+  .modal-body {
+    padding: 0;
+    padding-top: 50%;
+    padding-bottom: 35px;
+
+    iframe {
+      @include positionAbsolute(0, 0);
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+body.modal-open {
+  padding-right: 0px !important;
+  .modal {
+    padding-right: 0px !important;
+  }
+}
