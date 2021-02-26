@@ -1,23 +1,20 @@
-
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
+
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
 import { Link, Hidden, Button, Chip, Tooltip } from '@material-ui/core';
 import { Link as LinkR } from "react-router-dom";
@@ -26,222 +23,167 @@ import FaceIcon from '@material-ui/icons/Face';
 import { useSelector, useDispatch } from 'react-redux';
 import { LOGOUT } from '../../reducers/constants/Auth';
 
-const drawerWidth = 240;
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
-  },
-  // content: {
-  //   flexGrow: 1,
-  //   padding: theme.spacing(3),
-  //   transition: theme.transitions.create('margin', {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen,
-  //   }),
-  //   marginRight: -drawerWidth,
-  // },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  },
-  // class tự thêm
-  spaceBetween: {
-    justifyContent: 'space-between'
-  },
-  link: {
-    margin: '0 10px',
-    cursor: 'pointer'
-  },
-}));
+import useStyles from './style'
 
 export default function Header() {
 
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = useState(false);
 
-  const classes = useStyles();
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
-
-  const matches = useMediaQuery(theme.breakpoints.up('lg')); // tự động trả về true khi màn hình từ 1280 trở lên
-
-  // đăng xuất
-  const { currentUser } = useSelector((state) => state.authReducer);
-  const dispatch = useDispatch();
-
-  // tự đóng Drawer lại nếu màn hình lớn
-  if (matches) {
-    if (open) {
-      setOpen(false)
+    // Nếu kích thước dưới md thì đóng mở menu-res tùy ý, nhưng trên md thì bắt buộc phải đóng
+    const matches = useMediaQuery(theme.breakpoints.up('md')); // tự động trả về true khi màn hình từ 1280 trở lên
+    if (matches) {
+        if (open) {
+            setOpen(false)
+        }
     }
-  }
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const handleDelete = () => {
-    dispatch({ type: LOGOUT })
-  }
 
-  return (
+    // lấy data từ redux-store về
+    const { currentUser } = useSelector((state) => state.authReducer);
 
-    <div className={classes.root}>
-      <CssBaseline />
-      {console.log("currentUser: ", currentUser, matches)}
-      {/* phần hiển thị ngang */}
-      <AppBar position="fixed" className={clsx(classes.appBar, { [classes.appBarShift]: open, })} color='default' >
-        <Toolbar className={classes.spaceBetween}>
-          <div>
-            <img src="https://tix.vn/app/assets/img/icons/web-logo.png" alt="logo" style={{ height: 50 }} />
-          </div>
+    // đăng xuất
+    const dispatch = useDispatch();
+    const handleDelete = () => {
+        dispatch({ type: LOGOUT })
+    }
 
-          <Hidden mdDown>
-            <List >
-              <Link className={classes.link}>Lịch Chiếu</Link>
-              <Link className={classes.link}>Cụm Rạp</Link>
-              <Link className={classes.link}>Tin Tức</Link>
-              <Link className={classes.link}>Ứng Dụng</Link>
-            </List>
-          </Hidden>
-          <Hidden mdDown>
 
-            {currentUser ?
-              <List >
-                <Tooltip title="Đăng Xuất">
-                  <Chip variant="outlined" color="primary" onClick={handleDelete} label={currentUser.taiKhoan} icon={<FaceIcon />} />
-                </Tooltip>
-              </List>
-              :
-              <List >
-                <LinkR to="/dangnhap">
-                  <Button>Đăng Nhập</Button>
-                </LinkR>
-                <LinkR to="/dangky">
-                  <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>
-                    Đăng Ký
-                </Button>
-                </LinkR>
-              </List>
-            }
-          </Hidden>
-          <Hidden lgUp>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={handleDrawerOpen}
-              className={clsx(open && classes.hide)}
-              smUp
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    return (
+
+        <div className={classes.root}>
+            <CssBaseline />
+            {console.log("currentUser: ", currentUser, matches)}
+
+            {/* START HEADER */}
+            <AppBar position="fixed" className={clsx(classes.appBar, { [classes.appBarShift]: open, })} color='default' >
+
+                <Toolbar className={classes.spaceBetween}>
+
+                    {/* logo */}
+                    <div>
+                        <img src="https://tix.vn/app/assets/img/icons/web-logo.png" alt="logo" style={{ height: 50 }} />
+                    </div>
+
+                    {/* 4 nội dung chính */}
+                    <Hidden smDown>
+                        <List >
+                            <Link className={classes.link}>Lịch Chiếu</Link>
+                            <Link className={classes.link}>Cụm Rạp</Link>
+                            <Link className={classes.link}>Tin Tức</Link>
+                            <Link className={classes.link}>Ứng Dụng</Link>
+                        </List>
+                    </Hidden>
+
+                    {/* vị trí đăng nhập/ đăng xuất */}
+                    <Hidden smDown>
+                        {currentUser ?
+                            <List >
+
+                                <LinkR to="/profile">
+                                    <Chip variant="outlined" color="primary" label={currentUser.taiKhoan} icon={<FaceIcon />} />
+                                </LinkR>
+
+                                <Link>
+                                    <Chip variant="outlined" color="secondary" label="Đăng xuất" onClick={handleDelete} />
+                                </Link>
+
+                            </List>
+                            :
+                            <List >
+
+                                <LinkR to="/dangnhap">
+                                    <Button>Đăng Nhập</Button>
+                                </LinkR>
+
+                                <LinkR to="/dangky">
+                                    <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>Đăng Ký</Button>
+                                </LinkR>
+                            </List>
+                        }
+                    </Hidden>
+
+                    {/* ICON RESPONSIVE  */}
+                    <Hidden mdUp>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="end"
+                            onClick={handleDrawerOpen}
+                            className={clsx(open && classes.hide)}
+                            mdUp
+                        >
+                            {/* iCon 3 gạch ngang menu */}
+                            <MenuIcon />
+                        </IconButton>
+                    </Hidden>
+
+                </Toolbar>
+            </AppBar>
+
+            {/* START RESPONSIVE BÊN PHẢI */}
+            <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="right"
+                open={open}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+
             >
-              <MenuIcon />
-            </IconButton>
-          </Hidden>
-        </Toolbar>
-      </AppBar>
+                {/* icon left-right khi tắt/mở responsive */}
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    </IconButton>
+                </div>
 
-      {/* <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-        </Typography>
-      </main> */}
+                {/* phần hiển thị khi nhấn button menu */}
+                {/* Divider giúp phân chia số lượng nội dung theo ý mình */}
+                <Divider />
+                <List>
+                    {['Lịch Chiếu', 'Cụm Rạp', 'Tin Tức', 'Ứng Dụng'].map((text, index) => (
+                        <ListItem button key={text}>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
 
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
+                    {currentUser ?
+                        <List style={{ marginLeft: "15px" }} >
 
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+
+                            <Tooltip title="Đăng Xuất">
+
+                                <Chip variant="outlined" color="primary" label={currentUser.taiKhoan} icon={<FaceIcon />} />
+                            </Tooltip>
+
+                            <Link>
+                                <Chip variant="outlined" color="secondary" label="Đăng xuất" onClick={handleDelete} />
+                            </Link>
+
+                        </List>
+                        :
+                        <List >
+                            <LinkR to="/dangnhap">
+                                <Button>Đăng Nhập</Button>
+                            </LinkR>
+                            <LinkR to="/dangky">
+                                <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>Đăng Ký</Button>
+                            </LinkR>
+                        </List>
+                    }
+                </List>
+                <Divider />
+            </Drawer>
         </div>
-        {/* phần hiển thị khi nhấn button menu */}
-        <Divider />
-        <List>
-          {['Lịch Chiếu', 'Cụm Rạp', 'Tin Tức', 'Ứng Dụng'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{
-                index % 2 === 0 ? <InboxIcon /> : <MailIcon />
-
-              }</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-          {currentUser ?
-            <List style={{ marginLeft: "15px" }} >
-              <Tooltip title="Đăng Xuất" >
-                <Chip variant="outlined" color="primary" onClick={handleDelete} label={currentUser.taiKhoan} icon={<FaceIcon />} />
-              </Tooltip>
-            </List>
-            :
-            <List >
-              <LinkR to="/dangnhap">
-                <Button>Đăng Nhập</Button>
-              </LinkR>
-              <LinkR to="/dangky">
-                <Button variant="contained" color="primary" style={{ display: 'inline-block' }}>
-                  Đăng Ký
-                </Button>
-              </LinkR>
-            </List>
-          }
-        </List>
-
-        <Divider />
-      </Drawer>
-
-    </div>
-  );
+    );
 }
 
