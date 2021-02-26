@@ -1,6 +1,10 @@
 *** TÀI KHOẢN ADMIN: 
 "taiKhoan": "binh12234", "matKhau": "123",
 "taiKhoan": "khai", "matKhau": "321321",
+*** banner carousel 
+1322 gái già lắm chiêu
+1337 Lừa Đểu Gặp Lừa Đảo
+1352 Thần Bịp Jack Chột
 *** CÁC THƯ VIỆN BẮT BUỘC CÀI ĐỂ CHẠY:
 	+ material ui: npm install @material-ui/core
 	+ icon: npm install @material-ui/icons
