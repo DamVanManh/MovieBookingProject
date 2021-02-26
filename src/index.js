@@ -9,7 +9,6 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers';
 
-import "./SASS/main.scss";
 
 const enhanced = compose(
   applyMiddleware(thunk),
