@@ -22,8 +22,9 @@ export default function Homepage() {
   }
 
   return (
-    <div className='container'>
-      <Carousel />
+    <>
+      <div style={{ minHeight: '64px', backgroundColor: "red" }}></div>
+
       {/* <div className='row'>
         {movieList.map((movie) => {
           return (
@@ -38,9 +39,9 @@ export default function Homepage() {
         })
         }
       </div> */}
+      <Carousel />
 
-
-    </div>
+    </>
   )
 }
 

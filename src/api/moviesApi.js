@@ -5,7 +5,11 @@ const moviesApi = {
     const path = "/QuanLyPhim/LayDanhSachPhim?maNhom=GP01";
     return axiosClient.get(path);
   },
-
+  //lấy thông tin toàn bộ danh sách phim
+  getDanhSachPhimTheoNgay: (tuNgay, denNgay) => {
+    const path = `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimTheoNgay?maNhom=GP01&soTrang=1&soPhanTuTrenTrang=10&tuNgay=${tuNgay}&denNgay=${denNgay}`;
+    return axiosClient.get(path, { params: { tuNgay: tuNgay, denNgay: denNgay } });
+  },
   //lấy thông tin của 1 phim, bao gồm 1 mảng lichChieu<obj> không phân biệt cụm rạp
   getThongTinPhim: (maPhim) => {
     const path = `/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`;

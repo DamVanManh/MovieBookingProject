@@ -125,7 +125,7 @@ export default function Header() {
 
     <div className={classes.root}>
       <CssBaseline />
-      {console.log("currentUser: ", currentUser, matches)}
+      {/* {console.log("currentUser: ", currentUser, matches)} */}
       {/* phần hiển thị ngang */}
       <AppBar position="fixed" className={clsx(classes.appBar, { [classes.appBarShift]: open, })} color='default' >
         <Toolbar className={classes.spaceBetween}>
