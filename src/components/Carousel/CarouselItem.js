@@ -16,7 +16,6 @@ function CarouselItem(props) {
   if (!detailMovie) return null;
   return (
     <div className="carousel__item">
-      <p>sao không hiển thị</p>
       <div className="carousel__img">
         <img className="img__bg" src={urlHinhAnh} alt={detailMovie.tenPhim} />
       </div>
