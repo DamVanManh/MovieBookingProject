@@ -7,8 +7,8 @@ export default function MainLayout(props) {
   return (
     <>
       <Header />
-        {props.children}
-      <Footer />
+      {props.children}
+      {/* <Footer /> */}
     </>
   )
 }
