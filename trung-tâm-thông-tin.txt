@@ -85,3 +85,22 @@ DELETE: xóa tài nguyên trên server.
 CONNECT: thiết lập một kết nối tới server theo URI.
 OPTIONS: mô tả các tùy chọn giao tiếp cho resource.
 TRACE: thực hiện một bài test loop - back theo đường dẫn đến resource.
+
+
+  // lấy 3 phim ngẫu nhiên ra hiển thị
+  // useEffect(() => {
+  //   let isMounted = true; // xử lý báo lỗi, nếu unmounted thì không thực hiện lệnh
+  //   moviesApi.getDanhSachPhimTheoNgay("26/01/2021", "26/02/2021").then(
+  //     result => {
+  //       const max = result.data.length;
+  //       const arrayRandom = [result.data[Math.floor(Math.random() * max)], result.data[Math.floor(Math.random() * max)], result.data[Math.floor(Math.random() * max)]]
+  //       if (isMounted) setDanhs(arrayRandom);
+  //     }
+  //   )
+  //     .catch(
+  //       error => {
+  //         if (isMounted) setDanhs(error.response.data);
+  //       }
+  //     )
+  //   return () => { isMounted = false };
+  // }, [])
