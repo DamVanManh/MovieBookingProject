@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
-    zIndex: 3,
+    // zIndex: 10,
     background: "0 0",
     border: "none"
   },
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateY(-50%)",
     width: "50px",
     height: "100px",
-    zIndex: 2,
+    // zIndex: 2,
     cursor: "pointer",
     transition: "all .3s",
     '&:hover': { color: '#fb4226 !important' }
