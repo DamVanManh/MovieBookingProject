@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieList } from '../../reducers/actions/Movie';
 
-import Carousel from "../../components/Carousel";
+import News from "../../components/News";
 export default function Homepage() {
 
   // useSelector lấy data từ reducer về
@@ -22,10 +22,9 @@ export default function Homepage() {
   }
 
   return (
-    <>
-      <div style={{ minHeight: '64px', backgroundColor: "red" }}></div>
+    <div className='container'>
 
-      {/* <div className='row'>
+      <div className='row'>
         {movieList.map((movie) => {
           return (
             <div className="card col-sm-3" key={movie.maPhim}>
@@ -34,14 +33,17 @@ export default function Homepage() {
                 <h4 className="card-title">{movie.tenPhim}</h4>
                 <p className="card-text">{movie.moTa}</p>
               </div>
+              <div className="card-footer">
+                <button className="btn btn-danger">Đặt vé</button>
+              </div>
+
             </div>
           )
         })
         }
-      </div> */}
-      <Carousel />
-
-    </>
+      </div>
+      <News />
+    </div>
   )
 }
 
