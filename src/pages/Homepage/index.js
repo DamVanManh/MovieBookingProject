@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieList } from '../../reducers/actions/Movie';
 
+import { Link } from "react-router-dom";
 import News from "../../components/News";
 export default function Homepage() {
 
@@ -34,7 +35,10 @@ export default function Homepage() {
                 <p className="card-text">{movie.moTa}</p>
               </div>
               <div className="card-footer">
-                <button className="btn btn-danger">Đặt vé</button>
+                {/* --edit here */}
+                {/* <button className="btn btn-danger">Đặt vé</button> */}
+                <Link to={`/phim/${movie.maPhim}`} className="btn btn-danger">Đặt vé</Link>
+                {/* ---------------- */}
               </div>
 
             </div>
