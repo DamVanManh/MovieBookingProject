@@ -40,7 +40,6 @@ export default function Homepage() {
         }
       </div> */}
       <Carousel />
-
     </>
   )
 }

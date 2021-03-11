@@ -7,12 +7,10 @@ import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
 import homeCarouselData from "../../constants/homeCarouselData";
-import { Divider } from '@material-ui/core';
 
+import PopupTrailer from "./popup";
 import './carousel.css';
 import useStyles from "./styles";
-import moviesApi from "../../api/moviesApi";
-const play = './img/play-video.png';
 
 export default function Carousel() {
   const classes = useStyles();
@@ -52,15 +50,13 @@ export default function Carousel() {
               <img src={banner?.hinhAnh} alt="banner" className={classes.img} />
               <div className={classes.backgroundLinear} />
               <div className={`${classes.button} play`}>
-                <img src={play} className={classes.img} />
+                <PopupTrailer banner={banner} classImg={classes.img} />
               </div>
+
             </a>
           )
         })}
-
       </Slider>
     </div>
   );
 }
-
-

@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 
     height: 70,
     width: 70,
-    transition: "all .3s",
+    transition: "all .2s",
     '&:hover': { opacity: 0.7 }
   },
   backgroundLinear: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     height: "100px",
     color: "#d8d8d8 !important",
     cursor: "pointer",
-    transition: "all .3s",
+    transition: "all .2s",
     '&:hover': { color: '#fb4226 !important' }
   },
 })
