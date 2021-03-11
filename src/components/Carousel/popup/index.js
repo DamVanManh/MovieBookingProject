@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from "./styles";
 import './css.css'
-const play = './img/play-video.png';
+const play = './img/carousel/play-video.png';
 
 export default function PopupTrailer(props) {
   const [open, setOpen] = React.useState(false);
