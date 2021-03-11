@@ -13,6 +13,7 @@ import MoviesManagement from './pages/MoviesManagement';
 
 // Guard
 import AdminRoute from "./guards/AdminRoute";
+import CheckoutRoute from "./guards/CheckoutRoute";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
             <Switch >
               <Route exact path="/" component={Homepage} />
               <Route exact path="/phim/:movieId" component={MovieDetail} />
-              <Route exact path="/datve/:movieId" component={BookTickets} />
+              <CheckoutRoute exact path="/datve/:maLichChieu" component={BookTickets} />
             </Switch>
           </MainLayout>
         </Route>

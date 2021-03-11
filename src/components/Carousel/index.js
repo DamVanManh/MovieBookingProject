@@ -43,6 +43,7 @@ export default function Carousel() {
   return (
     <div >
       {/* {console.log("hiển thị", bannerList)} */}
+      <div style={{ minHeight: '64px', backgroundColor: "red" }}></div>
       <Slider {...settings}  >
         {homeCarouselData.map((banner) => {
           return (
