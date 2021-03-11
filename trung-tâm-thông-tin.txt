@@ -104,3 +104,25 @@ TRACE: thực hiện một bài test loop - back theo đường dẫn đến res
   //     )
   //   return () => { isMounted = false };
   // }, [])
+
+// get api phim theo mã phim
+    useEffect(() => {
+    let isMounted = true; // xử lý báo lỗi, nếu unmounted thì không bị rò rỉ bộ nhớ
+    moviesApi.getThongTinPhim("1322").then(
+      result => {
+        if (isMounted) setBannerList((currentBanner) => ([...currentBanner, result.data]));
+      }
+    )
+    moviesApi.getThongTinPhim("1337").then(
+      result => {
+        if (isMounted) setBannerList((currentBanner) => ([...currentBanner, result.data]));
+      }
+    )
+    moviesApi.getThongTinPhim("1352").then(
+      result => {
+        if (isMounted) setBannerList((currentBanner) => ([...currentBanner, result.data]));
+      }
+    )
+
+    return () => { isMounted = false };
+  }, [])

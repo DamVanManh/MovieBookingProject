@@ -3,7 +3,10 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieList } from '../../reducers/actions/Movie';
 
+import { Link } from "react-router-dom";
+import News from "../../components/News";
 import Carousel from "../../components/Carousel";
+
 export default function Homepage() {
 
   // useSelector lấy data từ reducer về
@@ -22,10 +25,10 @@ export default function Homepage() {
   }
 
   return (
-    <>
-      <div style={{ minHeight: '64px', backgroundColor: "red" }}></div>
-
-      {/* <div className='row'>
+    // bỏ container vì không fluid được component con: <div className='container'>
+    <div>
+      <Carousel />
+      <div className='row'>
         {movieList.map((movie) => {
           return (
             <div className="card col-sm-3" key={movie.maPhim}>
@@ -34,14 +37,21 @@ export default function Homepage() {
                 <h4 className="card-title">{movie.tenPhim}</h4>
                 <p className="card-text">{movie.moTa}</p>
               </div>
+              <div className="card-footer">
+                {/* --edit here */}
+                {/* <button className="btn btn-danger">Đặt vé</button> */}
+                <Link to={`/phim/${movie.maPhim}`} className="btn btn-danger">Đặt vé</Link>
+                {/* ---------------- */}
+              </div>
+
             </div>
           )
         })
         }
-      </div> */}
-      <Carousel />
+      </div>
 
-    </>
+      <News />
+    </div>
   )
 }
 

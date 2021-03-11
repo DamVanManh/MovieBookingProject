@@ -4,6 +4,6 @@ import movieReducer from "./Movie";
 import usersList from "./UsersList";
 
 const rootReducer = combineReducers({
-  authReducer, movieReducer, usersList,
+  authReducer, movieReducer, usersList
 });
 export default rootReducer;
