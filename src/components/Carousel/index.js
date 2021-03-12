@@ -1,18 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
-import Slider from "react-slick";
 
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './carousel.css';
-import useStyles from "./styles";
-
-import moviesApi from "../../api/moviesApi";
-
 import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
 import homeCarouselData from "../../constants/homeCarouselData";
-const play = './img/play-video.png';
+
+import PopupTrailer from "./popup";
+import './carousel.css';
+import useStyles from "./styles";
 
 export default function Carousel() {
   const classes = useStyles();
@@ -30,14 +28,14 @@ export default function Carousel() {
   };
 
   function NextArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <ArrowForwardIosRoundedIcon style={{ right: "15px" }} onClick={onClick} className={classes.Arrow} />
     );
   }
 
   function PrevArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <ArrowBackIosRoundedIcon style={{ left: "15px" }} onClick={onClick} className={classes.Arrow} />
     );
@@ -45,22 +43,21 @@ export default function Carousel() {
   return (
     <div >
       {/* {console.log("hiển thị", bannerList)} */}
+      <div style={{ minHeight: '64px', backgroundColor: "red" }}></div>
       <Slider {...settings}  >
         {homeCarouselData.map((banner) => {
           return (
-            <a href="#" key={banner.maPhim}>
+            <a href="#" key={banner.maPhim} className={classes.a}>
               <img src={banner?.hinhAnh} alt="banner" className={classes.img} />
-              <div className={classes.bgl} />
-              <button className={classes.button}>
-                <img src={play} className={classes.img} />
-              </button>
+              <div className={classes.backgroundLinear} />
+              <div className={`${classes.button} play`}>
+                <PopupTrailer banner={banner} classImg={classes.img} />
+              </div>
+
             </a>
           )
         })}
-
       </Slider>
     </div>
   );
 }
-
-

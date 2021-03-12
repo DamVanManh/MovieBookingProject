@@ -1,0 +1,4 @@
+.MuiDialog-paper {
+  overflow-y: visible !important;
+  background-color: black !important;
+}

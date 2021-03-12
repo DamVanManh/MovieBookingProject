@@ -4,7 +4,12 @@ import { getMovieList } from '../../reducers/actions/Movie';
 
 import { Link } from "react-router-dom";
 import News from "../../components/News";
+<<<<<<< HEAD
 import Theaters from '../../components/Theaters';
+=======
+import Carousel from "../../components/Carousel";
+
+>>>>>>> 24a61869985578237b6efebd13b8b260056fb3c1
 export default function Homepage() {
 
   // useSelector lấy data từ reducer về
@@ -23,8 +28,14 @@ export default function Homepage() {
   }
 
   return (
+<<<<<<< HEAD
 
     <div className='container'>
+=======
+    // bỏ container vì không fluid được component con: <div className='container'>
+    <div>
+      <Carousel />
+>>>>>>> 24a61869985578237b6efebd13b8b260056fb3c1
       <div className='row'>
         {movieList.map((movie) => {
           return (
@@ -46,7 +57,11 @@ export default function Homepage() {
         })
         }
       </div>
+<<<<<<< HEAD
       <Theaters />
+=======
+
+>>>>>>> 24a61869985578237b6efebd13b8b260056fb3c1
       <News />
     </div>
 
