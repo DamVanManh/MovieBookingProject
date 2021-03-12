@@ -1,10 +1,10 @@
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieList } from '../../reducers/actions/Movie';
 
 import { Link } from "react-router-dom";
 import News from "../../components/News";
+import Theaters from '../../components/Theaters';
 export default function Homepage() {
 
   // useSelector lấy data từ reducer về
@@ -23,8 +23,8 @@ export default function Homepage() {
   }
 
   return (
-    <div className='container'>
 
+    <div className='container'>
       <div className='row'>
         {movieList.map((movie) => {
           return (
@@ -46,8 +46,11 @@ export default function Homepage() {
         })
         }
       </div>
+      <Theaters />
       <News />
     </div>
+
+
   )
 }
 
