@@ -22,7 +22,7 @@ export default function Bookticket() {
     return <div>{error}</div>
   }
 
-  console.log(seatList.danhSachGhe)
+  // console.log(seatList.danhSachGhe)
   return (
     <div>
       <div className="container">

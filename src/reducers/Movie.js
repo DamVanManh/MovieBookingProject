@@ -4,9 +4,8 @@ const initialState = {
   movieList: [],
   loading: false,
   error: null,
-
   movieDetail: null,
-  seatList: []
+  seatList: [],
 }
 
 const movieReducer = (state = initialState, action) => {
@@ -46,7 +45,6 @@ const movieReducer = (state = initialState, action) => {
         loading: false
       }
     }
-
     default:
       return state;
   }

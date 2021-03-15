@@ -1,10 +1,10 @@
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieList } from '../../reducers/actions/Movie';
 
 import { Link } from "react-router-dom";
 import News from "../../components/News";
+
 import Carousel from "./Carousel";
 
 export default function Homepage() {
@@ -25,10 +25,10 @@ export default function Homepage() {
   }
 
   return (
+
     // bỏ container vì không fluid được component con: <div className='container'>
     <div>
       <Carousel />
-
       <div className='row' style={{ marginTop: 100 }}>
         {movieList.map((movie) => {
           return (
@@ -50,9 +50,10 @@ export default function Homepage() {
         })
         }
       </div>
-
       <News />
     </div>
+
+
   )
 }
 

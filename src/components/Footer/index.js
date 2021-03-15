@@ -22,32 +22,32 @@ export default function Footer() {
                     <p>Đối tác</p>
                     <div>
                         <div className={classes.company__logo}>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
                         </div>
                         <div className={classes.company__logo}>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
                         </div>
                         <div className={classes.company__logo}>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
                         </div>
                         <div className={classes.company__logo}>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
-                            <a href><img src="./img/logo-connect/cgv.png" alt className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
+                            <a href><img src="./img/logo-connect/cgv.png" alt="" className={classes.logo} /></a>
                         </div>
                     </div>
                 </div>
@@ -55,15 +55,15 @@ export default function Footer() {
                     <div className={classes.social__width}>
                         <p>MOBIL APP</p>
                         <div className="footer__mobile d-flex justify-content-around">
-                            <a href><img className={classes.logo} src="./img/mobile-system/apple-logo.png" alt /></a>
-                            <a href><img className={classes.logo} src="./img/mobile-system/android-logo.png" alt /></a>
+                            <a href><img className={classes.logo} src="./img/mobile-system/apple-logo.png" alt="" /></a>
+                            <a href><img className={classes.logo} src="./img/mobile-system/android-logo.png" alt="" /></a>
                         </div>
                     </div>
                     <div className={classes.social__width}>
                         <p>SOCIAL APP</p>
                         <div className={classes.footer__social}>
-                            <a href><img className={classes.logo} src="./img/media/facebook-logo.png" alt /></a>
-                            <a href><img className={classes.logo} src="./img/media/zalo-logo.png" alt /></a>
+                            <a href><img className={classes.logo} src="./img/media/facebook-logo.png" alt="" /></a>
+                            <a href><img className={classes.logo} src="./img/media/zalo-logo.png" alt="" /></a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ export default function Footer() {
             <div className={classes.footer__down}>
                 <div className="row">
                     <div className={classes.down__left}>
-                        <img src="./img/logo-connect/zion-logo.jpg" alt />
+                        <img src="./img/logo-connect/zion-logo.jpg" alt="" />
                     </div>
                     <div className={classes.down__middle}>
                         <span>TIX - SẢN PHẨM CỦA CÔNG TY CỔ PHẦN ZION</span>
@@ -82,7 +82,7 @@ export default function Footer() {
                         <p>Email: <span className="d-inline">support@tix.vn</span></p>
                     </div>
                     <div className={classes.down__right}>
-                        <img src="./img/media/certificate.png" alt />
+                        <img src="./img/media/certificate.png" alt="" />
                     </div>
                 </div >
             </div >
