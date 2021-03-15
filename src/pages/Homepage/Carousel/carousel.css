@@ -79,5 +79,5 @@
 }
 /* hover hiện button play */
 .slick-slider:hover > .slick-list .slick-track .play {
-  display: block;
+  opacity: 1;
 }

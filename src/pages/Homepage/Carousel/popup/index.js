@@ -28,14 +28,13 @@ export default function PopupTrailer(props) {
 
   return (
     <>
-      <img src={play} className={props.classImg} onClick={handleClickOpen} />
+      <img src={play} className={`${props.classImg} ${classes.img}`} onClick={handleClickOpen} />
       <Dialog
         // fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         maxWidth='md'
       >
-        {/* <iframe className={`${sm && classes.downRangeSm} ${md && classes.upKeyMd}`} src={props.banner.trailer} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
         <iframe className={`${sm && classes.downRangeSm} ${md && classes.upKeyMd}`} src={`${props.banner.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
 
         <IconButton className={classes.closeButton} onClick={handleClose} >

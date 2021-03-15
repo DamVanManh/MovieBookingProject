@@ -126,3 +126,22 @@ TRACE: thực hiện một bài test loop - back theo đường dẫn đến res
 
     return () => { isMounted = false };
   }, [])
+  
+  
+  
+  
+heThongRapChieu: [{maHeThongRap: 'BHDStar', tenHeThongRap, cumRapChieu: [{}]}, {maHeThongRap: 'galaxy', tenHeThongRap, cumRapChieu: [{}]} ] 
+* maHeThongRap, tenHeThongRap
+* cần lấy tất cả cumRapChieu có chiếu phim này: 
+	const aray = heThongRapChieu.reduce((total, item) => { return [...total, ...item.cumRapChieu  ], [])
+
+cumRapChieu[{tenCumRap: '3/2', lichChieuPhim: [{}]}, {tenCumRap: 'Bitexco', lichChieuPhim: [{}]}]
+* 
+
+lichChieuPhim[
+{maLichChieu: "40809", maRap: "451", tenRap: "Rạp 1", ngayChieuGioChieu: "2020-12-11T20:00:00", giaVe: 75000, thoiLuong: 120}
+{maLichChieu: "40809", maRap: "451", tenRap: "Rạp 1", ngayChieuGioChieu: "2020-12-11T20:00:00", giaVe: 75000, thoiLuong: 120}
+]
+
+
+2021-02-22T14:00:00

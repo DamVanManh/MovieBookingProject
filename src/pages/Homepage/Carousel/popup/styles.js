@@ -22,9 +22,12 @@ const useStyles = makeStyles((theme) => ({
     width: "898px",
     height: "505px"
   },
-
-
-
+  img: {
+    height: "100%",
+    width: "100%",
+    transition: "all .2s",
+    '&:hover': { opacity: 0.7 }
+  },
 
 }))
 export default useStyles

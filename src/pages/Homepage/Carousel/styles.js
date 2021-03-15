@@ -1,9 +1,20 @@
 import { makeStyles } from "@material-ui/core"
 const useStyles = makeStyles({
+  carousel: {
+    marginTop: 64,
+    position: 'relative',
+  },
   a: {
     position: 'relative'
   },
   img: { height: "100%", width: "100%" },
+  backgroundLinear: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    background: "linear-gradient(to top,#000,transparent 20%)",
+    top: "0"
+  },
   button: {
     position: "absolute",
     top: "50%",
@@ -11,7 +22,7 @@ const useStyles = makeStyles({
     transform: "translate(-50%,-50%)",
 
     zIndex: 1,
-    display: 'none',
+    opacity: 0,
 
     background: "0 0",
     border: "none",
@@ -19,14 +30,7 @@ const useStyles = makeStyles({
     height: 70,
     width: 70,
     transition: "all .2s",
-    '&:hover': { opacity: 0.7 }
-  },
-  backgroundLinear: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    background: "linear-gradient(to top,#000,transparent 20%)",
-    top: "0"
+
   },
   Arrow: {
     position: "absolute",

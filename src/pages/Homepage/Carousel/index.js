@@ -1,12 +1,13 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
-import homeCarouselData from "../../constants/homeCarouselData";
+import homeCarouselData from "../../../constants/homeCarouselData";
+import SearchStickets from "./SearchTickets";
 
 import PopupTrailer from "./popup";
 import './carousel.css';
@@ -41,9 +42,7 @@ export default function Carousel() {
     );
   }
   return (
-    <div >
-      {/* {console.log("hiển thị", bannerList)} */}
-      <div style={{ minHeight: '64px', backgroundColor: "red" }}></div>
+    <div id='carousel' className={classes.carousel}>
       <Slider {...settings}  >
         {homeCarouselData.map((banner) => {
           return (
@@ -51,13 +50,13 @@ export default function Carousel() {
               <img src={banner?.hinhAnh} alt="banner" className={classes.img} />
               <div className={classes.backgroundLinear} />
               <div className={`${classes.button} play`}>
-                <PopupTrailer banner={banner} classImg={classes.img} />
+                <PopupTrailer banner={banner} />
               </div>
-
             </a>
           )
         })}
       </Slider>
+      <SearchStickets />
     </div>
   );
 }

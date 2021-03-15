@@ -4,6 +4,12 @@
   padding: 0; */
   box-sizing: border-box;
 }
+body {
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #fff;
+}
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
