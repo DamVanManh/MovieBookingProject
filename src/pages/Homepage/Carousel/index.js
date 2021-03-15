@@ -9,11 +9,22 @@ import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounde
 import homeCarouselData from "../../../constants/homeCarouselData";
 import SearchStickets from "./SearchTickets";
 
-import PopupTrailer from "./popup";
+import Dialog from '@material-ui/core/Dialog';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 import './carousel.css';
 import useStyles from "./styles";
+const play = './img/carousel/play-video.png';
 
 export default function Carousel() {
+  const [openDialog, setOpenDialog] = React.useState({ toggel: false, trailer: '' });
+  const theme = useTheme();
+  const sm = useMediaQuery(theme.breakpoints.down('sm'));
+  const md = useMediaQuery(theme.breakpoints.up('md'));
+
   const classes = useStyles();
   const settings = {
     dots: true,
@@ -41,6 +52,15 @@ export default function Carousel() {
       <ArrowBackIosRoundedIcon style={{ left: "15px" }} onClick={onClick} className={classes.Arrow} />
     );
   }
+
+  const handleClickOpen = (trailer) => {
+    setOpenDialog({ ...openDialog, toggel: true, trailer })
+  };
+
+  const handleClose = () => {
+    setOpenDialog({ ...openDialog, toggel: false })
+  };
+
   return (
     <div id='carousel' className={classes.carousel}>
       <Slider {...settings}  >
@@ -50,12 +70,20 @@ export default function Carousel() {
               <img src={banner?.hinhAnh} alt="banner" className={classes.img} />
               <div className={classes.backgroundLinear} />
               <div className={`${classes.button} play`}>
-                <PopupTrailer banner={banner} />
+                <img src={play} className={`${classes.imgPlay}`} onClick={() => handleClickOpen(banner.trailer)} />
               </div>
             </a>
           )
         })}
       </Slider>
+
+      <Dialog open={openDialog.toggel} onClose={handleClose} maxWidth='md' >
+        <iframe className={`${sm && classes.downRangeSm} ${md && classes.upKeyMd}`} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
+        <IconButton className={classes.closeButton} onClick={handleClose} >
+          <CloseIcon style={{ color: 'white' }} fontSize='small' />
+        </IconButton>
+      </Dialog>
+
       <SearchStickets />
     </div>
   );

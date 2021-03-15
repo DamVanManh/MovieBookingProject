@@ -45,5 +45,34 @@ const useStyles = makeStyles({
     transition: "all .2s",
     '&:hover': { color: '#fb4226 !important' }
   },
+  imgPlay: {
+    height: "100%",
+    width: "100%",
+    transition: "all .2s",
+    '&:hover': { opacity: 0.7 }
+  },
+
+
+  closeButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    transform: "translate(50%,-50%)",
+
+    border: '2px solid white',
+    '&:focus': {
+      outline: 'none'
+    },
+    '&:hover': { opacity: 0.7 },
+    transition: "all .2s",
+  },
+  downRangeSm: {
+    width: "598px",
+    height: "336px"
+  },
+  upKeyMd: {
+    width: "898px",
+    height: "505px"
+  },
 })
 export default useStyles

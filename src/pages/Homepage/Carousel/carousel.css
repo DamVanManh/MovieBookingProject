@@ -81,3 +81,9 @@
 .slick-slider:hover > .slick-list .slick-track .play {
   opacity: 1;
 }
+
+/* override Dialog */
+.MuiDialog-paper {
+  overflow-y: visible !important;
+  background-color: black !important;
+}

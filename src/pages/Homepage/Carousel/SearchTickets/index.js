@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 
 import theatersApi from "../../../../api/theatersApi";
 import useStyles from "./styles";
@@ -72,10 +73,10 @@ export default function ControlledOpenSelect() {
     }))
 
     const indexSelect = dataSelected.cumRapChieuData.findIndex(item => item.tenCumRap === e.target.value) // lấy ra lichChieuPhimData của một cụm rạp đã chọn, item lichChieuPhimData có thể giống ngày nhưng khác giờ chiếu
-    const lichChieuPhimData = dataSelected.cumRapChieuData[indexSelect]?.lichChieuPhim
+    const lichChieuPhimData = dataSelected.cumRapChieuData[indexSelect].lichChieuPhim
     // console.log("lichChieuPhimData ", lichChieuPhimData)
 
-    const ngayChieuRender = lichChieuPhimData?.map(item => {
+    const ngayChieuRender = lichChieuPhimData.map(item => {
       return item.ngayChieuGioChieu.slice(0, 10);// tạo mảng mới với item là "2020-12-17" cắt ra từ 2020-12-17T10:10:00
     })
     const ngayChieuRenderRemoveDuplicates = [...(new Set(ngayChieuRender))] // xóa đi phần tử trùng lặp để hiển thị
@@ -126,12 +127,12 @@ export default function ControlledOpenSelect() {
     }));
 
     const indexMaLichChieuSelect = dataSelected.lichChieuPhimDataSelected.findIndex(item => item.ngayChieuGioChieu.slice(11, 16) === e.target.value)
-    const maLichChieu = dataSelected.lichChieuPhimDataSelected[indexMaLichChieuSelect]?.maLichChieu
+    const maLichChieu = dataSelected.lichChieuPhimDataSelected[indexMaLichChieuSelect].maLichChieu
     // console.log("maLichChieu: ", maLichChieu)
     setDataSelected(dataSelected => ({ ...dataSelected, maLichChieu }));
   }
 
-  const handelMuaVe = (e) => {
+  const handleMuaVe = (e) => {
     console.log("chuyển sang trang mua vé với malichchieu: ", dataSelected.maLichChieu)
   }
 
@@ -146,7 +147,8 @@ export default function ControlledOpenSelect() {
 
   return (
     <div className={classes.root}>
-      <FormControl className={classes.selectFilm} focused={false}>
+      <Button classes={{ root: classes.root, label: classes.label, }}>Default</Button>
+      <FormControl className={classes.selectFilm} focused={false} >
         <Select
           open={autoOpen.phim}
           onClose={handleClosePhim}
@@ -210,7 +212,7 @@ export default function ControlledOpenSelect() {
       </FormControl>
 
       <FormControl className={classes.item} focused={false}>
-        <button onClick={handelMuaVe}>mua vé ngay</button>
+        <button onClick={handleMuaVe}>mua vé ngay</button>
       </FormControl>
     </div >
   );
