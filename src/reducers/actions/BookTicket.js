@@ -17,13 +17,13 @@ export const bookTicket = (danhSachVe) => {
             )
             .catch(
                 error => {
-                    // dispath({
-                    //     type: BOOK_TICKET_FAIL,
-                    //     payload: {
-                    //         error: error.response.data,
-                    //     }
-                    // })
-                    console.log(error)
+                    dispath({
+                        type: BOOK_TICKET_FAIL,
+                        payload: {
+                            error: error.response.data,
+                        }
+                    })
+                    // console.log(error)
                 }
             )
     }
