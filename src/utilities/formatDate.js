@@ -1,34 +1,40 @@
+import PropTypes from 'prop-types';
 
-export const formatDate = (ngay) => {
-  const ngayInput = new Date(ngay);
-  let thuOutput = ngayInput.getDay(); // trả về thứ dưới dạng một số từ 0 > 6
-  const ngayHienTaiFormat = new Date().toISOString().slice(0, 10);
-  const ngayInputFormat = ngayInput.toISOString().slice(0, 10);
+export const FormatDate = (dateString) => {
+  const dateObj = new Date(dateString);
+  let dayNumber = dateObj.getDay(); // trả về thứ dưới dạng một số từ 0 > 6
+  const dateNowFormat = new Date().toISOString().slice(0, 10);
+  const dateObjFormat = dateObj.toISOString().slice(0, 10);
 
-  if (thuOutput === 0) {
-    thuOutput = "Chủ nhật";
+  if (dayNumber === 0) {
+    dayNumber = "Chủ nhật";
   }
-  if (thuOutput === 1) {
-    thuOutput = "Thứ hai";
+  if (dayNumber === 1) {
+    dayNumber = "Thứ hai";
   }
-  if (thuOutput === 2) {
-    thuOutput = "Thứ ba";
+  if (dayNumber === 2) {
+    dayNumber = "Thứ ba";
   }
-  if (thuOutput === 3) {
-    thuOutput = "Thứ tư";
+  if (dayNumber === 3) {
+    dayNumber = "Thứ tư";
   }
-  if (thuOutput === 4) {
-    thuOutput = "Thứ năm";
+  if (dayNumber === 4) {
+    dayNumber = "Thứ năm";
   }
-  if (thuOutput === 5) {
-    thuOutput = "Thứ sáu";
+  if (dayNumber === 5) {
+    dayNumber = "Thứ sáu";
   }
-  if (thuOutput === 6) {
-    thuOutput = "Thứ bảy";
+  if (dayNumber === 6) {
+    dayNumber = "Thứ bảy";
   }
-  if (ngayHienTaiFormat === ngayInputFormat) {
-    thuOutput = "Hôm nay";
+  if (dateNowFormat === dateObjFormat) {
+    dayNumber = "Hôm nay";
   }
-  const thuNgay = thuOutput + ' ' + ngayInputFormat;
-  return thuNgay;
+  // const thuNgay = dayNumber + ' ' + dateObjFormat;
+
+  return { dayString: dayNumber, dateString: dateObjFormat };
+};
+
+FormatDate.propTypes = {
+  dateString: PropTypes.string.isRequired,
 };

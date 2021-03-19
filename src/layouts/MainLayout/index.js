@@ -10,7 +10,7 @@ export default function MainLayout(props) {
       <Header />
       {props.children}
 
-      {/* <Theaters /> */}
+      <Theaters />
       <Ads />
       <Footer />
 

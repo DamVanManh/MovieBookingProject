@@ -9,6 +9,12 @@ body {
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
+  font-family: Regular;
+}
+
+@font-face {
+  font-family: Regular;
+  src: url(./font/FontsFree-Net-SFProDisplay-Regular.ttf);
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

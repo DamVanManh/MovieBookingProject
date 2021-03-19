@@ -22,8 +22,8 @@ const play = './img/carousel/play-video.png';
 export default function Carousel() {
   const [openDialog, setOpenDialog] = React.useState({ toggel: false, trailer: '' });
   const theme = useTheme();
-  const sm = useMediaQuery(theme.breakpoints.down('sm'));
-  const md = useMediaQuery(theme.breakpoints.up('md'));
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const classes = useStyles();
   const settings = {
@@ -77,14 +77,14 @@ export default function Carousel() {
         })}
       </Slider>
 
-      <Dialog open={openDialog.toggel} onClose={handleClose} maxWidth='md' >
-        <iframe className={`${sm && classes.downRangeSm} ${md && classes.upKeyMd}`} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
+      <Dialog open={openDialog.toggel} onClose={handleClose} maxWidth='md' classes={{ paper: classes.paper }}>
+        <iframe className={`${smDown && classes.downRangeSm} ${mdUp && classes.upKeyMd}`} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
         <IconButton className={classes.closeButton} onClick={handleClose} >
           <CloseIcon style={{ color: 'white' }} fontSize='small' />
         </IconButton>
       </Dialog>
 
-      <SearchStickets />
+      <SearchStickets smDown={smDown} />
     </div>
   );
 }

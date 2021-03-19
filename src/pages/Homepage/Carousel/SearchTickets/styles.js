@@ -1,12 +1,11 @@
 import { makeStyles } from "@material-ui/core"
-
-const useStyle = makeStyles(footer => ({
-  root: {
-    display: 'flex',
-
+const useStyle = makeStyles({
+  // search bar
+  search: {
+    display: (props) => props.smDown ? 'none' : 'flex',
     maxWidth: "940px",
     margin: "auto",
-    height: "80px",
+    height: "83px",
     position: "absolute",
     bottom: "0",
     width: "100%",
@@ -19,27 +18,94 @@ const useStyle = makeStyles(footer => ({
 
     alignItems: "center",
   },
-  selectFilm: {
-    flex: '30%'
+  search__item: {
+    color: 'black',
+    padding: '1%',
+    '& > div:before': {
+      borderBottom: 'none',
+    },
+    '& > div:hover:not(.Mui-disabled):before': {
+      borderBottom: 'none',
+    },
+    '& > div > div': {
+      color: 'black',
+      fontSize: 14,
+      padding: '18px 0px',
+      '&:focus': {
+        backgroundColor: 'transparent'
+      },
+      '& ~ svg': {
+        fontSize: 19,
+
+        color: 'rgba(0, 0, 0, 0.3)',
+        top: '36%',
+      }
+    },
+    '&:after': {
+      content: "''",
+      position: "absolute",
+      right: "0",
+      height: "62%",
+      top: "50%",
+      transform: "translateY(-50%)",
+      borderRight: "1px solid",
+      borderRightColor: "rgba(238,238,238,.88)"
+    }
   },
-  item: {
-    flex: "calc(70% / 4)"
+  'search__item--first': {
+    flex: '30%',
+    paddingLeft: '2%',
+
   },
-  label: {
-    display: 'none'
+  'search__item--next': {
+    flex: "calc(70% / 4)",
   },
 
-  root: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    borderRadius: 3,
-    border: 0,
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  // popup menu
+  menu: {
+    maxHeight: 300,
+    "&::-webkit-scrollbar": { // custom scrollbar
+      width: 4,
+      backgroundColor: "#e8e3e3",
+      borderRadius: 4,
+    },
+    "&::-webkit-scrollbar-thumb": {
+      borderRadius: 4,
+      "-webkit-box-shadow": "inset 0 0 6px rgb(0 0 0 / 30%)",
+    },
+    "&::-webkit-scrollbar-track": {
+      borderRadius: 4,
+    }
   },
-  label: {
-    textTransform: 'capitalize',
+  'menu__item': {
+    width: '100%',
+    minHeight: "auto",
+    display: 'block',
+    padding: '3px 20px',
+    fontSize: '14px',
+    color: '#333',
+    '&:focus': {
+      backgroundColor: 'transparent',
+    },
+    '& li ~ li': {
+      fontSize: 11,
+      color: '#aaa',
+    },
+    // màu nền và chữ khi hover
+    '&:hover': {
+      backgroundColor: "#60c5ef",
+      color: "#fff",
+      '& li ~ li': {
+        color: '#fff',
+      }
+    },
   },
-}))
+  'menu__item--selected': {
+    backgroundColor: "#60c5ef !important",
+    color: "#fff",
+    '& li ~ li': {
+      color: '#fff',
+    }
+  },
+})
 export default useStyle

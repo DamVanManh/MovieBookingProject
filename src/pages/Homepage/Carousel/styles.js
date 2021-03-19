@@ -74,5 +74,11 @@ const useStyles = makeStyles({
     width: "898px",
     height: "505px"
   },
+
+  paper: {
+    overflowY: "visible",
+    backgroundColor: "black",
+    color: 'red'
+  },
 })
 export default useStyles

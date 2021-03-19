@@ -116,7 +116,6 @@ export default function Header() {
               edge="end"
               onClick={handleDrawerOpen}
               className={clsx(open && classes.hide)}
-              mdUp
             >
               {/* iCon 3 gạch ngang menu */}
               <MenuIcon />
