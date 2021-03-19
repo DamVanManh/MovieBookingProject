@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieList } from '../../reducers/actions/Movie';
 import Slider from "react-slick";
@@ -6,12 +6,74 @@ import { Link } from "react-router-dom";
 import News from "../../components/News";
 import Carousel from "./Carousel";
 import Theaters from '../../components/Theaters';
+import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import AddIcon from "@material-ui/icons/Add";
+import Dialog from '@material-ui/core/Dialog';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
+
+import useStyles from './style'
+import PopupTrailer from './Carousel/popup';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 
 export default function Homepage() {
 
+  const classes = useStyles();
+
+  // setup các biến để show trailer ra dialog
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const sm = useMediaQuery(theme.breakpoints.down('sm'));
+  const md = useMediaQuery(theme.breakpoints.up('md'));
+  const [trailer, setTrailer] = useState("")
+  const handleTrailer = (newTrailer) => {
+    setTrailer(newTrailer)
+    handleButton()
+  }
   // useSelector lấy data từ reducer về
   const { movieList, loading, error } = useSelector((state) => state.movieReducer);
-  // useDispatch: dispatch action
+
+  // useDispatch: dispatch action lấy api movieList và đẩy data trả về lên store ( đi 2 chiều)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMovieList())
@@ -24,35 +86,19 @@ export default function Homepage() {
     return <div>{error}</div>
   }
 
-
   const ArrowLeft = (props) => (
     <button
       {...props}
-      className={'prev'}
-      style={{
-        border: 'none',
-        backgroundColor: 'transparent',
-        position: 'absolute',
-        left: '-80px',
-        top: '38%',
-      }}>
+      className={classes.prev}>
       <span className="material-icons" style={{ fontSize: '100px' }} >
         keyboard_arrow_left
       </span>
     </button>
   );
   const ArrowRight = (props) => (
-
     <button
       {...props}
-      className={'next'}
-      style={{
-        border: 'none',
-        backgroundColor: 'transparent',
-        position: 'absolute',
-        right: '-80px',
-        top: '38%',
-      }}>
+      className={classes.next}>
       <span className="material-icons" style={{ fontSize: '100px' }} >
         keyboard_arrow_right
     </span>
@@ -71,37 +117,58 @@ export default function Homepage() {
     nextArrow: <ArrowRight />,
   };
 
+  const handleButton = () => {
+    setOpen(!open)
+  }
+
   return (
 
     // bỏ container vì không fluid được component con: <div className='container'>
     <div>
-      <Carousel />
+      {/* <Carousel /> */}
 
       <div className='showTime container' style={{ marginTop: 100 }}>
         <h2 className="text-center">Đang Chiếu</h2>
         <Slider {...settings}>
-
           {movieList.map((movie) => {
             return (
-              <div className="item " key={movie.maPhim} style={{ padding: '20px' }}  >
-                <div className="card" style={{ minHeight: '350px', padding: '20px', border: 'none' }}>
-                  <img style={{ width: '100%', height: '300px' }} className="card-img-top" src={movie.hinhAnh} alt="movie" />
-                  {/* <div className="card-body">
-                    <h4 className="card-title">{movie.tenPhim}</h4>
-                  </div> */}
+              <div className={classes.showTime__Item}>
 
-                  <div className="card-footer" style={{ minHeight: '70px' }}>
-                    <p style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '0px' }} className="card-title">{movie.tenPhim}</p>
+                <i class={`${classes.play} fa fa-play`} onClick={() => handleTrailer(movie.trailer)}></i>
+                <Link to={`/phim/${movie.maPhim}`} style={{ color: 'black', textDecoration: 'none' }}>
+                  <div className={`${classes.itemMovie} item`} key={movie.maPhim}>
+                    <div className={classes.card} >
+                      <div className={classes.card__rating}>{movie.danhGia}</div>
+
+                      <div className={classes.card__img}>
+                        <div className={classes.over__lay}></div>
+                        <img className="card-img-top" src={movie.hinhAnh} alt="movie" />
+                      </div>
+
+                      <div className={`${classes.card__footer} card-footer`} >
+                        <p style={{ transition: 'all 1s' }} className="card-title">{movie.tenPhim}</p>
+                        <button className={`${classes.card__booking} btn btn-danger`}>Đặt vé</button>
+                      </div>
+                    </div>
+
                   </div>
-                  {/* <div className="card-footer">
-                    <Link to={`/phim/${movie.maPhim}`} className="btn btn-danger">Đặt vé</Link>
-                  </div> */}
-                </div>
-
+                </Link>
               </div>
             )
           })}
         </Slider>
+
+        <Dialog
+          onClick={() => handleButton()}
+          open={open}
+          maxWidth='md'
+        >
+          <iframe className={`${sm && classes.downRangeSm} ${md && classes.upKeyMd}`} src={trailer.indexOf('https') > -1 ? trailer : ""} frameBorder="0" allow='autoplay'></iframe>
+          <IconButton className={classes.closeButton}  >
+            <CloseIcon style={{ color: 'white' }} fontSize='small' onClick={() => handleButton()} />
+          </IconButton>
+        </Dialog>
+
       </div>
       <Theaters />
       <News />
