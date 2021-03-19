@@ -21,7 +21,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 
 import useStyles from './style'
-import PopupTrailer from './Carousel/popup';
+// import PopupTrailer from './Carousel/popup';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,7 +56,7 @@ function a11yProps(index) {
 }
 
 
-export default function Homepage() {
+export default function Homepage(props) {
 
   const classes = useStyles();
 
@@ -125,7 +125,8 @@ export default function Homepage() {
 
     // bỏ container vì không fluid được component con: <div className='container'>
     <div>
-      {/* <Carousel /> */}
+      <Carousel />
+      {console.log('day la ', props.history)}
 
       <div className='showTime container' style={{ marginTop: 100 }}>
         <h2 className="text-center">Đang Chiếu</h2>

@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
+import { useHistory } from "react-router-dom";
 
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from "@material-ui/core/Button";
 
 import theatersApi from "../../../../api/theatersApi";
 import useStyles from "./styles";
@@ -14,6 +16,7 @@ import { FormatDate } from "../../../../utilities/formatDate";
 
 export default function SearchStickets(props) {
   const { movieList: movieRender, loading, error } = useSelector((state) => state.movieReducer);
+  const history = useHistory();
   const [data, setData] = useState({
     // handleSelectPhim
     setPhim: '',
@@ -28,25 +31,25 @@ export default function SearchStickets(props) {
 
     // handleSelectNgayXem
     setNgayXem: '',
-    xuatChieuRender: [],
+    suatChieuRender: [],
     lichChieuPhimDataSelected: [],
 
-    // handleSelectXuatChieu
-    setXuatChieu: '',
+    // handleSelectSuatChieu
+    setSuatChieu: '',
     maLichChieu: '',
 
     // handleOpen
-    openCtr: { phim: false, rap: false, ngayXem: false, xuatChieu: false }
-
+    openCtr: { phim: false, rap: false, ngayXem: false, suatChieu: false }
   });
-  const handleOpenPhim = (e) => { setData(data => ({ ...data, openCtr: { ...data.openCtr, phim: true } })) };
-  const handleOpenRap = (e) => { setData(data => ({ ...data, openCtr: { ...data.openCtr, rap: true } })) };
-  const handleOpenNgayXem = (e) => { setData(data => ({ ...data, openCtr: { ...data.openCtr, ngayXem: true } })) };
-  const handleOpenXuatChieu = (e) => { setData(data => ({ ...data, openCtr: { ...data.openCtr, xuatChieu: true } })) };
+  const classes = useStyles({ smDown: props.smDown });
+  const handleOpenPhim = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, phim: true } })) };
+  const handleOpenRap = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, rap: true } })) };
+  const handleOpenNgayXem = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, ngayXem: true } })) };
+  const handleOpenSuatChieu = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, suatChieu: true } })) };
   const handleClosePhim = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, phim: false, } })) };
   const handleCloseRap = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, rap: false, } })) };
   const handleCloseNgayXem = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, ngayXem: false, } })) };
-  const handleCloseXuatChieu = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, xuatChieu: false, } })) };
+  const handleCloseSuatChieu = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, suatChieu: false, } })) };
 
   // sau khi click chọn phim, cần duyệt lấy tất cả cumRapChieu lưu vào cumRapChieuData để xử lý
   // input: maPhim
@@ -56,7 +59,7 @@ export default function SearchStickets(props) {
       ...data, setPhim: e.target.value,  // setPhim giúp "Phim" xác định phim nào đã chọn và hiển thị
       startRequest: true, openCtr: { ...data.openCtr, rap: true },
       // reset  
-      rapRender: [], cumRapChieuData: [], setRap: '', ngayChieuRender: [], lichChieuPhimData: [], setNgayXem: '', xuatChieuRender: [], lichChieuPhimDataSelected: [], setXuatChieu: '', maLichChieu: ''
+      rapRender: [], cumRapChieuData: [], setRap: '', ngayChieuRender: [], lichChieuPhimData: [], setNgayXem: '', suatChieuRender: [], lichChieuPhimDataSelected: [], setSuatChieu: '', maLichChieu: ''
     }))
 
     theatersApi.getThongTinLichChieuPhim(e.target.value).then(
@@ -64,6 +67,7 @@ export default function SearchStickets(props) {
         setData(data => ({ ...data, startRequest: false }))
         const cumRapChieuData = result.data.heThongRapChieu.reduce((colect, item) => { return [...colect, ...item.cumRapChieu] }, [])
         const rapRender = cumRapChieuData.map(item => item.tenCumRap)
+        console.log('chue', cumRapChieuData)
         setData(data => ({
           ...data, rapRender, cumRapChieuData,
         }));
@@ -77,7 +81,7 @@ export default function SearchStickets(props) {
     setData(data => ({
       ...data, setRap: e.target.value, openCtr: { ...data.openCtr, ngayXem: true },
       // reset
-      ngayChieuRender: [], lichChieuPhimData: [], setNgayXem: '', xuatChieuRender: [], lichChieuPhimDataSelected: [], setXuatChieu: '', maLichChieu: ''
+      ngayChieuRender: [], lichChieuPhimData: [], setNgayXem: '', suatChieuRender: [], lichChieuPhimDataSelected: [], setSuatChieu: '', maLichChieu: ''
     }))
     const indexSelect = data.cumRapChieuData.findIndex(item => item.tenCumRap === e.target.value) // lấy ra lichChieuPhimData của một cụm rạp đã chọn, item lichChieuPhimData có thể giống ngày nhưng khác giờ chiếu
     const lichChieuPhimData = data.cumRapChieuData[indexSelect].lichChieuPhim
@@ -92,12 +96,12 @@ export default function SearchStickets(props) {
   };
   // sau khi click chọn ngày, cần lọc ra lịch chiếu tương ứng, thêm giờ để render
   // input: ngayChieu, lichChieuPhimData
-  // output: setNgayXem(ngayChieu), xuatChieuRender(lichChieuPhimDataSelected)[xuatChieu], lichChieuPhimDataSelected(ngayChieu,lichChieuPhimData)[{ngayChieuGioChieu: "2019-01-01T10:10:00", maLichChieu: "16099"}], 
+  // output: setNgayXem(ngayChieu), suatChieuRender(lichChieuPhimDataSelected)[suatChieu], lichChieuPhimDataSelected(ngayChieu,lichChieuPhimData)[{ngayChieuGioChieu: "2019-01-01T10:10:00", maLichChieu: "16099"}], 
   const handleSelectNgayXem = (e) => {
     setData(data => ({
-      ...data, setNgayXem: e.target.value, openCtr: { ...data.openCtr, xuatChieu: true },
+      ...data, setNgayXem: e.target.value, openCtr: { ...data.openCtr, suatChieu: true },
       // reset
-      xuatChieuRender: [], lichChieuPhimDataSelected: [], setXuatChieu: '', maLichChieu: ''
+      suatChieuRender: [], lichChieuPhimDataSelected: [], setSuatChieu: '', maLichChieu: ''
     }))
 
     const lichChieuPhimDataSelected = data.lichChieuPhimData.filter(item => { // lấy tất cả item có ngày chiếu giống với ngày chiếu đã chọn
@@ -106,19 +110,19 @@ export default function SearchStickets(props) {
       }
       return false
     })
-    const xuatChieuRender = lichChieuPhimDataSelected.map(item => {  // cắt lấy giờ chiếu trong ngayChieuGioChieu: "2019-01-01T20:00:00" > "20:00"
+    const suatChieuRender = lichChieuPhimDataSelected.map(item => {  // cắt lấy giờ chiếu trong ngayChieuGioChieu: "2019-01-01T20:00:00" > "20:00"
       return item.ngayChieuGioChieu.slice(11, 16)
     })
     setData(data => ({
-      ...data, xuatChieuRender, lichChieuPhimDataSelected,
+      ...data, suatChieuRender, lichChieuPhimDataSelected,
     }));
   }
 
-  // input: xuatChieu
-  // output: setXuatChieu(xuatChieu), maLichChieu(xuatChieu)[maLichChieu]
-  const handleSelectXuatChieu = (e) => {
+  // input: suatChieu
+  // output: setSuatChieu(suatChieu), maLichChieu(suatChieu)[maLichChieu]
+  const handleSelectSuatChieu = (e) => {
     setData(data => ({
-      ...data, setXuatChieu: e.target.value,
+      ...data, setSuatChieu: e.target.value,
       // reset
       maLichChieu: ''
     }));
@@ -126,10 +130,7 @@ export default function SearchStickets(props) {
     const maLichChieu = data.lichChieuPhimDataSelected[indexMaLichChieuSelect].maLichChieu
     setData(data => ({ ...data, maLichChieu }));
   }
-  const handleMuaVe = (e) => {
-    console.log("chuyển sang trang mua vé với malichchieu: ", data.maLichChieu)
-  }
-  const classes = useStyles({ smDown: props.smDown });
+
   const menuProps = {  // props và class của menu(Popover)
     classes: { paper: classes.menu },
     getContentAnchorEl: null,
@@ -204,23 +205,30 @@ export default function SearchStickets(props) {
 
       <FormControl className={`${classes['search__item--next']} ${classes.search__item}`} focused={false}>
         <Select
-          open={data.openCtr.xuatChieu}
-          onClose={handleCloseXuatChieu}
-          onOpen={handleOpenXuatChieu}
-          onChange={handleSelectXuatChieu}
-          value={data.setXuatChieu} // xuatChieu
-          renderValue={(value) => `${value ? value : 'Xuất chiếu'}`}
+          open={data.openCtr.suatChieu}
+          onClose={handleCloseSuatChieu}
+          onOpen={handleOpenSuatChieu}
+          onChange={handleSelectSuatChieu}
+          value={data.setSuatChieu} // suatChieu
+          renderValue={(value) => `${value ? value : 'Suất chiếu'}`}
           displayEmpty
           IconComponent={ExpandMoreIcon}
           MenuProps={menuProps}
         >
-          <MenuItem value='' style={{ display: data.xuatChieuRender.length > 0 ? 'none' : 'block' }} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>{data.setNgayXem ? 'Đang tìm ngày xem' : 'Vui lòng chọn phim, rạp và ngày xem'}</MenuItem>
-          {data.xuatChieuRender.map(xuatChieu => (<MenuItem value={xuatChieu} key={xuatChieu} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>{xuatChieu}</MenuItem>))}
+          <MenuItem value='' style={{ display: data.suatChieuRender.length > 0 ? 'none' : 'block' }} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>{data.setNgayXem ? 'Đang tìm ngày xem' : 'Vui lòng chọn phim, rạp và ngày xem'}</MenuItem>
+          {data.suatChieuRender.map(suatChieu => (<MenuItem value={suatChieu} key={suatChieu} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>{suatChieu}</MenuItem>))}
         </Select>
       </FormControl>
 
-      <FormControl className={`${classes['search__item--next']} ${classes.search__item}`}>
-        <button onClick={handleMuaVe}>mua vé ngay</button>
+      <FormControl className={classes['search__item--next']}>
+        <Button
+          disabled={!data.maLichChieu} // khi không có dữ liệu > disabled cần set true
+          classes={{
+            root: classes.btn,
+            disabled: classes.btnDisabled,
+          }}
+          onClick={() => window.open(`/datve/${data.maLichChieu}`, "_blank")}
+        >mua vé ngay</Button>
       </FormControl>
     </div >
   );
@@ -239,4 +247,4 @@ SearchStickets.propTypes = {
 // value truyền vào Select sẽ truyền tiếp vào renderValue để hiển thị, nếu value '' thì hiện 'Xuất chiếu', khi chọn item, value của MenuItem được truyền vào renderValue để hiển thị
 // displayEmpty giúp luôn hiển thị giá trị mặc định khi value truyền vào Select là ''
 
-// HIỆN 'Vui lòng chọn phim, rạp và ngày xem' CÓ ĐIỀU KIỆN dựa trên data.xuatChieuRender
+// HIỆN 'Vui lòng chọn phim, rạp và ngày xem' CÓ ĐIỀU KIỆN dựa trên data.suatChieuRender

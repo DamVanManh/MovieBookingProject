@@ -107,5 +107,28 @@ const useStyle = makeStyles({
       color: '#fff',
     }
   },
+  // button
+  btn: { // css áp dụng khi disabled = false
+    backgroundColor: '#fb4226',
+    margin: 'auto',
+    '&:hover': {
+      backgroundColor: "#b30000",
+    },
+    '&:focus': {
+      outline: "none",
+    },
+    "&$btn": {// css áp dụng khi disabled button
+      color: '#fff',
+      padding: "8px 23px",
+    }
+  },
+  btnDisabled: {// css áp dụng khi disabled button
+    backgroundColor: "#4a4a4a",
+    border: "none",
+    textTransform: "uppercase",
+    borderRadius: "4px",
+    padding: "8px 23px",
+  }
+
 })
 export default useStyle
