@@ -23,11 +23,14 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
+// TÊN NGƯỜI DÙNG, ĐẶT TRONG WRAPPER
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
   name: 'Katarina Smith'
 };
+
 
 const items = [
   {
@@ -45,6 +48,7 @@ const items = [
     icon: PostAddIcon,
     title: 'Tạo lịch chiếu'
   },
+  //----- KO CẦN THIẾT-----------------------------
   {
     href: '/',
     icon: AccountCircleIcon,
@@ -70,6 +74,7 @@ const items = [
     icon: ErrorOutlineIcon,
     title: 'Error'
   }
+  //--------------------------------------------
 ];
 
 const useStyles = makeStyles(() => ({
@@ -101,7 +106,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
   // đây là nội dung cột bên trái
   const content = (
-    
+
     // cái này là div để dàn thành cột
     <Box
       height="100%"
@@ -116,7 +121,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         flexDirection="column"
         p={2} // padding 2
       >
-        
+
         <Avatar
           className={classes.avatar}
           component={RouterLink}
@@ -154,6 +159,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
 
+      {/* --------- KHÔNG CẦN THIẾT Ở ĐÂY----------------- */}
       {/* cái này để đẩy phần tử cuối cùng sát đáy */}
       <Box flexGrow={1} />
 
@@ -191,11 +197,14 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           </Button>
         </Box>
       </Box>
+
+      {/* ------------------------------------------ */}
     </Box>
   );
 
   return (
     <>
+
       {/* đây là giao diện mobile */}
       <Hidden lgUp>
         <Drawer
@@ -207,6 +216,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         >
           {content}
         </Drawer>
+
       </Hidden>
       {/* đây là giao diện desktop */}
       <Hidden mdDown>
@@ -219,6 +229,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           {content}
         </Drawer>
       </Hidden>
+
     </>
   );
 };
@@ -229,7 +240,7 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 
