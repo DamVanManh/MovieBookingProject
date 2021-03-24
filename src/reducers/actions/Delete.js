@@ -8,7 +8,6 @@ export const deleteUser = (values) => {
     })
     Axios.delete(`QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${values}`)
       .then(result => {
-        // console.log("ket qua: ", result.data)
         dispath({
           type: DELETE_USER_SUCCESS,
           payload: { data: result.data }
