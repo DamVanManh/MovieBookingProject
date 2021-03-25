@@ -58,7 +58,6 @@ export default function Header() {
   return (
 
     <div className={classes.root}>
-      {console.log("currentUser: ", currentUser, matches)}
 
       {/* START HEADER */}
       <AppBar position="fixed" className={clsx(classes.appBar, { [classes.appBarShift]: open, })} color='default' >

@@ -6,25 +6,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
-import homeCarouselData from "../../../constants/homeCarouselData";
-import SearchStickets from "./SearchTickets";
-
 import Dialog from '@material-ui/core/Dialog';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+import homeCarouselData from "../../../constants/homeCarouselData";
+import SearchStickets from "./SearchTickets";
 import './carousel.css';
 import useStyles from "./styles";
 const play = './img/carousel/play-video.png';
 
 export default function Carousel() {
   const [openDialog, setOpenDialog] = React.useState({ toggel: false, trailer: '' });
-  const theme = useTheme();
-  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
-
   const classes = useStyles();
   const settings = {
     dots: true,
@@ -78,13 +71,13 @@ export default function Carousel() {
       </Slider>
 
       <Dialog open={openDialog.toggel} onClose={handleClose} maxWidth='md' classes={{ paper: classes.paper }}>
-        <iframe className={`${smDown && classes.downRangeSm} ${mdUp && classes.upKeyMd}`} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
+        <iframe className={classes.iframe} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
         <IconButton className={classes.closeButton} onClick={handleClose} >
           <CloseIcon style={{ color: 'white' }} fontSize='small' />
         </IconButton>
       </Dialog>
 
-      <SearchStickets smDown={smDown} />
+      <SearchStickets />
     </div>
   );
 }

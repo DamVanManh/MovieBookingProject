@@ -1,8 +1,11 @@
 import { makeStyles } from "@material-ui/core"
-const useStyle = makeStyles({
+const useStyle = makeStyles((theme) => ({
   // search bar
   search: {
-    display: (props) => props.smDown ? 'none' : 'flex',
+    display: "flex",
+    [theme.breakpoints.down(992)]: {
+      display: "none",
+    },
     maxWidth: "940px",
     margin: "auto",
     height: "83px",
@@ -62,21 +65,7 @@ const useStyle = makeStyles({
   },
 
   // popup menu
-  menu: {
-    maxHeight: 300,
-    "&::-webkit-scrollbar": { // custom scrollbar
-      width: 4,
-      backgroundColor: "#e8e3e3",
-      borderRadius: 4,
-    },
-    "&::-webkit-scrollbar-thumb": {
-      borderRadius: 4,
-      "-webkit-box-shadow": "inset 0 0 6px rgb(0 0 0 / 30%)",
-    },
-    "&::-webkit-scrollbar-track": {
-      borderRadius: 4,
-    }
-  },
+  menu: theme => ({ maxHeight: 300, ...theme.customScrollbar }),
   'menu__item': {
     width: '100%',
     minHeight: "auto",
@@ -130,5 +119,5 @@ const useStyle = makeStyles({
     padding: "8px 23px",
   }
 
-})
+}))
 export default useStyle

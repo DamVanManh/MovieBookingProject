@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import News from "../../components/News";
 import Carousel from "./Carousel";
-import Theaters from '../../components/Theaters';
+import Ads from '../../components/Ads'
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
@@ -19,6 +19,8 @@ import { useTheme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+// import Theaters from '../../components/Theaters';
+import Theaters from './Theaters'
 
 import useStyles from './style'
 // import PopupTrailer from './Carousel/popup';
@@ -126,16 +128,15 @@ export default function Homepage(props) {
     // bỏ container vì không fluid được component con: <div className='container'>
     <div>
       <Carousel />
-      {console.log('day la ', props.history)}
 
       <div className='showTime container' style={{ marginTop: 100 }}>
         <h2 className="text-center">Đang Chiếu</h2>
         <Slider {...settings}>
           {movieList.map((movie) => {
             return (
-              <div className={classes.showTime__Item}>
+              <div className={classes.showTime__Item} key={movie.maPhim}>
 
-                <i class={`${classes.play} fa fa-play`} onClick={() => handleTrailer(movie.trailer)}></i>
+                <i className={`${classes.play} fa fa-play`} onClick={() => handleTrailer(movie.trailer)}></i>
                 <Link to={`/phim/${movie.maPhim}`} style={{ color: 'black', textDecoration: 'none' }}>
                   <div className={`${classes.itemMovie} item`} key={movie.maPhim}>
                     <div className={classes.card} >
@@ -173,6 +174,7 @@ export default function Homepage(props) {
       </div>
       <Theaters />
       <News />
+      <Ads />
     </div>
 
 

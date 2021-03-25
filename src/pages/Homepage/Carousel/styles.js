@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core"
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   carousel: {
     marginTop: 64,
     position: 'relative',
@@ -66,13 +66,14 @@ const useStyles = makeStyles({
     '&:hover': { opacity: 0.7 },
     transition: "all .2s",
   },
-  downRangeSm: {
-    width: "598px",
-    height: "336px"
-  },
-  upKeyMd: {
+
+  iframe: {
     width: "898px",
-    height: "505px"
+    height: "505px",
+    [theme.breakpoints.down(992)]: {
+      width: "598px",
+      height: "336px"
+    },
   },
 
   paper: {
@@ -80,5 +81,5 @@ const useStyles = makeStyles({
     backgroundColor: "black",
     color: 'red'
   },
-})
+}))
 export default useStyles
