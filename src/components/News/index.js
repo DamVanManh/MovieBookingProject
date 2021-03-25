@@ -53,7 +53,7 @@ export default function SimpleTabs() {
     setValue(newValue);
   };
   return (
-    <div className="container">
+    <div className={`container ${classes.seperate}`}>
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <div>

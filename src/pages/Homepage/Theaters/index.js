@@ -11,6 +11,7 @@ import LstCumRap from './LstCumRap'
 import useStyles from './style'
 import { underLine } from '../../../styles/materialUi'
 import { colorObj } from '../../../constants/exportHexColorByMahethongrap'
+import Seperate from '../../../components/Seperate'
 
 export default function HeThongRap() {
   const theme = useTheme();
@@ -34,19 +35,22 @@ export default function HeThongRap() {
   }
 
   return (
-    <div className={classes.theater}>{/* div root theater */}
-      <Tabs
-        variant={horizontal ? "scrollable" : 'standard'}
-        scrollButtons="on"
-        orientation={`${horizontal ? "horizontal" : "vertical"}`}
-        value={valueHeThongRap} // giúp nhận diện tap đã click
-        onChange={handleChangeHeThongRap}
-        classes={{ indicator: classes.tabs__indicator, root: classes.taps }}
-      >
-        {theaterList.map((theater) => (<Tab disableRipple classes={{ root: classes.tap, selected: classes['tap--selected'], textColorInherit: classes.textColorInherit }} key={theater.maHeThongRap} label={<img style={{ width: '50px', height: '50px' }} src={theater.logo} />} />))}
-      </Tabs>
-      { theaterList.map((theater, index) => (valueHeThongRap === index && <LstCumRap lstCumRap={theater.lstCumRap} color={colorObj[theater.maHeThongRap]} maHeThongRap={theater.maHeThongRap} key={theater.maHeThongRap} horizontal={horizontal} />))}
-    </div >
+    <div>
+      <Seperate />
+      <div className={classes.theater}>{/* div root theater */}
+        <Tabs
+          variant={horizontal ? "scrollable" : 'standard'}
+          scrollButtons="on"
+          orientation={`${horizontal ? "horizontal" : "vertical"}`}
+          value={valueHeThongRap} // giúp nhận diện tap đã click
+          onChange={handleChangeHeThongRap}
+          classes={{ indicator: classes.tabs__indicator, root: classes.taps }}
+        >
+          {theaterList.map((theater) => (<Tab disableRipple classes={{ root: classes.tap, selected: classes['tap--selected'], textColorInherit: classes.textColorInherit }} key={theater.maHeThongRap} label={<img style={{ width: '50px', height: '50px' }} src={theater.logo} />} />))}
+        </Tabs>
+        {theaterList.map((theater, index) => (valueHeThongRap === index && <LstCumRap lstCumRap={theater.lstCumRap} color={colorObj[theater.maHeThongRap]} maHeThongRap={theater.maHeThongRap} key={theater.maHeThongRap} horizontal={horizontal} />))}
+      </div >
+    </div>
   );
 }
 

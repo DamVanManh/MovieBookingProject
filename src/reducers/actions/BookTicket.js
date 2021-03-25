@@ -23,7 +23,7 @@ export const bookTicket = (danhSachVe) => {
                             error: error.response.data,
                         }
                     })
-                    // console.log(error)
+
                 }
             )
     }
