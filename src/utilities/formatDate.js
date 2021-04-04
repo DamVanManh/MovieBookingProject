@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 
-const formatDate = (ISODate) => {
-  const dateObj = new Date(ISODate);
-
+const formatDate = (dateIn) => { // ISODate ~ 2021-3-31
+  if (dateIn.indexOf("/") !== -1) { // input 31/3/2021 > output 2021-3-31
+    const arr = dateIn.split('/')
+    dateIn = `${arr[2]}-${arr[1]}-${arr[0]}`
+  }
+  const dateObj = new Date(dateIn);
   const dayNumber = dateObj.getDay(); // trả về thứ dưới dạng một số từ 0 > 6
-  const dateNowFormat = new Date().toISOString().slice(0, 10);
-  const dateObjFormat = dateObj.toISOString().slice(0, 10);
+  const dateNowFormat = new Date().toString().slice(0, 10);
+  const dateObjFormat = dateObj.toString().slice(0, 10);
+
   let dayToday = '';
   if (dayNumber === 0) {
     dayToday = "Chủ nhật";
@@ -40,7 +44,7 @@ const formatDate = (ISODate) => {
 
   const dateFull = dayToday + ', ' + date + ' tháng ' + month + ', ' + year;
 
-  return { dayToday, dateShort: dateObjFormat, dateFull };
+  return { dayToday, dateShort: dateIn, dateFull };
 };
 
 export default formatDate

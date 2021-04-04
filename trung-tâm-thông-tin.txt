@@ -5,6 +5,8 @@
 1322 gái già lắm chiêu
 1337 Lừa Đểu Gặp Lừa Đảo
 1352 Thần Bịp Jack Chột
+*** các thứ chưa làm: 
+- cần: Bạn không thể bỏ trống 1 ghế ở giữa, không thể chọn quá 10 vé, khi có nhiều người cùng mua một vé
 *** CÁC THƯ VIỆN BẮT BUỘC CÀI ĐỂ CHẠY:
 	+ material ui: npm install @material-ui/core
 	+ icon: npm install @material-ui/icons

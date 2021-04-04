@@ -198,6 +198,7 @@ export default function SearchStickets() {
           <MenuItem value='' style={{ display: data.ngayChieuRender.length > 0 ? 'none' : 'block' }} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>{data.setRap ? 'Đang tìm ngày xem' : 'Vui lòng chọn phim và rạp'}</MenuItem>
           {data.ngayChieuRender.map(ngayChieu => (
             <MenuItem value={ngayChieu} key={ngayChieu} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>
+              {console.log('ngay chiếu', ngayChieu)}
               <li>{formatDate(ngayChieu).dayToday}</li>
               <li>{formatDate(ngayChieu).dateShort}</li>
             </MenuItem>

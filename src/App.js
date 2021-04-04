@@ -21,15 +21,16 @@ function App() {
       <Switch>
 
         {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
-        <Route exact path={["/", "/phim/:movieId", "/datve/:movieId"]}>
-          <MainLayout >
-            <Switch >
+        <Route exact path={["/", "/phim/:movieId"]}>
+          <Switch >
+            <MainLayout >
               <Route exact path="/" component={Homepage} />
               <Route exact path="/phim/:movieId" component={MovieDetail} />
-              <CheckoutRoute exact path="/datve/:maLichChieu" component={BookTickets} />
-            </Switch>
-          </MainLayout>
+            </MainLayout>
+          </Switch>
         </Route>
+
+        <CheckoutRoute exact path="/datve/:maLichChieu" component={BookTickets} />
 
         {/* component trong này chỉ cho phép truy cập khi tài khoản là admin */}
         <Route exact path={["/admin/users", "/admin/movies"]}>

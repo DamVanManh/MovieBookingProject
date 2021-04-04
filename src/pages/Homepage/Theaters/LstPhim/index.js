@@ -20,7 +20,7 @@ export default function Index(props) {
             </div>
           </div>
           <div>{/* div danh sách ngày giờ chiếu */}
-            <LstNgayChieu lstLichChieuTheoPhim={phim.lstLichChieuTheoPhim} maPhim={phim.maPhim} />
+            <LstNgayChieu lstLichChieuTheoPhim={phim.lstLichChieuTheoPhim} />
           </div>
         </div>
       ))}

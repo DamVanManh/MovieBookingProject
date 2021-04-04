@@ -39,7 +39,6 @@ const useStyle = makeStyles((theme) => ({
       },
       '& ~ svg': {
         fontSize: 19,
-
         color: 'rgba(0, 0, 0, 0.3)',
         top: '36%',
       }

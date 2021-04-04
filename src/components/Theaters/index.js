@@ -97,7 +97,6 @@ export default function Theaters() {
   if (error) {
     return <div>{error}</div>
   }
-
   return (
     <div className="container mt-5 ">
       <div className="row position-relative">
@@ -111,7 +110,6 @@ export default function Theaters() {
                 value={value}
                 onChange={handleChange}
                 aria-label="simple tabs example">
-
                 {theaterList?.map((item, index) => {
                   return (
                     // SỬA LẠI ĐỂ RENDER RA LOGO
@@ -121,11 +119,9 @@ export default function Theaters() {
               </Tabs>
             </div>
           </div>
-
           <div className="col-sm-10 pl-0 pr-0" >
             {theaterList?.map((item, index) => {
               // TRẢ VỀ 6 CON LẦN 1
-
               return (
                 <TabPanel value={value} index={index} >
                   <div className="row">
@@ -137,7 +133,6 @@ export default function Theaters() {
                           value={value1}
                           onChange={handleChange1}
                           aria-label="simple tabs example">
-
                           {item.lstCumRap?.map((item1, index1) => {
                             return (
                               // label={item1.tenCumRap}
@@ -156,12 +151,10 @@ export default function Theaters() {
                         </Tabs>
                       </div>
                     </div>
-
                     <div className="col-sm-9 pl-0 pr-0" >
                       {item.lstCumRap?.map((item2, index2) => {
                         return (
                           <TabPanel value={value1} index={index2} style={{ overflowY: 'scroll', height: '500px' }}>
-
                             {item2.danhSachPhim?.map((item3, index3) => {
                               return (
                                 <div>
@@ -172,9 +165,7 @@ export default function Theaters() {
                                     <div className="col-sm-10">
                                       <h3 className="mb-0">{item3.tenPhim}</h3>
                                     </div>
-
                                   </div>
-
                                   <div className="row pl-0 pr-0 " style={{ width: '100%', margin: 0 }}>
                                     {item3.lstLichChieuTheoPhim?.map((item4, index4) => {
                                       const temp = item4.ngayChieuGioChieu.split('T', 2)
@@ -183,15 +174,12 @@ export default function Theaters() {
                                         <div className="col-sm-3">
                                           <Link to={`/datve/${item4.maLichChieu}`} className="btn mb-2 " style={{ fontSize: '15px', color: 'green', backgroundColor: 'gray', fontWeight: 'bold' }}>{temp[1]}</Link>
                                         </div>
-
                                       )
                                     })}
                                   </div>
                                 </div>
-
                               )
                             })}
-
                           </TabPanel>
                         )
                       })}

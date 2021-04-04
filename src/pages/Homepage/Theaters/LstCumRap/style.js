@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   }),
   'cumRap__name--second': {
     color: "#000",
-    fontWeight: "400",
+    fontWeight: "500",
   },
   cumRap__address: {
     fontSize: "12px",

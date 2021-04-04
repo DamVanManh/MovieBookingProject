@@ -11,13 +11,11 @@ const useStyles = makeStyles({
     border: "1px solid #ebebec",
     borderRadius: 4,
   },
-  taps: {
+  taps: { // dường line phần chia khi horizontal
     borderBottom: props => props.horizontal ? '3px solid #ebebec' : 'none',
   },
   tabs__indicator: {
-    backgroundColor: 'transparent',
-    borderBottom: props => props.horizontal && '2px solid #fb4226',
-    borderRight: props => props.horizontal || '2px solid #fb4226',
+    backgroundColor: 'transparent', // ẩn đi line màu đỏ mặc định
   },
   tap: props => ({
     padding: 20,

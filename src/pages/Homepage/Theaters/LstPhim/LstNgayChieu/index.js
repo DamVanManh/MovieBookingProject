@@ -4,7 +4,7 @@ import openNewTap from '../../../../../utilities/openNewTap'
 import useStyles from './style'
 
 export default function LstGioChieu(props) {
-  const { lstLichChieuTheoPhim, maPhim } = props;
+  const { lstLichChieuTheoPhim } = props;
   const classes = useStyles()
   const mangChiChuaNgay = lstLichChieuTheoPhim.map(item => {  // tạo mảng mới chỉ chứa ngày
     return item.ngayChieuGioChieu.slice(0, 10);// item là "2020-12-17" cắt ra từ 2020-12-17T10:10:00

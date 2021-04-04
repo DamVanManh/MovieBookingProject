@@ -10,7 +10,7 @@ import { getTheaters } from '../../../reducers/actions/Movie';
 import LstCumRap from './LstCumRap'
 import useStyles from './style'
 import { underLine } from '../../../styles/materialUi'
-import { colorObj } from '../../../constants/exportHexColorByMahethongrap'
+import { colorTheater } from '../../../constants/theaterData'
 import Seperate from '../../../components/Seperate'
 
 export default function HeThongRap() {
@@ -33,7 +33,6 @@ export default function HeThongRap() {
   if (error) {
     return <div>{error}</div>
   }
-
   return (
     <div>
       <Seperate />
@@ -48,7 +47,7 @@ export default function HeThongRap() {
         >
           {theaterList.map((theater) => (<Tab disableRipple classes={{ root: classes.tap, selected: classes['tap--selected'], textColorInherit: classes.textColorInherit }} key={theater.maHeThongRap} label={<img style={{ width: '50px', height: '50px' }} src={theater.logo} />} />))}
         </Tabs>
-        {theaterList.map((theater, index) => (valueHeThongRap === index && <LstCumRap lstCumRap={theater.lstCumRap} color={colorObj[theater.maHeThongRap]} maHeThongRap={theater.maHeThongRap} key={theater.maHeThongRap} horizontal={horizontal} />))}
+        {theaterList.map((theater, index) => (valueHeThongRap === index && <LstCumRap lstCumRap={theater.lstCumRap} color={colorTheater[theater.lstCumRap[0].tenCumRap.slice(0, 3).toUpperCase()]} maHeThongRap={theater.maHeThongRap} key={theater.maHeThongRap} horizontal={horizontal} />))}
       </div >
     </div>
   );
