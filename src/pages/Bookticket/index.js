@@ -1,49 +1,57 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom";
+import React, { useEffect } from 'react'
 
-import useStyles from './style'
-import SeatList from './SeatList'
-import PayMent from './PayMent'
-import bookingApi from '../../api/bookingApi'
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles'
+
+import { getListSeat } from '../../reducers/actions/BookTicket'
+import { CHANGE_LISTSEAT } from '../../reducers/constants/BookTicket';
+
+import Mobile from './Mobile';
+import Desktop from './Desktop';
 
 export default function Index() {
-  const [dataTicket, setDataTicket] = useState({ loading: false, error: null, danhSachPhongVe: {}, refreshKey: Date.now() })
-  const param = useParams();
-  const classes = useStyles();
+  const { danhSachPhongVe, loadingGetListSeat, errorGetListSeatMessage } = useSelector((state) => state.bookTicket)
+  const param = useParams()
+  const dispatch = useDispatch()
+  const theme = useTheme()
+  const horizontal = useMediaQuery(theme.breakpoints.down(768))
 
-  useEffect(() => { // lấy thông tin phim và danh sách ghế
-    setDataTicket(dataTicket => ({ ...dataTicket, loading: true, error: null }))
-    bookingApi.getDanhSachPhongVe(param.maLichChieu)
-      .then(result => {
-        setDataTicket(dataTicket => ({ ...dataTicket, loading: false, danhSachPhongVe: result.data }))
-      }
-      )
-      .catch(result => {
-        setDataTicket(dataTicket => ({ ...dataTicket, loading: false, error: result.response.data }))
-      })
+  useEffect(() => { // lấy thongTinPhim và danhSachGhe
+    dispatch(getListSeat(param.maLichChieu))
   }, [])
-  // console.log('danhSachPhongVe', dataTicket.danhSachPhongVe)
 
-  const onRefresh = () => {
-    console.log("trước", dataTicket.refreshKey)
-    setDataTicket((dataTicket) => ({ ...dataTicket, refreshKey: Date.now() }))
-    console.log("sau", dataTicket.refreshKey)
-  }
+  useEffect(() => { // Chỉnh sửa data danhSachGhe
+    let initCode = 64;
+    const danhSachGheEdit = danhSachPhongVe.danhSachGhe?.map((seat, i) => { // thêm label A01, thêm flag selected: false
+      if (i % 16 === 0) initCode++
+      const txt = String.fromCharCode(initCode)
+      const number = ((i % 16) + 1).toString().padStart(2, 0)
+      return ({ ...seat, label: txt + number, selected: false })
+    })
+    dispatch({
+      type: CHANGE_LISTSEAT,
+      payload: {
+        listSeat: danhSachGheEdit
+      }
+    })
+  }, [danhSachPhongVe])
 
-  if (dataTicket.loading) {
+  if (loadingGetListSeat) {
     return <h1 style={{ paddingTop: 300 }}>loading</h1>
   }
-  if (dataTicket.error) {
-    return <div>{dataTicket.error}</div>
+  if (errorGetListSeatMessage) {
+    return <div>{errorGetListSeatMessage}</div>
   }
   return (
-    <div style={{ paddingTop: 64 }} className={classes.bookTicked}>
-      <div className={classes.seatList} >
-        <SeatList key={dataTicket.refreshKey} danhSachPhongVe={dataTicket.danhSachPhongVe} onRefresh={onRefresh} />
-      </div>
-      <div className={classes.payMent} >
-        <PayMent key={dataTicket.refreshKey} danhSachPhongVe={dataTicket.danhSachPhongVe} />
-      </div>
-    </div>
+    <>
+      {horizontal ?
+        <Mobile horizontal={horizontal} /> :
+        <Desktop horizontal={horizontal} />
+      }
+    </>
   )
 }
+
+

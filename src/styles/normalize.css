@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 body {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -20,6 +20,9 @@ button:focus {
   outline: none;
 }
 p {
+  margin-bottom: 0px;
+}
+label {
   margin-bottom: 0px;
 }
 

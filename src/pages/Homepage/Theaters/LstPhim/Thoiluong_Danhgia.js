@@ -4,11 +4,11 @@ export default function Thoiluong_Danhgia(props) {
   const [data, setData] = useState({ thoiLuong: '120 ', danhGia: '..' })
   const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${props.maPhim}`
   useEffect(() => {
-    let source = Axios.CancelToken.source(); // Axios cung cấp, để cancel gọi api khi component bị hủy(bấm chuyển cụm rạp khác)
+    let getInfoFlimCancel = Axios.CancelToken.source(); // Axios cung cấp, để cancel gọi api khi component bị hủy(bấm chuyển cụm rạp khác)
     const loadData = async () => {
       try { // bắt lỗi khi get API, nếu có lỗi thì vào catch
         const response = await Axios.get(url, {
-          cancelToken: source.token
+          cancelToken: getInfoFlimCancel.token
         });
         setData({
           thoiLuong: response.data.heThongRapChieu?.[0].cumRapChieu?.[0].lichChieuPhim?.[0].thoiLuong, // tách ra thời lượng phim
@@ -24,7 +24,7 @@ export default function Thoiluong_Danhgia(props) {
     };
     loadData();
     return () => {
-      source.cancel(); // unmounting thì cancel request axios
+      getInfoFlimCancel.cancel(); // unmounting thì cancel request axios
     };
   }, [])
   return (

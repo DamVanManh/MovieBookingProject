@@ -1,33 +1,49 @@
-// phục vụ cho đặt vé, lấy danh sách ghế
-
+// lấy danh sách vé và đặt vé
 import bookingApi from '../../api/bookingApi';
-import { } from '../constants/Movie';
+import { BOOK_TICKET_REQUEST, BOOK_TICKET_SUCCESS, BOOK_TICKET_FAIL, GET_LISTSEAT_REQUEST, GET_LISTSEAT_SUCCESS, GET_LISTSEAT_FAIL } from "../constants/BookTicket";
 
-import bookingApi from "../../api/bookingApi";
-import { BOOK_TICKET_REQUEST, BOOK_TICKET_SUCCESS, BOOK_TICKET_FAIL, GET_ROOM_TICKETLIST_REQUEST, GET_ROOM_TICKETLIST_SUCCESS, GET_ROOM_TICKETLIST_FAIL } from "../constants/BookTicket";
+export const getListSeat = (maLichChieu) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_LISTSEAT_REQUEST
+    })
+    bookingApi.getDanhSachPhongVe(maLichChieu)
+      .then(result => {
+        dispatch({
+          type: GET_LISTSEAT_SUCCESS,
+          payload: { data: result.data }
+        })
+      })
+      .catch(
+        error => {
+          dispatch({
+            type: GET_LISTSEAT_FAIL,
+            payload: { error: error.message }
+          })
+        }
+      )
+  }
+}
 
 export const bookTicket = (danhSachVe) => {
-  return (dispath) => {
-    dispath({
+  return (dispatch) => {
+    dispatch({
       type: BOOK_TICKET_REQUEST
     })
     bookingApi.postDatVe(danhSachVe)
       .then(result => {
-        dispath({
+        dispatch({
           type: BOOK_TICKET_SUCCESS,
           payload: {
             data: result.data,
           }
         })
-      }
-      )
+      })
       .catch(
         error => {
-          dispath({
+          dispatch({
             type: BOOK_TICKET_FAIL,
-            payload: {
-              error: error.response.data,
-            }
+            payload: { error: error.message }
           })
 
         }
@@ -35,26 +51,4 @@ export const bookTicket = (danhSachVe) => {
   }
 }
 
-export const getRoomTicketList = (maLichChieu) => {
-  return (dispath) => {
-    dispath({
-      type: GET_ROOM_TICKETLIST_REQUEST
-    })
-    bookingApi.getDanhSachPhongVe(maLichChieu)
-      .then(result => {
-        dispath({
-          type: GET_ROOM_TICKETLIST_SUCCESS,
-          payload: { data: result.data }
-        })
-      }
-      )
-      .catch(
-        error => {
-          dispath({
-            type: GET_ROOM_TICKETLIST_FAIL,
-            payload: { error: error.response.data, }
-          })
-        }
-      )
-  }
-}
+

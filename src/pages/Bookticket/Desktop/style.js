@@ -4,15 +4,12 @@ const useStyles = makeStyles({
   bookTicked: {
     display: 'flex',
   },
-  seatList: {
-    flex: "70%",
-    padding: '0 10%',
+  left: {
+    flex: "75%",
   },
-  payMent: {
-    flex: "30%",
-    color: 'red'
+  right: {
+    flex: "25%",
   },
-
 
 })
 export default useStyles

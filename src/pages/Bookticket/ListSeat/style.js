@@ -1,14 +1,19 @@
 import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
-  info: {
+  listSeat: props => ({
+    position: 'relative',
+    padding: '0 10%',
+    marginLeft: props.horizontal ? '0%' : '10%',
+  }),
+
+  info_CountDown: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '0 5%'
+    padding: '2% 0%',
   },
   infoTheater: {
     display: 'flex',
-    fontSize: 16,
   },
   text: {
     paddingTop: 5,
@@ -26,27 +31,25 @@ const useStyles = makeStyles({
     color: "#9b9b9b",
   },
   countDown: {
-    textAlign: "center"
+    textAlign: "center",
   },
   timeTitle: {
-    fontSize: "10px",
+    fontSize: "12px",
     color: "#9b9b9b",
   },
   timeCount: {
     fontWeight: 500,
-    fontSize: "29px",
+    fontSize: 34,
     color: "#fb4226",
+    lineHeight: '39px',
   },
 
   screen: {
-    textAlign: "center",
-  },
-  logo: {
-    width: '90%',
+    width: '100%',
   },
 
-  listSeat: {
-    padding: '0% 12% 0% 12%',
+  seatSelect: {
+    padding: '0% 10%',
     position: 'relative',
     WebkitUserSelect: "none",
     MozUserSelect: "none",
@@ -65,16 +68,23 @@ const useStyles = makeStyles({
     left: "-100%",
     transform: "translate(-50%, -50%)",
     fontWeight: 500,
-    fontSize: "1vw",
+    fontSize: "1.5vw",
     cursor: "default",
   },
   seatName: {
     position: 'absolute',
-    top: "44%",
+    top: "40%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    display: 'none',
-    fontSize: "1vw",
+    fontSize: "1.4vw",
+  },
+  seatLocked: {
+    position: 'absolute',
+    top: "31%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    fontSize: "2vw",
+    color: '#fff',
   },
   seatIcon: {
     width: '100%',
@@ -84,11 +94,11 @@ const useStyles = makeStyles({
     zIndex: 1,
     background: "0 0",
     position: "absolute",
-    width: '12vw',
-    height: '6vw',
-    top: "60%",
+    width: '18vw',
+    height: '9vw',
+    top: "55%",
     left: "55.5%",
-    transform: "translate(-42.5%,-40%)"
+    transform: "translate(-42.5%,-42%)"
   },
   areaClick: {
     width: '100%',
@@ -101,14 +111,22 @@ const useStyles = makeStyles({
   },
 
   noteSeat: {
-    padding: '5% 10% 0',
+    padding: '2% 10% 0',
   },
   typeSeats: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     textAlign: 'center',
-    gap: 20,
   },
+  posiX: {
+    position: 'absolute',
+    top: "17%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    fontSize: 18,
+    color: '#fff',
+  },
+
   positionView: {
     textAlign: 'center',
     marginTop: 5,
@@ -121,7 +139,7 @@ const useStyles = makeStyles({
     display: "inline-block",
     borderBottom: "2px dashed #fa7f6c",
     width: 28,
-    verticalAlign: "middle",
+    verticalAlign: "super",
     marginRight: 8,
   },
   linebeautiful: {
@@ -132,15 +150,24 @@ const useStyles = makeStyles({
     marginRight: 8,
   },
 
-  popup: {
-    padding: 40,
-    textAlign: 'center',
-    fontSize: 17,
-    fontWeight: 500,
-  },
-  refresh: {
-    color: "#fb4226",
-    cursor: 'pointer'
+  modalleft: props => ({
+    display: props.horizontal ? 'none' : 'block',
+    left: 0,
+    top: 100,
+    height: "calc(100% - 100px)",
+    width: "7.5%",
+    position: "fixed",
+    backgroundImage: `url(${props.modalLeftImg})`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  }),
+
+  opacity: {
+    height: '100%',
+    width: '100%',
+    background: "#000",
+    opacity: 0.7
   }
 
 })
