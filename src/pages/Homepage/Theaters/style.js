@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core"
 const useStyles = makeStyles({
   theater: {
     display: "flex",
-    flexDirection: props => props.horizontal && 'column',
-    maxHeight: props => props.horizontal ? 'none' : '705px',
+    flexDirection: props => props.isMobileTheater && 'column',
+    maxHeight: props => props.isMobileTheater ? 'none' : '705px',
     maxWidth: 940,
     margin: 'auto',
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     borderRadius: 4,
   },
   taps: { // dường line phần chia khi horizontal
-    borderBottom: props => props.horizontal ? '3px solid #ebebec' : 'none',
+    borderBottom: props => props.isMobileTheater ? '3px solid #ebebec' : 'none',
   },
   tabs__indicator: {
     backgroundColor: 'transparent', // ẩn đi line màu đỏ mặc định

@@ -5,9 +5,9 @@ const useStyles = makeStyles({
     flex: "30%",
     overflowY: 'auto',
     overflowX: 'hidden',
-    maxHeight: props.horizontal && 300,
+    maxHeight: props.isMobileTheater && 300,
     borderLeft: "1px solid #ebebec",
-    borderBottom: props.horizontal ? '3px solid #ebebec' : 'none',
+    borderBottom: props.isMobileTheater ? '3px solid #ebebec' : 'none',
     ...props.customScrollbar,
   }),
 

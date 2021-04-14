@@ -4,7 +4,7 @@ const useStyles = makeStyles({
   listSeat: props => ({
     position: 'relative',
     padding: '0 10%',
-    marginLeft: props.horizontal ? '0%' : '10%',
+    marginLeft: props.isMobile ? '0%' : '10%',
   }),
 
   info_CountDown: {
@@ -151,7 +151,7 @@ const useStyles = makeStyles({
   },
 
   modalleft: props => ({
-    display: props.horizontal ? 'none' : 'block',
+    display: props.isMobile ? 'none' : 'block',
     left: 0,
     top: 100,
     height: "calc(100% - 100px)",

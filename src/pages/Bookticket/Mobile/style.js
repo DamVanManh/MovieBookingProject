@@ -1,10 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
-
-  root: {
-
-  },
   top: {
     position: 'fixed',
     top: 0,
@@ -25,6 +21,7 @@ const useStyles = makeStyles({
   imgCancel: {
     width: 15,
     height: 15,
+    cursor: 'pointer'
   },
   stepName: {
     fontWeight: 500,
@@ -63,10 +60,11 @@ const useStyles = makeStyles({
     color: "#44c020",
     fontSize: 15,
     backgroundColor: '#fff',
+    padding: 10,
   },
   btnRight: props => ({
     color: "#e9e9e9",
-    backgroundColor: props.isDisable ? "#afafaf" : "#44c020",
+    backgroundColor: props.isDisableBtnRight ? "#afafaf" : "#44c020",
     fontSize: 19,
   }),
 

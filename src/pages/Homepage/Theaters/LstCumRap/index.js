@@ -6,9 +6,9 @@ import useStyles from './style'
 import { underLine, customScrollbar } from '../../../../styles/materialUi'
 
 export default function LstCumRap(props) {
-  const { lstCumRap, horizontal, color, maHeThongRap } = props;
+  const { lstCumRap, isMobileTheater, color, maHeThongRap } = props;
   const [valueCumRap, setValueCumRap] = React.useState(0);
-  const classes = useStyles({ underLine, customScrollbar, horizontal, color });
+  const classes = useStyles({ underLine, customScrollbar, isMobileTheater, color });
   const handleChangeCumRap = (e) => {
     setValueCumRap(e.currentTarget.getAttribute("index"));
   };
@@ -22,7 +22,7 @@ export default function LstCumRap(props) {
       return imgLst
     }
     return createImgLst()
-  }, maHeThongRap)
+  }, [maHeThongRap])
 
   return (
     <>

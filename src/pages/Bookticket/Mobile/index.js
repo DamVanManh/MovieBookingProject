@@ -1,66 +1,86 @@
 import React, { Fragment, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import useStyles from './style';
 import { FAKE_AVATAR } from '../../../constants/config';
 import ListSeat from '../ListSeat';
 import PayMent from '../PayMent';
 import { bookTicket } from '../../../reducers/actions/BookTicket'
-import Modal from '../Modal';
+import ResultBookticket from '../ResultBookticket';
+import { RESET_DATA, SET_STEP } from '../../../reducers/constants/BookTicket'
+import { getListSeat } from '../../../reducers/actions/BookTicket'
 
-export default function CustomizedSteppers({ horizontal }) {
+export default function Mobile() {
+  const { activeStep, isSelectedSeat, listSeatSelected, isReadyPayment, maLichChieu, danhSachVe, taiKhoanNguoiDung, loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
   const history = useHistory();
-  const { isSelectedSeat, paymentMethod } = useSelector((state) => state.bookTicket)
-  const { listSeat, maLichChieu, danhSachVe, taiKhoanNguoiDung, listSeat_payMent_key, loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicket)
-  const [activeStep, setActiveStep] = React.useState(0);
   const dispatch = useDispatch()
-  const isDisable = ((activeStep === 0) && !isSelectedSeat) || ((activeStep === 1) && !paymentMethod)
-  const classes = useStyles({ isDisable });
+  const isDisableBtnRight = ((activeStep === 0) && !isSelectedSeat) || ((activeStep === 1) && !isReadyPayment)
+  const classes = useStyles({ isDisableBtnRight });
+  const param = useParams()
 
+  const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ']
 
-  useEffect(() => { // reset step by timeout or rebooking
-    let isUnmount = false;
-    if (!isUnmount) {
-      setActiveStep(0);
+  useEffect(() => { // chuyển sang step 2 nếu đã nhấn đặt vé
+    if (successBookingTicketMessage || errorBookTicketMessage) {
+      dispatch({ type: SET_STEP, payload: { activeStep: 2, } })
     }
-    return () => {
-      isUnmount = true;
-    }
-  }, [listSeat_payMent_key])
-  const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ'];
+  }, [successBookingTicketMessage, errorBookTicketMessage])
+
+  const handleCombackHome = () => {
+    dispatch({ type: RESET_DATA })
+    history.push('/')
+  }
 
   const handleNext = () => {
-    // khi nào thì tăng step và đặt vé:
-    //    chỉ tăng step nếu đang ở step 0
-    //    chỉ đặt vé: nếu step đang ở 1 > nếu không đang loading > nếu success false  > nếu error false
     if (activeStep === 0) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      dispatch({ type: SET_STEP, payload: { activeStep: 1, }, })
     }
-    if ((activeStep === 1) && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
+    // chỉ thực hiện dispatch đặt vé một lần
+    if ((activeStep === 1) && isReadyPayment && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
       dispatch(bookTicket({ maLichChieu, danhSachVe, taiKhoanNguoiDung }))
+      dispatch({ type: SET_STEP, payload: { activeStep: 2, }, })
     }
-  };
+    if (activeStep === 2) {
+      handleCombackHome()
+    }
+  }
   const handleBack = () => {
     if (activeStep === 1) {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+      dispatch({ type: SET_STEP, payload: { activeStep: 0, }, })
     }
-  };
-  const listSeatSelected = listSeat?.reduce((listSeatSelected, seat) => {
-    if (seat.selected) {
-      return [...listSeatSelected, seat.label]
+    if (activeStep === 2) {
+      if (successBookingTicketMessage) {
+        dispatch({ type: RESET_DATA })
+        dispatch(getListSeat(param.maLichChieu))
+      }
+      if (errorBookTicketMessage) {
+        dispatch({ type: RESET_DATA })
+      }
     }
-    return listSeatSelected
-  }, [])
+  }
+
+  const getContentBtn = () => {
+    switch (activeStep) {
+      case 0:
+        return { left: listSeatSelected?.join(", "), right: 'TIẾP TỤC' }
+      case 1:
+        return { left: 'QUAY LẠI', right: 'ĐẶT VÉ' }
+      case 2:
+        return { left: 'MUA THÊM VÉ PHIM NÀY', right: 'QUAY VỀ TRANG CHỦ' }
+      default:
+        return {};
+    }
+  }
 
   return (
-    <div className={classes.root}>
+    <div>
 
       {/* top */}
       <section className={classes.top}>
         <div className={classes.topLeft}>
-          <img className={classes.imgCancel} src="/img/bookticket/cancel-arrow.png" alt="cancel" onClick={() => history.push('/')} />
+          <img className={classes.imgCancel} src="/img/bookticket/cancel-arrow.png" alt="cancel" onClick={handleCombackHome} />
         </div>
         {steps.map((label, i) => (
           <Fragment key={label}>
@@ -76,24 +96,25 @@ export default function CustomizedSteppers({ horizontal }) {
 
       {/* content */}
       <main style={{ display: activeStep === 0 ? 'block' : 'none' }}>
-        <ListSeat horizontal={horizontal} key={listSeat_payMent_key} />
+        <ListSeat />
       </main>
-      <aside style={{ display: activeStep === 1 ? 'block' : 'none' }}>
-        <PayMent horizontal={horizontal} key={listSeat_payMent_key + 1} />
-      </aside>
+      <main style={{ display: activeStep === 1 ? 'block' : 'none' }}>
+        <PayMent />
+      </main>
+      <main style={{ display: activeStep === 2 ? 'block' : 'none' }}>
+        <ResultBookticket />
+      </main>
 
       {/* bottom */}
       <section className={classes.bottom}>
         <button className={`${classes.btnLeft} ${classes.btnBottom}`} onClick={handleBack} disabled={activeStep === 0}>
-          {activeStep === 0 ? listSeatSelected.join(", ") : 'QUAY LẠI'}
+          {getContentBtn().left}
         </button>
-        <button className={`${classes.btnRight} ${classes.btnBottom}`} disabled={isDisable} onClick={handleNext}>
-          {activeStep === 0 ? 'TIẾP TỤC' : 'ĐẶT VÉ'}
+        <button className={`${classes.btnRight} ${classes.btnBottom}`} disabled={isDisableBtnRight} onClick={handleNext}>
+          {getContentBtn().right}
         </button>
       </section>
 
-      {/* modal */}
-      <Modal />
     </div>
   );
 }

@@ -1,24 +1,27 @@
 
 import React, { useState } from 'react';
+
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
-
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from "@material-ui/core/Button";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import theatersApi from "../../../../api/theatersApi";
 import useStyles from "./styles";
 import formatDate from "../../../../utilities/formatDate";
-import openInNewTab from '../../../../utilities/openNewTap'
 import { customScrollbar } from '../../../../styles/materialUi'
+import { HIDDEN_SEARCHTICKET } from '../../../../constants/config';
 
 export default function SearchStickets() {
   const { movieList: movieRender, loading, error } = useSelector((state) => state.movieReducer);
   const history = useHistory();
+  const down992px = useMediaQuery(HIDDEN_SEARCHTICKET);
+  const classes = useStyles({ customScrollbar, down992px });
   const [data, setData] = useState({
     // handleSelectPhim
     setPhim: '',
@@ -43,7 +46,7 @@ export default function SearchStickets() {
     // handleOpen
     openCtr: { phim: false, rap: false, ngayXem: false, suatChieu: false }
   });
-  const classes = useStyles({ customScrollbar });
+
   const handleOpenPhim = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, phim: true } })) };
   const handleOpenRap = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, rap: true } })) };
   const handleOpenNgayXem = () => { setData(data => ({ ...data, openCtr: { ...data.openCtr, ngayXem: true } })) };
@@ -69,7 +72,6 @@ export default function SearchStickets() {
         setData(data => ({ ...data, startRequest: false }))
         const cumRapChieuData = result.data.heThongRapChieu.reduce((colect, item) => { return [...colect, ...item.cumRapChieu] }, [])
         const rapRender = cumRapChieuData.map(item => item.tenCumRap)
-        // console.log('getThongTinLichChieuPhim', result.data)
         setData(data => ({
           ...data, rapRender, cumRapChieuData,
         }));
@@ -198,7 +200,6 @@ export default function SearchStickets() {
           <MenuItem value='' style={{ display: data.ngayChieuRender.length > 0 ? 'none' : 'block' }} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>{data.setRap ? 'Đang tìm ngày xem' : 'Vui lòng chọn phim và rạp'}</MenuItem>
           {data.ngayChieuRender.map(ngayChieu => (
             <MenuItem value={ngayChieu} key={ngayChieu} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>
-              {console.log('ngay chiếu', ngayChieu)}
               <li>{formatDate(ngayChieu).dayToday}</li>
               <li>{formatDate(ngayChieu).dateShort}</li>
             </MenuItem>
@@ -230,7 +231,7 @@ export default function SearchStickets() {
             root: classes.btn,
             disabled: classes.btnDisabled,
           }}
-          onClick={() => openInNewTab(`/datve/${data.maLichChieu}`)}
+          onClick={() => history.push(`/datve/${data.maLichChieu}`)}
         >mua vé ngay</Button>
       </FormControl>
     </div >

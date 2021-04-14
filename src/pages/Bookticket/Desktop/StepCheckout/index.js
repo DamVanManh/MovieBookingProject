@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
@@ -7,26 +7,17 @@ import StepLabel from '@material-ui/core/StepLabel';
 import SeatIcon from '@material-ui/icons/CallToActionRounded';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { useStyles, ColorlibConnector } from './style';
 import { FAKE_AVATAR } from '../../../../constants/config';
 
-export default function CustomizedSteppers() {
+export default function Stepcheckout() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const { listSeat, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicket);
+  const dispatch = useDispatch()
+  const { activeStep } = useSelector(state => state.bookTicketReducer);
   const { currentUser } = useSelector(state => state.authReducer);
   const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ'];
-  const isSelectedSeat = listSeat?.some((seat) => seat.selected)
-  useEffect(() => {
-    if (isSelectedSeat) {
-      setActiveStep(1)
-    } else { setActiveStep(0) }
-    if (successBookingTicketMessage || errorBookTicketMessage) {
-      setActiveStep(2)
-    }
-  }, [listSeat, successBookingTicketMessage, errorBookTicketMessage])
 
   function StepIcon(props) {
     const { active, completed } = props;

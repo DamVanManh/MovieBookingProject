@@ -9,10 +9,10 @@ import { colorTheater, logoTheater } from '../../../constants/theaterData'
 import formatDate from '../../../utilities/formatDate'
 import { CHANGE_LISTSEAT } from '../../../reducers/constants/BookTicket';
 
-export default function Index({ horizontal }) {
-  const { listSeat, danhSachPhongVe } = useSelector(state => state.bookTicket);
+export default function Index() {
+  const { activeStep, isMobile, listSeat, danhSachPhongVe } = useSelector(state => state.bookTicketReducer);
   const { thongTinPhim } = danhSachPhongVe
-  const classes = useStyles({ color: colorTheater[thongTinPhim?.tenCumRap.slice(0, 3).toUpperCase()], modalLeftImg: thongTinPhim?.hinhAnh, horizontal })
+  const classes = useStyles({ color: colorTheater[thongTinPhim?.tenCumRap.slice(0, 3).toUpperCase()], modalLeftImg: thongTinPhim?.hinhAnh, isMobile })
   const dispatch = useDispatch();
 
   const handleSelectedSeat = (seatSelected) => {
@@ -26,11 +26,40 @@ export default function Index({ horizontal }) {
       }
       return seat
     })
+    // cập nhật lại danh sách hiển thị ghế đã chọn
+    const listSeatSelected = newListSeat?.reduce((listSeatSelected, seat) => {
+      if (seat.selected) {
+        return [...listSeatSelected, seat.label]
+      }
+      return listSeatSelected
+    }, [])
+    // cập nhật lại danhSachVe dùng để booking
+    const danhSachVe = newListSeat?.reduce((danhSachVe, seat) => {
+      if (seat.selected) {
+        return [...danhSachVe, { maGhe: seat.maGhe, giaVe: seat.giaVe }]
+      }
+      return danhSachVe
+    }, [])
+    // cập nhật biến kiểm tra đã có ghế nào được chọn chưa
+    const isSelectedSeat = newListSeat.some((seat) => seat.selected)
+    // chuyển sang step 0 nếu không có ghế nào được chọn
+    const newSctiveStep = isSelectedSeat ? activeStep : 0
+    // tính lại tổng tiền
+    const amount = newListSeat?.reduce((amount, seat) => {
+      if (seat.selected) {
+        return amount += seat.giaVe
+      }
+      return amount
+    }, 0)
     dispatch({
       type: CHANGE_LISTSEAT,
       payload: {
         listSeat: newListSeat,
-        isSelectedSeat: newListSeat.some((seat) => seat.selected)
+        isSelectedSeat,
+        listSeatSelected,
+        danhSachVe,
+        activeStep: newSctiveStep,
+        amount,
       }
     })
   }

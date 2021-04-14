@@ -4,7 +4,7 @@ import { underLineDashed, customScrollbar } from '../../../styles/materialUi';
 const useStyles = makeStyles({
   payMent: props => ({
     width: '100%',
-    height: props.horizontal ? 'calc(100vh - 130px)' : '100vh',
+    height: props.isMobile ? 'calc(100vh - 130px)' : '100vh',
     position: 'relative',
     boxShadow: "0 0 15px rgb(0 0 0 / 30%)",
     padding: "0 8%",
@@ -18,7 +18,6 @@ const useStyles = makeStyles({
   }),
   payMentItem: {
     padding: "12px 0",
-    flexShrink: 0,
     ...underLineDashed
   },
 
@@ -43,7 +42,7 @@ const useStyles = makeStyles({
     fontSize: 18,
   },
   amountLittle: {
-    flex: "0 0 80px",
+    flex: "0 0 82px",
     color: "#44c020",
     fontWeight: 500,
     textAlign: 'right',
@@ -51,9 +50,14 @@ const useStyles = makeStyles({
 
   label: {
     color: "#9b9b9b",
+    display: 'block'
+  },
+  error: {
+    color: "#fb4226",
   },
   fillIn: {
     border: 'none',
+    width: "100%",
     lineHeight: 1.7,
     '&:focus': {
       outline: 'none'
@@ -145,7 +149,6 @@ const useStyles = makeStyles({
     border: 'none',
     cursor: 'pointer',
     height: 60,
-    display: 'flex',
     backgroundColor: '#afafaf',
     backgroundImage: props.isReadyPayment ? "linear-gradient(223deg,#b4ec51 0,#429321 100%)" : 'none',
   }),

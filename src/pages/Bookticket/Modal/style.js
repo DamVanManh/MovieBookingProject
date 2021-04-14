@@ -2,42 +2,26 @@ import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
   modal: {
-    padding: 40,
     textAlign: 'center',
     fontSize: 17,
     fontWeight: 500,
   },
-  spaceEvenly: {
-    display: 'flex',
-    justifyContent: 'space-evenly'
+  timeOut: {
+    padding: 40,
   },
   txtClick: {
-    color: "#fb4226",
+    color: "#f79320",
     cursor: 'pointer',
     '&:hover': {
       color: "#0056b3",
       textDecoration: "initial",
     }
   },
-
-  imgFlim: props => ({
-    backgroundImage: `url("${props.thongTinPhim?.hinhAnh}")`,
-    float: "left",
-    width: "30%",
-    borderRadius: "4px",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover"
-  }),
-
-  paymentColor: {
-    color: '#f79320'
+  spaceEvenly: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    paddingBottom: 30,
   },
-  errorColor: {
-    color: '#fb4226'
-  },
-
-
 
 })
 export default useStyles

@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
+
+import { useHistory } from "react-router-dom";
+
 import formatDate from '../../../../../utilities/formatDate'
-import openNewTap from '../../../../../utilities/openNewTap'
 import useStyles from './style'
 
 export default function LstGioChieu(props) {
   const { lstLichChieuTheoPhim } = props;
   const classes = useStyles()
+  const history = useHistory();
   const mangChiChuaNgay = lstLichChieuTheoPhim.map(item => {  // tạo mảng mới chỉ chứa ngày
     return item.ngayChieuGioChieu.slice(0, 10);// item là "2020-12-17" cắt ra từ 2020-12-17T10:10:00
   })
@@ -35,7 +38,7 @@ export default function LstGioChieu(props) {
           <p className={classes.ngayChieu}>{formatDate(date).dateFull}</p> {/*in ra ngày hiện tại*/}
           {filterByDay(date).map(lichChieuTheoPhim => (
             <Fragment key={lichChieuTheoPhim.maLichChieu} >
-              <button className={classes.button} onClick={() => openNewTap(`/datve/${lichChieuTheoPhim.maLichChieu}`)}>
+              <button className={classes.button} onClick={() => history.push(`/datve/${lichChieuTheoPhim.maLichChieu}`)}>
                 <span className={classes.inTime}>{lichChieuTheoPhim.ngayChieuGioChieu.slice(11, 16)}</span>
                 <span className={classes.outTime}>{` ~ ${calculateTimeout(lichChieuTheoPhim.ngayChieuGioChieu)}`}</span>
               </button>

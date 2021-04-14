@@ -2,23 +2,20 @@ import React, { useMemo } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux';
 import Countdown, { zeroPad } from "react-countdown";
-import { OPEN_MODAL_BYTIMEOUT } from '../../../reducers/constants/BookTicket';
+import { TIMEOUT } from '../../../reducers/constants/BookTicket';
 
 export default function Index() {
-  const { loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicket);
+  const { loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer);
   const dispatch = useDispatch();
   const setTimeCount = useMemo(() => { // dùng useMemo để không bị reset
-    return Date.now() + 500000000000
+    return Date.now() + 5000
   }, [])
 
   const handleTimeOut = () => {
     // chỉ mở modal khi chưa click đặt vé
-    if (!loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
+    if (!loadingBookingTicket && !(successBookingTicketMessage || errorBookTicketMessage)) {
       dispatch({
-        type: OPEN_MODAL_BYTIMEOUT,
-        payload: {
-          openModal: { byTimeOut: true }
-        }
+        type: TIMEOUT,
       })
     }
   }
