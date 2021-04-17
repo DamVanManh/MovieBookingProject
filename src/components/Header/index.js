@@ -15,7 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { Link, Hidden, Button, Chip, Tooltip } from '@material-ui/core';
+import { Link, Button, Chip, Tooltip } from '@material-ui/core';
 import { Link as LinkR } from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import FaceIcon from '@material-ui/icons/Face';
@@ -131,7 +131,6 @@ export default function Header() {
           </IconButton>
         </div>
 
-        {/* phần hiển thị khi nhấn button menu */}
         {/* Divider giúp phân chia số lượng nội dung theo ý mình */}
         <Divider />
         <List>
