@@ -6,10 +6,9 @@ import useStyles from './style'
 import { colorTheater } from '../../../constants/theaterData'
 
 export default function SuccessBooking() {
-  const { amount, email, phone, paymentMethod, listSeatSelected, successBookingTicketMessage, errorBookTicketMessage, danhSachPhongVe } = useSelector((state) => state.bookTicketReducer)
+  const { isMobile, amount, email, phone, paymentMethod, listSeatSelected, successBookingTicketMessage, errorBookTicketMessage, danhSachPhongVe: { thongTinPhim } } = useSelector((state) => state.bookTicketReducer)
   const { currentUser } = useSelector((state) => state.authReducer)
-  const { thongTinPhim } = danhSachPhongVe
-  const classes = useStyles({ thongTinPhim, color: colorTheater[thongTinPhim?.tenCumRap.slice(0, 3).toUpperCase()] })
+  const classes = useStyles({ thongTinPhim, color: colorTheater[thongTinPhim?.tenCumRap.slice(0, 3).toUpperCase()], isMobile })
 
   return (
     <div className={classes.resultBookticket}>
@@ -25,8 +24,8 @@ export default function SuccessBooking() {
           <table className={classes.table}>
             <tbody>
               <tr>
-                <td valign='top' width={90}>Suất chiếu:</td>
-                <td>{`${thongTinPhim?.gioChieu} ${thongTinPhim?.ngayChieu}`}</td>
+                <td valign='top' >Suất chiếu:</td>
+                <td valign='top'>{`${thongTinPhim?.gioChieu} ${thongTinPhim?.ngayChieu}`}</td>
               </tr>
               <tr>
                 <td valign='top'>Phòng:</td>
@@ -40,13 +39,13 @@ export default function SuccessBooking() {
           </table>
         </div>
       </div>
-      <div style={{ marginTop: 10 }}>
-        <div width={300}>
-          <h3>Thông tin đặt vé</h3>
-          <table>
+      <div>
+        <div>
+          <h3 className={classes.infoResult_label}>Thông tin đặt vé</h3>
+          <table className={classes.table}>
             <tbody>
               <tr>
-                <td valign='top' width={80}>Họ tên:</td>
+                <td valign='top' >Họ tên:</td>
                 <td>{currentUser?.hoTen}</td>
               </tr>
               <tr>
@@ -65,7 +64,7 @@ export default function SuccessBooking() {
                 </td>
               </tr>
               <tr>
-                <td valign='top' width={120}>Tổng tiền:</td>
+                <td valign='top' >Tổng tiền:</td>
                 <td><span>{`${amount.toLocaleString('vi-VI')} đ`}</span></td>
               </tr>
             </tbody>

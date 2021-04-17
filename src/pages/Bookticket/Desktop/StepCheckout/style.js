@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
   label: {
     marginTop: '7px !important',
     color: "#9b9b9b",
+    fontSize: 16,
   },
   account: {
     textAlign: 'center',

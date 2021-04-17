@@ -65,7 +65,7 @@ const useStyles = makeStyles({
   btnRight: props => ({
     color: "#e9e9e9",
     backgroundColor: props.isDisableBtnRight ? "#afafaf" : "#44c020",
-    fontSize: 19,
+    fontSize: 15,
   }),
 
 

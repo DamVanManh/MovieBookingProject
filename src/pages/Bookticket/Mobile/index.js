@@ -22,12 +22,6 @@ export default function Mobile() {
 
   const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ']
 
-  useEffect(() => { // chuyển sang step 2 nếu đã nhấn đặt vé
-    if (successBookingTicketMessage || errorBookTicketMessage) {
-      dispatch({ type: SET_STEP, payload: { activeStep: 2, } })
-    }
-  }, [successBookingTicketMessage, errorBookTicketMessage])
-
   const handleCombackHome = () => {
     dispatch({ type: RESET_DATA })
     history.push('/')
@@ -95,15 +89,17 @@ export default function Mobile() {
       </div>
 
       {/* content */}
-      <main style={{ display: activeStep === 0 ? 'block' : 'none' }}>
-        <ListSeat />
-      </main>
-      <main style={{ display: activeStep === 1 ? 'block' : 'none' }}>
-        <PayMent />
-      </main>
-      <main style={{ display: activeStep === 2 ? 'block' : 'none' }}>
-        <ResultBookticket />
-      </main>
+      <div >
+        <main style={{ display: activeStep === 0 ? 'block' : 'none' }}>
+          <ListSeat />
+        </main>
+        <main style={{ display: activeStep === 1 ? 'block' : 'none' }}>
+          <PayMent />
+        </main>
+        <main style={{ display: activeStep === 2 ? 'block' : 'none' }}>
+          <ResultBookticket />
+        </main>
+      </div>
 
       {/* bottom */}
       <section className={classes.bottom}>

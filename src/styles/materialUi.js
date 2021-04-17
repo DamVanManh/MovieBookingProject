@@ -1,17 +1,5 @@
 
 const customScrollbar = {
-  // "&::-webkit-scrollbar": {
-  //   width: 4,
-  //   backgroundColor: "#e8e3e3",
-  //   borderRadius: 4,
-  // },
-  // "&::-webkit-scrollbar-thumb": {
-  //   borderRadius: 4,
-  //   "-webkit-box-shadow": "inset 0 0 6px rgb(0 0 0 / 30%)",
-  // },
-  // "&::-webkit-scrollbar-track": {
-  //   borderRadius: 4,
-  // }
 
   "&::-webkit-scrollbar": {
     width: 4,
@@ -24,7 +12,6 @@ const customScrollbar = {
   "&::-webkit-scrollbar-thumb": {
     borderRadius: 4,
     background: 'rgb(0 0 0 / 30%)',
-    // "-webkit-box-shadow": "inset 0 0 6px rgb(0 0 0 / 30%)",
   },
 
 }

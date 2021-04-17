@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import { useHistory } from "react-router-dom";
 
 import formatDate from '../../../../../utilities/formatDate'
+import BtnGoToCheckout from './btnGoToCheckout';
 import useStyles from './style'
 
 export default function LstGioChieu(props) {
@@ -24,13 +25,6 @@ export default function LstGioChieu(props) {
     return gioChieuRenDer;
   }
 
-  const calculateTimeout = (ngayChieuGioChieu) => {
-    const fakeThoiLuong = 120
-    const timeInObj = new Date(ngayChieuGioChieu);
-    const timeOutObj = new Date(timeInObj.getTime() + fakeThoiLuong * 60 * 1000);
-    return timeOutObj.toLocaleTimeString([], { hour12: false }).slice(0, 5)
-  }
-
   return (
     <div className={classes.lstNgayChieu}>
       {MangNgayKhongTrungLap.map(date => (
@@ -38,10 +32,7 @@ export default function LstGioChieu(props) {
           <p className={classes.ngayChieu}>{formatDate(date).dateFull}</p> {/*in ra ngày hiện tại*/}
           {filterByDay(date).map(lichChieuTheoPhim => (
             <Fragment key={lichChieuTheoPhim.maLichChieu} >
-              <button className={classes.button} onClick={() => history.push(`/datve/${lichChieuTheoPhim.maLichChieu}`)}>
-                <span className={classes.inTime}>{lichChieuTheoPhim.ngayChieuGioChieu.slice(11, 16)}</span>
-                <span className={classes.outTime}>{` ~ ${calculateTimeout(lichChieuTheoPhim.ngayChieuGioChieu)}`}</span>
-              </button>
+              <BtnGoToCheckout lichChieuTheoPhim={lichChieuTheoPhim} />
             </Fragment>
           ))}
         </Fragment>

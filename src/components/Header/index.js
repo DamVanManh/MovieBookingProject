@@ -25,29 +25,24 @@ import { LOGOUT } from '../../reducers/constants/Auth';
 import useStyles from './style'
 
 export default function Header() {
-
+  const { currentUser } = useSelector((state) => state.authReducer);
+  const dispatch = useDispatch();
+  const theme = useTheme()
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  // Nếu kích thước dưới md thì đóng mở menu-res tùy ý, nhưng trên md thì bắt buộc phải đóng
-  const matches = useMediaQuery(theme.breakpoints.up('md')); // tự động trả về true khi màn hình từ 1280 trở lên
+  const matches = useMediaQuery(theme.breakpoints.up('lg')); // tự động trả về true khi màn hình từ 1280 trở lên
   if (matches) {
     if (open) {
       setOpen(false)
     }
   }
 
-  // lấy data từ redux-store về
-  const { currentUser } = useSelector((state) => state.authReducer);
-
   // đăng xuất
-  const dispatch = useDispatch();
   const handleDelete = () => {
     dispatch({ type: LOGOUT })
   }
-
-
+  // click menuIcon
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -69,33 +64,29 @@ export default function Header() {
             <img src="https://tix.vn/app/assets/img/icons/web-logo.png" alt="logo" style={{ height: 50 }} />
           </div>
 
-          {/* 4 nội dung chính */}
-          <Hidden smDown>
+          {/* quick link */}
+          <div className={classes.linkTobody}>
             <List >
               <Link className={classes.link}>Lịch Chiếu</Link>
               <Link className={classes.link}>Cụm Rạp</Link>
               <Link className={classes.link}>Tin Tức</Link>
               <Link className={classes.link}>Ứng Dụng</Link>
             </List>
-          </Hidden>
+          </div>
 
-          {/* vị trí đăng nhập/ đăng xuất */}
-          <Hidden smDown>
+          {/* user account */}
+          <div className={classes.user}>
             {currentUser ?
               <List >
-
                 <LinkR to="/profile">
                   <Chip variant="outlined" color="primary" label={currentUser.taiKhoan} icon={<FaceIcon />} />
                 </LinkR>
-
                 <Link>
                   <Chip variant="outlined" color="secondary" label="Đăng xuất" onClick={handleDelete} />
                 </Link>
-
               </List>
               :
               <List >
-
                 <LinkR to="/dangnhap">
                   <Button>Đăng Nhập</Button>
                 </LinkR>
@@ -105,26 +96,24 @@ export default function Header() {
                 </LinkR>
               </List>
             }
-          </Hidden>
+          </div>
 
-          {/* ICON RESPONSIVE  */}
-          <Hidden mdUp>
+          {/* menuIcon  */}
+          <div className={classes.menuIcon}>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
               edge="end"
               onClick={handleDrawerOpen}
               className={clsx(open && classes.hide)}
             >
-              {/* iCon 3 gạch ngang menu */}
               <MenuIcon />
             </IconButton>
-          </Hidden>
+          </div>
 
         </Toolbar>
       </AppBar>
 
-      {/* START RESPONSIVE BÊN PHẢI */}
+      {/* content open menu*/}
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -146,7 +135,7 @@ export default function Header() {
         {/* Divider giúp phân chia số lượng nội dung theo ý mình */}
         <Divider />
         <List>
-          {['Lịch Chiếu', 'Cụm Rạp', 'Tin Tức', 'Ứng Dụng'].map((text, index) => (
+          {['Lịch Chiếu', 'Cụm Rạp', 'Tin Tức', 'Ứng Dụng'].map((text) => (
             <ListItem button key={text}>
               <ListItemText primary={text} />
             </ListItem>
@@ -154,17 +143,12 @@ export default function Header() {
 
           {currentUser ?
             <List style={{ marginLeft: "15px" }} >
-
-
               <Tooltip title="Đăng Xuất">
-
                 <Chip variant="outlined" color="primary" label={currentUser.taiKhoan} icon={<FaceIcon />} />
               </Tooltip>
-
               <Link>
                 <Chip variant="outlined" color="secondary" label="Đăng xuất" onClick={handleDelete} />
               </Link>
-
             </List>
             :
             <List >

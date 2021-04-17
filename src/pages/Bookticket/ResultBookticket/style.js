@@ -5,7 +5,8 @@ const useStyles = makeStyles({
   resultBookticket: {
     textAlign: 'left',
     lineHeight: '30px',
-    padding: 40,
+    padding: props => props.isMobile ? 23 : 40,
+    width: "100%",
   },
   infoTicked: {
     display: 'flex',
@@ -13,13 +14,11 @@ const useStyles = makeStyles({
   },
   infoTicked__img: props => ({
     flex: "30%",
-    width: 600,
     backgroundImage: `url(${props.thongTinPhim?.hinhAnh})`,
     borderRadius: "4px",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-
   }),
 
   infoTicked__txt: {
@@ -42,7 +41,11 @@ const useStyles = makeStyles({
   },
   table: {
     marginTop: 10,
-
+    width: "100%",
+  },
+  infoResult_label: {
+    margin: "30px 0px 10px",
+    fontWeight: 400,
   },
   paymentColor: {
     color: '#f79320'

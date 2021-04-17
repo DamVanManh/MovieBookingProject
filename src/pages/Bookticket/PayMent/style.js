@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     ...customScrollbar
   }),
   payMentItem: {
+    position: 'relative',
     padding: "12px 0",
     ...underLineDashed
   },
@@ -52,6 +53,35 @@ const useStyles = makeStyles({
     color: "#9b9b9b",
     display: 'block'
   },
+  labelEmail: {
+    color: props => props.dataFocus.email ? "#4a90e2" : "#9b9b9b",
+    fontSize: props => (!props.dataFocus.email && !props.dataSubmit.values.email) ? 16 : 13,
+    transition: "color .3s",
+    transition: "font-size .2s",
+    transition: ".3s",
+    display: 'block',
+    WebkitUserSelect: "none",
+    MozUserSelect: "none",
+    msUserSelect: "none",
+    userSelect: "none",
+    position: 'absolute',
+    top: "9%",
+    left: 0,
+  },
+  labelPhone: {
+    color: props => props.dataFocus.phone ? "#4a90e2" : "#9b9b9b",
+    fontSize: props => (!props.dataFocus.phone && !props.dataSubmit.values.phone) ? 16 : 13,
+    transition: "color .3s",
+    transition: "font-size .2s",
+    display: 'block',
+    WebkitUserSelect: "none",
+    MozUserSelect: "none",
+    msUserSelect: "none",
+    userSelect: "none",
+    position: 'absolute',
+    top: "9%",
+    left: 0,
+  },
   error: {
     color: "#fb4226",
   },
@@ -61,7 +91,29 @@ const useStyles = makeStyles({
     lineHeight: 1.7,
     '&:focus': {
       outline: 'none'
-    }
+    },
+  },
+  fillInEmail: {
+    border: 'none',
+    width: "100%",
+    lineHeight: 1.7,
+    paddingTop: props => (!props.dataFocus.email && !props.dataSubmit.values.email) ? 0 : 12.5,
+    marginTop: props => (!props.dataFocus.email && !props.dataSubmit.values.email) ? 0 : 5,
+    transition: ".2s",
+    '&:focus': {
+      outline: 'none'
+    },
+  },
+  fillInPhone: {
+    border: 'none',
+    width: "100%",
+    lineHeight: 1.7,
+    paddingTop: props => (!props.dataFocus.phone && !props.dataSubmit.values.phone) ? 0 : 12.5,
+    marginTop: props => (!props.dataFocus.phone && !props.dataSubmit.values.phone) ? 0 : 5,
+    transition: ".2s",
+    '&:focus': {
+      outline: 'none'
+    },
   },
   btnDiscount: {
     backgroundColor: "#afafaf",

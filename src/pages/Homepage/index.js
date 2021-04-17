@@ -127,7 +127,7 @@ export default function Homepage(props) {
   return (
 
     // bỏ container vì không fluid được component con: <div className='container'>
-    <div>
+    <div >
       <Carousel />
 
       <div className='showTime container' style={{ marginTop: 100 }}>

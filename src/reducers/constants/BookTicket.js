@@ -12,6 +12,8 @@ export const SET_READY_PAYMENT = "SET_READY_PAYMENT"
 export const TIMEOUT = "TIMEOUT"
 export const SET_STEP = "SET_STEP"
 export const RESET_DATA = "RESET_DATA"
+export const RESET_ALERT_OVER10 = "RESET_ALERT_OVER10"
+export const SET_ALERT_OVER10 = "SET_ALERT_OVER10"
 
 // booking ticked
 export const BOOK_TICKET_REQUEST = "BOOK_TICKET_REQUEST"

@@ -1,7 +1,7 @@
 import {
   BOOK_TICKET_REQUEST, BOOK_TICKET_SUCCESS, BOOK_TICKET_FAIL, GET_LISTSEAT_REQUEST,
   GET_LISTSEAT_SUCCESS, GET_LISTSEAT_FAIL, CHANGE_LISTSEAT, RESET_DATA, SET_DATA_PAYMENT,
-  SET_READY_PAYMENT, TIMEOUT, SET_ISMOBILE, SET_STEP, INIT_DATA
+  SET_READY_PAYMENT, TIMEOUT, SET_ISMOBILE, SET_STEP, INIT_DATA, RESET_ALERT_OVER10, SET_ALERT_OVER10
 } from './constants/BookTicket';
 
 const initialState = {
@@ -23,6 +23,8 @@ const initialState = {
 
   maLichChieu: null,
   taiKhoanNguoiDung: null,
+
+  alertOver10: false,
 
   // payment
   email: '',
@@ -75,13 +77,14 @@ const bookTicketReducer = (state = initialState, action) => {
 
     // selecting seat
     case CHANGE_LISTSEAT: {
+      const activeStep = action.payload.activeStep === 0 ? 0 : state.activeStep
       return {
         ...state,
         listSeat: action.payload.listSeat,
         isSelectedSeat: action.payload.isSelectedSeat,
         listSeatSelected: action.payload.listSeatSelected,
         danhSachVe: action.payload.danhSachVe,
-        activeStep: action.payload.activeStep,
+        activeStep,
         amount: action.payload.amount,
       }
     }
@@ -98,6 +101,7 @@ const bookTicketReducer = (state = initialState, action) => {
         errorBookTicketMessage: null,
         refreshKey: Date.now(),
         amount: 0,
+        alertOver10: false,
       }
     }
     case SET_DATA_PAYMENT: {
@@ -112,13 +116,24 @@ const bookTicketReducer = (state = initialState, action) => {
       return {
         ...state,
         isReadyPayment: action.payload.isReadyPayment,
-        activeStep: action.payload.activeStep,
       }
     }
     case SET_STEP: {
       return {
         ...state,
         activeStep: action.payload.activeStep,
+      }
+    }
+    case RESET_ALERT_OVER10: {
+      return {
+        ...state,
+        alertOver10: false,
+      }
+    }
+    case SET_ALERT_OVER10: {
+      return {
+        ...state,
+        alertOver10: true,
       }
     }
 

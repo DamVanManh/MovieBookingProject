@@ -19,9 +19,11 @@ export default function HeThongRap() {
   const [valueHeThongRap, setValueHeThongRap] = React.useState(0);
   const classes = useStyles({ isMobileTheater, underLine });
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getTheaters())
   }, [])
+
   const handleChangeHeThongRap = (e, indexSelected) => {
     setValueHeThongRap(indexSelected);
   };

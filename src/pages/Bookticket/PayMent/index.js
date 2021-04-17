@@ -9,10 +9,13 @@ import { bookTicket } from '../../../reducers/actions/BookTicket'
 import { SET_DATA_PAYMENT, SET_READY_PAYMENT } from '../../../reducers/constants/BookTicket';
 
 const makeObjError = (name, value, dataSubmit) => {
+  // kiểm tra và set lỗi rỗng
   let newErrors = { ...dataSubmit.errors, [name]: value.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} không được bỏ trống` : '' }
+
+  // kiểm tra và set lỗi sai định dạng
   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const regexNumber = /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/;
-  if (name === 'email' && value) { // nếu đang onChange email và đang có dữ liệu
+  if (name === 'email' && value) {
     if (!regexEmail.test(value)) {
       newErrors[name] = 'Email không đúng định dạng';
     }
@@ -26,12 +29,12 @@ const makeObjError = (name, value, dataSubmit) => {
 }
 
 export default function PayMent() {
-  const { amount, activeStep, email, phone, paymentMethod, isReadyPayment, isMobile, danhSachVe, danhSachPhongVe, maLichChieu, listSeat, taiKhoanNguoiDung, isSelectedSeat, listSeatSelected, loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
+  const { listSeat, amount, activeStep, email, phone, paymentMethod, isReadyPayment, isMobile, danhSachVe, danhSachPhongVe: { thongTinPhim }, maLichChieu, taiKhoanNguoiDung, isSelectedSeat, listSeatSelected, loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
   const dispatch = useDispatch()
-  const { thongTinPhim } = danhSachPhongVe
-  const classes = useStyles({ isSelectedSeat, isReadyPayment, isMobile })
   const emailRef = useRef();
-  const phoneRef = useRef();
+  const phoneRef = useRef(); // dùng useRef để dom tớ element
+  let variClear = useRef(''); // dùng useRef để lưu lại giá trị setTimeout
+  const [dataFocus, setDataFocus] = useState({ phone: false, email: false, })
   const [dataSubmit, setdataSubmit] = useState({
     values: {
       email: email,
@@ -43,8 +46,24 @@ export default function PayMent() {
       phone: '',
     },
   })
-  // set data khi nhập email, phone, paymentMethod
-  useEffect(() => {
+  const classes = useStyles({ isSelectedSeat, isReadyPayment, isMobile, dataFocus, dataSubmit })
+
+  const onChange = (e) => { // khi onchange update values và validation
+    let { name, value } = e.target
+    let newValues = { ...dataSubmit.values, [name]: value }
+    let newErrors = makeObjError(name, value, dataSubmit)
+    setdataSubmit(dataSubmit => ({ ...dataSubmit, values: newValues, errors: newErrors }))
+  }
+
+  useEffect(() => { // sau 0.5s mới đẩy data lên redux để tăng hiệu năng
+    clearTimeout(variClear)
+    variClear.current = setTimeout(() => {
+      setDataPayment()
+    }, 500);
+    return () => clearTimeout(variClear.current)
+  }, [dataSubmit])
+
+  const setDataPayment = () => {
     dispatch({
       type: SET_DATA_PAYMENT,
       payload: {
@@ -53,35 +72,35 @@ export default function PayMent() {
         paymentMethod: dataSubmit.values.paymentMethod,
       },
     })
-    // khi không có lỗi và đủ dữ liệu thì sẵn sàng đặt vé và ngược lại
-    if (!dataSubmit.errors.email && !dataSubmit.errors.phone && dataSubmit.values.email && dataSubmit.values.phone && dataSubmit.values.paymentMethod && isSelectedSeat) {
-      dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: true, activeStep: 1, } })
-      console.log('step buoc 2: ', activeStep);
+    // khi không có lỗi và đủ dữ liệu thì set data sẵn sàng đặt vé và ngược lại, set activeStep = 1 nếu đủ dữ liệu và chưa đặt vé
+    if (!dataSubmit.errors.email && !dataSubmit.errors.phone && dataSubmit.values.email && dataSubmit.values.phone && dataSubmit.values.paymentMethod && isSelectedSeat && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
+      dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: true } })
     } else {
-      dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: false, activeStep: activeStep, } })
-      console.log('step buoc 3: ', activeStep);
+      dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: false } })
     }
-  }, [dataSubmit.values.email, dataSubmit.values.phone, dataSubmit.values.paymentMethod, isSelectedSeat, dataSubmit.errors.email, dataSubmit.errors.phone])
-
-  useEffect(() => { // thực hiện lại validation khi chuyển từ desktop sang mobile
-    let emailErrors = makeObjError(emailRef.current.name, emailRef.current.value, dataSubmit)
-    let phoneErrors = makeObjError(phoneRef.current.name, phoneRef.current.value, dataSubmit)
-    setdataSubmit({ ...dataSubmit, errors: { email: emailErrors.email, phone: phoneErrors.phone } })
-    console.log('step buoc 1: ', activeStep);
-  }, [])
-  console.log('step buoc 4: ', activeStep);
-
-  const handleChange = (e) => { // set dataSubmit khi onChange
-    let { name, value } = e.target
-    let newValues = { ...dataSubmit.values, [name]: value };
-    let newErrors = makeObjError(name, value, dataSubmit)
-    setdataSubmit({ ...dataSubmit, values: newValues, errors: newErrors })
   }
 
-  const handleBookTicket = () => {
+  useEffect(() => { // cập nhật lại data email, phone và validation khi reload
+    let emailErrors = makeObjError(emailRef.current.name, email, dataSubmit)
+    let phoneErrors = makeObjError(phoneRef.current.name, phone, dataSubmit)
+    setdataSubmit(dataSubmit => ({
+      ...dataSubmit, values: {
+        email: email, phone: phone, paymentMethod: paymentMethod,
+      },
+      errors: { email: emailErrors.email, phone: phoneErrors.phone }
+    }))
+  }, [listSeat]) // khi reload listSeat sẽ được cập nhật
+
+  const handleBookTicket = () => { // khi đủ dữ liệu và chưa có lần đặt vé nào trước đó thì mới cho đặt vé
     if (isReadyPayment && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
       dispatch(bookTicket({ maLichChieu, danhSachVe, taiKhoanNguoiDung }))
     }
+  }
+  const onFocus = (e) => {
+    setDataFocus({ ...dataFocus, [e.target.name]: true })
+  }
+  const onBlur = (e) => {
+    setDataFocus({ ...dataFocus, [e.target.name]: false })
   }
 
   return (
@@ -110,15 +129,15 @@ export default function PayMent() {
 
         {/* email */}
         <div className={classes.payMentItem}>
-          <label className={classes.label} >E-Mail</label>
-          <input type="text" name="email" ref={emailRef} value={dataSubmit.values.email} className={classes.fillIn} onChange={handleChange} />
+          <label className={classes.labelEmail} >E-Mail</label>
+          <input type="text" name="email" ref={emailRef} onFocus={onFocus} onBlur={onBlur} value={dataSubmit.values.email} className={classes.fillInEmail} onChange={onChange} autoComplete="off" />
           <p className={classes.error}>{dataSubmit.errors.email}</p>
         </div>
 
         {/* phone */}
         <div className={classes.payMentItem}>
-          <label className={classes.label} >Phone</label>
-          <input type="text" name="phone" ref={phoneRef} value={dataSubmit.values.phone} className={classes.fillIn} onChange={handleChange} />
+          <label className={classes.labelPhone} >Phone</label>
+          <input type="text" name="phone" ref={phoneRef} onFocus={onFocus} onBlur={onBlur} value={dataSubmit.values.phone} className={classes.fillInPhone} onChange={onChange} autoComplete="off" />
           <p className={classes.error}>{dataSubmit.errors.phone}</p>
         </div>
 
@@ -136,22 +155,22 @@ export default function PayMent() {
 
           <div className={classes.formPayment} >
             <div className={classes.formPaymentItem}>
-              <input className={classes.input} type="radio" name="paymentMethod" value="ZaloPay" onChange={handleChange} checked={dataSubmit.values.paymentMethod === "ZaloPay"} />
+              <input className={classes.input} type="radio" name="paymentMethod" value="ZaloPay" onChange={onChange} checked={dataSubmit.values.paymentMethod === "ZaloPay"} />
               <img className={classes.img} src="/img/bookticket/zalo.jpg" alt="zalopay" />
               <label >Thanh toán qua ZaloPay</label>
             </div>
             <div className={classes.formPaymentItem}>
-              <input className={classes.input} type="radio" name="paymentMethod" value="Visa, Master, JCB" onChange={handleChange} checked={dataSubmit.values.paymentMethod === "Visa, Master, JCB"} />
+              <input className={classes.input} type="radio" name="paymentMethod" value="Visa, Master, JCB" onChange={onChange} checked={dataSubmit.values.paymentMethod === "Visa, Master, JCB"} />
               <img className={classes.img} src="/img/bookticket/visa.png" alt="visa" />
               <label >Visa, Master, JCB</label>
             </div>
             <div className={classes.formPaymentItem}>
-              <input className={classes.input} type="radio" name="paymentMethod" value="ATM nội địa" onChange={handleChange} checked={dataSubmit.values.paymentMethod === "ATM nội địa"} />
+              <input className={classes.input} type="radio" name="paymentMethod" value="ATM nội địa" onChange={onChange} checked={dataSubmit.values.paymentMethod === "ATM nội địa"} />
               <img className={classes.img} src="/img/bookticket/atm.png" alt="atm" />
               <label >Thẻ ATM nội địa</label>
             </div>
             <div className={classes.formPaymentItem}>
-              <input className={classes.input} type="radio" name="paymentMethod" value="Cửa hàng tiện ích" onChange={handleChange} checked={dataSubmit.values.paymentMethod === "Cửa hàng tiện ích"} />
+              <input className={classes.input} type="radio" name="paymentMethod" value="Cửa hàng tiện ích" onChange={onChange} checked={dataSubmit.values.paymentMethod === "Cửa hàng tiện ích"} />
               <img className={classes.img} src="/img/bookticket/cuahang.png" alt="cuahang" />
               <label >Thanh toán tại cửa hàng tiện ích</label>
             </div>

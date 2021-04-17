@@ -8,7 +8,7 @@ export default function Index() {
   const { loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer);
   const dispatch = useDispatch();
   const setTimeCount = useMemo(() => { // dùng useMemo để không bị reset
-    return Date.now() + 5000
+    return Date.now() + 300000
   }, [])
 
   const handleTimeOut = () => {

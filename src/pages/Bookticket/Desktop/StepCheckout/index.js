@@ -7,14 +7,13 @@ import StepLabel from '@material-ui/core/StepLabel';
 import SeatIcon from '@material-ui/icons/CallToActionRounded';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { useStyles, ColorlibConnector } from './style';
 import { FAKE_AVATAR } from '../../../../constants/config';
 
 export default function Stepcheckout() {
   const classes = useStyles();
-  const dispatch = useDispatch()
   const { activeStep } = useSelector(state => state.bookTicketReducer);
   const { currentUser } = useSelector(state => state.authReducer);
   const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ'];

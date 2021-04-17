@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 const useStyles = makeStyles((theme) => ({
   carousel: {
-    marginTop: 64,
     position: 'relative',
   },
   a: {
