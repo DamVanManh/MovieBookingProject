@@ -22,107 +22,107 @@ import Seperate from '../../components/Seperate'
 
 // import Theaters from '../../components/Theaters';
 import Theaters from './Theaters'
-
-import useStyles from './style'
+// import useStyles from './style'
+import Nav from './Nav'
 // import PopupTrailer from './Carousel/popup';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+// function TabPanel(props) {
+//   const { children, value, index, ...other } = props;
+//   return (
+//     <div
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`simple-tabpanel-${index}`}
+//       aria-labelledby={`simple-tab-${index}`}
+//       {...other}
+//     >
+//       {value === index && (
+//         <Box p={3}>
+//           <Typography>{children}</Typography>
+//         </Box>
+//       )}
+//     </div>
+//   );
+// }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
+// TabPanel.propTypes = {
+//   children: PropTypes.node,
+//   index: PropTypes.any.isRequired,
+//   value: PropTypes.any.isRequired,
+// };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `simple-tab-${index}`,
+//     'aria-controls': `simple-tabpanel-${index}`,
+//   };
+// }
 
 
 export default function Homepage(props) {
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
-  // setup các biến để show trailer ra dialog
-  const [open, setOpen] = useState(false);
-  const theme = useTheme();
-  const sm = useMediaQuery(theme.breakpoints.down('sm'));
-  const md = useMediaQuery(theme.breakpoints.up('md'));
-  const [trailer, setTrailer] = useState("")
-  const handleTrailer = (newTrailer) => {
-    setTrailer(newTrailer)
-    handleButton()
-  }
-  // useSelector lấy data từ reducer về
-  const { movieList, loading, error } = useSelector((state) => state.movieReducer);
+  // // setup các biến để show trailer ra dialog
+  // const [open, setOpen] = useState(false);
+  // const theme = useTheme();
+  // const sm = useMediaQuery(theme.breakpoints.down('sm'));
+  // const md = useMediaQuery(theme.breakpoints.up('md'));
+  // const [trailer, setTrailer] = useState("")
+  // const handleTrailer = (newTrailer) => {
+  //   setTrailer(newTrailer)
+  //   handleButton()
+  // }
+  // // useSelector lấy data từ reducer về
+  // const { movieList, loading, error } = useSelector((state) => state.movieReducer);
 
-  // useDispatch: dispatch action lấy api movieList và đẩy data trả về lên store ( đi 2 chiều)
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getMovieList())
-  }, [])
+  // // useDispatch: dispatch action lấy api movieList và đẩy data trả về lên store ( đi 2 chiều)
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getMovieList())
+  // }, [])
 
-  if (loading) {
-    return <div>loading</div>
-  }
-  if (error) {
-    return <div>{error}</div>
-  }
+  // if (loading) {
+  //   return <div>loading</div>
+  // }
+  // if (error) {
+  //   return <div>{error}</div>
+  // }
 
-  const ArrowLeft = (props) => (
-    <button
-      {...props}
-      className={classes.prev}>
-      <span className="material-icons" style={{ fontSize: '100px' }} >
-        keyboard_arrow_left
-      </span>
-    </button>
-  );
-  const ArrowRight = (props) => (
-    <button
-      {...props}
-      className={classes.next}>
-      <span className="material-icons" style={{ fontSize: '100px' }} >
-        keyboard_arrow_right
-    </span>
-    </button>
-  );
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    autoplay: false,
-    rows: 2,
-    arrows: true,
-    prevArrow: <ArrowLeft />,
-    nextArrow: <ArrowRight />,
-  };
+  // const ArrowLeft = (props) => (
+  //   <button
+  //     {...props}
+  //     className={classes.prev}>
+  //     <span className="material-icons" style={{ fontSize: '100px' }} >
+  //       keyboard_arrow_left
+  //     </span>
+  //   </button>
+  // );
+  // const ArrowRight = (props) => (
+  //   <button
+  //     {...props}
+  //     className={classes.next}>
+  //     <span className="material-icons" style={{ fontSize: '100px' }} >
+  //       keyboard_arrow_right
+  //   </span>
+  //   </button>
+  // );
+  // const settings = {
+  //   dots: false,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 4,
+  //   autoplay: false,
+  //   rows: 2,
+  //   arrows: true,
+  //   prevArrow: <ArrowLeft />,
+  //   nextArrow: <ArrowRight />,
+  // };
 
-  const handleButton = () => {
-    setOpen(!open)
-  }
+  // const handleButton = () => {
+  //   setOpen(!open)
+  // }
 
   return (
 
@@ -130,7 +130,7 @@ export default function Homepage(props) {
     <div >
       <Carousel />
 
-      <div className='showTime container' style={{ marginTop: 100 }}>
+      {/* <div className='showTime container' style={{ marginTop: 100 }}>
         <h2 className="text-center">Đang Chiếu</h2>
         <Slider {...settings}>
           {movieList.map((movie) => {
@@ -173,6 +173,9 @@ export default function Homepage(props) {
         </Dialog>
 
       </div>
+       */}
+
+      <Nav />
       <Theaters />
       <News />
       <Ads />

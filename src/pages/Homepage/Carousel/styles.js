@@ -51,11 +51,10 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': { opacity: 0.7 }
   },
 
-
   closeButton: {
     position: 'absolute',
     top: 0,
-    right: 0,
+    right: '-200px',
     transform: "translate(50%,-50%)",
 
     border: '2px solid white',
