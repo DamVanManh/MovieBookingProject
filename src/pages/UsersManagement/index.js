@@ -243,16 +243,13 @@ export default function UsersManagement() {
                               <Grid container direction="row" justify="space-around" alignItems="center" >
 
                                 {/* NÚT EDIT */}
-                                <IconButton color="primary" aria-label="upload picture" component="span">
-                                  <EditIcon color="primary" onClick={() => handleUpdate(row)} disabled={loading} />
+                                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => handleUpdate(row)} disabled={loading} >
+                                  <EditIcon color="primary" />
                                 </IconButton>
 
                                 {/* NÚT DELETE */}
-                                <IconButton color="primary" aria-label="upload picture" component="span">
-
-
-                                  <DeleteForeverIcon color="primary" onClick={() => handleDelete(row.taiKhoan)} disabled={loading} />
-
+                                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => handleDelete(row.taiKhoan)} disabled={loading} >
+                                  <DeleteForeverIcon color="primary" />
                                 </IconButton>
 
                               </Grid>}
@@ -281,9 +278,10 @@ export default function UsersManagement() {
       <Dialog
         open={open}
         maxWidth='md'
+        onClose={handleClose}
       >
         {/* onChangeIsActive={handleTaiKhoan} */}
-        <Form onClose={handleUser} userUpdate={userSelect} onChangeTK={isActive} onChangeIsActive={handleClose} />
+        <Form ongggggg={handleUser} userUpdate={userSelect} onChangeTK={isActive} onChangeIsActive={handleClose} />
 
 
         <IconButton className={classes.closeButton} onClick={() => handleClose()}  >

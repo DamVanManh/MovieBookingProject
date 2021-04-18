@@ -8,7 +8,6 @@ function AdminRoute(props) {
   return (
     <Route {...routeProps} render={(props) => {
       if (currentUser) {
-        console.log("currentUser: ", currentUser);
         if (currentUser.maLoaiNguoiDung === 'QuanTri') {
           return <UsersManagement {...props} />
         }
