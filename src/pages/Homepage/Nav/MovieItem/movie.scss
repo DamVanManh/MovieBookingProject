@@ -1,0 +1,211 @@
+.film {
+    // position: relative;
+    // width: 100%;
+    // margin: 10px;
+
+    &:hover .film__content .film__button a {
+        opacity: 1;
+        transition: all 0.2s;
+    }
+    // hiệu ứng biến mất chữ
+    &:hover .film__content .film__name {
+        opacity: 0;
+        transition: all 0.2s;
+    }
+    // hiệu ứng biến mất chữ
+    // &:hover .film__content p:nth-child(1) {
+    //     opacity: 0;
+    //     transition: all 0.2s;
+    // }
+    // fix hieu ung ko bien mat
+    // &:hover .film__content #soon {
+    //     opacity: 1;
+    // }
+    // hiệu ứng nút play
+    &:hover .film__img .film__poster .play__trailer {
+        opacity: 1;
+        transition: all 0.2s;
+    }
+    // hiệu ứng bóng mờ
+    &:hover .film__img .film__poster .film__overlay {
+        opacity: 1;
+        transition: all 0.2s;
+    }
+
+    .film__img {
+        // box-sizing: border-box;
+        .film__poster {
+            // position: relative;
+            .poster {
+                width: 100%;
+                height: 318px;
+                border-radius: 3%;
+            }
+            .film__overlay {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                background: linear-gradient(to top, #000, transparent 100%);
+                opacity: 0;
+                transition: all 0.2 s 0.2 s;
+            }
+            .play__trailer {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+                border-radius: 50px;
+                border: 3px solid white;
+                line-height: 60px;
+                cursor: pointer;
+                transition: all 0.2 s;
+                opacity: 0;
+                a {
+                    // text-decoration: none;
+                    i {
+                        position: absolute;
+                        color: white;
+                        font-size: 20px;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        .film__point {
+            font-family: "SF Medium";
+            background-color: rgba(12, 27, 54, 0.8);
+            border: 1px solid #1f2e46;
+            border-radius: 4px;
+            padding: 2px;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: #fff;
+            width: 54px;
+            text-align: center;
+            line-height: 1.1;
+            .point {
+                margin: 0 !important;
+                font-weight: 600;
+                font-size: 20px;
+            }
+            .star {
+                margin: 0 !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img {
+                    max-width: 8px;
+                }
+            }
+        }
+        position: relative;
+
+        .film__date {
+            font-family: "SF Regular";
+
+            background-color: rgba(12, 27, 54, 0.8);
+            border: 1px solid #1f2e46;
+            border-radius: 4px;
+            padding: 2px;
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            color: #fff;
+
+            p {
+                font-size: 16x;
+                margin: 0 !important;
+            }
+        }
+    }
+
+    .film__content {
+        position: relative;
+        padding-top: 10px;
+        // span {
+        //     font-size: 14px;
+        //     background-color: #fb4226;
+        //     border-radius: 4px;
+        //     padding: 0 5px;
+        //     color: #fff;
+        //     min-width: 33px;
+        //     text-align: center;
+        //     display: inline-block;
+        //     margin-right: 8px;
+        // }
+
+        .green {
+            font-size: 14px;
+            background-color: #00ac4d;
+            border-radius: 4px;
+            padding: 0 5px;
+            color: #fff;
+            min-width: 33px;
+            text-align: center;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .film__name {
+            display: inline;
+            font-weight: 600;
+            // height: 42px;
+            max-height: 42px;
+            font-size: 16px;
+            color: #000;
+            // line-height: 22px;
+            margin-bottom: 0px;
+            // text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            min-height: 100px;
+            -webkit-box-orient: vertical;
+            display: block;/* or inline-block */
+
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow: hidden;
+            // max-height: 3.6em;
+            // line-height: 1.8em;
+
+        }
+        // p:nth-child(2) {
+        //     font-size: 13px;
+        //     color: #4a4a4a;
+        //     margin-bottom: 15px;
+        //     margin-top: 8px;
+        //     transition: all 0.2 s 0.2 s;
+        // }
+        .film__button {
+            a {
+                position: absolute;
+                top: 7px;
+                left: 0;
+                display: block;
+                width: 100%;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 20px;
+                padding: 10px;
+                text-align: center;
+                background: #fb4226;
+                background: -webkit-linear-gradient(to left, #fb4226, #ce3017 100%);
+                background: -o-linear-gradient(to left, #fb4226, #ce3017 100%);
+                background: -moz-linear-gradient(to left, #fb4226, #ce3017 100%);
+                background: linear-gradient(to left, #fb4226, #ce3017 100%);
+                text-decoration: none;
+                font-weight: 600;
+                opacity: 0;
+                transition: all 0.2 s;
+            }
+        }
+    }
+}

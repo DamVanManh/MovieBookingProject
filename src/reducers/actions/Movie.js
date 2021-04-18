@@ -1,6 +1,7 @@
 import bookingApi from '../../api/bookingApi';
 import moviesApi from '../../api/moviesApi';
-import { GET_MOVIE_LIST_REQUEST, GET_MOVIE_LIST_SUCCESS, GET_MOVIE_LIST_FAIL, GET_MOVIE_DETAIL_REQUEST, GET_MOVIE_DETAIL_SUCCESS, GET_MOVIE_DETAIL_FAIL, GET_ROOM_TICKET_SUCCESS } from '../constants/Movie';
+import theatersApi from '../../api/theatersApi';
+import { GET_MOVIE_LIST_REQUEST, GET_MOVIE_LIST_SUCCESS, GET_MOVIE_LIST_FAIL, GET_MOVIE_DETAIL_REQUEST, GET_MOVIE_DETAIL_SUCCESS, GET_MOVIE_DETAIL_FAIL, GET_THEATERS_SUCCESS, GET_THEATERS_REQUESS, GET_THEATERS_FAIL } from '../constants/Movie';
 
 export const getMovieList = (values) => {
   return (dispath) => {
@@ -17,12 +18,12 @@ export const getMovieList = (values) => {
       )
       .catch(
         error => {
-          console.log(error)
-          // dispath({
-          //   type: GET_MOVIE_LIST_FAIL,
-          //   payload: { error: error.response.data, }
+          // console.log(error)
+          dispath({
+            type: GET_MOVIE_LIST_FAIL,
+            payload: { error: error.response.data, }
 
-          // })
+          })
         }
       )
   }
@@ -31,9 +32,9 @@ export const getMovieList = (values) => {
 export const getMovieDetail = (id) => {
   return (dispath) => {
     dispath({
-      type: GET_MOVIE_LIST_REQUEST
+      type: GET_MOVIE_DETAIL_REQUEST
     })
-    moviesApi.getThongTinPhim(id)
+    theatersApi.getThongTinLichChieuPhim(id)
       .then(result => {
         dispath({
           type: GET_MOVIE_DETAIL_SUCCESS,
@@ -44,24 +45,25 @@ export const getMovieDetail = (id) => {
       .catch(
         error => {
           dispath({
-            type: GET_MOVIE_LIST_FAIL,
+            type: GET_MOVIE_DETAIL_FAIL,
             payload: { error: error.response.data, }
           })
+          // console.log(error)
         }
       )
   }
 }
 
 
-export const getRoomTicketList = (maLichChieu) => {
+export const getTheaters = () => {
   return (dispath) => {
     dispath({
-      type: GET_MOVIE_LIST_REQUEST
+      type: GET_THEATERS_REQUESS
     })
-    bookingApi.getDanhSachPhongVe(maLichChieu)
+    theatersApi.getThongTinLichChieuHeThongRap()
       .then(result => {
         dispath({
-          type: GET_ROOM_TICKET_SUCCESS,
+          type: GET_THEATERS_SUCCESS,
           payload: { data: result.data }
         })
       }
@@ -69,7 +71,7 @@ export const getRoomTicketList = (maLichChieu) => {
       .catch(
         error => {
           dispath({
-            type: GET_MOVIE_LIST_FAIL,
+            type: GET_THEATERS_FAIL,
             payload: { error: error.response.data, }
           })
         }

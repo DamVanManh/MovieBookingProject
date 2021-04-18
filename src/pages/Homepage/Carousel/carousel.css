@@ -1,0 +1,83 @@
+/* Dots */
+.slickdotsbanner {
+  position: absolute;
+  bottom: 12%;
+
+  display: block;
+
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+
+  text-align: center;
+}
+.slickdotsbanner li {
+  position: relative;
+
+  display: inline-block;
+
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  padding: 0;
+
+  cursor: pointer;
+}
+.slickdotsbanner li button {
+  font-size: 0;
+  line-height: 0;
+
+  display: block;
+
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+
+  cursor: pointer;
+
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+.slickdotsbanner li button:hover,
+.slickdotsbanner li button:focus {
+  outline: none;
+}
+.slickdotsbanner li button:hover:before,
+.slickdotsbanner li button:focus:before {
+  opacity: 1;
+}
+.slickdotsbanner li button:before {
+  font-family: "slick";
+  /* độ lớn của dot */
+  font-size: 12px;
+  line-height: 20px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 20px;
+  height: 20px;
+
+  content: "•";
+  text-align: center;
+  /* trước và sau khi hover luôn cùng opacity */
+  opacity: 1;
+  color: #d8d8d8;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.slickdotsbanner li.slick-active button:before {
+  opacity: 0.75;
+  /* màu sắc của dot khi active */
+  color: #fb4226;
+}
+/* hover hiện button play */
+.slick-slider:hover > .slick-list .slick-track .play {
+  opacity: 1;
+}

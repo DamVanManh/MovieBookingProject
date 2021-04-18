@@ -17,25 +17,10 @@ export default class Review extends React.Component {
 
     loadMore() {
         this.setState((prev) => {
-            console.log("vo day")
+            // console.log("vo day")
             return { visible: prev.visible + 8 };
         });
     }
-
-    // componentDidMount() {
-    //     fetch("https://jsonplaceholder.typicode.com/posts").then(
-    //         res => res.json()
-    //     ).then(res => {
-    //         this.setState({
-    //             items: res
-    //         });
-    //     }).catch(error => {
-    //         console.error(error);
-    //         this.setState({
-    //             error: true
-    //         });
-    //     });
-    // }
 
     render() {
         return (

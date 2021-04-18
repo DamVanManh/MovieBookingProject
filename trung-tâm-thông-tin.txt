@@ -5,6 +5,8 @@
 1322 gái già lắm chiêu
 1337 Lừa Đểu Gặp Lừa Đảo
 1352 Thần Bịp Jack Chột
+*** các thứ chưa làm: 
+- cần: Bạn không thể bỏ trống 1 ghế ở giữa, không thể chọn quá 10 vé, khi có nhiều người cùng mua một vé
 *** CÁC THƯ VIỆN BẮT BUỘC CÀI ĐỂ CHẠY:
 	+ material ui: npm install @material-ui/core
 	+ icon: npm install @material-ui/icons
@@ -126,3 +128,60 @@ TRACE: thực hiện một bài test loop - back theo đường dẫn đến res
 
     return () => { isMounted = false };
   }, [])
+  
+
+accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiaG5hbW1hZDciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJLaGFjaEhhbmciLCJuYmYiOjE2MTc3NjQwNDQsImV4cCI6MTYxNzc2NzY0NH0.sHBiIKNZggHKvZIoSKEfrlP7deObVKzEUWxCta0Sccs"
+email: "hnammad@gmail.com"
+hoTen: "dam van manh"
+maLoaiNguoiDung: "KhachHang"
+maNhom: "GP01"
+soDT: "3564658244"
+taiKhoan: "hnammad7"
+
+export const bookTicket = (danhSachVe) => {
+  return (dispatch) => {
+    dispatch({
+      type: BOOK_TICKET_REQUEST
+    })
+    bookingApi.postDatVe(danhSachVe)
+      .then(result => {
+        dispatch({
+          type: BOOK_TICKET_SUCCESS,
+          payload: {
+            data: result.data,
+          }
+        })
+      })
+      .catch(
+        error => {
+          console.log('vé đã mua', error.message, JSON.parse(JSON.stringify(error)));
+          dispatch({
+            type: BOOK_TICKET_FAIL,
+            payload: { error: error.message }
+          })
+
+        }
+      )
+  }
+}
+  
+  
+heThongRapChieu: [{maHeThongRap: 'BHDStar', tenHeThongRap, cumRapChieu: [{}]}, {maHeThongRap: 'galaxy', tenHeThongRap, cumRapChieu: [{}]} ] 
+* maHeThongRap, tenHeThongRap
+* cần lấy tất cả cumRapChieu có chiếu phim này: 
+	const aray = heThongRapChieu.reduce((total, item) => { return [...total, ...item.cumRapChieu  ], [])
+
+cumRapChieu[{tenCumRap: '3/2', lichChieuPhim: [{}]}, {tenCumRap: 'Bitexco', lichChieuPhim: [{}]}]
+* 
+
+lichChieuPhim[
+{maLichChieu: "40809", maRap: "451", tenRap: "Rạp 1", ngayChieuGioChieu: "2020-12-11T20:00:00", giaVe: 75000, thoiLuong: 120}
+{maLichChieu: "40809", maRap: "451", tenRap: "Rạp 1", ngayChieuGioChieu: "2020-12-11T20:00:00", giaVe: 75000, thoiLuong: 120}
+]
+
+
+      // let listSeatSelectedSort = listSeatSelectedAdd.sort((itemNext, item) => {
+      //   const itemNextCompare = (itemNext.charCodeAt(0) - 65) * 16 + Number(itemNext.slice(1)) // A ~ 0, B ~ 16, C ~ 32
+      //   const itemCompare = (item.charCodeAt(0) - 65) * 16 + Number(item.slice(1))
+      //   return itemNextCompare - itemCompare
+      // })

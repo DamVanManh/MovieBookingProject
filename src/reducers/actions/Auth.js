@@ -1,5 +1,5 @@
 import usersApi from "../../api/usersApi";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from '../constants/Auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../constants/Auth';
 export const login = (user) => {
   return (dispath) => {
     dispath({
@@ -28,5 +28,13 @@ export const login = (user) => {
           })
         }
       )
+  }
+}
+
+export const logout = () => {
+  return (dispath) => {
+    dispath({
+      type: LOGOUT
+    })
   }
 }
