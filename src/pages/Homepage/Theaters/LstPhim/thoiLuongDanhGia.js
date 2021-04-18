@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Axios from "axios";
-export default function Thoiluong_Danhgia(props) {
+export default function ThoiLuongDanhGia(props) {
   const [data, setData] = useState({ thoiLuong: '120 ', danhGia: '..' })
   const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${props.maPhim}`
   useEffect(() => {

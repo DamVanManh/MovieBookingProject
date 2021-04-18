@@ -5,6 +5,7 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './constants/Au
 // lấy thông tin user đã lưu trong local trước đó nếu refesh lại trang hoặc tắt trang
 // cú pháp ? để tránh trường hợp JSON.parse(null sẽ gây lỗi)
 const currentUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
+
 const initialState = {
   currentUser: currentUser,
   loading: false,

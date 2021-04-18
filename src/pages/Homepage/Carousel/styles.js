@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     }
 
   },
-  a: {
+  itemSlider: {
     position: 'relative'
   },
   img: { height: "100%", width: "100%" },

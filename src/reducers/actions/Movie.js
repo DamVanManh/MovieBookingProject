@@ -1,4 +1,3 @@
-import bookingApi from '../../api/bookingApi';
 import moviesApi from '../../api/moviesApi';
 import theatersApi from '../../api/theatersApi';
 import { GET_MOVIE_LIST_REQUEST, GET_MOVIE_LIST_SUCCESS, GET_MOVIE_LIST_FAIL, GET_MOVIE_DETAIL_REQUEST, GET_MOVIE_DETAIL_SUCCESS, GET_MOVIE_DETAIL_FAIL, GET_THEATERS_SUCCESS, GET_THEATERS_REQUESS, GET_THEATERS_FAIL } from '../constants/Movie';

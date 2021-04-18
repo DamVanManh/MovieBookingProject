@@ -14,6 +14,11 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: "column",
     justifyContent: 'space-between',
+
+    WebkitUserSelect: "none",
+    MozUserSelect: "none",
+    msUserSelect: "none",
+    userSelect: "none",
     ...customScrollbar
   }),
   payMentItem: {
@@ -56,14 +61,8 @@ const useStyles = makeStyles({
   labelEmail: {
     color: props => props.dataFocus.email ? "#4a90e2" : "#9b9b9b",
     fontSize: props => (!props.dataFocus.email && !props.dataSubmit.values.email) ? 16 : 13,
-    transition: "color .3s",
-    transition: "font-size .2s",
-    transition: ".3s",
+    transition: "color .3s, font-size .2s",
     display: 'block',
-    WebkitUserSelect: "none",
-    MozUserSelect: "none",
-    msUserSelect: "none",
-    userSelect: "none",
     position: 'absolute',
     top: "9%",
     left: 0,
@@ -71,13 +70,8 @@ const useStyles = makeStyles({
   labelPhone: {
     color: props => props.dataFocus.phone ? "#4a90e2" : "#9b9b9b",
     fontSize: props => (!props.dataFocus.phone && !props.dataSubmit.values.phone) ? 16 : 13,
-    transition: "color .3s",
-    transition: "font-size .2s",
+    transition: "color .3s, font-size .2s",
     display: 'block',
-    WebkitUserSelect: "none",
-    MozUserSelect: "none",
-    msUserSelect: "none",
-    userSelect: "none",
     position: 'absolute',
     top: "9%",
     left: 0,

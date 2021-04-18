@@ -9,6 +9,7 @@ import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounde
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { useHistory } from "react-router-dom";
 
 import homeCarouselData from "../../../constants/homeCarouselData";
 import SearchStickets from "./SearchTickets";
@@ -18,6 +19,7 @@ const play = './img/carousel/play-video.png';
 
 export default function Carousel() {
   const [openDialog, setOpenDialog] = React.useState({ toggel: false, trailer: '' });
+  const history = useHistory();
   const classes = useStyles();
   const settings = {
     dots: true,
@@ -59,19 +61,19 @@ export default function Carousel() {
       <Slider {...settings}  >
         {homeCarouselData.map((banner) => {
           return (
-            <a href="#" key={banner.maPhim} className={classes.a}>
+            <div key={banner.maPhim} className={classes.itemSlider}>
               <img src={banner?.hinhAnh} alt="banner" className={classes.img} />
-              <div className={classes.backgroundLinear} />
+              <div className={classes.backgroundLinear} onClick={() => history.push(`/phim/${banner.maPhim}`)} />
               <div className={`${classes.button} play`}>
-                <img src={play} className={`${classes.imgPlay}`} onClick={() => handleClickOpen(banner.trailer)} />
+                <img src={play} className={`${classes.imgPlay}`} onClick={() => handleClickOpen(banner.trailer)} alt="play" />
               </div>
-            </a>
+            </div>
           )
         })}
       </Slider>
 
       <Dialog open={openDialog.toggel} onClose={handleClose} maxWidth='xl' classes={{ paper: classes.paper }}>
-        <iframe className={classes.iframe} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
+        <iframe className={classes.iframe} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay' title="trailer movie"></iframe>
         <IconButton className={classes.closeButton} onClick={handleClose} >
           <CloseIcon style={{ color: 'white' }} fontSize='small' />
         </IconButton>
