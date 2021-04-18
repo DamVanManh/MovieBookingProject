@@ -15,7 +15,7 @@
 //     //     justifyContent: 'space-evenly',
 //     //     width: '50%',
 //     //     margin: '0 auto',
-  
+
 //     //     textTransform: "none"
 
 //     // },
@@ -37,7 +37,7 @@
 //     //         transition:"all 0.2s"
 
 //     //     },
-        
+
 
 
 //     // },

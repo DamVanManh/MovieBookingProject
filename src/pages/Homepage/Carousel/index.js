@@ -70,7 +70,7 @@ export default function Carousel() {
         })}
       </Slider>
 
-      <Dialog open={openDialog.toggel} onClose={handleClose} maxWidth='md' classes={{ paper: classes.paper }}>
+      <Dialog open={openDialog.toggel} onClose={handleClose} maxWidth='xl' classes={{ paper: classes.paper }}>
         <iframe className={classes.iframe} src={`${openDialog.trailer}?autoplay=1`} frameBorder="0" allow='autoplay'></iframe>
         <IconButton className={classes.closeButton} onClick={handleClose} >
           <CloseIcon style={{ color: 'white' }} fontSize='small' />

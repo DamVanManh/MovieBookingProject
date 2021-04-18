@@ -2,6 +2,11 @@ import { makeStyles } from "@material-ui/core"
 const useStyles = makeStyles((theme) => ({
   carousel: {
     position: 'relative',
+    display: "block",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    }
+
   },
   a: {
     position: 'relative'
@@ -54,7 +59,8 @@ const useStyles = makeStyles((theme) => ({
   closeButton: {
     position: 'absolute',
     top: 0,
-    right: '-200px',
+    // right: '-200px',
+    right: 0,
     transform: "translate(50%,-50%)",
 
     border: '2px solid white',
