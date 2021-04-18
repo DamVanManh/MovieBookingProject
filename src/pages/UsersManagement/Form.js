@@ -66,7 +66,7 @@ export default function Form(props) {
         }
 
         // truyền user đã update lên và tiến hành đóng form lại
-        props.onClose(typeOfUserAction)
+        props.ongggggg(typeOfUserAction)
         // thay đổi giá trị set biến để disable cái tài khoản hay không
         props.onChangeIsActive()
 
