@@ -121,7 +121,7 @@ export default function ListSeat() {
       <div className={classes.overflowSeat}>
         <div className={classes.invariantWidth}>
           {/* mô phỏng màn hình */}
-          <img className={classes.screen} src="/img/bookticket/screen.png" />
+          <img className={classes.screen} src="/img/bookticket/screen.png" alt="screen" />
           {/* danh sách ghế */}
           <div className={classes.seatSelect}>
             {listSeat?.map((seat, i) => (
@@ -135,7 +135,7 @@ export default function ListSeat() {
                 {/* icon ghế */}
                 <SeatIcon style={{ color: color(seat) }} className={classes.seatIcon} />
                 {/* đường viền chỉ vùng ghế */}
-                {seat.label == 'E08' && <img className={classes.viewCenter} src="/img/bookticket/seatcenter.png" alt="seatcenter" />}
+                {seat.label === 'E08' && <img className={classes.viewCenter} src="/img/bookticket/seatcenter.png" alt="seatcenter" />}
                 {/* vùng bắt sự kiện click */}
                 <div className={classes.areaClick} onClick={() => handleSelectedSeat(seat)}></div>
               </div>

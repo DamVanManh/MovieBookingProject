@@ -13,8 +13,10 @@ const makeObjError = (name, value, dataSubmit) => {
   let newErrors = { ...dataSubmit.errors, [name]: value.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} không được bỏ trống` : '' }
 
   // kiểm tra và set lỗi sai định dạng
-  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  const regexNumber = /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/;
+  //eslint-disable-next-line
+  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  //eslint-disable-next-line
+  const regexNumber = /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/
   if (name === 'email' && value) {
     if (!regexEmail.test(value)) {
       newErrors[name] = 'Email không đúng định dạng';
@@ -29,7 +31,7 @@ const makeObjError = (name, value, dataSubmit) => {
 }
 
 export default function PayMent() {
-  const { listSeat, amount, activeStep, email, phone, paymentMethod, isReadyPayment, isMobile, danhSachVe, danhSachPhongVe: { thongTinPhim }, maLichChieu, taiKhoanNguoiDung, isSelectedSeat, listSeatSelected, loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
+  const { listSeat, amount, email, phone, paymentMethod, isReadyPayment, isMobile, danhSachVe, danhSachPhongVe: { thongTinPhim }, maLichChieu, taiKhoanNguoiDung, isSelectedSeat, listSeatSelected, loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
   const dispatch = useDispatch()
   const emailRef = useRef();
   const phoneRef = useRef(); // dùng useRef để dom tớ element
@@ -58,27 +60,23 @@ export default function PayMent() {
   useEffect(() => { // sau 0.5s mới đẩy data lên redux để tăng hiệu năng
     clearTimeout(variClear)
     variClear.current = setTimeout(() => {
-      setDataPayment()
+      dispatch({
+        type: SET_DATA_PAYMENT,
+        payload: {
+          email: dataSubmit.values.email,
+          phone: dataSubmit.values.phone,
+          paymentMethod: dataSubmit.values.paymentMethod,
+        },
+      })
+      // khi không có lỗi và đủ dữ liệu thì set data sẵn sàng đặt vé và ngược lại, set activeStep = 1 nếu đủ dữ liệu và chưa đặt vé
+      if (!dataSubmit.errors.email && !dataSubmit.errors.phone && dataSubmit.values.email && dataSubmit.values.phone && dataSubmit.values.paymentMethod && isSelectedSeat) {
+        dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: true } })
+      } else {
+        dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: false } })
+      }
     }, 500);
     return () => clearTimeout(variClear.current)
-  }, [dataSubmit])
-
-  const setDataPayment = () => {
-    dispatch({
-      type: SET_DATA_PAYMENT,
-      payload: {
-        email: dataSubmit.values.email,
-        phone: dataSubmit.values.phone,
-        paymentMethod: dataSubmit.values.paymentMethod,
-      },
-    })
-    // khi không có lỗi và đủ dữ liệu thì set data sẵn sàng đặt vé và ngược lại, set activeStep = 1 nếu đủ dữ liệu và chưa đặt vé
-    if (!dataSubmit.errors.email && !dataSubmit.errors.phone && dataSubmit.values.email && dataSubmit.values.phone && dataSubmit.values.paymentMethod && isSelectedSeat && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
-      dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: true } })
-    } else {
-      dispatch({ type: SET_READY_PAYMENT, payload: { isReadyPayment: false } })
-    }
-  }
+  }, [dataSubmit, isSelectedSeat, dispatch])
 
   useEffect(() => { // cập nhật lại data email, phone và validation khi reload
     let emailErrors = makeObjError(emailRef.current.name, email, dataSubmit)
@@ -89,7 +87,7 @@ export default function PayMent() {
       },
       errors: { email: emailErrors.email, phone: phoneErrors.phone }
     }))
-  }, [listSeat]) // khi reload listSeat sẽ được cập nhật
+  }, [listSeat, dispatch]) // khi reload listSeat sẽ được cập nhật kèm theo, email, phone mặc định của tài khoản
 
   const handleBookTicket = () => { // khi đủ dữ liệu và chưa có lần đặt vé nào trước đó thì mới cho đặt vé
     if (isReadyPayment && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {

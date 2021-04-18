@@ -7,25 +7,15 @@ import { ErrorMessage, Field, Form, Formik } from 'formik'
 import logoTix from "../Register/logo/logoTix.png"
 
 export default function Login() {
-  const [user, setUser] = useState({ taiKhoan: "", matKhau: "" });
   // useSelector lấy data từ reducer về
-  const { loading, error } = useSelector((state) => state.authReducer);
-  // useDispatch: dispatch action
+  const { currentUser, loading, error } = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
-
-  // lấy user từ local lên: khi xóa user dưới local sẽ phải đăng nhập lại
-  const currentUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
-  // const handleChange = evt => {
-  //     const { name, value } = evt.target;
-  //     setUser((currentForm) => ({ ...currentForm, [name]: value }))
-  // }
 
   if (loading) {
     return <div>loading</div>
   }
 
   if (currentUser) {
-    console.log('tai khoan hiện tại:', currentUser)
     return <Redirect to='/' />
   }
 
@@ -49,6 +39,7 @@ export default function Login() {
           initialValues={{
             taiKhoan: "",
             matKhau: "",
+            saveAccount: true,
           }}
           validationSchema={signinUserSchema}
           onSubmit={handleSubmit}
@@ -78,7 +69,7 @@ export default function Login() {
                 </ErrorMessage>
               </div>
               <button
-                style={{backgroundColor:"#3E63b6", borderColor: "#3E63b6" }}
+                style={{ backgroundColor: "#3E63b6", borderColor: "#3E63b6" }}
                 disable={loading}
                 type="submit" className="btn btn-success mt-3 container" >
                 Đăng nhập

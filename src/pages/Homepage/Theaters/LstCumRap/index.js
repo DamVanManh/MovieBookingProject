@@ -10,7 +10,7 @@ export default function LstCumRap(props) {
   const [valueCumRap, setValueCumRap] = React.useState(0);
   const classes = useStyles({ underLine, customScrollbar, isMobileTheater, color });
   const handleChangeCumRap = (e) => {
-    setValueCumRap(e.currentTarget.getAttribute("index"));
+    setValueCumRap(Number(e.currentTarget.getAttribute("index")));
   };
 
   const imgLst = useMemo(() => { // dùng useMemo để hình ảnh cụm rạp không bị render lại khi click chọn cụm rạp khác
@@ -29,8 +29,8 @@ export default function LstCumRap(props) {
       <div className={classes.lstCumRap}>{/* div root danh sách cụm rạp */}
         {lstCumRap.map((cumRap, index) =>
         (
-          <div className={classes.cumRap} index={index} onClick={(e,) => handleChangeCumRap(e)} key={cumRap.maCumRap} style={{ opacity: valueCumRap == index ? '1' : '.5' }}>
-            <img className={classes.cumRap__img} src={imgLst[index]} />
+          <div className={classes.cumRap} index={index} onClick={(e,) => handleChangeCumRap(e)} key={cumRap.maCumRap} style={{ opacity: valueCumRap === index ? '1' : '.5' }}>
+            <img className={classes.cumRap__img} src={imgLst[index]} alt="CumRapImg" />
             <div className={classes.cumRap__info}>
               <p className={classes['cumRap__name--first']}>{cumRap.tenCumRap.split("-")[0]}<span className={classes['cumRap__name--second']}>-{cumRap.tenCumRap.split("-")[1]}</span></p>
               <p className={classes.cumRap__address}>{cumRap.diaChi}</p>
@@ -40,7 +40,7 @@ export default function LstCumRap(props) {
         )}
       </div>
       {lstCumRap.map((cumRap, index) => (
-        valueCumRap == index && <LstPhim lstPhim={cumRap.danhSachPhim} key={cumRap.maCumRap} />
+        valueCumRap === index && <LstPhim lstPhim={cumRap.danhSachPhim} key={cumRap.maCumRap} />
       ))}
     </>
   );
