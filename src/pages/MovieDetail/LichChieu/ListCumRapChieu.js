@@ -21,7 +21,7 @@ export default function ListCumRapChieu({ data }) {
       item.tenCumRap
     )
     const arrayCumRapChieuFilterByDay = [...(new Set(arrayAllCumRapChieuFilterByDay))] // loại bỏ trùng
-    console.log("arry ", arrayLichChieuPhimFilterByDay, arrayCumRapChieuFilterByDay);
+    // console.log("arry ", arrayLichChieuPhimFilterByDay, arrayCumRapChieuFilterByDay);
     setDataCRC(dataCRC => ({ ...dataCRC, arrayLichChieuPhimFilterByDay, arrayCumRapChieuFilterByDay, }))
     return () => {
     }
@@ -35,7 +35,7 @@ export default function ListCumRapChieu({ data }) {
     }
     return imgLst
   }, [data.currentMaHeThongRap, data.arrayCumRapChieu])
-  console.log("imgLst ", imgLst);
+  // console.log("imgLst ", imgLst);
 
   return (
     <>

@@ -43,7 +43,7 @@ export default function RightSection({ itemHeThongRapChieu, maHeThongRap }) {
     const currentSelectDay = e.currentTarget?.getAttribute('day')
     setData(data => ({ ...data, currentSelectDay }))
   }
-  console.log(" maHeThongRap ", data);
+  // console.log(" maHeThongRap ", data);
   return (
     <div>
       <div className={classes.listDay}>
