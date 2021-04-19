@@ -4,8 +4,9 @@ import movieReducer from "./Movie";
 import usersList from "./UsersList";
 import theaterReducer from "./Theater";
 import bookTicketReducer from "./BookTicket";
+import movieDetailReducer from "./MovieDetail";
 
 const rootReducer = combineReducers({
-  authReducer, movieReducer, usersList, theaterReducer, bookTicketReducer
+  authReducer, movieReducer, usersList, theaterReducer, bookTicketReducer, movieDetailReducer
 });
 export default rootReducer;

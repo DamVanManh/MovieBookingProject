@@ -1,4 +1,4 @@
-import { GET_THEATERS_SUCCESS, GET_THEATERS_REQUESS, GET_THEATERS_FAIL } from './constants/Movie';
+import { GET_THEATERS_SHOWTIME_REQUEST, GET_THEATERS_SHOWTIME_SUCCESS, GET_THEATERS_SHOWTIME_FAIL } from './constants/Theater';
 
 const initialState = {
   loading: false,
@@ -8,13 +8,13 @@ const initialState = {
 
 const theaterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_THEATERS_REQUESS: {
+    case GET_THEATERS_SHOWTIME_REQUEST: {
       return {
         ...state, loading: true, error: null
       }
     }
 
-    case GET_THEATERS_SUCCESS: {
+    case GET_THEATERS_SHOWTIME_SUCCESS: {
       return {
         ...state,
         theaterList: action.payload.data,
@@ -22,7 +22,7 @@ const theaterReducer = (state = initialState, action) => {
       }
     }
 
-    case GET_THEATERS_FAIL: {
+    case GET_THEATERS_SHOWTIME_FAIL: {
       return {
         ...state,
         error: action.payload.error,
