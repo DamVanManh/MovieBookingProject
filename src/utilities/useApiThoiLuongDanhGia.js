@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Axios from "axios";
-export default function ThoiLuongDanhGia(props) {
-  const [data, setData] = useState({ thoiLuong: '120 ', danhGia: '..' })
-  const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${props.maPhim}`
+export default function UseThoiLuongDanhGia(maPhim) {
+  const [data, setData] = useState({ thoiLuong: '120', danhGia: 'loading...' })
+  const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`
   useEffect(() => {
     let getInfoFlimCancel = Axios.CancelToken.source(); // Axios cung cấp, để cancel gọi api khi component bị hủy(bấm chuyển cụm rạp khác)
     const loadData = async () => {
@@ -27,11 +27,5 @@ export default function ThoiLuongDanhGia(props) {
       getInfoFlimCancel.cancel(); // unmounting thì cancel request axios
     };
   }, [])
-  return (
-    <>
-      <span className={props.injectCss}>
-        {`${data.thoiLuong} phút - TXT Đánh giá ${data.danhGia}`}
-      </span>
-    </>
-  )
+  return { thoiLuong: data.thoiLuong, danhGia: data.danhGia }
 }

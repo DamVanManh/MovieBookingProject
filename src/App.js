@@ -36,11 +36,11 @@ function App() {
         <Switch>
 
           {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
-          <Route exact path={["/", "/phim/:movieId"]}>
+          <Route exact path={["/", "/phim/:maPhim"]}>
             <Switch >
               <MainLayout >
                 <Route exact path="/" component={Homepage} />
-                <Route exact path="/phim/:movieId" component={MovieDetail} />
+                <Route exact path="/phim/:maPhim" component={MovieDetail} />
               </MainLayout>
             </Switch>
           </Route>

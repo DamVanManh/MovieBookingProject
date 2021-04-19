@@ -32,10 +32,6 @@ const useStyles = makeStyles({
     fontWeight: 500,
     textTransform: "capitalize",
   },
-  phim__text_ltdg: {
-    fontSize: 12,
-    color: "#9b9b9b",
-  },
 
 });
 export default useStyles

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import cumRapImgRandom from '../../../../constants/theaterImagesData'
+import theaterImagesData from '../../../../constants/theaterImagesData'
 import LstPhim from '../LstPhim'
 import useStyles from './style'
 import { underLine, customScrollbar } from '../../../../styles/materialUi'
@@ -17,7 +17,7 @@ export default function LstCumRap(props) {
     function createImgLst() {
       let imgLst = []
       for (let i = 0; i < lstCumRap.length; i++) {
-        imgLst.push(cumRapImgRandom())
+        imgLst.push(theaterImagesData())
       }
       return imgLst
     }

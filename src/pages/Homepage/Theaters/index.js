@@ -5,7 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getTheaters } from '../../../reducers/actions/Movie';
+import { getTheaters } from '../../../reducers/actions/Theater';
 import LstCumRap from './LstCumRap'
 import useStyles from './style'
 import { underLine } from '../../../styles/materialUi'

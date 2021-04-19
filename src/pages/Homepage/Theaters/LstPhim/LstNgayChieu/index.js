@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
 import formatDate from '../../../../../utilities/formatDate'
-import BtnGoToCheckout from './btnGoToCheckout';
+import BtnGoToCheckOut from '../../../../../components/BtnGoToCheckOut';
 import useStyles from './style'
 
 export default function LstGioChieu(props) {
@@ -29,7 +29,7 @@ export default function LstGioChieu(props) {
           <p className={classes.ngayChieu}>{formatDate(date).dateFull}</p> {/*in ra ngày hiện tại*/}
           {filterByDay(date).map(lichChieuTheoPhim => (
             <Fragment key={lichChieuTheoPhim.maLichChieu} >
-              <BtnGoToCheckout lichChieuTheoPhim={lichChieuTheoPhim} />
+              <BtnGoToCheckOut lichChieuTheoPhim={lichChieuTheoPhim} />
             </Fragment>
           ))}
         </Fragment>
