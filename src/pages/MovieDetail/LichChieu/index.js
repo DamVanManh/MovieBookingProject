@@ -29,7 +29,7 @@ export default function HeThongRap({ data }) {
   const isMobileTheater = useMediaQuery(DISPLAY_MOBILE_THEATER);
   const classes = useStyles();
 
-  console.log("databbbb", data);
+  // console.log("databbbb", data);
 
   const [value, setValue] = React.useState(0);
 
