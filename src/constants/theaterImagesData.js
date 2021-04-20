@@ -19,4 +19,5 @@ const allCumRapImg = [
 function returnRandomItem() {
   return allCumRapImg[Math.floor(Math.random() * 14)]
 }
-export default returnRandomItem;
+const dataFakeImgTheater = []
+export { returnRandomItem, dataFakeImgTheater };

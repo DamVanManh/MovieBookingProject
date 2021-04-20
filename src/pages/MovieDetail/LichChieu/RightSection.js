@@ -8,7 +8,6 @@ export default function RightSection({ currentSelectedHeThongRapChieu, maHeThong
   const [data, setData] = useState({ arrayAllLichChieuPhim: [], arrayDay: [], arrayCumRapChieu: [], currentSelectDay: "", currentMaHeThongRap: maHeThongRap })
   const classes = useStyles()
   useEffect(() => {
-
     // currentSelectedHeThongRapChieu: chứa lichChieuPhim chia theo từng cumRapChieu, ta cần filter lichChieuPhim theo ngày và cumRapChieu
     // lọc ra tất cả lichChieuPhim và add thêm props tenCumRap để nhận biết lichChieuPhim này thuộc cụm rạp nào
     let ismounted = false
@@ -45,7 +44,7 @@ export default function RightSection({ currentSelectedHeThongRapChieu, maHeThong
     const currentSelectDay = e.currentTarget?.getAttribute('day')
     setData(data => ({ ...data, currentSelectDay }))
   }
-  // console.log(" maHeThongRap:  ", maHeThongRap);
+
   return (
     <div>
       <div className={classes.listDay}>

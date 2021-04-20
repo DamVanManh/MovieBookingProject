@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     minHeight: 713,
     borderRadius: "10px",
-    color: "#000"
+    color: "#000",
   },
   leftSection: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "hidden",
     whiteSpace: "nowrap",
     ...customScrollbar,
-
   },
 
   dayItem: {
@@ -61,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     textAlign: "center",
     cursor: "pointer",
-    minWidth: 83,
   },
   cumRapItem: {
     padding: "20px 20px 10px",
