@@ -13,6 +13,7 @@ export default function BtnGoToCheckout({ lichChieuTheoPhim }) {
     return timeOutObj.toLocaleTimeString([], { hour12: false }).slice(0, 5)
   }
 
+
   return (
     <button className={classes.button} onClick={() => history.push(`/datve/${lichChieuTheoPhim.maLichChieu}`)}>
       <span className={classes.inTime}>{lichChieuTheoPhim.ngayChieuGioChieu.slice(11, 16)}</span>
