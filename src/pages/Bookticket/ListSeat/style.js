@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core"
+import { customScrollbar } from '../../../styles/materialUi';
 
 const useStyles = makeStyles({
   listSeat: props => ({
@@ -50,7 +51,7 @@ const useStyles = makeStyles({
 
   overflowSeat: {
     overflow: props => props.isMobile ? "auto hidden" : "auto hidden",
-
+    ...customScrollbar
   },
   invariantWidth: {
     minWidth: props => props.isMobile ? "600px" : "600px",

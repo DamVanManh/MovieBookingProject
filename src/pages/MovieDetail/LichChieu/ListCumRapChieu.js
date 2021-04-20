@@ -1,15 +1,14 @@
-import React, { useEffect, useState, Fragment, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import useStyles from './style'
-import returnRandomImg from '../../../constants/theaterImagesData';
 import ListLichChieuPhimFilterByDayAndNameTheater from './ListLichChieuPhimFilterByDayAndNameTheater';
 import Address from './Address';
-
+import FakeImgTheater from '../../../components/FakeImgTheater/fakeImgTheater';
 
 export default function ListCumRapChieu({ data }) {
   const [dataCRC, setDataCRC] = useState({ arrayLichChieuPhimFilterByDay: [], arrayCumRapChieuFilterByDay: [], })
   const classes = useStyles()
-  // console.log("truyền ", data);
+
   useEffect(() => {
 
     // lọc ra item LichChieuPhim theo ngày đang chọn
@@ -23,31 +22,20 @@ export default function ListCumRapChieu({ data }) {
     const arrayAllCumRapChieuFilterByDay = arrayLichChieuPhimFilterByDay.map(item =>
       item.tenCumRap
     )
-
     const arrayCumRapChieuFilterByDay = [...(new Set(arrayAllCumRapChieuFilterByDay))] // loại bỏ trùng
-    // console.log("arry ", arrayLichChieuPhimFilterByDay, arrayCumRapChieuFilterByDay);
+
     setDataCRC(dataCRC => ({ ...dataCRC, arrayLichChieuPhimFilterByDay, arrayCumRapChieuFilterByDay, }))
     return () => {
     }
   }, [data.currentSelectDay])
 
-  // dataCRC?.arrayAllCumRapChieuFilterByDay?.length
-  const imgLst = useMemo(() => { // dùng useMemo để hình ảnh cụm rạp không bị render lại khi click chọn cụm rạp khác
-    let imgLst = []
-    for (let i = 0; i < 10; i++) {
-      imgLst.push(returnRandomImg())
-    }
-    return imgLst
-  }, [data.currentSelectDay])
-
-
   return (
     <>
       {
-        dataCRC.arrayCumRapChieuFilterByDay.map((nameTheater, index) => (
+        dataCRC.arrayCumRapChieuFilterByDay.map((nameTheater) => (
           <div key={nameTheater} className={classes.cumRapItem}>
             <div className={classes.topInfo}>
-              <img className={classes.imgTheater} src={imgLst[index]} alt="theater" />
+              <FakeImgTheater nameTheater={nameTheater} imgStyle={classes.imgTheater} />
               <div className={classes.wrapInfo}>
                 <p className={classes.nameTheater}>{nameTheater}</p>
                 <Address nameTheater={nameTheater} arrayLichChieuPhimFilterByDay={dataCRC.arrayLichChieuPhimFilterByDay} />
@@ -57,9 +45,8 @@ export default function ListCumRapChieu({ data }) {
             <p className={classes.digital}>2D Digital</p>
 
             {/* từ arrayLichChieuPhimFilterByDay, filter ra item trùng  nameTheater*/}
-            <div>
-              <ListLichChieuPhimFilterByDayAndNameTheater nameTheater={nameTheater} arrayLichChieuPhimFilterByDay={dataCRC.arrayLichChieuPhimFilterByDay} />
-            </div>
+            <ListLichChieuPhimFilterByDayAndNameTheater nameTheater={nameTheater} arrayLichChieuPhimFilterByDay={dataCRC.arrayLichChieuPhimFilterByDay} />
+
 
           </div>
 

@@ -18,8 +18,6 @@ export default function Index() {
   const dispatch = useDispatch()
   const mediaQuery = useMediaQuery(DISPLAY_MOBILE_BOOKTICKET)
 
-  console.log("danhSachPhongVe: ", danhSachPhongVe);
-
   useEffect(() => { // chuyển sang step 2 nếu đã nhấn đặt vé
     if (successBookingTicketMessage || errorBookTicketMessage) {
       dispatch({ type: SET_STEP, payload: { activeStep: 2, } })
