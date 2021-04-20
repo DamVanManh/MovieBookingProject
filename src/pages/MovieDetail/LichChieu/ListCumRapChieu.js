@@ -1,7 +1,10 @@
 import React, { useEffect, useState, Fragment, useMemo } from 'react'
+
 import useStyles from './style'
 import returnRandomImg from '../../../constants/theaterImagesData';
 import ListLichChieuPhimFilterByDayAndNameTheater from './ListLichChieuPhimFilterByDayAndNameTheater';
+import Address from './Address';
+
 
 export default function ListCumRapChieu({ data }) {
   const [dataCRC, setDataCRC] = useState({ arrayLichChieuPhimFilterByDay: [], arrayCumRapChieuFilterByDay: [], })
@@ -9,7 +12,7 @@ export default function ListCumRapChieu({ data }) {
   // console.log("truyền ", data);
   useEffect(() => {
 
-    // tạo mảng chứa tất cả LichChieuPhim trùng ngày đang chọn
+    // lọc ra item LichChieuPhim theo ngày đang chọn
     const arrayLichChieuPhimFilterByDay = data.arrayAllLichChieuPhim.filter(item => {
       if (item.ngayChieuGioChieu.slice(0, 10) === data.currentSelectDay) {
         return true
@@ -20,6 +23,7 @@ export default function ListCumRapChieu({ data }) {
     const arrayAllCumRapChieuFilterByDay = arrayLichChieuPhimFilterByDay.map(item =>
       item.tenCumRap
     )
+
     const arrayCumRapChieuFilterByDay = [...(new Set(arrayAllCumRapChieuFilterByDay))] // loại bỏ trùng
     // console.log("arry ", arrayLichChieuPhimFilterByDay, arrayCumRapChieuFilterByDay);
     setDataCRC(dataCRC => ({ ...dataCRC, arrayLichChieuPhimFilterByDay, arrayCumRapChieuFilterByDay, }))
@@ -34,29 +38,31 @@ export default function ListCumRapChieu({ data }) {
       imgLst.push(returnRandomImg())
     }
     return imgLst
-  }, [data.currentMaHeThongRap, data.arrayCumRapChieu])
-  // console.log("imgLst ", imgLst);
+  }, [data.currentSelectDay])
+
 
   return (
     <>
       {
         dataCRC.arrayCumRapChieuFilterByDay.map((nameTheater, index) => (
-          <Fragment key={nameTheater}>
-            <div>
+          <div key={nameTheater} className={classes.cumRapItem}>
+            <div className={classes.topInfo}>
               <img className={classes.imgTheater} src={imgLst[index]} alt="theater" />
-              <div>
-                <p>{nameTheater}</p>
-                <p>dịa chỉ</p>
+              <div className={classes.wrapInfo}>
+                <p className={classes.nameTheater}>{nameTheater}</p>
+                <Address nameTheater={nameTheater} arrayLichChieuPhimFilterByDay={dataCRC.arrayLichChieuPhimFilterByDay} />
               </div>
+              <div style={{ clear: "both" }}></div>
             </div>
-            <p>2D Digital</p>
+            <p className={classes.digital}>2D Digital</p>
 
-            {/* danh sách maLichChieu đã filter theo ngày và rap */}
+            {/* từ arrayLichChieuPhimFilterByDay, filter ra item trùng  nameTheater*/}
             <div>
               <ListLichChieuPhimFilterByDayAndNameTheater nameTheater={nameTheater} arrayLichChieuPhimFilterByDay={dataCRC.arrayLichChieuPhimFilterByDay} />
             </div>
 
-          </Fragment>
+          </div>
+
         ))
       }
 

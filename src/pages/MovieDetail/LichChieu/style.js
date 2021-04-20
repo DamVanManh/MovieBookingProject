@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     color: "#000"
   },
-  tabs: {
+  leftSection: {
     borderRight: `1px solid ${theme.palette.divider}`,
     width: "28%",
   },
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
   },
 
-  RightSection: {
+  rightSection: {
     width: "72%",
   },
   listDay: {
@@ -45,38 +45,51 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "0 !important",
     paddingRight: "0 !important",
     backgroundColor: "#fff",
+    borderRadius: 10,
+
     display: "flex",
 
-    overflowX: "auto",
+    overflowX: "scroll",
     overflowY: "hidden",
     whiteSpace: "nowrap",
     ...customScrollbar,
 
   },
+
   dayItem: {
     padding: 10,
+    fontWeight: 500,
     textAlign: "center",
     cursor: "pointer",
+    minWidth: 83,
   },
-  listCumRap: {
-
+  cumRapItem: {
+    padding: "20px 20px 10px",
+    ...underLine
   },
-
-
+  topInfo: {
+    paddingBottom: 20,
+  },
   imgTheater: {
     width: 50,
-    height: 50,
+    float: "left",
     display: "inline-block",
+    border: "1px solid #ebebec",
   },
+  wrapInfo: {
+    paddingLeft: 58
+  },
+  nameTheater: {
+    fontWeight: 500,
+  },
+  digital: {
+    marginBottom: 5,
+    fontWeight: 500,
+  },
+  address: {
+    fontSize: 14,
+    color: "#9b9b9b"
+  }
 
-  // logo: {
-
-  // },
-  // logo: {
-
-  // },
-  // logo: {
-
-  // },
 }));
 export default useStyles

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Axios from "axios";
-export default function UseThoiLuongDanhGia(maPhim) {
-  const [data, setData] = useState({ thoiLuong: '120', danhGia: 'loading...' })
-  const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`
+export default function UseThoiLuongDanhGia(maLichChieu) {
+  const [data, setData] = useState({ diaChi: 'loading...' })
+  const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`
   useEffect(() => {
     let getInfoFlimCancel = Axios.CancelToken.source(); // Axios cung cấp, để cancel gọi api khi component bị hủy(bấm chuyển cụm rạp khác)
     const loadData = async () => {
@@ -11,12 +11,11 @@ export default function UseThoiLuongDanhGia(maPhim) {
           cancelToken: getInfoFlimCancel.token
         });
         setData({
-          thoiLuong: response.data?.heThongRapChieu?.[0]?.cumRapChieu?.[0]?.lichChieuPhim?.[0]?.thoiLuong, // tách ra thời lượng phim
-          danhGia: response.data.danhGia
+          diaChi: response.data?.thongTinPhim?.diaChi, // tách ra địa chỉ
         });
       } catch (error) { // vào đây khi có lỗi get api hoặc khi cancel thành công
         if (Axios.isCancel(error)) { // cancel request thành công
-          console.log("AxiosCancel: caught cancel");
+          // console.log("AxiosCancel: caught cancel");
         } else {
           throw error; // báo lỗi get api
         }
@@ -27,5 +26,5 @@ export default function UseThoiLuongDanhGia(maPhim) {
       getInfoFlimCancel.cancel(); // unmounting thì cancel request axios
     };
   }, [])
-  return { thoiLuong: data.thoiLuong, danhGia: data.danhGia }
+  return { diaChi: data.diaChi }
 }

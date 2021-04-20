@@ -5,7 +5,6 @@ import Tab from '@material-ui/core/Tab'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import useStyles from './style'
-import { underLine } from '../../../styles/materialUi'
 import { DISPLAY_MOBILE_THEATER } from '../../../constants/config'
 import RightSection from './RightSection';
 
@@ -29,7 +28,7 @@ export default function HeThongRap({ data }) {
   const isMobileTheater = useMediaQuery(DISPLAY_MOBILE_THEATER);
   const classes = useStyles();
 
-  // console.log("databbbb", data);
+  console.log("data tổng: ", data);
 
   const [value, setValue] = React.useState(0);
 
@@ -44,7 +43,7 @@ export default function HeThongRap({ data }) {
         variant="scrollable"
         value={value}
         onChange={handleChange}
-        classes={{ root: classes.tabs, indicator: classes.indicator }}
+        classes={{ root: classes.leftSection, indicator: classes.indicator }}
       >
         {data?.heThongRapChieu?.map(theater => (
           <Tab disableRipple key={theater.maHeThongRap} classes={{ wrapper: classes.wrapper, root: classes.tabRoot }} label={
@@ -55,18 +54,20 @@ export default function HeThongRap({ data }) {
           } />
         ))}
       </Tabs>
-      <div className={classes.RightSection}>
+      <div className={classes.rightSection}>
+        {data?.heThongRapChieu?.length === 0 && <p style={{ padding: 10 }}>Hiện tại chưa có lịch chiếu cho phim này</p>}
         {data?.heThongRapChieu?.map((theater, i) => (
           <Fragment key={theater.maHeThongRap}>
             <TabPanel value={value} index={i} >
-              <RightSection itemHeThongRapChieu={theater} maHeThongRap={theater.maHeThongRap} />
+              {/* currentSelectedHeThongRapChieu: chỉ truyền vào heThongRapChieu đã chọn */}
+              <RightSection currentSelectedHeThongRapChieu={theater} maHeThongRap={theater.maHeThongRap} />
             </TabPanel>
           </Fragment>
         ))}
 
       </div>
 
-    </div>
+    </div >
   );
 }
 

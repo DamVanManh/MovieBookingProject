@@ -86,6 +86,7 @@ const useStyles = makeStyles({
 
   rate: {
     width: "16%",
+    textAlign: "center",
   },
   rateStar: {
     margin: "auto",

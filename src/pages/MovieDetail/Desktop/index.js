@@ -37,6 +37,7 @@ export default function Desktop({ movieDetailShowtimes: data }) {
             <div className={classes.rateStar}>
               <Rating name="half-rating-read" value={(danhGia * 5) / 10} precision={0.5} readOnly />
             </div>
+            <span>31 người đánh giá</span>
           </div>
         </div>
       </div>

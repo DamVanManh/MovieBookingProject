@@ -4,6 +4,7 @@ import BtnGoToCheckOut from '../../../components/BtnGoToCheckOut';
 export default function ListLichChieuPhimFilterByDayAndNameTheater({ nameTheater, arrayLichChieuPhimFilterByDay }) {
   const [listLichChieuPhim, setListLichChieuPhim] = useState([])
   useEffect(() => {
+    // từ arrayLichChieuPhimFilterByDay, filter ra item trùng nameTheater
     const listLichChieuPhim = arrayLichChieuPhimFilterByDay.filter(lcp => {
       if (lcp.tenCumRap === nameTheater) {
         return true
@@ -11,7 +12,8 @@ export default function ListLichChieuPhimFilterByDayAndNameTheater({ nameTheater
       return false
     })
     setListLichChieuPhim(listLichChieuPhim)
-  }, [])
+  }, [arrayLichChieuPhimFilterByDay])
+
   return (
     <div>
       {listLichChieuPhim?.map(lcp => (
