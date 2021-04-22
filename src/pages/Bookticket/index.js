@@ -27,7 +27,9 @@ export default function Index() {
   useEffect(() => { // lấy thongTinPhim và danhSachGhe
     dispatch(getListSeat(param.maLichChieu))
     return () => { // xóa dữ liệu khi đóng hủy component
+    console.log("có vô đây");
       dispatch({ type: RESET_DATA })
+      
     }
   }, [])
 
@@ -55,9 +57,6 @@ export default function Index() {
     dispatch({ type: SET_ISMOBILE, payload: { isMobile: mediaQuery } })
   }, [mediaQuery])
 
-  if (loadingGetListSeat) {
-    return <h1 style={{ paddingTop: 300 }}>loading</h1>
-  }
   if (errorGetListSeatMessage) {
     return <div>{errorGetListSeatMessage}</div>
   }

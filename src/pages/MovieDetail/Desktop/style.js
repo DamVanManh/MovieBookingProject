@@ -45,9 +45,13 @@ const useStyles = makeStyles({
   },
   imgTrailer: {
     width: "25%",
+    position: "relative",
+    '&:hover > div ': { opacity: 1 }
   },
   img: {
     width: "100%",
+    borderRadius: 4,
+
   },
   shortInfo: {
     width: "59%",

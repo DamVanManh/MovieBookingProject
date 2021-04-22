@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useParams } from "react-router-dom";
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -9,11 +9,18 @@ import useStyles from './style';
 import formatDate from '../../../utilities/formatDate';
 import useApiThoiLuongDanhGia from '../../../utilities/useApiThoiLuongDanhGia';
 import Tap from '../Tap';
+import BtnPlay from '../../../components/BtnPlay';
 
 export default function Desktop({ movieDetailShowtimes: data }) {
+  const [onClickBtnMuave, setOnClickBtnMuave] = useState(0)
   const param = useParams()
   const { thoiLuong, danhGia } = useApiThoiLuongDanhGia(param.maPhim)
   const classes = useStyles({ bannerImg: data?.hinhAnh })
+
+  const handleBtnMuaVe = () => {
+    setOnClickBtnMuave(Date.now())
+  }
+  console.log("data ", data.trailer);
 
   return (
     <div className={classes.desktop}>
@@ -25,12 +32,13 @@ export default function Desktop({ movieDetailShowtimes: data }) {
         <div className={classes.topInfo}>
           <div className={classes.imgTrailer}>
             <img className={classes.img} src={data?.hinhAnh} alt="movie" />
+            <BtnPlay urlYoutube={data?.trailer} />
           </div>
           <div className={classes.shortInfo}>
             <p>{formatDate(data.ngayKhoiChieu?.slice(0, 10)).dDMmYy}</p>
             <p className={classes.movieName}><span className={classes.c18}>C18</span>{data.tenPhim}</p>
             <p>{`${thoiLuong} phút - ${danhGia} Txt`} - 2D/Digital</p>
-            <button className={classes.btnMuaVe}>Mua vé</button>
+            <button className={classes.btnMuaVe} onClick={handleBtnMuaVe}>Mua vé</button>
           </div>
           <div className={classes.rate}>
             <CircularProgressbar value={danhGia * 10} text={danhGia} />
@@ -41,7 +49,7 @@ export default function Desktop({ movieDetailShowtimes: data }) {
           </div>
         </div>
       </div>
-      <Tap data={data} />
+      <Tap data={data} onClickBtnMuave={onClickBtnMuave} />
     </div>
   )
 }

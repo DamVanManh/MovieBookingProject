@@ -190,8 +190,6 @@ export default function PayMent() {
         <p>Mã vé sẽ được gửi qua tin nhắn <span className={classes.contactColor}>ZMS</span> (tin nhắn Zalo) và <span className={classes.contactColor}>Email</span> đã nhập.</p>
       </div>
 
-
-
     </aside>
   )
 }

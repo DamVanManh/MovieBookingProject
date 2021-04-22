@@ -91,6 +91,7 @@ const bookTicketReducer = (state = initialState, action) => {
     case RESET_DATA: {
       return {
         ...state,
+        danhSachPhongVe:{},
         paymentMethod: '',
         isSelectedSeat: false,
         listSeatSelected: [],

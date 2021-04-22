@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -11,6 +11,7 @@ import LichChieu from '../LichChieu';
 
 import { FAKE_AVATAR } from '../../../constants/config';
 import useStyles from './style';
+import scroll from '../../../utilities/scroll';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -30,16 +31,29 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-export default function CenteredTabs({ data }) {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+export default function CenteredTabs({ data, onClickBtnMuave }) {
+  const classes = useStyles()
+  const [value, setValue] = useState(0)
+  const [croll, setCroll] = useState(0)
+
+  useEffect(() => {
+    setValue(() => 0)
+    setCroll(() => Date.now())
+  }, [onClickBtnMuave]) // khi click muave thì mới mở tap 0 + đổi giá trị croll
+
+  useEffect(() => {
+    if (onClickBtnMuave !== 0) { // không scroll khi mới load
+      scroll("TapMovieDetail")
+    }
+  }, [croll]) // khi nhấn muave và đã hoàn thành mở tap 0 thì scroll
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} id="TapMovieDetail">
       <AppBar position="static" color="default" classes={{ root: classes.appBarRoot }}>
         <Tabs
           value={value}

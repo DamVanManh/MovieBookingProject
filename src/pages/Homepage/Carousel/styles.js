@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       display: "none",
     }
-
   },
   itemSlider: {
     position: 'relative'
@@ -18,23 +17,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     background: "linear-gradient(to top,#000,transparent 20%)",
     top: "0"
-  },
-  button: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-
-    zIndex: 1,
-    opacity: 0,
-
-    background: "0 0",
-    border: "none",
-
-    height: 70,
-    width: 70,
-    transition: "all .2s",
-
   },
   Arrow: {
     position: "absolute",
@@ -49,41 +31,6 @@ const useStyles = makeStyles((theme) => ({
     transition: "all .2s",
     '&:hover': { color: '#fb4226 !important' }
   },
-  imgPlay: {
-    height: "100%",
-    width: "100%",
-    transition: "all .2s",
-    '&:hover': { opacity: 0.7 }
-  },
 
-  closeButton: {
-    position: 'absolute',
-    top: 0,
-    // right: '-200px',
-    right: 0,
-    transform: "translate(50%,-50%)",
-
-    border: '2px solid white',
-    '&:focus': {
-      outline: 'none'
-    },
-    '&:hover': { opacity: 0.7 },
-    transition: "all .2s",
-  },
-
-  iframe: {
-    width: "898px",
-    height: "505px",
-    [theme.breakpoints.down(992)]: {
-      width: "598px",
-      height: "336px"
-    },
-  },
-
-  paper: {
-    overflowY: "visible",
-    backgroundColor: "black",
-    color: 'red'
-  },
 }))
 export default useStyles

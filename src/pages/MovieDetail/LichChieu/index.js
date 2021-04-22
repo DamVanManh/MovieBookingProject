@@ -28,7 +28,7 @@ export default function HeThongRap({ data }) {
   const isMobileTheater = useMediaQuery(DISPLAY_MOBILE_THEATER);
   const classes = useStyles();
 
-  console.log("data tổng: ", data);
+  // console.log("data tổng: ", data);
 
   const [value, setValue] = React.useState(0);
 

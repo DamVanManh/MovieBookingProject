@@ -21,9 +21,6 @@ export default function Index() {
 
   const classes = useStyles()
 
-  if (loadingMovieDetailShowtimes) {
-    return <h1>loading</h1>
-  }
   if (errorMovieDetailShowtimes) {
     return <div>{errorMovieDetailShowtimes}</div>
   }
