@@ -20,7 +20,6 @@ export default function Desktop({ movieDetailShowtimes: data }) {
   const handleBtnMuaVe = () => {
     setOnClickBtnMuave(Date.now())
   }
-  console.log("data ", data.trailer);
 
   return (
     <div className={classes.desktop}>

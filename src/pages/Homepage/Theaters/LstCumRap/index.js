@@ -4,6 +4,7 @@ import LstPhim from '../LstPhim'
 import useStyles from './style'
 import { underLine, customScrollbar } from '../../../../styles/materialUi'
 import FakeImgTheater from '../../../../components/FakeImgTheater/fakeImgTheater';
+import TenCumRap from '../../../../components/TenCumRap';
 
 export default function LstCumRap(props) {
   const { lstCumRap, isMobileTheater, color } = props;
@@ -21,7 +22,7 @@ export default function LstCumRap(props) {
           <div className={classes.cumRap} index={index} onClick={(e,) => handleChangeCumRap(e)} key={cumRap.maCumRap} style={{ opacity: valueCumRap === index ? '1' : '.5' }}>
             <FakeImgTheater nameTheater={cumRap.tenCumRap} imgStyle={classes.cumRap__img} />
             <div className={classes.cumRap__info}>
-              <p className={classes['cumRap__name--first']}>{cumRap.tenCumRap.split("-")[0]}<span className={classes['cumRap__name--second']}>-{cumRap.tenCumRap.split("-")[1]}</span></p>
+              <TenCumRap tenCumRap={cumRap.tenCumRap} />
               <p className={classes.cumRap__address}>{cumRap.diaChi}</p>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core"
-import { customScrollbar, underLine } from '../../../styles/materialUi';
+import { customScrollbar, underLine } from '../../../../styles/materialUi';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
   indicator: {
     backgroundColor: "transparent",
   },
+
+  wrapper: {
+    justifyContent: "flex-start",
+    flexDirection: "row",
+  },
   tabRoot: {
     padding: 20,
     textAlign: "left",
@@ -27,10 +32,6 @@ const useStyles = makeStyles((theme) => ({
     transition: "all .2s",
     ...underLine
   },
-  wrapper: {
-    justifyContent: "flex-start",
-    flexDirection: "row",
-  },
   logo: {
     width: 50,
     marginRight: 10,
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   rightSection: {
     width: "72%",
   },
+
   listDay: {
     height: "90px",
     padding: "16px !important",
@@ -54,40 +56,12 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     ...customScrollbar,
   },
-
   dayItem: {
     padding: 10,
     fontWeight: 500,
     textAlign: "center",
     cursor: "pointer",
   },
-  cumRapItem: {
-    padding: "20px 20px 10px",
-    ...underLine
-  },
-  topInfo: {
-    paddingBottom: 20,
-  },
-  imgTheater: {
-    width: 50,
-    float: "left",
-    display: "inline-block",
-    border: "1px solid #ebebec",
-  },
-  wrapInfo: {
-    paddingLeft: 58
-  },
-  nameTheater: {
-    fontWeight: 500,
-  },
-  digital: {
-    marginBottom: 5,
-    fontWeight: 500,
-  },
-  address: {
-    fontSize: 14,
-    color: "#9b9b9b"
-  }
 
 }));
 export default useStyles

@@ -35,13 +35,13 @@ const useStyles = makeStyles({
   },
   inputRoot: {
     maxWidth: "580px",
-    margin: "0 calc(50% - 290px)",
+    margin: "auto",
     padding: "0",
     position: "relative",
     cursor: "pointer",
     width: "100%"
   },
-  imgReviewer: {
+  avatarReviewer: {
     position: "absolute", top: "20%", left: "3%"
   },
   avatar: {

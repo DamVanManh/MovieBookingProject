@@ -50,7 +50,7 @@ export default function App() {
         style={fadeIn}
       >
         <animated.div style={shake}>
-          <img src={IMG_LOADING} style={{ width: "100%", height: "100%" }} />
+          <img src={IMG_LOADING} style={{ width: "30vmin" }} />
         </animated.div>
       </animated.div>
     </div>

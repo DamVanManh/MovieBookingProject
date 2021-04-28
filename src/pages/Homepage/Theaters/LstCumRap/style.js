@@ -29,14 +29,6 @@ const useStyles = makeStyles({
     paddingLeft: 10,
     width: 'calc(100% - 50px)',
   },
-  'cumRap__name--first': props => ({
-    color: `${props.color}`,
-    fontWeight: "500",
-  }),
-  'cumRap__name--second': {
-    color: "#000",
-    fontWeight: "500",
-  },
   cumRap__address: {
     fontSize: "12px",
     color: "#949494",

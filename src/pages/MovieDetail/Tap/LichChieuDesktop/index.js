@@ -1,34 +1,13 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import useStyles from './style'
-import { DISPLAY_MOBILE_THEATER } from '../../../constants/config'
 import RightSection from './RightSection';
 
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      hidden={value !== index}
-      {...other}
-    >
-      {value === index &&
-        children
-      }
-    </div>
-  );
-}
-
 export default function HeThongRap({ data }) {
-  const isMobileTheater = useMediaQuery(DISPLAY_MOBILE_THEATER);
   const classes = useStyles();
-
-  // console.log("data tổng: ", data);
 
   const [value, setValue] = React.useState(0);
 
@@ -57,16 +36,11 @@ export default function HeThongRap({ data }) {
       <div className={classes.rightSection}>
         {data?.heThongRapChieu?.length === 0 && <p style={{ padding: 10 }}>Hiện tại chưa có lịch chiếu cho phim này</p>}
         {data?.heThongRapChieu?.map((theater, i) => (
-          <Fragment key={theater.maHeThongRap}>
-            <TabPanel value={value} index={i} >
-              {/* currentSelectedHeThongRapChieu: chỉ truyền vào heThongRapChieu đã chọn */}
-              <RightSection currentSelectedHeThongRapChieu={theater} maHeThongRap={theater.maHeThongRap} />
-            </TabPanel>
-          </Fragment>
+          <div key={theater.maHeThongRap} style={{ display: value === i ? "block" : "none" }}>
+            <RightSection currentSelectedHeThongRapChieu={theater} />
+          </div>
         ))}
-
       </div>
-
     </div >
   );
 }

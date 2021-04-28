@@ -7,7 +7,8 @@ import Countdown from '../Countdown';
 import useStyles from './style'
 import { colorTheater, logoTheater } from '../../../constants/theaterData'
 import formatDate from '../../../utilities/formatDate'
-import { CHANGE_LISTSEAT, SET_ALERT_OVER10 } from '../../../reducers/constants/BookTicket';
+import { CHANGE_LISTSEAT, SET_ALERT_OVER10 } from '../../../reducers/constants/BookTicket'
+import TenCumRap from '../../../components/TenCumRap';
 
 export default function ListSeat() {
   const { isMobile, listSeat, danhSachPhongVe: { thongTinPhim } } = useSelector(state => state.bookTicketReducer)
@@ -108,7 +109,7 @@ export default function ListSeat() {
         <div className={classes.infoTheater}>
           <img src={logoTheater[thongTinPhim?.tenCumRap.slice(0, 3).toUpperCase()]} alt="phim" style={{ width: 50, height: 50 }} />
           <div className={classes.text}>
-            <p className={classes.text__first}><span>{thongTinPhim?.tenCumRap.split("-")[0]}</span><span className={classes.text__second}>-{thongTinPhim?.tenCumRap.split("-")[1]}</span></p>
+            <TenCumRap tenCumRap={thongTinPhim?.tenCumRap} />
             <p className={classes.textTime}>{`${thongTinPhim && formatDate(thongTinPhim.ngayChieu).dayToday} - ${thongTinPhim?.gioChieu} - ${thongTinPhim?.tenRap}`}</p>
           </div>
         </div>

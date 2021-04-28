@@ -1,4 +1,4 @@
-import { GET_MOVIE_SHOWTIMES_REQUESS, GET_MOVIE_SHOWTIMES_SUCCESS, GET_MOVIE_SHOWTIMES_FAIL, } from './constants/MovieDetail';
+import { GET_MOVIE_SHOWTIMES_REQUESS, GET_MOVIE_SHOWTIMES_SUCCESS, GET_MOVIE_SHOWTIMES_FAIL, RESET_MOVIEDETAIL_REDUCER } from './constants/MovieDetail';
 
 const initialState = {
   movieDetailShowtimes: [],
@@ -24,6 +24,15 @@ const movieDetailReducer = (state = initialState, action) => {
       return {
         ...state,
         errorMovieDetailShowtimes: action.payload.error,
+        loadingMovieDetailShowtimes: false,
+      };
+    }
+
+    case RESET_MOVIEDETAIL_REDUCER: {
+      return {
+        ...state,
+        movieDetailShowtimes: [],
+        errorMovieDetailShowtimes: null,
         loadingMovieDetailShowtimes: false,
       };
     }

@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
 import Slider from "react-slick";
 import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
@@ -14,7 +13,6 @@ import useStyles from "./styles";
 import BtnPlay from '../../../components/BtnPlay';
 
 export default function Carousel() {
-  const dispatch = useDispatch()
   const history = useHistory();
   const classes = useStyles();
   const settings = {

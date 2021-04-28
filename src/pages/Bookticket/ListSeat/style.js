@@ -21,16 +21,6 @@ const useStyles = makeStyles({
     paddingTop: 5,
     paddingLeft: 13,
   },
-  text__first: props => ({
-    color: `${props.color}`,
-    fontWeight: "500",
-    fontSize: 16,
-  }),
-  text__second: {
-    color: "#000",
-    fontWeight: "500",
-    fontSize: 16,
-  },
   textTime: {
     color: "#9b9b9b",
     fontSize: 13,
