@@ -18,7 +18,7 @@ import { customScrollbar } from '../../../../styles/materialUi'
 import { HIDDEN_SEARCHTICKET } from '../../../../constants/config';
 
 export default function SearchStickets() {
-  const { movieList: movieRender } = useSelector((state) => state.movieReducer);
+  const { movieList: movieRender, errorMovieList } = useSelector((state) => state.movieReducer);
   const history = useHistory();
   const down992px = useMediaQuery(HIDDEN_SEARCHTICKET);
   const classes = useStyles({ customScrollbar, down992px });
@@ -146,6 +146,10 @@ export default function SearchStickets() {
       vertical: 'top',
       horizontal: 'left',
     },
+  }
+
+  if (errorMovieList) {
+    return <div>{errorMovieList}</div>
   }
 
   return (

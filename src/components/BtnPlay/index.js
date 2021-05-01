@@ -5,7 +5,15 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { OPEN_MODAL } from '../../reducers/constants/ModalTrailer';
+
 const play = '/img/carousel/play-video.png';
+
+BtnPlay.propTypes = {
+  urlYoutube: PropTypes.string,
+  cssRoot: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+};
 
 const useStyles = makeStyles({
   button: {
@@ -52,11 +60,3 @@ export default function BtnPlay({ cssRoot, width, height, urlYoutube }) {
     </div>
   )
 }
-
-
-BtnPlay.propTypes = {
-  urlYoutube: PropTypes.string,
-  cssRoot: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
-};

@@ -1,16 +1,16 @@
 import usersApi from "../../api/usersApi";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../constants/Auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL } from '../constants/Auth';
+
 export const login = (user) => {
-  return (dispath) => {
-    dispath({
+  return (dispatch) => {
+    dispatch({
       type: LOGIN_REQUEST
     })
     usersApi.postDangNhap(user)
       .then(result => {
         // lưu thông tin user xuống local storeage
         localStorage.setItem("user", JSON.stringify(result.data));
-
-        dispath({
+        dispatch({
           type: LOGIN_SUCCESS,
           payload: {
             data: result.data,
@@ -20,7 +20,7 @@ export const login = (user) => {
       )
       .catch(
         error => {
-          dispath({
+          dispatch({
             type: LOGIN_FAIL,
             payload: {
               error: error.response.data,
@@ -32,9 +32,38 @@ export const login = (user) => {
 }
 
 export const logout = () => {
-  return (dispath) => {
-    dispath({
+  return (dispatch) => {
+    dispatch({
       type: LOGOUT
     })
+  }
+}
+
+export const register = (user) => {
+  return (dispatch) => {
+    dispatch({
+      type: REGISTER_REQUEST
+    })
+
+    usersApi.postDangKy(user)
+      .then(result => {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: {
+            data: result.data,
+          }
+        })
+      }
+      )
+      .catch(
+        error => {
+          dispatch({
+            type: REGISTER_FAIL,
+            payload: {
+              error: error.response.data,
+            }
+          })
+        }
+      )
   }
 }

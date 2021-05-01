@@ -17,11 +17,9 @@ import LichChieuMobile from './LichChieuMobile';
 function TabPanel(props) {
   const { isMobile, children, value, index, ...other } = props;
   return (<div hidden={value !== index}  {...other} >
-    {value === index && (
-      <Box p={(isMobile && index === 0) ? 0 : 3}>
-        {children}
-      </Box>
-    )}
+    <Box p={(isMobile && index === 0) ? 0 : 3}>
+      {children}
+    </Box>
   </div>
   );
 }

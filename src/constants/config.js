@@ -6,17 +6,9 @@ export const HIDDEN_SEARCHTICKET = "(max-width:992px)"
 export const DISPLAY_MOBILE_HOMEPAGE = "(max-width:736px)"
 export const IMG_LOADING = "/img/logoTixLoading.png"
 
+export const DATE_BEGIN_DANGCHIEU = "2020-01-01" // format: yyyy-mm-dd
+export const DATE_END_DANGCHIEU = "2020-12-01"
 
-
-
-// export const TIME_BOOKING = 500 * 60 * 1000; // = 500p developing time
-// // export const TIME_BOOKING = (60 + 30) * 1000; //  (1p + 30s)
-
-// export const TODAY = "2019-01-01";
-// export const END_DAY = "2019-01-14";
-// export const USER_KEY = "user";
-
-// export const MOBILE_MEDIA = "(max-width:767px)";
-// export const DESKTOP_MEDIA = "(min-width:767px)";
-
+export const DATE_BEGIN_SAPCHIEU = "2020-12-02"
+export const DATE_END_SAPCHIEU = (new Date()).toISOString()?.slice(0, 10)
 

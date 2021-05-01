@@ -37,16 +37,22 @@ const useStyles = makeStyles({
     left: "50%",
     transform: "translate(-50%,-50%)",
     width: "100%",
+    height: 320,
     maxWidth: 870,
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
 
   },
   imgTrailer: {
     width: "25%",
+    height: "100%",
     position: "relative",
-    '&:hover > div ': { opacity: 1 }
+    backgroundImage: props => `url(${props.bannerImg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    '&:hover > div ': { opacity: 1 },
   },
   img: {
     width: "100%",
@@ -92,10 +98,23 @@ const useStyles = makeStyles({
     width: "16%",
     textAlign: "center",
   },
+  wrapper: {
+    position: 'relative',
+  },
+  danhGia: {
+    fontSize: 53,
+    position: 'absolute',
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
+  },
+  fabProgress: {
+    color: "#7ed321"
+  },
   rateStar: {
     margin: "auto",
     width: "fit-content"
-  }
+  },
 
 })
 export default useStyles

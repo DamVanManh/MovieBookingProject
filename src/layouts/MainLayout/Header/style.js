@@ -21,6 +21,38 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  auth: {
+    display: "flex",
+    color: "#9b9b9b",
+  },
+  itemAuth: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    minWidth: "fit-content",
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255,.95)"
+    }
+  },
+  icon: {
+    minWidth: 41,
+    color: "#9b9b9b"
+  },
+  divide: {
+    "&::after": {
+      content: "''",
+      position: "absolute",
+      right: "0",
+      height: "30px",
+      top: "50%",
+      transform: "translateY(-50%)",
+      borderRight: "1px solid #fff",
+      borderRightColor: "#e9e9e9"
+    }
+  },
 
 
 
@@ -28,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
+    backgroundColor: "rgba(255,255,255,.95)",
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -43,9 +76,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  },
-  hide: {
-    display: 'none',
   },
   drawer: {
     width: drawerWidth,
@@ -71,11 +101,15 @@ const useStyles = makeStyles((theme) => ({
   },
   // class tự thêm
   spaceBetween: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   link: {
     margin: '0 10px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    "&:hover": {
+      color: "#fb4226",
+      transition: "all .2s",
+    }
   },
 }))
 export default useStyles

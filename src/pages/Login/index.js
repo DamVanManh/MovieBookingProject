@@ -1,22 +1,24 @@
-import React, { useState } from "react";
-import { login } from '../../reducers/actions/Auth';
-import { Redirect } from "react-router-dom";
+import React from "react";
+
+import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+
 import logoTix from "../Register/logo/logoTix.png"
+import { login } from '../../reducers/actions/Auth'
 
 export default function Login() {
-  // useSelector lấy data từ reducer về
-  const { currentUser, loading, error } = useSelector((state) => state.authReducer);
+  const { currentUser, errorLogin } = useSelector((state) => state.authReducer);
+  let location = useLocation();
   const dispatch = useDispatch();
-
-  if (loading) {
-    return <div>loading</div>
-  }
+  const history = useHistory();
 
   if (currentUser) {
-    return <Redirect to='/' />
+    if (!location.state) {
+      location.state = "/"
+    }
+    return <Redirect to={location.state} />
   }
 
   const signinUserSchema = yup.object().shape({
@@ -26,6 +28,9 @@ export default function Login() {
 
   const handleSubmit = (user) => {
     dispatch(login(user))
+  }
+  const handleDangKy = () => {
+    history.push("/dangky", location.state)
   }
 
   return (
@@ -44,7 +49,7 @@ export default function Login() {
           validationSchema={signinUserSchema}
           onSubmit={handleSubmit}
           render={(formikProp) => (
-            <Form className="col-sm-8 mx-auto">
+            <Form className="col-sm-10 mx-auto">
               <div className="form-group">
                 <label>Tài khoản</label>
                 <Field type="text" className="form-control" name="taiKhoan" onChange={formikProp.handleChange} />
@@ -68,14 +73,15 @@ export default function Login() {
                   }
                 </ErrorMessage>
               </div>
+              <p className="text-success" style={{ cursor: "pointer" }} onClick={handleDangKy}>* Đăng ký</p>
               <button
-                style={{ backgroundColor: "#3E63b6", borderColor: "#3E63b6" }}
-                disable={loading}
+                style={{ backgroundColor: "#3E63b6", borderColor: "#3E63b6", cursor: "pointer" }}
+                disable={errorLogin?.toString()}
                 type="submit" className="btn btn-success mt-3 container" >
                 Đăng nhập
                     </button>
               {/* nếu tồn tại lỗi thì hiện lỗi */}
-              {error ? <div className="alert alert-danger"><span> {error}</span></div> : null}
+              {errorLogin && <div className="alert alert-danger"><span> {errorLogin}</span></div>}
             </Form>
           )}
         />

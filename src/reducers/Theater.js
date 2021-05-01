@@ -1,8 +1,8 @@
 import { GET_THEATERS_SHOWTIME_REQUEST, GET_THEATERS_SHOWTIME_SUCCESS, GET_THEATERS_SHOWTIME_FAIL } from './constants/Theater';
 
 const initialState = {
-  loading: false,
-  error: null,
+  loadingTheaterList: false,
+  errorTheaterList: null,
   theaterList: [],
 }
 
@@ -10,7 +10,7 @@ const theaterReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_THEATERS_SHOWTIME_REQUEST: {
       return {
-        ...state, loading: true, error: null
+        ...state, loadingTheaterList: true, errorTheaterList: null
       }
     }
 
@@ -18,15 +18,15 @@ const theaterReducer = (state = initialState, action) => {
       return {
         ...state,
         theaterList: action.payload.data,
-        loading: false
+        loadingTheaterList: false
       }
     }
 
     case GET_THEATERS_SHOWTIME_FAIL: {
       return {
         ...state,
-        error: action.payload.error,
-        loading: false,
+        errorTheaterList: action.payload.errorTheaterList,
+        loadingTheaterList: false,
       };
     }
 

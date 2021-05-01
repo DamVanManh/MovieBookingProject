@@ -10,9 +10,10 @@ import Mobile from './Mobile';
 import Desktop from './Desktop';
 import { DISPLAY_MOBILE_BOOKTICKET } from '../../constants/config';
 import Modal from './Modal';
+import LoadingComponent from '../../components/Loading';
 
 export default function Index() {
-  const { refreshKey, timeOut, isMobile, danhSachPhongVe, danhSachPhongVe: { thongTinPhim, danhSachGhe }, loadingGetListSeat, errorGetListSeatMessage, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
+  const { refreshKey, timeOut, isMobile, danhSachPhongVe: { thongTinPhim, danhSachGhe }, loadingGetListSeat, errorGetListSeatMessage, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
   const { currentUser } = useSelector(state => state.authReducer)
   const param = useParams()
   const dispatch = useDispatch()
@@ -27,9 +28,8 @@ export default function Index() {
   useEffect(() => { // lấy thongTinPhim và danhSachGhe
     dispatch(getListSeat(param.maLichChieu))
     return () => { // xóa dữ liệu khi đóng hủy component
-    console.log("có vô đây");
       dispatch({ type: RESET_DATA })
-      
+
     }
   }, [])
 
@@ -56,6 +56,10 @@ export default function Index() {
   useEffect(() => {
     dispatch({ type: SET_ISMOBILE, payload: { isMobile: mediaQuery } })
   }, [mediaQuery])
+
+  if (loadingGetListSeat) {
+    return <LoadingComponent />
+  }
 
   if (errorGetListSeatMessage) {
     return <div>{errorGetListSeatMessage}</div>

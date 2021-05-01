@@ -36,7 +36,7 @@ export default function ItemCumRap({ tenCumRap, maLichChieu, lichChieuPhim }) {
           <FakeImgTheater nameTheater={tenCumRap} imgStyle={classes.imgTheater} />
           <div className={classes.wrapInfo} >
             <TenCumRap tenCumRap={tenCumRap} />
-            <Address maLichChieu={maLichChieu} />
+            <Address maLichChieu={maLichChieu} tenCumRap={tenCumRap} />
           </div>
           <div style={{ clear: "both" }}></div>
         </div>

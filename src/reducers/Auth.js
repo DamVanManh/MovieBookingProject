@@ -1,6 +1,6 @@
 // Auth Reducer: Phục vụ cho đăng nhập, đăng ký, lưu trữ thông tin user đăng nhập
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './constants/Auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL } from './constants/Auth';
 
 // lấy thông tin user đã lưu trong local trước đó nếu refesh lại trang hoặc tắt trang
 // cú pháp ? để tránh trường hợp JSON.parse(null sẽ gây lỗi)
@@ -8,8 +8,12 @@ const currentUser = localStorage.getItem("user") ? JSON.parse(localStorage.getIt
 
 const initialState = {
   currentUser: currentUser,
-  loading: false,
-  error: null,
+  loadingLogin: false,
+  errorLogin: null,
+
+  responseRegister: null,
+  loadingRegister: false,
+  errorRegister: null,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -17,22 +21,22 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case LOGIN_REQUEST: {
-      return { ...state, loading: true, error: null }; // error: null trong trường error đang báo lỗi, nhấn đăng nhập lại thì cần reset lại không báo lỗi nữa
+      return { ...state, loadingLogin: true, errorLogin: null }; // error: null trong trường error đang báo lỗi, nhấn đăng nhập lại thì cần reset lại không báo lỗi nữa
     }
 
     case LOGIN_SUCCESS: {
       return {
         ...state,
         currentUser: action.payload.data,
-        loading: false
+        loadingLogin: false,
       };
     }
 
     case LOGIN_FAIL: {
       return {
         ...state,
-        error: action.payload.error,
-        loading: false,
+        errorLogin: action.payload.error,
+        loadingLogin: false,
       };
     }
 
@@ -42,7 +46,28 @@ const authReducer = (state = initialState, action) => {
         ...state,
         currentUser: null,
         error: null,
-        loading: null,
+        loading: false,
+        responseRegister: null,
+      };
+    }
+
+    case REGISTER_REQUEST: {
+      return { ...state, loadingRegister: true, errorRegister: null };
+    }
+
+    case REGISTER_SUCCESS: {
+      return {
+        ...state,
+        responseRegister: action.payload.data,
+        loadingRegister: false
+      };
+    }
+
+    case REGISTER_FAIL: {
+      return {
+        ...state,
+        errorRegister: action.payload.error,
+        loadingRegister: false,
       };
     }
 

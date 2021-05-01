@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 const moviesApi = {
   //lấy thông tin toàn bộ danh sách phim
   getDanhSachPhim: () => {
-    const path = "/QuanLyPhim/LayDanhSachPhim?maNhom=GP01";
+    const path = "/QuanLyPhim/LayDanhSachPhim?maNhom=GP09";
     return axiosClient.get(path);
   },
 
@@ -10,6 +10,13 @@ const moviesApi = {
   getThongTinPhim: (maPhim) => {
     const path = `/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`;
     return axiosClient.get(path);
+  },
+
+  //lấy thông tin của 1 phim, bao gồm 1 mảng lichChieu<obj> không phân biệt cụm rạp
+  getDanhSachPhimTheoNgay: (maNhom, tuNgay, denNgay) => {
+    // const path = `/QuanLyPhim/LayDanhSachPhimTheoNgay?maNhom=GP09&tuNgay=${tuNgay}&denNgay=${denNgay}`;
+    const path = `/QuanLyPhim/LayDanhSachPhimTheoNgay`;
+    return axiosClient.get(path, { maNhom, tuNgay, denNgay });
   },
 
   //không co param sẽ 1 trang, 10 phần tử

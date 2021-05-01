@@ -8,7 +8,7 @@ const theatersApi = {
 
   //lấy toàn bộ thông tin lịch chiếu của tất cả hệ thống
   getThongTinLichChieuHeThongRap: () => {
-    const path = "/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP01";
+    const path = "/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP09";
     return axiosClient.get(path);
   },
 

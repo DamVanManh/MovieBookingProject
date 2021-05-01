@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 
 import { useParams } from "react-router-dom";
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import Rating from '@material-ui/lab/Rating';
 
 import useStyles from './style';
 import formatDate from '../../../utilities/formatDate';

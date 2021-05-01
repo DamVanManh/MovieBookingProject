@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { dataFakeImgTheater, returnRandomItem } from '../../constants/theaterImagesData';
+import { dataFakeImgTheater, returnRandomItem } from '../../constants/theaterData';
 
 export default function FakeImgTheater({ nameTheater, imgStyle }) {
   let imgTheater

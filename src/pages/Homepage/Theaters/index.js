@@ -5,7 +5,6 @@ import Tab from '@material-ui/core/Tab';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getTheaters } from '../../../reducers/actions/Theater';
 import LstCumRap from './LstCumRap'
 import useStyles from './style'
 import { underLine } from '../../../styles/materialUi'
@@ -15,27 +14,20 @@ import { DISPLAY_MOBILE_THEATER } from '../../../constants/config'
 
 export default function HeThongRap() {
   const isMobileTheater = useMediaQuery(DISPLAY_MOBILE_THEATER);
-  const { theaterList, loading, error } = useSelector((state) => state.theaterReducer);
+  const { theaterList, errorTheaterList } = useSelector((state) => state.theaterReducer);
   const [valueHeThongRap, setValueHeThongRap] = React.useState(0);
   const classes = useStyles({ isMobileTheater, underLine });
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTheaters())
-  }, [])
+  const dispatch = useDispatch()
 
   const handleChangeHeThongRap = (e, indexSelected) => {
     setValueHeThongRap(indexSelected);
   };
 
-  if (loading) {
-    return <h1>loading</h1>
-  }
-  if (error) {
-    return <div>{error}</div>
+  if (errorTheaterList) {
+    return <div>{errorTheaterList}</div>
   }
   return (
-    <div>
+    <div id="cumrap">
       <Seperate />
       <div className={classes.theater}>{/* div root theater */}
         <Tabs

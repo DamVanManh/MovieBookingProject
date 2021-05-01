@@ -5,13 +5,13 @@ import {
 } from '../constants/Theater';
 
 export const getTheaters = () => {
-  return (dispath) => {
-    dispath({
+  return (dispatch) => {
+    dispatch({
       type: GET_THEATERS_SHOWTIME_REQUEST
     })
     theatersApi.getThongTinLichChieuHeThongRap()
       .then(result => {
-        dispath({
+        dispatch({
           type: GET_THEATERS_SHOWTIME_SUCCESS,
           payload: { data: result.data }
         })
@@ -19,9 +19,9 @@ export const getTheaters = () => {
       )
       .catch(
         error => {
-          dispath({
+          dispatch({
             type: GET_THEATERS_SHOWTIME_FAIL,
-            payload: { error: error.response.data, }
+            payload: { errorTheaterList: error.response.data, }
           })
         }
       )

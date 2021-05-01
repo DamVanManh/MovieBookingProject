@@ -1,52 +1,50 @@
-import React, { useState } from "react";
-import { register } from '../../reducers/actions/Register';
-import { Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+
+import { Redirect, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+
+import { register, login } from '../../reducers/actions/Auth';
 import logoTix from "./logo/logoTix.png"
 
-
 export default function Register() {
-  const [user, setUser] = useState({ taiKhoan: "", matKhau: "", email: "", soDt: "", maNhom: "GP01", maLoaiNguoiDung: "KhachHang", hoTen: "" });
-  // useSelector lấy data từ reducer về
-  const { loading, error } = useSelector((state) => state.authReducer);
-  // useDispatch: dispatch action
+  const { responseRegister, loadingRegister, currentUser, errorRegister } = useSelector((state) => state.authReducer);
+  let location = useLocation();
   const dispatch = useDispatch();
 
-  // lấy user từ local lên: khi xóa user dưới local sẽ phải đăng nhập lại
-  const currentUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
-  // const handleChange = evt => {
-  //   const { name, value } = evt.target;
-  //   setUser((currentForm) => ({ ...currentForm, [name]: value }))
-  // }
+  useEffect(() => {
+    if (responseRegister) { // đăng ký thành công thì đăng nhập, responseRegister để bỏ qua componentditmount
+      dispatch(login({ taiKhoan: responseRegister.taiKhoan, matKhau: responseRegister.matKhau }))
+    }
+  }, [responseRegister])
 
-  if (loading) {
-    return <div>loading</div>
-  }
 
-  if (currentUser) {
-    console.log('tai khoan hiện tại:', currentUser)
-    return <Redirect to='/' />
-  }
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-
   const signupUserSchema = yup.object().shape({
     taiKhoan: yup.string().required("*Tài khoản không được bỏ trống !"),
     matKhau: yup.string().required("*Mật khẩu không được bỏ trống !"),
-    hoTen: yup.string().required("*Tên không được bỏ trống !"),
-    soDT: yup.string().required("*Số điện thoại không được bỏ trống !").matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
     email: yup.string().required("*Email không được bỏ trống !").email('* Email không hợp lệ '),
+    soDt: yup.string().required("*Số điện thoại không được bỏ trống !").matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
+    hoTen: yup.string().required("*Tên không được bỏ trống !"),
   })
 
-
-
   const handleSubmit = (user) => {
-    dispatch(register(user))
+    // trường hợp nào thì cho đăng ký(return true): loadingRegister=false và responseRegister=null
+    if (!loadingRegister && !responseRegister) {
+      dispatch(register(user))
+    }
+  }
+
+  if (currentUser) { // đăng nhập thanh công chuyển sang trang trước
+    if (!location.state) {
+      location.state = "/"
+    }
+    return <Redirect to={location.state} />
   }
 
   return (
-    <div className=" text-light" style={{ padding: "20px 32px 30px" }}>
+    <div className="text-light" style={{ padding: "20px 32px 30px" }}>
       <div className="container" >
         <img src={logoTix} alt="logoTix" style={{ width: "200px", marginBottom: "10px", cursor: "pointer", display: "block", marginLeft: "auto", marginRight: "auto" }} />
         <p style={{ textAlign: "center", marginBottom: "10px" }}>Đăng Ký để được nhiều ưu đãi, mua vé và bảo mật thông tin!</p>
@@ -57,15 +55,17 @@ export default function Register() {
           {
             taiKhoan: "",
             matKhau: "",
+            email: "",
+            soDt: "",
+            maNhom: "GP01",
+            maLoaiNguoiDung: "KhachHang",
             hoTen: "",
-            soDT: "",
-            email: ""
           }
         }
         validationSchema={signupUserSchema} // validationSchdema:  thu vien yup nhập sai ko submit được 
         onSubmit={handleSubmit}
         render={(formikProps) => (
-          <Form className="col-sm-10 mx-auto">
+          <Form className="col-sm-12">
             <div className="form-group">
               <label>Tài khoản </label>
               {/* input thay bằng Field  */}
@@ -74,7 +74,7 @@ export default function Register() {
               />
               <ErrorMessage name="taiKhoan">
                 {(msg) =>
-                  <div className="alert alert-danger" style={{padding:" 2px 2px"}}>
+                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
                     {msg}
                   </div>
                 }
@@ -87,7 +87,7 @@ export default function Register() {
               />
               <ErrorMessage name="matKhau">
                 {(msg) =>
-                  <div className="alert alert-danger"  style={{padding:" 2px 2px"}} >
+                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }} >
                     {msg}
                   </div>
                 }
@@ -101,7 +101,7 @@ export default function Register() {
               />
               <ErrorMessage name="hoTen">
                 {(msg) =>
-                  <div className="alert alert-danger"  style={{padding:" 2px 2px"}}>
+                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
                     {msg}
                   </div>
                 }
@@ -116,7 +116,7 @@ export default function Register() {
               />
               <ErrorMessage name="email">
                 {(msg) =>
-                  <div className="alert alert-danger"  style={{padding:" 2px 2px"}}>
+                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
                     {msg}
                   </div>
                 }
@@ -125,12 +125,12 @@ export default function Register() {
             </div>
             <div className="form-group">
               <label>Số điện thoại</label>
-              <Field name="soDT" type="text" className="form-control"
+              <Field name="soDt" type="text" className="form-control"
                 onChange={formikProps.handleChange}
               />
-              <ErrorMessage name="soDT">
+              <ErrorMessage name="soDt">
                 {(msg) =>
-                  <div className="alert alert-danger"  style={{padding:" 2px 2px"}}>
+                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
                     {msg}
                   </div>
                 }
@@ -138,11 +138,11 @@ export default function Register() {
             </div>
             <div className="text-center p-2">
               <button type="submit" className="btn btn-success"
-                disable={loading}>
+                disable={loadingRegister.toString()}>
 
                 Đăng Ký
               </button>
-              {error ? <div className="alert alert-danger"><span> {error}</span></div> : null}
+              {errorRegister && <div className="alert alert-danger"><span> {errorRegister}</span></div>}
             </div>
           </Form>
         )}

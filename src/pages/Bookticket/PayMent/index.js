@@ -10,7 +10,7 @@ import { SET_DATA_PAYMENT, SET_READY_PAYMENT } from '../../../reducers/constants
 
 const makeObjError = (name, value, dataSubmit) => {
   // kiểm tra và set lỗi rỗng
-  let newErrors = { ...dataSubmit.errors, [name]: value.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} không được bỏ trống` : '' }
+  let newErrors = { ...dataSubmit.errors, [name]: value?.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} không được bỏ trống` : '' }
 
   // kiểm tra và set lỗi sai định dạng
   //eslint-disable-next-line
@@ -76,7 +76,7 @@ export default function PayMent() {
       }
     }, 500);
     return () => clearTimeout(variClear.current)
-  }, [dataSubmit, isSelectedSeat, dispatch])
+  }, [dataSubmit, isSelectedSeat])
 
   useEffect(() => { // cập nhật lại data email, phone và validation khi reload
     let emailErrors = makeObjError(emailRef.current.name, email, dataSubmit)
@@ -87,7 +87,7 @@ export default function PayMent() {
       },
       errors: { email: emailErrors.email, phone: phoneErrors.phone }
     }))
-  }, [listSeat, dispatch]) // khi reload listSeat sẽ được cập nhật kèm theo, email, phone mặc định của tài khoản
+  }, [listSeat]) // khi reload listSeat sẽ được cập nhật kèm theo, email, phone mặc định của tài khoản
 
   const handleBookTicket = () => { // khi đủ dữ liệu và chưa có lần đặt vé nào trước đó thì mới cho đặt vé
     if (isReadyPayment && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {

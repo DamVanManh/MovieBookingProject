@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 
 import { useParams } from "react-router-dom";
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 import Rating from '@material-ui/lab/Rating';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import useStyles from './style';
 import formatDate from '../../../utilities/formatDate';
@@ -30,7 +29,6 @@ export default function Desktop({ movieDetailShowtimes: data }) {
         </div>
         <div className={classes.topInfo}>
           <div className={classes.imgTrailer}>
-            <img className={classes.img} src={data?.hinhAnh} alt="movie" />
             <BtnPlay urlYoutube={data?.trailer} />
           </div>
           <div className={classes.shortInfo}>
@@ -40,7 +38,10 @@ export default function Desktop({ movieDetailShowtimes: data }) {
             <button className={classes.btnMuaVe} onClick={handleBtnMuaVe}>Mua vé</button>
           </div>
           <div className={classes.rate}>
-            <CircularProgressbar value={danhGia * 10} text={danhGia} />
+            <div className={classes.wrapper}>
+              <span className={classes.danhGia}>{danhGia}</span>
+              <CircularProgress variant="determinate" size="100%" value={danhGia * 10} className={classes.fabProgress} color="secondary" />
+            </div>
             <div className={classes.rateStar}>
               <Rating name="half-rating-read" value={(danhGia * 5) / 10} precision={0.5} readOnly />
             </div>

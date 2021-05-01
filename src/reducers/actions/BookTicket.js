@@ -25,12 +25,12 @@ export const getListSeat = (maLichChieu) => {
   }
 }
 
-export const bookTicket = (danhSachVe) => {
+export const bookTicket = (data) => {
   return (dispatch) => {
     dispatch({
       type: BOOK_TICKET_REQUEST
     })
-    bookingApi.postDatVe(danhSachVe)
+    bookingApi.postDatVe(data)
       .then(result => {
         dispatch({
           type: BOOK_TICKET_SUCCESS,
