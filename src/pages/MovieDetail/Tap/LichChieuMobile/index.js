@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { useStyles, Accordion, AccordionSummary, AccordionDetails } from './style'
-import { DISPLAY_MOBILE_THEATER } from '../../../../constants/config'
 import formatDate from '../../../../utilities/formatDate';
 import ItemCumRap from '../../../../components/ItemCumRap';
 
@@ -12,8 +10,7 @@ export default function HeThongRap({ data, isMobile }) {
 
   const [indexSelected, setindexSelected] = useState(0)
   const [expanded, setExpanded] = React.useState("");
-  const isMobileTheater = useMediaQuery(DISPLAY_MOBILE_THEATER);
-  const [dataLCPDesktop, setDataLCPDesktop] = useState({ arrayDay: [], allArrayHeThongRapChieuFilterByDay: [] })
+  const [dataLCPDesktop, setDataLCPDesktop] = useState({ arrayDay: [], arrayHeThongRapChieuFilterByDay: [] })
   const classes = useStyles();
 
   useEffect(() => {
@@ -30,21 +27,21 @@ export default function HeThongRap({ data, isMobile }) {
       ]
     }, [])
 
+
     // tạo mảng chứa tất cả ngày
     const arrayDay = [...new Set(arrayAllLichChieuPhimAddProp?.map(item => (item.ngayChieuGioChieu?.slice(0, 10))))].sort()
 
-    // MẢNG CHA CHỨA DỮ LIỆU ĐƯỢC CHIA THEO NGÀY: [ [{},{}], [{},{}], [{},{}] ]
-    // MẢNG CON CHỨA NHIỀU OBJ HETHONGRAP: [ {tenHeThongRap: "gd", logo: "ht", cumRapChieu: [{tenCumRap: " ", maLichChieu: "", lichChieuPhim: [{},{}] }] }, {},,, ]
-    const allArrayHeThongRapChieuFilterByDay = arrayDay.map((day) => {
+    // MẢNG CHA, ITEM LÀ CHỨA DATA THEO NGÀY: [ [{},{}], [{},{}], [{},{}] ]
+    const arrayHeThongRapChieuFilterByDay = arrayDay.map((day) => {
 
-      // mảng LichChieuPhim trùng ngày
+      // tạo mảng chỉ chứa LichChieuPhim trùng ngày: các item cần thuộc nhiều hethongrap và cum rap, cần lọc lại theo he thong rạp và cumrap
       const arrayLichChieuPhimFilterByDay = arrayAllLichChieuPhimAddProp.filter(item => {
         if (item.ngayChieuGioChieu.slice(0, 10) === day) {
           return true
         }
         return false
       })
-      // loại bỏ HeThongRap trùng lặp
+      // tạo mảng heThongRap không trùng lặp
       const arrayHeThongRapRemoveDup = arrayLichChieuPhimFilterByDay?.filter((itemIncrease, indexIncrease, arr) => {
         const indexFirstFounded = arr.findIndex((t) => (
           t.tenHeThongRap === itemIncrease.tenHeThongRap
@@ -52,34 +49,42 @@ export default function HeThongRap({ data, isMobile }) {
         return indexIncrease === indexFirstFounded
       })
 
-      // MẢNG CON
-      const arrayHeThongRap = arrayHeThongRapRemoveDup.map(item => {
+      // MẢNG CON: item là các HeThongRap: [ {tenHeThongRap: "gd", logo: "ht", cumRapChieu: [{tenCumRap: " ", maLichChieu: "", lichChieuPhim: [{},{}] }] }, {},,, ]
+      const arrayHeThongRapItem = arrayHeThongRapRemoveDup.map(item => {
         const tenHeThongRap = item.tenHeThongRap
         const logo = item.logo
 
+        // tạo mảng chỉ chứa item trùng tenHeThongRap
+        const arrayLichChieuPhimFilterByHeThongRap = arrayLichChieuPhimFilterByDay?.filter((item, index) => {
+          if (item.tenHeThongRap === tenHeThongRap) {
+            return true
+          }
+          return false
+        })
+
         // loại bỏ cumRapChieu trùng lặp
-        const arrayCumRapChieuRemoveDup = arrayLichChieuPhimFilterByDay?.filter((itemIncrease, indexIncrease, arr) => {
+        const arrayCumRapChieuRemoveDup = arrayLichChieuPhimFilterByHeThongRap?.filter((itemIncrease, indexIncrease, arr) => {
           const indexFirstFounded = arr.findIndex((t) => (
             t.tenCumRap === itemIncrease.tenCumRap
           ))
           return indexIncrease === indexFirstFounded
         })
 
-        // tạo mảng cumRapChieu
+        // tạo mảng cumRapChieu: tenCumRap, maLichChieu, lichChieuPhim: []
         const cumRapChieu = arrayCumRapChieuRemoveDup.map(cumRapChieu => {
           const tenCumRap = cumRapChieu.tenCumRap
           const maLichChieu = cumRapChieu.maLichChieu
-          // tạo mảng lichChieuPhim: trùng tenCumRap
-          const lichChieuPhim = arrayLichChieuPhimFilterByDay.filter(lichChieuPhim => lichChieuPhim.tenCumRap === tenCumRap)
+          // tạo mảng lichChieuPhim: item lọc theo tenCumRap
+          const lichChieuPhim = arrayLichChieuPhimFilterByHeThongRap.filter(lichChieuPhim => lichChieuPhim.tenCumRap === tenCumRap)
           return { tenCumRap, maLichChieu, lichChieuPhim }
         })
         // obj trong mảng con
         return { tenHeThongRap, logo, cumRapChieu }
       })
 
-      return arrayHeThongRap // [{tenHeThongRap: "gd", logo: "ht", cumRapChieu: [{tenCumRap: " ", maLichChieu: "", lichChieuPhim: [{},{}]}]}]
+      return arrayHeThongRapItem // [{tenHeThongRap: "gd", logo: "ht", cumRapChieu: [{tenCumRap: " ", maLichChieu: "", lichChieuPhim: [{},{}]}]}]
     })
-    setDataLCPDesktop({ arrayDay, allArrayHeThongRapChieuFilterByDay })
+    setDataLCPDesktop({ arrayDay, arrayHeThongRapChieuFilterByDay })
   }, [data])
 
   const handleSelectDay = (i) => {
@@ -88,6 +93,8 @@ export default function HeThongRap({ data, isMobile }) {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+  console.log(" nuoc ", data);
+
 
   return (
     <div className={classes.root}>
@@ -100,7 +107,7 @@ export default function HeThongRap({ data, isMobile }) {
           </div>
         ))}
       </div>
-      {dataLCPDesktop.allArrayHeThongRapChieuFilterByDay?.map((day, indexDay) => (
+      {dataLCPDesktop.arrayHeThongRapChieuFilterByDay?.map((day, indexDay) => (
         <div key={indexDay} style={{ display: indexDay === indexSelected ? "block" : "none" }}>
           {day.map((heThongRap) => (
             <Accordion key={heThongRap.tenHeThongRap} square expanded={expanded === heThongRap.tenHeThongRap} onChange={handleChange(heThongRap.tenHeThongRap)}>

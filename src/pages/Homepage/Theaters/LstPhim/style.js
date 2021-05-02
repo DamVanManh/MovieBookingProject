@@ -2,9 +2,8 @@ import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
   lstPhim: props => ({
-    flex: "calc(100% - 30% - 92px)",
-    minHeight: "705px",
-    maxHeight: "705px",
+    flex: props.isMobileTheater ? "300px" : "calc(100% - 30% - 92px)",
+    height: "705px",
     overflowY: 'auto',
     borderLeft: "1px solid #ebebec",
     ...props.customScrollbar

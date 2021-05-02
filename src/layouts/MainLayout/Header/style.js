@@ -2,60 +2,6 @@ import { makeStyles } from "@material-ui/core"
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
-  //reponsive hidden
-  linkTobody: {
-    display: "block",
-    [theme.breakpoints.down("md")]: {
-      display: 'none',
-    },
-  },
-  user: {
-    display: "block",
-    [theme.breakpoints.down("sm")]: {
-      display: 'none',
-    },
-  },
-  menuIcon: {
-    display: "block",
-    [theme.breakpoints.up("md")]: {
-      display: 'none',
-    },
-  },
-  avatar: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-  },
-  auth: {
-    display: "flex",
-    color: "#9b9b9b",
-  },
-  itemAuth: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    minWidth: "fit-content",
-    "&:hover": {
-      backgroundColor: "rgba(255,255,255,.95)"
-    }
-  },
-  icon: {
-    minWidth: 41,
-    color: "#9b9b9b"
-  },
-  divide: {
-    "&::after": {
-      content: "''",
-      position: "absolute",
-      right: "0",
-      height: "30px",
-      top: "50%",
-      transform: "translateY(-50%)",
-      borderRight: "1px solid #fff",
-      borderRightColor: "#e9e9e9"
-    }
-  },
-
-
-
   root: {
     display: 'flex',
   },
@@ -74,8 +20,75 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: drawerWidth,
   },
-  title: {
-    flexGrow: 1,
+  spaceBetween: {
+    justifyContent: 'space-between',
+  },
+  logo: {
+    cursor: "pointer",
+  },
+  linkTobody: {
+    display: props => props.isDesktop ? "block" : "none",
+  },
+  link: {
+    textDecoration: "none",
+    color: "#000",
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: "auto",
+    "&:hover": {
+      textDecoration: "none",
+      backgroundColor: "transparent",
+      color: "#fb4226",
+      transition: "all .2s",
+    }
+  },
+  user: {
+    display: props => props.isDesktop ? "block" : "none",
+  },
+  auth: {
+    display: "flex",
+    color: props => props.isDesktop ? "#9b9b9b" : "#000",
+  },
+  itemAuth: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    minWidth: "fit-content",
+    "&:hover": {
+      backgroundColor: "transparent"
+    }
+  },
+  divide: {
+    "&::after": {
+      content: "''",
+      position: "absolute",
+      right: "0",
+      height: "30px",
+      top: "50%",
+      transform: "translateY(-50%)",
+      borderRight: props => props.isDesktop ? "1px solid #e9e9e9" : "none",
+    }
+  },
+  icon: {
+    minWidth: 41,
+    color: "#9b9b9b",
+  },
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  listItem: {
+    "&:hover > a": {
+      color: "#fb4226",
+    },
+    "&:hover > div": {
+      color: "#fb4226",
+    },
+    "&:hover > span": {
+      color: "#fb4226",
+    },
+  },
+  menuIcon: {
+    display: props => (props.isDesktop || props.openDrawer) ? "none" : "block",
   },
   drawer: {
     width: drawerWidth,
@@ -89,27 +102,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
-  },
-
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  },
-  // class tự thêm
-  spaceBetween: {
     justifyContent: 'space-between',
   },
-  link: {
-    margin: '0 10px',
-    cursor: 'pointer',
-    "&:hover": {
-      color: "#fb4226",
-      transition: "all .2s",
-    }
-  },
+
 }))
 export default useStyles

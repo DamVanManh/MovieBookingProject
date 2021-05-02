@@ -7,7 +7,7 @@ import { underLine } from '../../../../styles/materialUi'
 import LstNgayChieu from './LstNgayChieu/'
 
 export default function Index(props) {
-  const classes = useStyles({ customScrollbar, underLine });
+  const classes = useStyles({ customScrollbar, underLine, isMobileTheater: props.isMobileTheater });
   return (
     <div className={classes.lstPhim}>{/* div root danh sách phim */}
       {props.lstPhim.map(phim => (

@@ -10,7 +10,7 @@ import Mobile from './Mobile';
 import Desktop from './Desktop';
 import { DISPLAY_MOBILE_BOOKTICKET } from '../../constants/config';
 import Modal from './Modal';
-import LoadingComponent from '../../components/Loading';
+import Loading from '../../components/Loading';
 
 export default function Index() {
   const { refreshKey, timeOut, isMobile, danhSachPhongVe: { thongTinPhim, danhSachGhe }, loadingGetListSeat, errorGetListSeatMessage, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
@@ -57,15 +57,12 @@ export default function Index() {
     dispatch({ type: SET_ISMOBILE, payload: { isMobile: mediaQuery } })
   }, [mediaQuery])
 
-  if (loadingGetListSeat) {
-    return <LoadingComponent />
-  }
-
   if (errorGetListSeatMessage) {
     return <div>{errorGetListSeatMessage}</div>
   }
   return (
     <>
+      <Loading loading={loadingGetListSeat} />
       {
         isMobile ? <Mobile key={refreshKey} /> : <Desktop key={refreshKey + 1} />
       }

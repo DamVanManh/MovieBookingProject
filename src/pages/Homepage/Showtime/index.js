@@ -3,9 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Fade from '@material-ui/core/Fade';
 import { useSelector } from 'react-redux';
-import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
@@ -28,7 +26,7 @@ export function SamplePrevArrow(props) {
   const classes = useStyles();
   const { onClick } = props;
   return (
-    <ArrowBackIosRoundedIcon style={{ left: "-100px" }} onClick={onClick} className={classes.Arrow} />
+    <ArrowBackIosRoundedIcon style={{ left: "-82px" }} onClick={onClick} className={classes.Arrow} />
   );
 }
 
@@ -53,7 +51,7 @@ export default function SimpleTabs() {
   const { errorMovieList, movieList } = useSelector((state) => state.movieReducer);
   const timeout = useRef(null)
   const [arrayData, setarrayData] = useState({ dailyMovieList: null, comingMovieList: null })
-  const classes = useStyles({ fade: value.fade });
+  const classes = useStyles({ fade: value.fade, value: value.value });
   useEffect(() => {
     return () => {
       clearTimeout(timeout.current)
@@ -61,14 +59,19 @@ export default function SimpleTabs() {
   }, [])
 
   useEffect(() => { // movieList chứa tất cả các ngày, cần lọc ra theo ngày chỉ định
+
+    console.log(" trong1 ", movieList)
+
     let dailyMovieList = filterByDay(movieList, DATE_BEGIN_DANGCHIEU, DATE_END_DANGCHIEU)
     dailyMovieList = dailyMovieList?.slice(dailyMovieList.length - 16)
     let comingMovieList = filterByDay(movieList, DATE_BEGIN_SAPCHIEU, DATE_END_SAPCHIEU,)?.slice(0, 24)
     comingMovieList = comingMovieList?.slice(comingMovieList.length - 16)
-    setarrayData({ dailyMovieList, comingMovieList })
-  }, [])
 
-  const handleChange = (event, newValue) => {
+    console.log(" trong2 ", dailyMovieList, comingMovieList)
+    setarrayData({ dailyMovieList, comingMovieList })
+  }, [movieList])
+
+  const handleChange = (e, newValue) => {
     setValue(value => ({ ...value, fade: false }));
     timeout.current = setTimeout(() => {
       setValue(value => ({ ...value, value: newValue, fade: true }))
@@ -78,25 +81,23 @@ export default function SimpleTabs() {
   if (errorMovieList) {
     return <div>{errorMovieList}</div>
   }
+  console.log(" ngoài ", arrayData);
 
   return (
     <div
       style={{ paddingTop: "80px" }}
       id="lichchieu"
     >
-      <Element name="test1">
-        <AppBar className={classes.appBar} position="static">
-          <Tabs classes={{ root: classes.tabBar, flexContainer: classes.flexContainer, indicator: classes.indicator }} value={value.value} onChange={handleChange}>
-            <Tab disableRipple classes={{ wrapper: classes.wrapper }} className={classes.tabButton} label="Đang chiếu" />
-            <Tab disableRipple classes={{ wrapper: classes.wrapper }} className={classes.tabButton} label="Sắp chiếu" />
-          </Tabs>
-        </AppBar>
-        <div className={classes.listMovie}>
-          {isDesktop ? <Desktop arrayData={arrayData} value={value} /> : <Mobile arrayData={arrayData} value={value} />}
-          <div className={classes.fade} ></div>
-        </div>
-
-      </Element >
+      <AppBar className={classes.appBar} position="static">
+        <Tabs classes={{ root: classes.tabBar, flexContainer: classes.flexContainer, indicator: classes.indicator }} value={value.value} onChange={handleChange}>
+          <Tab disableRipple className={`${classes.tabButton} ${classes.tabDangChieu}`} label="Đang chiếu" />
+          <Tab disableRipple className={`${classes.tabButton} ${classes.tabSapChieu}`} label="Sắp chiếu" />
+        </Tabs>
+      </AppBar>
+      <div className={classes.listMovie}>
+        {isDesktop ? <Desktop arrayData={arrayData} value={value} /> : <Mobile arrayData={arrayData} value={value} />}
+        <div className={classes.fade} ></div>
+      </div>
     </div >
 
   );

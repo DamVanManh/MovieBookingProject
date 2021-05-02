@@ -6,15 +6,15 @@ function CheckoutRoute(props) { // props: { exact, path="/datve/:maLichChieu", c
   const { currentUser } = useSelector((state) => state.authReducer);
   const { component: BookTickets, ...routeProps } = props;
   return (
-    <Route {...routeProps} render={(props) => {
+    <Route {...routeProps} render={(propsInRoute) => {
       if (currentUser) {
-        return <BookTickets {...props} />
+        return <BookTickets {...propsInRoute} />
       }
       return (
         <Redirect
           to={{
             pathname: "/dangnhap",
-            state: props.location.pathname
+            state: propsInRoute.location.state
           }}
         />
       )

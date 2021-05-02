@@ -64,7 +64,8 @@ export default function Register() {
         }
         validationSchema={signupUserSchema} // validationSchdema:  thu vien yup nhập sai ko submit được 
         onSubmit={handleSubmit}
-        render={(formikProps) => (
+      >
+        {(formikProps) => (
           <Form className="col-sm-12">
             <div className="form-group">
               <label>Tài khoản </label>
@@ -146,7 +147,7 @@ export default function Register() {
             </div>
           </Form>
         )}
-      > </Formik>
+      </Formik>
     </div>
   )
 

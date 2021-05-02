@@ -18,7 +18,7 @@ export function SamplePrevArrow(props) {
   const classes = useStyles();
   const { onClick } = props;
   return (
-    <ArrowBackIosRoundedIcon style={{ left: "-100px" }} onClick={onClick} className={classes.Arrow} />
+    <ArrowBackIosRoundedIcon style={{ left: "-82px" }} onClick={onClick} className={classes.Arrow} />
   );
 }
 
@@ -34,7 +34,6 @@ export default function SimpleTabs({ arrayData, value }) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />
   };
-
   return (
     <div className={classes.container}>
       <Slider {...settings}>

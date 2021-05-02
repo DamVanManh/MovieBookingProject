@@ -56,8 +56,9 @@ export default function AuthLayout(props) {
   let location = useLocation();
   const history = useHistory();
   const { loadingRegister, loadingLogin } = useSelector((state) => state.authReducer);
-
+  console.log("auth ", location.state);
   const handleClose = () => {
+
     if (!location.state) {
       location.state = "/"
     }

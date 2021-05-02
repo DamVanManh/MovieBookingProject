@@ -18,38 +18,35 @@ const useStyles = makeStyles(theme => ({
     margin: '0 auto',
     textTransform: "none",
   },
-  tabButton: {
-
-    opacity: 1,
-    lineHeight: "24px",
-    height: "24px",
-    fontFamily: "'SF Medium'",
-    color: 'black',
-    boxShadow: 'none',
-    justifyContent: 'center',
-    alignItem: 'center',
-    transition: "all 0.2s",
-    fontSize: "20px",
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    "& + $tabButton": {
-      marginLeft: 16,
-    },
-    '&:focus': {
-      color: 'red', fontSize: "24px", backgroundColor: 'transparent',
-      outlineStyle: "none", transition: 'none', fontWeight: "bold"
-    },
-    '&:hover': {
-      fontSize: "24px",
-      fontWeight: 500,
-      color: "#fa5238",
-    },
-  },
   flexContainer: {
     display: 'block'
   },
   indicator: {
     backgroundColor: "transparent",
     transition: 'none',
+  },
+  tabButton: {
+    opacity: 1,
+    lineHeight: "24px",
+    height: "24px",
+    boxShadow: 'none',
+    justifyContent: 'center',
+    alignItem: 'center',
+    transition: "all 0.2s",
+    fontWeight: 500,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    '&:hover': {
+      fontSize: "24px",
+      color: "#fa5238",
+    },
+  },
+  tabDangChieu: {
+    color: props => props.value ? "#000" : "#fa5238",
+    fontSize: props => props.value ? "20px" : "24px",
+  },
+  tabSapChieu: {
+    color: props => props.value ? "#fa5238" : "#000",
+    fontSize: props => props.value ? "24px" : "20px",
   },
 
   Arrow: {

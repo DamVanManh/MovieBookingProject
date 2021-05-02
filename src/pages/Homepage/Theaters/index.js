@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useTheme } from '@material-ui/core/styles';
 
 import LstCumRap from './LstCumRap'
 import useStyles from './style'
 import { underLine } from '../../../styles/materialUi'
 import { colorTheater } from '../../../constants/theaterData'
 import Seperate from '../../../components/Seperate'
-import { DISPLAY_MOBILE_THEATER } from '../../../constants/config'
 
 export default function HeThongRap() {
-  const isMobileTheater = useMediaQuery(DISPLAY_MOBILE_THEATER);
+  const theme = useTheme();
+  const isMobileTheater = useMediaQuery(theme.breakpoints.down('sm'))
   const { theaterList, errorTheaterList } = useSelector((state) => state.theaterReducer);
   const [valueHeThongRap, setValueHeThongRap] = React.useState(0);
   const classes = useStyles({ isMobileTheater, underLine });
-  const dispatch = useDispatch()
 
   const handleChangeHeThongRap = (e, indexSelected) => {
     setValueHeThongRap(indexSelected);

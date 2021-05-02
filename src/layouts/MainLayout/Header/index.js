@@ -6,27 +6,24 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-// import { Link, Button, Chip, Tooltip } from '@material-ui/core';
-import { Link as LinkR } from "react-router-dom";
+import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import FaceIcon from '@material-ui/icons/Face';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { useHistory, useLocation } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
-import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { HashLink as Link } from 'react-router-hash-link';
 
 import { LOGOUT } from '../../../reducers/constants/Auth';
 import useStyles from './style'
 import { FAKE_AVATAR } from '../../../constants/config';
+const headMenu = [{ nameLink: 'Lịch chiếu', id: "lichchieu" }, { nameLink: 'Cụm rạp', id: "cumrap" }, { nameLink: 'Tin tức', id: "tintuc" }, { nameLink: 'Ứng dụng', id: "ungdung" }]
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.authReducer);
@@ -34,76 +31,76 @@ export default function Header() {
   let location = useLocation();
   const history = useHistory();
   const theme = useTheme()
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+  const classes = useStyles({ isDesktop, openDrawer });
 
-  // const matches = useMediaQuery(theme.breakpoints.up('lg')); // tự động trả về true khi màn hình từ 1280 trở lên
-  // if (matches) {
-  //   if (open) {
-  //     setOpen(false)
-  //   }
-  // }
+  // nếu đang mở drawer mà chuyển sang màn hình lớn thì phải tự đóng lại
+  useEffect(() => {
+    if (isDesktop) {
+      if (openDrawer) {
+        setOpenDrawer(false)
+      }
+    }
+  }, [isDesktop])
 
-  // đăng xuất
   const handleLogout = () => {
     dispatch({ type: LOGOUT })
   }
-  // đăng nhập
   const handleLogin = () => {
     history.push("/dangnhap", location.pathname) // truyền kèm location.pathname để đăng nhập xong quay lại
   }
-  // đăng ký
   const handleRegister = () => {
     history.push("/dangky", location.pathname)
   }
-  // click menuIcon
+  const handleClickLogo = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+      return
+    }
+    history.push("/")
+  }
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setOpenDrawer(true);
   };
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpenDrawer(false);
   };
-  const headMenu = ['Lịch Chiếu', 'Cụm Rạp', 'Tin Tức', 'Ứng Dụng']
-  const handleClickHeadMenu = (i) => {
-    console.log("index ", i, location.pathname)
-    if (location.pathname !== "/") {
-      history.push("/", i)
-    }
-  }
-  useEffect(() => {
 
-  }, [location.pathname])
   return (
 
     <div className={classes.root}>
 
       {/* START HEADER */}
-      <AppBar position="fixed" classes={{ root: clsx(classes.appBar, { [classes.appBarShift]: open, }), }} color='default' >
+      <AppBar position="fixed" classes={{ root: clsx(classes.appBar, { [classes.appBarShift]: openDrawer, }), }} color='default' >
 
         <Toolbar className={classes.spaceBetween}>
 
           {/* logo */}
-          <div>
+          <div className={classes.logo} onClick={handleClickLogo}>
             <img src="/img/headTixLogo.png" alt="logo" style={{ height: 50 }} />
           </div>
-
-          {/* quick link */}
           <div className={classes.linkTobody}>
-            <List >
-              {headMenu.map((item, i) => (
-                <Link to="test1" spy={true} smooth={true} duration={500} className={classes.link} onClick={() => handleClickHeadMenu(i)}>{item}</Link>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+            >
+              {headMenu.map((link) => (
+                <Link key={link.id} className={classes.link} to={`/#${link.id}`} scroll={(el) => el.scrollIntoView({ behavior: "smooth", block: "start" })} >{link.nameLink}</Link>
               ))}
-              {/* <span className={classes.link}>Lịch Chiếu</span>
-              <span className={classes.link}>Cụm Rạp</span>
-              <span className={classes.link}>Tin Tức</span>
-              <span className={classes.link}>Ứng Dụng</span> */}
-            </List>
+            </Grid>
           </div>
 
           {/* user account */}
           <div className={classes.user}>
             {currentUser ?
-              <List dense disablePadding className={classes.auth}>
+              <List disablePadding className={classes.auth}>
                 <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }}>
                   <ListItemIcon classes={{ root: classes.icon }}>
                     <Avatar alt="avatar" className={classes.avatar} src={FAKE_AVATAR} />
@@ -115,7 +112,7 @@ export default function Header() {
                 </ListItem>
               </List>
               :
-              <List dense disablePadding className={classes.auth}>
+              <List disablePadding className={classes.auth}>
                 <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }} onClick={handleLogin}>
                   <ListItemIcon classes={{ root: classes.icon }}>
                     <AccountCircleIcon fontSize="large" />
@@ -135,6 +132,7 @@ export default function Header() {
               color="inherit"
               edge="end"
               onClick={handleDrawerOpen}
+              classes={{ root: classes.listItem }}
             >
               <MenuIcon />
             </IconButton>
@@ -148,55 +146,49 @@ export default function Header() {
         className={classes.drawer}
         variant="persistent"
         anchor="right"
-        open={open}
+        open={openDrawer}
         classes={{
           paper: classes.drawerPaper,
         }}
 
       >
-        {/* icon left-right khi tắt/mở responsive */}
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          {currentUser ?
+            <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }}>
+              <ListItemIcon classes={{ root: classes.icon }}>
+                <Avatar alt="avatar" className={classes.avatar} src={FAKE_AVATAR} />
+              </ListItemIcon>
+              <ListItemText primary={currentUser?.hoTen} />
+            </ListItem>
+            :
+            <ListItem button classes={{ root: classes.listItem }} onClick={handleLogin}>
+              <ListItemIcon classes={{ root: classes.icon }}>
+                <AccountCircleIcon fontSize="large" />
+              </ListItemIcon>
+              <span className={classes.link} >Đăng Nhập</span>
+            </ListItem>
+          }
+          <IconButton classes={{ root: classes.listItem }} onClick={handleDrawerClose}>
+            <ChevronRightIcon />
           </IconButton>
         </div>
-
-        {/* Divider giúp phân chia số lượng nội dung theo ý mình */}
-        <Divider />
         <List>
-          {['Lịch Chiếu', 'Cụm Rạp', 'Tin Tức', 'Ứng Dụng'].map((text) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+          {headMenu.map((link) => (
+            <ListItem button classes={{ root: classes.listItem }} key={link.id}>
+              <Link key={link.id} className={classes.link} to={`/#${link.id}`} scroll={(el) => el.scrollIntoView({ behavior: "smooth", block: "start" })} >{link.nameLink}</Link>
             </ListItem>
           ))}
 
           {currentUser ?
-            <List dense disablePadding className={classes.auth}>
-              <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }}>
-                <ListItemIcon classes={{ root: classes.icon }}>
-                  <Avatar alt="avatar" className={classes.avatar} src={FAKE_AVATAR} />
-                </ListItemIcon>
-                <ListItemText primary={currentUser?.hoTen} />
-              </ListItem>
-              <ListItem button classes={{ root: classes.itemAuth }} onClick={handleLogout}>
-                <ListItemText primary="Đăng Xuất" />
-              </ListItem>
-            </List>
+            <ListItem button classes={{ root: classes.listItem }} onClick={handleLogout}>
+              <span className={classes.link} >Đăng Xuất</span>
+            </ListItem>
             :
-            <List dense disablePadding className={classes.auth}>
-              <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }} onClick={handleLogin}>
-                <ListItemIcon classes={{ root: classes.icon }}>
-                  <AccountCircleIcon fontSize="large" />
-                </ListItemIcon>
-                <ListItemText primary="Đăng Nhập" />
-              </ListItem>
-              <ListItem button classes={{ root: classes.itemAuth }} onClick={handleRegister}>
-                <ListItemText primary="Đăng Ký" />
-              </ListItem>
-            </List>
+            <ListItem button classes={{ root: classes.listItem }} onClick={handleRegister}>
+              <span className={classes.link} >Đăng Ký</span>
+            </ListItem>
           }
         </List>
-        <Divider />
       </Drawer>
     </div>
   );

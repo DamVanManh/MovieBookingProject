@@ -30,7 +30,7 @@ export default function Login() {
     dispatch(login(user))
   }
   const handleDangKy = () => {
-    history.push("/dangky", location.state)
+    history.push("/dangky", location.pathname)
   }
 
   return (
@@ -48,45 +48,43 @@ export default function Login() {
           }}
           validationSchema={signinUserSchema}
           onSubmit={handleSubmit}
-          render={(formikProp) => (
-            <Form className="col-sm-10 mx-auto">
-              <div className="form-group">
-                <label>Tài khoản</label>
-                <Field type="text" className="form-control" name="taiKhoan" onChange={formikProp.handleChange} />
-                <ErrorMessage name="taiKhoan">
-                  {(msg) =>
-                    <div className="alert alert-danger">
-                      {msg}
-                    </div>
-                  }
-                </ErrorMessage>
-              </div>
+        >{(formikProp) => (
+          <Form className="col-sm-10 mx-auto">
+            <div className="form-group">
+              <label>Tài khoản</label>
+              <Field type="text" className="form-control" name="taiKhoan" onChange={formikProp.handleChange} />
+              <ErrorMessage name="taiKhoan">
+                {(msg) =>
+                  <div className="alert alert-danger">
+                    {msg}
+                  </div>
+                }
+              </ErrorMessage>
+            </div>
 
-              <div className="form-group">
-                <label>Mật khẩu</label>
-                <Field type="password" className="form-control" name="matKhau" onChange={formikProp.handleChange} />
-                <ErrorMessage name="matKhau">
-                  {(msg) =>
-                    <div className="alert alert-danger">
-                      {msg}
-                    </div>
-                  }
-                </ErrorMessage>
-              </div>
-              <p className="text-success" style={{ cursor: "pointer" }} onClick={handleDangKy}>* Đăng ký</p>
-              <button
-                style={{ backgroundColor: "#3E63b6", borderColor: "#3E63b6", cursor: "pointer" }}
-                disable={errorLogin?.toString()}
-                type="submit" className="btn btn-success mt-3 container" >
-                Đăng nhập
+            <div className="form-group">
+              <label>Mật khẩu</label>
+              <Field type="password" className="form-control" name="matKhau" onChange={formikProp.handleChange} />
+              <ErrorMessage name="matKhau">
+                {(msg) =>
+                  <div className="alert alert-danger">
+                    {msg}
+                  </div>
+                }
+              </ErrorMessage>
+            </div>
+            <p className="text-success" style={{ cursor: "pointer" }} onClick={handleDangKy}>* Đăng ký</p>
+            <button
+              style={{ backgroundColor: "#3E63b6", borderColor: "#3E63b6", cursor: "pointer" }}
+              disable={errorLogin?.toString()}
+              type="submit" className="btn btn-success mt-3 container" >
+              Đăng nhập
                     </button>
-              {/* nếu tồn tại lỗi thì hiện lỗi */}
-              {errorLogin && <div className="alert alert-danger"><span> {errorLogin}</span></div>}
-            </Form>
-          )}
-        />
+            {/* nếu tồn tại lỗi thì hiện lỗi */}
+            {errorLogin && <div className="alert alert-danger"><span> {errorLogin}</span></div>}
+          </Form>
+        )}</Formik>
       </div>
     </div>
   )
-
 }

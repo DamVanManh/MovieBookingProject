@@ -13,22 +13,20 @@ import Showtime from './Showtime'
 import "slick-carousel/slick/slick.css"; // npm install slick-carousel --save
 import "slick-carousel/slick/slick-theme.css";
 
-export default function Homepage(props) {
-
-  const { movieList, loadingMovieList } = useSelector((state) => state.movieReducer)
-  const { theaterList, loadingTheaterList } = useSelector((state) => state.theaterReducer)
-
+export default function Homepage() {
+  const { loadingMovieList } = useSelector((state) => state.movieReducer)
+  const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getMovieList())
     dispatch(getTheaters())
   }, [])
 
-  if (loadingMovieList || loadingTheaterList) {
-    return <Loading></Loading>
-  }
+  // loadingMovieList || loadingTheaterList : chỉ cần 1 trong 2 là true thì > true, cả 2 phải đều là false thì > false
   return (
     <div >
+      <Loading loading={loadingMovieList || loadingTheaterList}></Loading>
       <Carousel />
       <Showtime />
       <Theaters />

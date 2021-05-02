@@ -30,7 +30,7 @@ export default function LstCumRap(props) {
         )}
       </div>
       {lstCumRap.map((cumRap, index) => (
-        valueCumRap === index && <LstPhim lstPhim={cumRap.danhSachPhim} key={cumRap.maCumRap} />
+        valueCumRap === index && <LstPhim lstPhim={cumRap.danhSachPhim} key={cumRap.maCumRap} isMobileTheater={isMobileTheater} />
       ))}
     </>
   );

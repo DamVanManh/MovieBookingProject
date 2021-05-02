@@ -1,10 +1,11 @@
 import React from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import useStyles from './style'
 
 export default function BtnGoToCheckout({ lichChieuTheoPhim }) {
   const classes = useStyles()
   const history = useHistory()
+  let location = useLocation();
 
   const calculateTimeout = (ngayChieuGioChieu) => {
     const fakeThoiLuong = 120
@@ -14,7 +15,7 @@ export default function BtnGoToCheckout({ lichChieuTheoPhim }) {
   }
 
   return (
-    <button className={classes.button} onClick={() => history.push(`/datve/${lichChieuTheoPhim.maLichChieu}`)}>
+    <button className={classes.button} onClick={() => history.push(`/datve/${lichChieuTheoPhim.maLichChieu}`, location.pathname)}>
       <span className={classes.inTime}>{lichChieuTheoPhim.ngayChieuGioChieu.slice(11, 16)}</span>
       <span className={classes.outTime}>{` ~ ${calculateTimeout(lichChieuTheoPhim.ngayChieuGioChieu)}`}</span>
     </button>

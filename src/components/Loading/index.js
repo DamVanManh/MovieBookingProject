@@ -1,21 +1,60 @@
-
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   useSpring,
-  useChain,
-  config,
   animated,
-  useSpringRef,
+  useTransition,
+  config,
 } from '@react-spring/web'
+import { makeStyles } from "@material-ui/core"
 import { IMG_LOADING } from '../../constants/config';
 
-export default function App() {
+const useStyles = makeStyles({
+  root: {
+    position: "fixed",
+    top: 0,
+    left: 0,
 
-  const shakeRef = useSpringRef()
+    // zIndex: props => props.loading ? 2000 : -1,
+    // backgroundColor: props => props.loading ? "#fff" : "transparent",
+    zIndex: 2000,
+    backgroundColor: "#fff",
+    transition: "background-color 0.5s ease-in-out",
+
+    width: "100%",
+    height: "100%",
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logo: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    zIndex: 2000,
+    width: 120,
+  }
+});
+
+export default function Loading({ loading }) {
+  // const [delay, setdelay] = useState(false)
+  // const clear = useRef(null)
+  // useEffect(() => {
+  //   if (!loading) {
+  //     clear.current = setTimeout(() => {
+  //       setdelay(loading)
+  //     }, 400);
+  //   }
+  //   return () => {
+  //     clearTimeout(clear.current)
+  //   }
+  // }, [loading])
+  // const materialStyles = useStyles({ loading: delay })
+
+  const materialStyles = useStyles({ loading })
   const shake = useSpring({
-    ref: shakeRef,
     from: { transform: "rotate(-20deg)", },
-    to: async (next, cancel) => {
+    to: async (next) => {
       await next({ transform: "rotate(20deg)" })
       await next({ transform: "rotate(-20deg)" })
     },
@@ -23,36 +62,60 @@ export default function App() {
     loop: true
   })
 
-  const fadeInRef = useSpringRef()
-  const fadeIn = useSpring({
-    ref: fadeInRef,
-    from: { transform: "scale(0.6,0.6)", opacity: 0 },
-    to: async (next, cancel) => {
-      await next({ transform: "scale(1,1)", opacity: 1 })
-    },
-    config: { duration: 200 },
+  // khi tham số 1 của useTransition chuyển từ false > true thì tăng dần opacity lên 1 và ngược lại
+  const transitions = useTransition(loading, {
+    from: { opacity: 0, transform: "scale(0.6,0.6)" },
+    enter: { opacity: 1, transform: "scale(1,1)" },
+    leave: { opacity: 0, transform: "scale(0.6,0.6)" },
+    config: config.molasses,
   })
 
-  useChain([fadeInRef, shakeRef], [0, 0])
-  // fadeInRef và shakeRef đều không delay
-
-  const root = {
-    width: "100%",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  }
-
   return (
-    <div style={root}>
-      <animated.div
-        style={fadeIn}
-      >
-        <animated.div style={shake}>
-          <img src={IMG_LOADING} style={{ width: "30vmin" }} />
-        </animated.div>
-      </animated.div>
+    <div className={materialStyles.root}>
+      {transitions(
+        (styles, item) => {
+          return item &&
+            <animated.div style={styles}>
+              <animated.div style={shake}>
+                <img src={IMG_LOADING} style={{ width: 120 }} />
+              </animated.div>
+            </animated.div>
+        }
+      )}
     </div>
   )
 }
+
+
+// import React, { useEffect, useState, useRef } from 'react'
+// import {
+//   useSpring,
+//   useChain,
+//   animated,
+//   useSpringRef,
+//   useTransition,
+//   config,
+// } from '@react-spring/web'
+// import { IMG_LOADING } from '../../constants/config';
+
+
+// export default function Mount({ loading }) {
+//   // animation sáng lên rồi mờ dần liên tục
+//   // reverse: true : "from" and "to" are switched if set true,
+//   // onRest : Callback when a spring or key comes to a stand-still > thực thi callback khi hình ảnh dứng yên
+//   // khi tham số 1 của useTransition chuyển từ false > true thì ✌️ tăng dần opacity lên 1 và ngược lại
+//   const transitions = useTransition(loading, {
+//     from: { opacity: 0 },
+//     enter: { opacity: 1 },
+//     leave: { opacity: 0 },
+//     delay: 200,
+//     config: config.molasses,
+//   })
+//   return transitions(
+//     (styles, item) => item && <animated.div style={styles}>✌️</animated.div>
+//   )
+// }
+
+
+
+

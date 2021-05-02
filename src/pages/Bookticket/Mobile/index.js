@@ -88,7 +88,7 @@ export default function Mobile() {
       <div className={classes.empty}>
       </div>
 
-      {/* content */}
+      {/* content: step 1, step2, step3 */}
       <div >
         <main style={{ display: activeStep === 0 ? 'block' : 'none' }}>
           <ListSeat />
@@ -99,6 +99,7 @@ export default function Mobile() {
         <main style={{ display: activeStep === 2 ? 'block' : 'none' }}>
           <ResultBookticket />
         </main>
+        <div style={{ height: 70 }}></div>
       </div>
 
       {/* bottom */}

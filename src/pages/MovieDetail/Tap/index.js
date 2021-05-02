@@ -38,7 +38,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
   useEffect(() => {
     window.scrollTo(0, 0) // ngăn window.history.scrollRestoration = 'auto';
     setValue(() => 0)
-    setCroll(() => Date.now())
+    setCroll(() => onClickBtnMuave)
   }, [onClickBtnMuave]) // khi click muave thì mới mở tap 0 > đổi giá trị croll để scroll tới TapMovieDetail
 
   useEffect(() => {
