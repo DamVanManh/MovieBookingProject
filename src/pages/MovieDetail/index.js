@@ -24,14 +24,12 @@ export default function Index() {
     }
   }, [])
 
-  if (loadingMovieDetailShowtimes) {
-    return <Loading></Loading>
-  }
   if (errorMovieDetailShowtimes) {
     return <div>{errorMovieDetailShowtimes}</div>
   }
   return (
     <>
+      <Loading loading={loadingMovieDetailShowtimes} />
       {  isMobile ? <Mobile movieDetailShowtimes={movieDetailShowtimes} isMobile={isMobile} /> : <Desktop movieDetailShowtimes={movieDetailShowtimes} />}
     </>
   )

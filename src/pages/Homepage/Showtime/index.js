@@ -59,15 +59,10 @@ export default function SimpleTabs() {
   }, [])
 
   useEffect(() => { // movieList chứa tất cả các ngày, cần lọc ra theo ngày chỉ định
-
-    console.log(" trong1 ", movieList)
-
     let dailyMovieList = filterByDay(movieList, DATE_BEGIN_DANGCHIEU, DATE_END_DANGCHIEU)
     dailyMovieList = dailyMovieList?.slice(dailyMovieList.length - 16)
     let comingMovieList = filterByDay(movieList, DATE_BEGIN_SAPCHIEU, DATE_END_SAPCHIEU,)?.slice(0, 24)
     comingMovieList = comingMovieList?.slice(comingMovieList.length - 16)
-
-    console.log(" trong2 ", dailyMovieList, comingMovieList)
     setarrayData({ dailyMovieList, comingMovieList })
   }, [movieList])
 
@@ -81,7 +76,6 @@ export default function SimpleTabs() {
   if (errorMovieList) {
     return <div>{errorMovieList}</div>
   }
-  console.log(" ngoài ", arrayData);
 
   return (
     <div
