@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     display: props => props.isDesktop ? "block" : "none",
   },
   link: {
+    cursor: "pointer",
     textDecoration: "none",
     color: "#000",
     paddingLeft: 10,
@@ -57,7 +58,14 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "transparent"
     }
   },
+  hover: {
+    "&:hover": {
+      color: "#fb4226",
+      backgroundColor: "rgba(0, 0, 0, 0.04)",
+    },
+  },
   divide: {
+    fontWeight: 500,
     "&::after": {
       content: "''",
       position: "absolute",
@@ -104,6 +112,23 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'space-between',
   },
+  itemMenu: {
+    display: "block",
+    padding: 20,
+    fontWeight: 500,
+    width: "100%",
+    cursor: "pointer",
+    fontSize: 18,
+    "&:hover": {
+      color: "#fb4226",
+      backgroundColor: "rgba(0, 0, 0, 0.04)",
+    },
+  },
+  username: {
+    "& > span": {
+      fontWeight: 500
+    }
+  }
 
 }))
 export default useStyles

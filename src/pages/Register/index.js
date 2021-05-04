@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 
-import { Redirect, useLocation } from "react-router-dom";
+import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+import Swal from "sweetalert2";
 
 import { register, login } from '../../reducers/actions/Auth';
 import logoTix from "./logo/logoTix.png"
@@ -11,14 +12,21 @@ import logoTix from "./logo/logoTix.png"
 export default function Register() {
   const { responseRegister, loadingRegister, currentUser, errorRegister } = useSelector((state) => state.authReducer);
   let location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (responseRegister) { // đăng ký thành công thì đăng nhập, responseRegister để bỏ qua componentditmount
-      dispatch(login({ taiKhoan: responseRegister.taiKhoan, matKhau: responseRegister.matKhau }))
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Bạn đã đăng ký thành công',
+        showConfirmButton: false,
+        timer: 2000
+      })
+      history.push("/dangnhap", location.state);
     }
   }, [responseRegister])
-
 
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   const signupUserSchema = yup.object().shape({
@@ -34,13 +42,6 @@ export default function Register() {
     if (!loadingRegister && !responseRegister) {
       dispatch(register(user))
     }
-  }
-
-  if (currentUser) { // đăng nhập thanh công chuyển sang trang trước
-    if (!location.state) {
-      location.state = "/"
-    }
-    return <Redirect to={location.state} />
   }
 
   return (

@@ -198,7 +198,7 @@ export default function UsersManagement() {
       <Box px={3} className={classes.box}>
         {/* {console.log('page page ', usersList[0])} */}
         <Typography variant="h2" gutterBottom>
-          Quản Lý Tài Khoản
+          Quản Lý Người Dùng
       </Typography>
         <Paper className={classes.root}>
           <div className='d-flex justify-content-between'>

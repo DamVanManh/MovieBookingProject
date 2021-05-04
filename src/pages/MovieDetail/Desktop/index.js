@@ -38,8 +38,9 @@ export default function Desktop({ movieDetailShowtimes: data }) {
             <button className={classes.btnMuaVe} onClick={handleBtnMuaVe}>Mua vé</button>
           </div>
           <div className={classes.rate}>
-            <div className={classes.wrapper}>
+            <div className={classes.circular}>
               <span className={classes.danhGia}>{danhGia}</span>
+              <CircularProgress variant="determinate" size="100%" value={100} className={classes.behined} color="secondary" />
               <CircularProgress variant="determinate" size="100%" value={danhGia * 10} className={classes.fabProgress} color="secondary" />
             </div>
             <div className={classes.rateStar}>

@@ -32,6 +32,7 @@ const useStyles = makeStyles({
   },
   danhGia: {
     marginTop: 40,
+    marginBottom: 15,
   },
   inputRoot: {
     maxWidth: "580px",
@@ -63,6 +64,46 @@ const useStyles = makeStyles({
   imgReviewerStar: {
     position: "absolute", top: "30%", right: "3%"
   },
+
+  itemDis: {
+    padding: "20px 20px 12px",
+    border: "1px solid #e6e6e6",
+    borderBottom: "none",
+    borderRadius: "3px",
+    backgroundColor: "#fff",
+    maxWidth: "580px",
+    width: "100%",
+    margin: "auto",
+    color: "#4a4a4a",
+    marginBottom: 15,
+  },
+  infoUser: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  username: {
+    marginLeft: 10,
+    color: "#000",
+    textTransform: "capitalize",
+    fontWeight: 500,
+  },
+
+
+  right: {
+    textAlign: "center",
+  },
+  // itemDis: {
+
+  // },
+  // itemDis: {
+
+  // },
+  // itemDis: {
+
+  // },
+  // itemDis: {
+
+  // },
 
 })
 export default useStyles

@@ -48,7 +48,6 @@ const NavItem = ({
   ...rest
 }) => {
   const classes = useStyles();
-
   return (
     <ListItem
       className={clsx(classes.item, className)}

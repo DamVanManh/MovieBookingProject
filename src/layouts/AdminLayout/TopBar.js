@@ -41,10 +41,8 @@ const TopBar = ({
       {...rest}
     >
       <Toolbar>
-        {/* cái logo */}
         <RouterLink to="/">
           <Logo />
-          {/* <img src={img} alt=""/> */}
         </RouterLink>
 
         {/* 1 thẻ div chiếm hết khoảng trống còn lại dể dồn các icon về 2 bên */}

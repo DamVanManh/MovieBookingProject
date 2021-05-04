@@ -18,7 +18,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { useHistory, useLocation } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
-import { HashLink as Link } from 'react-router-hash-link';
+import { scroller } from 'react-scroll'
 
 import { LOGOUT } from '../../../reducers/constants/Auth';
 import useStyles from './style'
@@ -27,6 +27,7 @@ const headMenu = [{ nameLink: 'Lịch chiếu', id: "lichchieu" }, { nameLink: '
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.authReducer);
+  const { movieList } = useSelector((state) => state.movieReducer)
   const dispatch = useDispatch();
   let location = useLocation();
   const history = useHistory();
@@ -44,7 +45,19 @@ export default function Header() {
     }
   }, [isDesktop])
 
+  useEffect(() => { // clicklink > push to home > scrollTo after loading
+    if (movieList.length > 0) {
+      setOpenDrawer(false)
+      scroller.scrollTo(location.state, {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      })
+    }
+  }, [movieList])
+
   const handleLogout = () => {
+    setOpenDrawer(false)
     dispatch({ type: LOGOUT })
   }
   const handleLogin = () => {
@@ -64,6 +77,17 @@ export default function Header() {
     }
     history.push("/")
   }
+  const handleClickLink = (id) => {
+    if (location.pathname === "/") {
+      setOpenDrawer(false)
+      scroller.scrollTo(id, {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      })
+    } else history.push("/", id)
+  }
+
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
   };
@@ -92,7 +116,7 @@ export default function Header() {
               alignItems="center"
             >
               {headMenu.map((link) => (
-                <Link key={link.id} className={classes.link} to={`/#${link.id}`} scroll={(el) => el.scrollIntoView({ behavior: "smooth", block: "start" })} >{link.nameLink}</Link>
+                <span key={link.id} className={classes.link} onClick={() => handleClickLink(link.id)}>{link.nameLink}</span>
               ))}
             </Grid>
           </div>
@@ -144,8 +168,8 @@ export default function Header() {
       {/* content open menu*/}
       <Drawer
         className={classes.drawer}
-        variant="persistent"
         anchor="right"
+        onClose={handleDrawerClose}
         open={openDrawer}
         classes={{
           paper: classes.drawerPaper,
@@ -154,18 +178,18 @@ export default function Header() {
       >
         <div className={classes.drawerHeader}>
           {currentUser ?
-            <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }}>
+            <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide, classes.hover) }}>
               <ListItemIcon classes={{ root: classes.icon }}>
                 <Avatar alt="avatar" className={classes.avatar} src={FAKE_AVATAR} />
               </ListItemIcon>
-              <ListItemText primary={currentUser?.hoTen} />
+              <ListItemText className={classes.username} primary={currentUser?.hoTen} />
             </ListItem>
             :
             <ListItem button classes={{ root: classes.listItem }} onClick={handleLogin}>
               <ListItemIcon classes={{ root: classes.icon }}>
                 <AccountCircleIcon fontSize="large" />
               </ListItemIcon>
-              <span className={classes.link} >Đăng Nhập</span>
+              <span className={classes.link} style={{ fontWeight: 500 }}>Đăng Nhập</span>
             </ListItem>
           }
           <IconButton classes={{ root: classes.listItem }} onClick={handleDrawerClose}>
@@ -174,23 +198,16 @@ export default function Header() {
         </div>
         <List>
           {headMenu.map((link) => (
-            <ListItem button classes={{ root: classes.listItem }} key={link.id}>
-              <Link key={link.id} className={classes.link} to={`/#${link.id}`} scroll={(el) => el.scrollIntoView({ behavior: "smooth", block: "start" })} >{link.nameLink}</Link>
-            </ListItem>
+            <span key={link.id} className={classes.itemMenu} onClick={() => handleClickLink(link.id)} >{link.nameLink}</span>
           ))}
 
           {currentUser ?
-            <ListItem button classes={{ root: classes.listItem }} onClick={handleLogout}>
-              <span className={classes.link} >Đăng Xuất</span>
-            </ListItem>
+            <span className={classes.itemMenu} onClick={handleLogout}>Đăng Xuất</span>
             :
-            <ListItem button classes={{ root: classes.listItem }} onClick={handleRegister}>
-              <span className={classes.link} >Đăng Ký</span>
-            </ListItem>
+            <span className={classes.itemMenu} onClick={handleRegister}>Đăng Ký</span>
           }
         </List>
       </Drawer>
     </div>
   );
 }
-

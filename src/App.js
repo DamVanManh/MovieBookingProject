@@ -9,6 +9,7 @@ import MovieDetail from './pages/MovieDetail';
 import BookTickets from './pages/Bookticket';
 import UsersManagement from './pages/UsersManagement';
 import MoviesManagement from './pages/MoviesManagement';
+import CreateShowtime from './pages/CreateShowtime';
 import Login from './pages/Login';
 import Register from './pages/Register';
 //layout
@@ -50,11 +51,12 @@ function App() {
           <CheckoutRoute exact path="/datve/:maLichChieu" component={BookTickets} />
 
           {/* component trong này chỉ cho phép truy cập khi tài khoản là admin */}
-          <Route exact path={["/admin/users", "/admin/movies"]}>
+          <Route exact path={["/admin/users", "/admin/movies", "/admin/showtimes"]}>
             <AdminLayout >
               <Switch >
                 <AdminRoute exact path='/admin/users' component={UsersManagement} />
                 <AdminRoute exact path='/admin/movies' component={MoviesManagement} />
+                <AdminRoute exact path='/admin/showtimes' component={CreateShowtime} />
               </Switch>
             </AdminLayout>
           </Route>

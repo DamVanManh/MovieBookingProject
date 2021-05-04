@@ -1,4 +1,8 @@
 import React, { useEffect } from 'react';
+
+import MovieIcon from '@material-ui/icons/Movie';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -12,25 +16,10 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 
 import NavItem from './NavItem';
-
-import MovieIcon from '@material-ui/icons/Movie';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-
-// TÊN NGƯỜI DÙNG, ĐẶT TRONG WRAPPER
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
-
+import { FAKE_AVATAR } from '../../../constants/config';
 
 const items = [
   {
@@ -44,37 +33,10 @@ const items = [
     title: 'Quản lý người dùng'
   },
   {
-    href: '/',
+    href: '/admin/showtimes',
     icon: PostAddIcon,
     title: 'Tạo lịch chiếu'
   },
-  //----- KO CẦN THIẾT-----------------------------
-  {
-    href: '/',
-    icon: AccountCircleIcon,
-    title: 'Tài khoản'
-  },
-  {
-    href: '/',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
-  {
-    href: '/dangnhap',
-    icon: ExitToAppIcon,
-    title: 'Đăng nhập'
-  },
-  {
-    href: '/dangky',
-    icon: PersonAddIcon,
-    title: 'Đăng ký'
-  },
-  {
-    href: '/:',
-    icon: ErrorOutlineIcon,
-    title: 'Error'
-  }
-  //--------------------------------------------
 ];
 
 const useStyles = makeStyles(() => ({
@@ -93,9 +55,10 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const NavBar = ({ onMobileClose, openMobile }) => {
+export default function NavBar({ onMobileClose, openMobile }) {
   const classes = useStyles();
   const location = useLocation();
+  const { currentUser } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -103,6 +66,13 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
+
+  const user = {
+    avatar: FAKE_AVATAR,
+    jobTitle: 'Senior Developer',
+    name: currentUser?.hoTen,
+  };
+
 
   // đây là nội dung cột bên trái
   const content = (
@@ -124,9 +94,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
         <Avatar
           className={classes.avatar}
-          component={RouterLink}
+          // component={RouterLink}
           src={user.avatar}
-          to="/app/account"
+        // to="/app/account"
         />
         <Typography
           className={classes.name}
@@ -158,47 +128,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           ))}
         </List>
       </Box>
-
-      {/* --------- KHÔNG CẦN THIẾT Ở ĐÂY----------------- */}
-      {/* cái này để đẩy phần tử cuối cùng sát đáy */}
-      <Box flexGrow={1} />
-
-      {/* cái này là phần div dưới cùng */}
-      <Box
-        p={2}
-        m={2}
-        bgcolor="background.dark"
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mt={2}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
-      </Box>
-
-      {/* ------------------------------------------ */}
     </Box>
   );
 
@@ -244,15 +173,5 @@ NavBar.defaultProps = {
   openMobile: false
 };
 
-export default NavBar;
+// export default NavBar;
 
-
-// import React from 'react'
-
-// export default function NavBar() {
-//   return (
-//     <div>
-//       phần bên trái
-//     </div>
-//   )
-// }

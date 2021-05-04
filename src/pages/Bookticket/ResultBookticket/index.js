@@ -50,7 +50,7 @@ export default function SuccessBooking() {
               </tr>
               <tr>
                 <td valign='top'>Điện thoại:</td>
-                <td>{phone}</td>
+                <td valign='top'>{phone}</td>
               </tr>
               <tr>
                 <td valign='top'>Email:</td>

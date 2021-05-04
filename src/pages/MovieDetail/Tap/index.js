@@ -7,12 +7,14 @@ import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import AppBar from '@material-ui/core/AppBar';
 import Rating from '@material-ui/lab/Rating';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 import { FAKE_AVATAR } from '../../../constants/config';
 import useStyles from './style';
 import scroll from '../../../utilities/scroll';
 import LichChieuDesktop from './LichChieuDesktop';
 import LichChieuMobile from './LichChieuMobile';
+import discussionData from '../../../constants/discussionData';
 
 function TabPanel(props) {
   const { isMobile, children, value, index, ...other } = props;
@@ -34,6 +36,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [croll, setCroll] = useState(0)
+  const mot = discussionData[0]
 
   useEffect(() => {
     window.scrollTo(0, 0) // ngăn window.history.scrollRestoration = 'auto';
@@ -72,7 +75,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
       </Fade>
       <Fade in={value === 1}>
         <TabPanel value={value} index={1}>
-          <div>{data.moTa}</div>
+          <div className="text-light">{data.moTa}</div>
         </TabPanel>
       </Fade>
       <Fade in={value === 2}>
@@ -85,10 +88,35 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
               <input className={classes.inputReviwer} type="text" placeholder="Bạn nghĩ gì về phim này?" readOnly="readonly" />
 
               <span className={classes.imgReviewerStar}>
-                <Rating name="half-rating-read" value={5} readOnly />
+                <Rating value={5} readOnly />
               </span>
             </div>
           </div>
+          {discussionData.map(item => (
+            <div key={item.id} className={classes.itemDis}>
+              <div className={classes.infoUser}>
+                <div className={classes.left}>
+                  <span className={classes.ghi}>
+                    <img src={item.avt} alt="avatar" className={classes.avatar} />
+                  </span>
+                  <span className={classes.username}>{item.username}</span>
+                </div>
+                <div className={classes.right}>
+                  <p className="text-success">{item.point}</p>
+                  <Rating value={(item.point * 5) / 10} precision={0.5} size="small" readOnly />
+                </div>
+              </div>
+              <div className="py-3 border-bottom">
+                <p>{item.post}</p>
+              </div>
+              <div className="pt-3">
+                <span className="mr-2">
+                  <ThumbUpIcon color="disabled" />
+                </span>
+                <span><strong>{item.likes}</strong> Thích</span>
+              </div>
+            </div>
+          ))}
         </TabPanel>
       </Fade>
     </div>

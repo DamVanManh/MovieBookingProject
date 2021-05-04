@@ -30,7 +30,7 @@ export default function Login() {
     dispatch(login(user))
   }
   const handleDangKy = () => {
-    history.push("/dangky", location.pathname)
+    history.push("/dangky", location.state)
   }
 
   return (

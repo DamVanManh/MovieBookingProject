@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
   desktop: {
-    color: "#e9e9e9",
+    // color: "#e9e9e9",
     backgroundColor: "rgb(10, 32, 41)",
   },
   top: {
@@ -42,6 +42,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    color: "#e9e9e9",
 
   },
   imgTrailer: {
@@ -96,10 +97,17 @@ const useStyles = makeStyles({
 
   rate: {
     width: "16%",
+    height: "100%",
     textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  wrapper: {
+  circular: {
     position: 'relative',
+    height: 126,
+    width: 126,
   },
   danhGia: {
     fontSize: 53,
@@ -109,10 +117,18 @@ const useStyles = makeStyles({
     transform: "translate(-50%,-50%)",
   },
   fabProgress: {
-    color: "#7ed321"
+    color: "#7ed321",
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  behined: {
+    color: "#829869",
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
   rateStar: {
-    margin: "auto",
     width: "fit-content"
   },
 
