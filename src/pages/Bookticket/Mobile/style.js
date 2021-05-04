@@ -42,6 +42,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     bottom: 0,
     left: 0,
+    zIndex: 10,
     height: 70,
     width: '100%',
     textAlign: 'center',

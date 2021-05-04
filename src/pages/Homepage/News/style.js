@@ -58,6 +58,7 @@ const useStyle = makeStyles(theme => ({
     [theme.breakpoints.down(579)]: {
       flex: "0 0 100%",
       maxWidth: "100%",
+      paddingLeft: 0,
     },
   },
 
