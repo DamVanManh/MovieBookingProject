@@ -23,7 +23,6 @@ export default function Homepage() {
     dispatch(getTheaters())
   }, [])
 
-  // loadingMovieList || loadingTheaterList : chỉ cần 1 trong 2 là true thì > true, cả 2 phải đều là false thì > false
   return (
     <div >
       <Loading loading={loadingMovieList || loadingTheaterList}></Loading>

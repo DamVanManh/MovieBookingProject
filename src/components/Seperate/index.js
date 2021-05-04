@@ -1,8 +1,12 @@
+import { Autocomplete } from '@material-ui/lab'
 import React from 'react'
 
 export default function index() {
   const style = {
-    paddingTop: "120px",
+    height: "120px",
+    maxWidth: 940,
+    margin: "auto",
+    width: "100%",
     background: "url(img/back-news.png)",
     backgroundSize: "100%",
     backgroundRepeat: "no-repeat"

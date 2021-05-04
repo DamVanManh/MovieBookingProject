@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 import { withStyles } from '@material-ui/core/styles';
-import { customScrollbar, underLine } from '../../../../styles/materialUi';
+import { customScrollbar } from '../../../../styles/materialUi';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';

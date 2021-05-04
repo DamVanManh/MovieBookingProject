@@ -1,12 +1,9 @@
-
-import { Suspense, lazy } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
 
-import Loading from './components/Loading';
 import ModalTrailer from './components/ModalTrailer';
 
+// page
 import Homepage from './pages/Homepage';
 import MovieDetail from './pages/MovieDetail';
 import BookTickets from './pages/Bookticket';
@@ -22,24 +19,6 @@ import AdminLayout from './layouts/AdminLayout';
 import AdminRoute from "./guards/AdminRoute";
 import CheckoutRoute from "./guards/CheckoutRoute";
 
-// // layout
-// const MainLayout = lazy(() => import('./layouts/MainLayout'));
-// const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
-// const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
-// // guards
-// const AdminRoute = lazy(() => import('./guards/AdminRoute'));
-// const CheckoutRoute = lazy(() => import('./guards/CheckoutRoute'));
-// // page
-// const Homepage = lazy(() => import('./pages/Homepage'));
-// const MovieDetail = lazy(() => import('./pages/MovieDetail'));
-// const BookTickets = lazy(() => import('./pages/Bookticket'));
-// const UsersManagement = lazy(() => import('./pages/UsersManagement'));
-// const MoviesManagement = lazy(() => import('./pages/MoviesManagement'));
-// const Login = lazy(() => import('./pages/Login'));
-// const Register = lazy(() => import('./pages/Register'));
-
-
-
 const theme = createMuiTheme({
   breakpoints: {
     values: {
@@ -53,14 +32,9 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const { loadingMovieList } = useSelector((state) => state.movieReducer)
-  const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
-  const { loadingGetListSeat } = useSelector((state) => state.bookTicketReducer)
-  console.log("app ", loadingMovieList, loadingTheaterList);
   return (
     <BrowserRouter >
       <MuiThemeProvider theme={theme}>
-        {/* <Suspense fallback={<Loading loading={loadingMovieList || loadingTheaterList || true} />}> */}
         <Switch>
 
           {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
@@ -99,7 +73,6 @@ function App() {
           <Redirect to="/" />
         </Switch>
         <ModalTrailer />
-        {/* </Suspense> */}
       </MuiThemeProvider>
     </BrowserRouter>
   );
@@ -107,6 +80,13 @@ function App() {
 
 export default App;
 
+// import { useSelector } from 'react-redux';
+// const { loadingMovieList } = useSelector((state) => state.movieReducer)
+// const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
+// const { loadingGetListSeat } = useSelector((state) => state.bookTicketReducer)
+
+// import { Suspense, lazy } from 'react';
+// import Loading from './components/Loading';
 // import Homepage from './pages/Homepage';
 // import MovieDetail from './pages/MovieDetail';
 // import BookTickets from './pages/Bookticket';

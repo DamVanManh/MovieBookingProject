@@ -1,38 +1,25 @@
 import { makeStyles } from "@material-ui/core"
 
-const useStyle = makeStyles(news => ({
-  seperate: {
-    paddingTop: "120px",
-    background: "url(img/back-news.png)",
-    backgroundSize: "100%",
-    backgroundRepeat: "no-repeat"
-  },
+const useStyle = makeStyles(theme => ({
   root: {
+    maxWidth: 940,
+    margin: "auto",
+  },
+  content: {
     flexGrow: 1,
-    backgroundColor: news.palette.background.paper,
+    backgroundColor: theme.palette.background.paper,
   },
 
   fullImg: {
     width: '100%',
-    height: '100%',
+    height: 'auto',
+    borderRadius: 5,
   },
 
   appBar: {
     backgroundColor: 'transparent',
     color: 'black',
     boxShadow: 'none',
-    justifyContent: 'center',
-    alignItem: 'center',
-  },
-
-  tabBar: {
-    justifyContent: 'space-evenly',
-    width: '50%',
-    margin: '0 auto',
-  },
-
-  tabButton: {
-    width: '33%'
   },
 
   news: {
@@ -63,6 +50,16 @@ const useStyle = makeStyles(news => ({
     '& p': {
       fontSize: '13px',
     }
-  }
+  },
+  repons: {
+    paddingLeft: 16,
+    flex: "0 0 50%",
+    maxWidth: "50%",
+    [theme.breakpoints.down(579)]: {
+      flex: "0 0 100%",
+      maxWidth: "100%",
+    },
+  },
+
 }))
 export default useStyle

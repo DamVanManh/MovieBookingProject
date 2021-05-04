@@ -3,7 +3,6 @@ import {
   useSpring,
   animated,
   useTransition,
-  config,
 } from '@react-spring/web'
 import { makeStyles } from "@material-ui/core"
 import { IMG_LOADING } from '../../constants/config';
@@ -32,12 +31,10 @@ const useStyles = makeStyles({
 
 export default function Loading({ loading }) {
   const [delay, setdelay] = useState(false)
-  const [show, set] = useState(false)
   const materialStyles = useStyles({ delay, loading })
   const clear = useRef(null)
   useEffect(() => {
     if (!loading) {
-      console.log(" start delay ");
       clear.current = setTimeout(() => {
         setdelay(true)
       }, 700);
@@ -56,7 +53,6 @@ export default function Loading({ loading }) {
     config: { duration: 400 },
     loop: true,
   })
-  console.log(" gia tri ", loading, delay);
 
   // khi tham số 1 của useTransition chuyển từ false > true thì tăng dần opacity lên 1 và ngược lại
   const transitions = useTransition(loading, {
@@ -67,7 +63,6 @@ export default function Loading({ loading }) {
   })
 
   return (
-    // delay && `${materialStyles.hide}`
     <div className={clsx(`${materialStyles.root}`, delay && `${materialStyles.hide}`)}>
       <div>
         {transitions(

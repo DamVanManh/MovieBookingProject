@@ -1,6 +1,8 @@
-import { React } from 'react'
+import React from 'react'
 import useStyles from './style'
 import Slider from "react-slick"
+
+import openNewTap from '../../../utilities/openNewTap';
 
 export default function HomeApp() {
   const settings = {
@@ -8,9 +10,10 @@ export default function HomeApp() {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    // autoplay: true,
+    autoplay: true,
     autoplaySpeed: 3000,
   }
+  const textDecoration = { textDecoration: "underline" }
   const classes = useStyles()
   return (
     <div id="ungdung">
@@ -25,9 +28,9 @@ export default function HomeApp() {
                   <br />
                   <p>Không chỉ đặt vé, bạn còn có thể bình luận phim, chấm điểm rạp và đổi quà hấp dẫn.</p>
                   <br />
-                  <button className="btn btn-danger">App miễn phí - Tải về ngay!</button>
+                  <button className="btn btn-danger" onClick={() => openNewTap("https://apps.apple.com/us/app/123phim-mua-ve-lien-tay-chon/id615186197")}>App miễn phí - Tải về ngay!</button>
                   <br />
-                  <p className="py-3">Tix có hai phiên bản <span><a href="https://itunes.apple.com/us/app/123phim-mua-ve-lien-tay-chon/id615186197?mt=8" target="_blank" rel="noopener noreferrer">IOS</a></span> và <span><a href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123" target="_blank" rel="noopener noreferrer">Android</a></span>
+                  <p className="py-3">Tix có hai phiên bản <span><a href="https://itunes.apple.com/us/app/123phim-mua-ve-lien-tay-chon/id615186197?mt=8" target="_blank" rel="noopener noreferrer" style={textDecoration}>IOS</a></span> và <span><a style={textDecoration} href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123" target="_blank" rel="noopener noreferrer">Android</a></span>
                   </p>
                 </div>
               </div>

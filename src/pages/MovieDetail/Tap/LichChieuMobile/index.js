@@ -93,8 +93,6 @@ export default function HeThongRap({ data, isMobile }) {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  console.log(" nuoc ", data);
-
 
   return (
     <div className={classes.root}>
