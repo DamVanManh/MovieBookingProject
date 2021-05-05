@@ -70,7 +70,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
       </AppBar>
       <Fade in={value === 0}>
         <TabPanel value={value} index={0} isMobile={isMobile}>
-          {isMobile ? <LichChieuMobile data={data} isMobile={isMobile} /> : <LichChieuDesktop data={data} isMobile={isMobile} />}
+          {isMobile ? <LichChieuMobile /> : <LichChieuDesktop data={data} isMobile={isMobile} />}
         </TabPanel>
       </Fade>
       <Fade in={value === 1}>

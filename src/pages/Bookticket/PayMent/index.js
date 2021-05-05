@@ -92,6 +92,7 @@ export default function PayMent() {
   const handleBookTicket = () => { // khi đủ dữ liệu và chưa có lần đặt vé nào trước đó thì mới cho đặt vé
     if (isReadyPayment && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
       dispatch(bookTicket({ maLichChieu, danhSachVe, taiKhoanNguoiDung }))
+      // dispatch(bookTicket({ maLichChieu: 40396, danhSachVe: [{ maGhe: 9122569, giaVe: 75000 }], taiKhoanNguoiDung }))
     }
   }
   const onFocus = (e) => {

@@ -65,7 +65,7 @@ export default function SuccessBooking() {
               </tr>
               <tr>
                 <td valign='top' >Tổng tiền:</td>
-                <td><span>{`${amount.toLocaleString('vi-VI')} đ`}</span></td>
+                <td valign='top'><span>{`${amount.toLocaleString('vi-VI')} đ`}</span></td>
               </tr>
             </tbody>
           </table>

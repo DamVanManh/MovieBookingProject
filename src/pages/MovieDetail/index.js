@@ -15,7 +15,6 @@ export default function Index() {
   const isMobile = useMediaQuery(DISPLAY_MOBILE_HOMEPAGE)
   const { loadingMovieDetailShowtimes, movieDetailShowtimes, errorMovieDetailShowtimes } = useSelector((state) => state.movieDetailReducer);
   const param = useParams()
-
   const dispatch = useDispatch();
   useEffect(function () {
     dispatch(getMovieShowtimes(param.maPhim))
