@@ -56,7 +56,7 @@ export default function Login() {
           onSubmit={handleSubmit}
         >{(formikProp) => (
           <Form className="col-sm-10 mx-auto">
-            <div className="form-group">
+            <div className="form-group position-relative">
               <label>Tài khoản</label>
               <Field type="text" className="form-control" name="taiKhoan" onChange={formikProp.handleChange} />
               <ErrorMessage name="taiKhoan">
@@ -68,7 +68,7 @@ export default function Login() {
               </ErrorMessage>
             </div>
 
-            <div className="form-group">
+            <div className="form-group position-relative">
               <label>Mật khẩu</label>
               <Field type="password" className="form-control" name="matKhau" onChange={formikProp.handleChange} />
               <ErrorMessage name="matKhau">
