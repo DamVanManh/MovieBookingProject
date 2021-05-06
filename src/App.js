@@ -1,25 +1,10 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import ModalTrailer from './components/ModalTrailer';
 import Loading from './components/Loading';
-// // page
-// import Homepage from './pages/Homepage';
-// import MovieDetail from './pages/MovieDetail';
-// import BookTickets from './pages/Bookticket';
-// import UsersManagement from './pages/UsersManagement';
-// import MoviesManagement from './pages/MoviesManagement';
-// import CreateShowtime from './pages/CreateShowtime';
-// import Login from './pages/Login';
-// import Register from './pages/Register';
-// //layout
-// import MainLayout from './layouts/MainLayout';
-// import AuthLayout from './layouts/AuthLayout';
-// import AdminLayout from './layouts/AdminLayout';
-// // Guard
-// import AdminRoute from "./guards/AdminRoute";
-// import CheckoutRoute from "./guards/CheckoutRoute";
 
 // layout
 const MainLayout = lazy(() => import('./layouts/MainLayout'));
@@ -54,7 +39,7 @@ function App() {
   return (
     <BrowserRouter >
       <MuiThemeProvider theme={theme}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LinearProgress />}>
           <Switch>
 
             {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
@@ -107,21 +92,20 @@ export default App;
 // const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
 // const { loadingGetListSeat } = useSelector((state) => state.bookTicketReducer)
 
-// import { Suspense, lazy } from 'react';
-// import Loading from './components/Loading';
+// // page
 // import Homepage from './pages/Homepage';
 // import MovieDetail from './pages/MovieDetail';
 // import BookTickets from './pages/Bookticket';
 // import UsersManagement from './pages/UsersManagement';
 // import MoviesManagement from './pages/MoviesManagement';
+// import CreateShowtime from './pages/CreateShowtime';
 // import Login from './pages/Login';
 // import Register from './pages/Register';
-
+// //layout
 // import MainLayout from './layouts/MainLayout';
 // import AuthLayout from './layouts/AuthLayout';
 // import AdminLayout from './layouts/AdminLayout';
-
-// Guard
+// // Guard
 // import AdminRoute from "./guards/AdminRoute";
 // import CheckoutRoute from "./guards/CheckoutRoute";
 
