@@ -78,7 +78,7 @@ const useStyle = makeStyles({
     },
     // màu nền và chữ khi hover
     '&:hover': {
-      backgroundColor: "#60c5ef",
+      backgroundColor: "#fb4226",
       color: "#fff",
       '& li ~ li': {
         color: '#fff',
@@ -86,7 +86,7 @@ const useStyle = makeStyles({
     },
   },
   'menu__item--selected': {
-    backgroundColor: "#60c5ef !important",
+    backgroundColor: "#fb4226 !important",
     color: "#fff",
     '& li ~ li': {
       color: '#fff',

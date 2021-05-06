@@ -1,9 +1,10 @@
 import { Suspense, lazy } from 'react';
+
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import ModalTrailer from './components/ModalTrailer';
+import TriggerLoadingLazy from './components/TriggerLoadingLazy';
 import Loading from './components/Loading';
 
 // layout
@@ -39,7 +40,10 @@ function App() {
   return (
     <BrowserRouter >
       <MuiThemeProvider theme={theme}>
-        <Suspense fallback={<LinearProgress />}>
+        <Loading />
+        <ModalTrailer />
+        {/* trong khi đang tải component(được yêu cầu từ url), TriggerLoadingLazy được Suspense return, sau khi tải xong TriggerLoadingLazy bị unmount */}
+        <Suspense fallback={<TriggerLoadingLazy />}>
           <Switch>
 
             {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
@@ -79,68 +83,9 @@ function App() {
             <Redirect to="/" />
           </Switch>
         </Suspense>
-        <ModalTrailer />
       </MuiThemeProvider>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-// import { useSelector } from 'react-redux';
-// const { loadingMovieList } = useSelector((state) => state.movieReducer)
-// const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
-// const { loadingGetListSeat } = useSelector((state) => state.bookTicketReducer)
-
-// // page
-// import Homepage from './pages/Homepage';
-// import MovieDetail from './pages/MovieDetail';
-// import BookTickets from './pages/Bookticket';
-// import UsersManagement from './pages/UsersManagement';
-// import MoviesManagement from './pages/MoviesManagement';
-// import CreateShowtime from './pages/CreateShowtime';
-// import Login from './pages/Login';
-// import Register from './pages/Register';
-// //layout
-// import MainLayout from './layouts/MainLayout';
-// import AuthLayout from './layouts/AuthLayout';
-// import AdminLayout from './layouts/AdminLayout';
-// // Guard
-// import AdminRoute from "./guards/AdminRoute";
-// import CheckoutRoute from "./guards/CheckoutRoute";
-
-
-// import React, { Suspense, lazy } from 'react';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-// const Home = lazy(() => import('./routes/Home'));
-// const About = lazy(() => import('./routes/About'));
-
-// const App = () => (
-//   <Router>
-//     <Suspense fallback={<div>Loading...</div>}>
-//       <Switch>
-//         <Route exact path="/" component={Home}/>
-//         <Route path="/about" component={About}/>
-//       </Switch>
-//     </Suspense>
-//   </Router>
-// );
-
-
-
-// layout
-// const MainLayout = lazy(() => import('./layouts/MainLayout'));
-// const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
-// const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
-// // guards
-// const AdminRoute = lazy(() => import('./guards/AdminRoute'));
-// const CheckoutRoute = lazy(() => import('./guards/CheckoutRoute'));
-// // page
-// const Homepage = lazy(() => import('./pages/Homepage'));
-// const MovieDetail = lazy(() => import('./pages/MovieDetail'));
-// const BookTickets = lazy(() => import('./pages/Bookticket'));
-// const UsersManagement = lazy(() => import('./pages/UsersManagement'));
-// const MoviesManagement = lazy(() => import('./pages/MoviesManagement'));
-// const Login = lazy(() => import('./pages/Login'));
-// const Register = lazy(() => import('./pages/Register'));

@@ -67,12 +67,10 @@ export default function SimpleTabs() {
   }, [movieList])
 
   const handleChange = (e, newValue) => {
-    if (newValue !== value.value) {
-      setValue(value => ({ ...value, notDelay: newValue, fade: false }));
-      timeout.current = setTimeout(() => {
-        setValue(value => ({ ...value, value: newValue, fade: true }))
-      }, 100);
-    }
+    setValue(value => ({ ...value, notDelay: newValue, fade: false }));
+    timeout.current = setTimeout(() => {
+      setValue(value => ({ ...value, value: newValue, fade: true }))
+    }, 100);
   };
 
   if (errorMovieList) {

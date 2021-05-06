@@ -38,20 +38,20 @@ export default function SimpleTabs({ arrayData, value }) {
     <div className={classes.container}>
       <Slider {...settings}>
         {value.value === 0 ?
-          arrayData.dailyMovieList?.map((item) => {
+          arrayData.dailyMovieList?.map((movie) => {
             return (
-              <div className="px-1" key={item.maPhim}>
+              <div className="px-1 align-top" key={movie.maPhim}>
                 <MovieItem
-                  item={item}
+                  movie={movie}
                 />
               </div>
             )
           }) :
-          arrayData.comingMovieList?.map((item) => {
+          arrayData.comingMovieList?.map((movie) => {
             return (
-              <div className="px-1" key={item.maPhim}>
+              <div className="px-1 align-top" key={movie.maPhim}>
                 <MovieItem
-                  item={item}
+                  movie={movie}
                 />
               </div>
             )

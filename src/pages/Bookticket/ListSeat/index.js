@@ -164,7 +164,7 @@ export default function ListSeat() {
               <p className={classes.posiX} >x</p>
               <SeatIcon style={{ color: '#99c5ff', fontSize: 27, }} />
             </div>
-            <p>Ghế đã có người chọn</p>
+            <p>Ghế đã được mua</p>
           </div>
         </div>
         <div className={classes.positionView}>

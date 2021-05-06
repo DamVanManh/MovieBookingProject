@@ -106,17 +106,17 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
           <Tab disableRipple label="Đánh Giá" classes={{ selected: classes.selectedTap, root: classes.tapRoot }} />
         </Tabs>
       </AppBar>
-      <Fade in={value === 0}>
+      <Fade timeout={400} in={value === 0}>
         <TabPanel value={value} index={0} isMobile={isMobile}>
           {isMobile ? <LichChieuMobile /> : <LichChieuDesktop data={data} isMobile={isMobile} />}
         </TabPanel>
       </Fade>
-      <Fade in={value === 1}>
+      <Fade timeout={400} in={value === 1}>
         <TabPanel value={value} index={1}>
           <div className="text-light">{data.moTa}</div>
         </TabPanel>
       </Fade>
-      <Fade in={value === 2}>
+      <Fade timeout={400} in={value === 2}>
         <TabPanel value={value} index={2}>
           <div className={classes.danhGia}>
             <div className={classes.inputRoot} onClick={handleComment}>
@@ -130,12 +130,12 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
               </span>
             </div>
           </div>
-          {discussionData.map(item => (
+          {discussionData.map((item, i) => (
             <div key={item.id} className={classes.itemDis}>
               <div className={classes.infoUser}>
                 <div className={classes.left}>
                   <span className={classes.ghi}>
-                    <img src={item.avt} alt="avatar" className={classes.avatar} />
+                    <img src={`https://i.pravatar.cc/150?img=${i}`} alt="avatar" className={classes.avatar} />
                   </span>
                   <span className={classes.username}>{item.username}</span>
                 </div>

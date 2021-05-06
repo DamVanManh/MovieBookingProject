@@ -2,7 +2,7 @@
   // position: relative;
   // width: 100%;
   // margin: 10px;
-
+  cursor: auto;
   &:hover .film__content .film__button a {
     opacity: 1;
     transition: all 0.2s;
@@ -33,14 +33,13 @@
   }
 
   .film__img {
-    // box-sizing: border-box;
     .film__poster {
-      // position: relative;
       .poster {
         width: 100%;
         border-radius: 3%;
       }
       .film__overlay {
+        cursor: pointer;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -59,13 +58,11 @@
         height: 60px;
         font-size: 20px;
         border-radius: 50px;
-        // border: 3px solid white;
         line-height: 60px;
         cursor: pointer;
         transition: all 0.2 s;
         opacity: 0;
         a {
-          // text-decoration: none;
           i {
             position: absolute;
             color: white;
@@ -102,18 +99,6 @@
   .film__content {
     position: relative;
     padding-top: 10px;
-    // span {
-    //     font-size: 14px;
-    //     background-color: #fb4226;
-    //     border-radius: 4px;
-    //     padding: 0 5px;
-    //     color: #fff;
-    //     min-width: 33px;
-    //     text-align: center;
-    //     display: inline-block;
-    //     margin-right: 8px;
-    // }
-
     .green {
       font-size: 14px;
       background-color: #00ac4d;
@@ -126,35 +111,41 @@
       margin-right: 8px;
     }
     .film__name {
-      display: inline;
-      font-weight: 600;
-      // height: 42px;
-      max-height: 42px;
-      font-size: 16px;
-      color: #000;
-      // line-height: 22px;
-      margin-bottom: 0px;
-      // text-overflow: ellipsis;
-      overflow: hidden;
-      -webkit-line-clamp: 2;
       min-height: 100px;
-      -webkit-box-orient: vertical;
-      display: block; /* or inline-block */
-
-      text-overflow: ellipsis;
-      word-wrap: break-word;
-      overflow: hidden;
-      // max-height: 3.6em;
-      // line-height: 1.8em;
+      .name {
+        font-weight: 500;
+        height: 42px;
+        max-height: 42px;
+        font-size: 16px;
+        color: #000;
+        line-height: 22px;
+        margin-bottom: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        .c18 {
+          font-size: 14px;
+          background-color: #fb4226;
+          border-radius: 4px;
+          padding: 1px 5px 0px 5px;
+          color: #fff;
+          min-width: 33px;
+          text-align: center;
+          display: inline-block;
+          margin-right: 8px;
+          line-height: 19px;
+        }
+      }
+      .text_info {
+        padding-top: 5px;
+        color: #4a4a4a;
+        font-size: 14px;
+      }
     }
-    // p:nth-child(2) {
-    //     font-size: 13px;
-    //     color: #4a4a4a;
-    //     margin-bottom: 15px;
-    //     margin-top: 8px;
-    //     transition: all 0.2 s 0.2 s;
-    // }
     .film__button {
+      cursor: pointer;
       a {
         position: absolute;
         top: 7px;
@@ -176,6 +167,9 @@
         opacity: 0;
         transition: all 0.2 s;
       }
+    }
+    .not_hide {
+      opacity: 1 !important;
     }
   }
 }

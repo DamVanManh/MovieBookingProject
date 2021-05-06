@@ -9,14 +9,11 @@ import News from "./News";
 import Carousel from "./Carousel";
 import HomeApp from './HomeApp'
 import Theaters from './Theaters'
-import Loading from '../../components/Loading';
 import Showtime from './Showtime'
 import "slick-carousel/slick/slick.css"; // npm install slick-carousel --save
 import "slick-carousel/slick/slick-theme.css";
 
 export default function Homepage() {
-  const { loadingMovieList } = useSelector((state) => state.movieReducer)
-  const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +33,6 @@ export default function Homepage() {
 
   return (
     <div >
-      <Loading loading={loadingMovieList || loadingTheaterList}></Loading>
       <Carousel />
       <Showtime />
       <Theaters />

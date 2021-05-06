@@ -235,7 +235,7 @@ export default function SearchStickets() {
             root: classes.btn,
             disabled: classes.btnDisabled,
           }}
-          onClick={() => history.push(`/datve/${data.maLichChieu}`)}
+          onClick={() => history.push(`/datve/${data.maLichChieu}`, `/datve/${data.maLichChieu}`)}
         >mua vé ngay</Button>
       </FormControl>
     </div >

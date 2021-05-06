@@ -5,11 +5,15 @@ import { Link, useHistory } from 'react-router-dom'
 import BtnPlay from '../../../../../components/BtnPlay';
 import BlockRating from '../../../../../components/BlockRating';
 import useStyles from './styles';
+import useApiThoiLuongDanhGia from '../../../../../utilities/useApiThoiLuongDanhGia';
+
 import './movie.scss'
 
-function MovieItem(props) {
-  const classes = useStyles({ bg: props.item.hinhAnh });
+function MovieItem({ movie }) {
+  const classes = useStyles({ bg: movie.hinhAnh });
   const history = useHistory();
+  const { thoiLuong, danhGia } = useApiThoiLuongDanhGia(movie.maPhim)
+
   return (
     <div style={{
       padding: '7px',
@@ -18,19 +22,25 @@ function MovieItem(props) {
       <div className="film">
         <div className="film__img">
           <div className={`film__poster ${classes.addbg}`}>
-            <div className="film__overlay" onClick={() => history.push(`/phim/${props.item.maPhim}`)} />
+            <div className="film__overlay" onClick={() => history.push(`/phim/${movie.maPhim}`)} />
             <div className="play__trailer">
               {/* class play lấy từ Carousel component*/}
-              <BtnPlay cssRoot={"play"} width={48} height={48} urlYoutube={props.item.trailer} />
+              <BtnPlay cssRoot={"play"} width={48} height={48} urlYoutube={movie.trailer} />
             </div>
           </div>
-          <BlockRating danhGia={props.item.danhGia} />
+          <BlockRating danhGia={movie.danhGia} />
         </div>
         <div className="film__content">
-          <p className="film__name">{props.item.tenPhim}</p>
+          <div className={`film__name ${thoiLuong ? "" : "not_hide"}`}>
+            <div className="name">
+              <p><span className="c18">C18</span>{movie.tenPhim}</p>
+            </div>
+            <p className="pt-2">
+              {thoiLuong ? <span className="text_info">{thoiLuong} phút - Tix {danhGia}</span> : <span className="text_info">Tix {danhGia}</span>}
+            </p>
+          </div>
           <div className="film__button">
-            {/* <a href="#">MUA VÉ</a> */}
-            <Link to={`/phim/${props.item.maPhim}`} >MUA VÉ</Link>
+            {thoiLuong && <Link to={`/phim/${movie.maPhim}`} >MUA VÉ</Link>}
           </div>
         </div>
       </div>

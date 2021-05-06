@@ -47,7 +47,7 @@ export default function ModalTrailer() {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth='xl' classes={{ paper: classes.paper }}>
-      <iframe className={classes.iframe} src={`https://www.youtube.com/embed/${getVideoId(urlYoutube)}?autoplay=1`} frameBorder="0" allow='autoplay' title="trailer movie"></iframe>
+      <iframe className={classes.iframe} src={`https://www.youtube.com/embed/${getVideoId(urlYoutube)}?autoplay=1`} allowFullScreen frameBorder="0" allow='autoplay' title="trailer movie"></iframe>
       <IconButton className={classes.closeButton} onClick={handleClose} >
         <CloseIcon style={{ color: 'white' }} fontSize='small' />
       </IconButton>

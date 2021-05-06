@@ -10,7 +10,7 @@ import { register, resetErrorLoginRegister } from '../../reducers/actions/Auth';
 import logoTix from "./logo/logoTix.png"
 
 export default function Register() {
-  const { responseRegister, loadingRegister, currentUser, errorRegister } = useSelector((state) => state.authReducer);
+  const { responseRegister, loadingRegister, errorRegister } = useSelector((state) => state.authReducer);
   let location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();

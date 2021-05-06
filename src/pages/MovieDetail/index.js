@@ -9,11 +9,10 @@ import { DISPLAY_MOBILE_HOMEPAGE } from '../../constants/config'
 import { RESET_MOVIEDETAIL_REDUCER } from '../../reducers/constants/MovieDetail';
 import Mobile from './Mobile';
 import Desktop from './Desktop';
-import Loading from '../../components/Loading';
 
 export default function Index() {
   const isMobile = useMediaQuery(DISPLAY_MOBILE_HOMEPAGE)
-  const { loadingMovieDetailShowtimes, movieDetailShowtimes, errorMovieDetailShowtimes } = useSelector((state) => state.movieDetailReducer);
+  const { movieDetailShowtimes, errorMovieDetailShowtimes } = useSelector((state) => state.movieDetailReducer);
   const param = useParams()
   const dispatch = useDispatch();
   useEffect(function () {
@@ -28,7 +27,6 @@ export default function Index() {
   }
   return (
     <>
-      <Loading loading={loadingMovieDetailShowtimes} />
       {  isMobile ? <Mobile movieDetailShowtimes={movieDetailShowtimes} isMobile={isMobile} /> : <Desktop movieDetailShowtimes={movieDetailShowtimes} />}
     </>
   )
