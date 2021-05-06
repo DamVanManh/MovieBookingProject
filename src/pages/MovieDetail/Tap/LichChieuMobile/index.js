@@ -23,11 +23,11 @@ export default function LichChieuMobile() {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
+  console.log(" kiêu ", mobileData.isEmptyData);
   return (
     <div className={classes.root}>
       <div className={classes.listDay}>
-        {mobileData.isEmptyData === 0 && <p style={{ padding: 10 }}>Hiện tại chưa có lịch chiếu cho phim này</p>}
+        {mobileData.isEmptyData && <p style={{ padding: 10 }}>Hiện tại chưa có lịch chiếu cho phim này</p>}
         {mobileData.arrayHeThongRapChieuFilterByDay?.map((item, i) => (
           <div className={classes.dayItem} key={item.date} style={{ color: i === indexSelected ? "#fb4226" : "#000" }} onClick={() => handleSelectDay(i)}>
             <p>{formatDate(item.date).dayToday}</p>

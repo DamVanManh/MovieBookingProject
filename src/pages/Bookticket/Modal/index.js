@@ -28,6 +28,7 @@ export default function Modal() {
   }
   const handleTimeOut = () => {
     dispatch({ type: RESET_DATA })
+    dispatch(getListSeat(param.maLichChieu))
   }
   const handleAlertOver10 = () => {
     dispatch({ type: RESET_ALERT_OVER10 })

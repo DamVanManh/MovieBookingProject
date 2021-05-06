@@ -47,11 +47,11 @@ const filterByDay = (movieList, tuNgay, denNgay) => {
 export default function SimpleTabs() {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
-  const [value, setValue] = useState({ value: 0, fade: true });
+  const [value, setValue] = useState({ value: 0, fade: true, notDelay: 0 });
   const { errorMovieList, movieList } = useSelector((state) => state.movieReducer);
   const timeout = useRef(null)
   const [arrayData, setarrayData] = useState({ dailyMovieList: null, comingMovieList: null })
-  const classes = useStyles({ fade: value.fade, value: value.value });
+  const classes = useStyles({ fade: value.fade, value: value.value, notDelay: value.notDelay });
   useEffect(() => {
     return () => {
       clearTimeout(timeout.current)
@@ -61,16 +61,18 @@ export default function SimpleTabs() {
   useEffect(() => { // movieList chứa tất cả các ngày, cần lọc ra theo ngày chỉ định
     let dailyMovieList = filterByDay(movieList, DATE_BEGIN_DANGCHIEU, DATE_END_DANGCHIEU)
     dailyMovieList = dailyMovieList?.slice(dailyMovieList.length - 16)
-    let comingMovieList = filterByDay(movieList, DATE_BEGIN_SAPCHIEU, DATE_END_SAPCHIEU,)?.slice(0, 24)
+    let comingMovieList = filterByDay(movieList, DATE_BEGIN_SAPCHIEU, DATE_END_SAPCHIEU,)
     comingMovieList = comingMovieList?.slice(comingMovieList.length - 16)
     setarrayData({ dailyMovieList, comingMovieList })
   }, [movieList])
 
   const handleChange = (e, newValue) => {
-    setValue(value => ({ ...value, fade: false }));
-    timeout.current = setTimeout(() => {
-      setValue(value => ({ ...value, value: newValue, fade: true }))
-    }, 200);
+    if (newValue !== value.value) {
+      setValue(value => ({ ...value, notDelay: newValue, fade: false }));
+      timeout.current = setTimeout(() => {
+        setValue(value => ({ ...value, value: newValue, fade: true }))
+      }, 100);
+    }
   };
 
   if (errorMovieList) {
@@ -90,7 +92,6 @@ export default function SimpleTabs() {
       </AppBar>
       <div className={classes.listMovie}>
         {isDesktop ? <Desktop arrayData={arrayData} value={value} /> : <Mobile arrayData={arrayData} value={value} />}
-        <div className={classes.fade} ></div>
       </div>
     </div >
 

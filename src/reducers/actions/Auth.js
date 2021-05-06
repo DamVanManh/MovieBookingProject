@@ -1,5 +1,5 @@
 import usersApi from "../../api/usersApi";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL } from '../constants/Auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL, RESET_ERROR_LOGIN_REGISTER } from '../constants/Auth';
 
 export const login = (user) => {
   return (dispatch) => {
@@ -65,5 +65,13 @@ export const register = (user) => {
           })
         }
       )
+  }
+}
+
+export const resetErrorLoginRegister = () => {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_ERROR_LOGIN_REGISTER
+    })
   }
 }

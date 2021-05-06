@@ -1,16 +1,14 @@
 import React from 'react'
 
-import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from "@material-ui/core"
 
-import LoadingComponent from '../../components/Loading';
 const bgAuth = '/img/bgAuth.jpg'
 
 const useStyles = makeStyles(theme => ({
-  background: {
+  backgroundImage: {
     width: '100vw',
     height: '100vh',
     backgroundImage: `url(${bgAuth})`,
@@ -21,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
 
   },
-  bgColor: {
+  bgBlueColor: {
     backgroundImage: "linear-gradient(to bottom,rgba(20,50,93,.9),rgba(8,22,48,.9))",
     width: 600,
     height: 700,
@@ -31,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
     borderRadius: 6,
     position: "relative",
+    zIndex: 1000,
   },
   closeButton: {
     position: 'absolute',
@@ -55,8 +54,6 @@ export default function AuthLayout(props) {
   const classes = useStyles();
   let location = useLocation();
   const history = useHistory();
-  const { loadingRegister, loadingLogin } = useSelector((state) => state.authReducer);
-  console.log("auth ", location.state);
   const handleClose = () => {
 
     if (!location.state) {
@@ -64,12 +61,9 @@ export default function AuthLayout(props) {
     }
     history.push(location.state)
   }
-  if (loadingRegister || loadingLogin) {
-    return <LoadingComponent />
-  }
   return (
-    <div className={classes.background}>
-      <div className={classes.bgColor}>
+    <div className={classes.backgroundImage}>
+      <div className={classes.bgBlueColor}>
         {props.children}
         <IconButton className={classes.closeButton} onClick={handleClose} >
           <CloseIcon style={{ color: 'white' }} fontSize='small' />

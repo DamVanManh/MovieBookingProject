@@ -40,7 +40,8 @@ const useStyles = makeStyles({
     padding: "0",
     position: "relative",
     cursor: "pointer",
-    width: "100%"
+    width: "100%",
+    cursor: "pointer",
   },
   avatarReviewer: {
     position: "absolute", top: "20%", left: "3%"
@@ -49,6 +50,7 @@ const useStyles = makeStyles({
     height: "36px", width: "36px", borderRadius: "25px"
   },
   inputReviwer: {
+    cursor: "pointer",
     padding: "10px 10px 10px 55px",
     width: "100%",
     height: "60px",

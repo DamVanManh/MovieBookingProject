@@ -81,7 +81,7 @@ export default function Footer() {
             <span>Số Điện Thoại (Hotline): 1900 545 436</span>
             <p>Email: <span className="d-inline">support@tix.vn</span></p>
           </div>
-          <div className="col-12 col-md-2 p-1 text-center">
+          <div className="col-12 col-md-2 p-1 text-center" style={{ position: "static" }}>
             <img src="/img/media/certificate.png" alt="gvm" className={classes.gvm} />
           </div>
         </div >

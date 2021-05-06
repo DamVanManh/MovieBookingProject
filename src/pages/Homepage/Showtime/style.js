@@ -12,11 +12,10 @@ const useStyles = makeStyles(theme => ({
   },
   tabBar: {
     alignItem: 'center',
-    textAlign: 'center',
-    justifyContent: 'space-evenly',
     height: 50,
     margin: '0 auto',
     textTransform: "none",
+    display: "block",
   },
   flexContainer: {
     display: 'block'
@@ -35,18 +34,20 @@ const useStyles = makeStyles(theme => ({
     transition: "all 0.2s",
     fontWeight: 500,
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    '&:hover': {
-      fontSize: "24px",
-      color: "#fa5238",
-    },
+    '& > span': {
+      transition: "all 0.2s",
+      '&:hover': {
+        fontSize: "24px",
+      },
+    }
   },
   tabDangChieu: {
-    color: props => props.value ? "#000" : "#fa5238",
-    fontSize: props => props.value ? "20px" : "24px",
+    color: props => props.notDelay ? "#000" : "#fa5238",
+    fontSize: props => props.notDelay ? "20px" : "24px",
   },
   tabSapChieu: {
-    color: props => props.value ? "#fa5238" : "#000",
-    fontSize: props => props.value ? "24px" : "20px",
+    color: props => props.notDelay ? "#fa5238" : "#000",
+    fontSize: props => props.notDelay ? "24px" : "20px",
   },
 
   Arrow: {
@@ -64,18 +65,8 @@ const useStyles = makeStyles(theme => ({
   },
 
   listMovie: {
-    position: "relative",
-  },
-  fade: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "transparent",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    zIndex: props => props.fade ? -1 : 10,
-    transition: "background-color 0.2s ease-in-out",
-    backgroundColor: props => props.fade ? "transparent" : "#fff"
+    opacity: props => props.fade ? 1 : 0,
+    transition: "opacity .1s linear",
   },
 }))
 

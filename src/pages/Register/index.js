@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 
-import { Redirect, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import Swal from "sweetalert2";
 
-import { register, login } from '../../reducers/actions/Auth';
+import { register, resetErrorLoginRegister } from '../../reducers/actions/Auth';
 import logoTix from "./logo/logoTix.png"
 
 export default function Register() {
@@ -25,6 +25,9 @@ export default function Register() {
         timer: 2000
       })
       history.push("/dangnhap", location.state);
+    }
+    return () => {
+      dispatch(resetErrorLoginRegister())
     }
   }, [responseRegister])
 

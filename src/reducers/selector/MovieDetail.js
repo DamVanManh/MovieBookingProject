@@ -7,7 +7,7 @@ const selectMobileData = createSelector(
   state => state.movieDetailReducer,
   movieDetailReducer => {
     // kiểm tra có lịch chiếu hay không, nếu không có thông báo hiện tại chưa có lịch chiếu
-    const isEmptyData = movieDetailReducer.movieDetailShowtimes.heThongRapChieulength === 0
+    const isEmptyData = movieDetailReducer.movieDetailShowtimes.heThongRapChieu?.length === 0
     const heThongRapChieu = movieDetailReducer.movieDetailShowtimes.heThongRapChieu
 
 

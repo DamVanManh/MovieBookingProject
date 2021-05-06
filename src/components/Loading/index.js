@@ -3,6 +3,7 @@ import {
   useSpring,
   animated,
   useTransition,
+  config,
 } from '@react-spring/web'
 import { makeStyles } from "@material-ui/core"
 import { IMG_LOADING } from '../../constants/config';
@@ -39,18 +40,21 @@ export default function Loading({ loading }) {
         setdelay(true)
       }, 700);
     }
+    if (loading) {
+      setdelay(false)
+    }
     return () => {
       clearTimeout(clear.current)
     }
   }, [loading])
 
   const shake = useSpring({
-    from: { transform: "rotate(-20deg)", },
+    from: { transform: "rotate(-10deg)", },
     to: async (next) => {
-      await next({ transform: "rotate(20deg)" })
-      await next({ transform: "rotate(-20deg)" })
+      await next({ transform: "rotate(10deg)" })
+      await next({ transform: "rotate(-10deg)" })
     },
-    config: { duration: 400 },
+    config: { mass: 1, tension: 700, friction: 50 },
     loop: true,
   })
 
@@ -59,7 +63,7 @@ export default function Loading({ loading }) {
     from: { opacity: 0, transform: "scale(0.6,0.6)" },
     enter: { opacity: 1, transform: "scale(1,1)" },
     leave: { opacity: 0, transform: "scale(0.6,0.6)" },
-    config: { duration: 1000 },
+    config: { duration: 400 },
   })
 
   return (
@@ -77,7 +81,6 @@ export default function Loading({ loading }) {
         )}
       </div>
     </div>
-
   )
 }
 

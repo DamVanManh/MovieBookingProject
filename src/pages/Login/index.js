@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,13 +6,19 @@ import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 
 import logoTix from "../Register/logo/logoTix.png"
-import { login } from '../../reducers/actions/Auth'
+import { login, resetErrorLoginRegister } from '../../reducers/actions/Auth'
 
 export default function Login() {
   const { currentUser, errorLogin } = useSelector((state) => state.authReducer);
   let location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetErrorLoginRegister())
+    }
+  }, [])
 
   if (currentUser) {
     if (!location.state) {

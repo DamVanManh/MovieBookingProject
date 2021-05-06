@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
+import ScrollToTop from 'react-scroll-up';
 
 import { getMovieList } from '../../reducers/actions/Movie';
 import { getTheaters } from '../../reducers/actions/Theater';
@@ -23,6 +24,16 @@ export default function Homepage() {
     dispatch(getTheaters())
   }, [])
 
+  const styleScrollToTop = {
+    position: 'fixed',
+    bottom: 30,
+    right: 10,
+    transitionTimingFunction: 'linear',
+    width: 50,
+    transform: "rotate(180deg)",
+    zIndex: 1000,
+  }
+
   return (
     <div >
       <Loading loading={loadingMovieList || loadingTheaterList}></Loading>
@@ -31,6 +42,9 @@ export default function Homepage() {
       <Theaters />
       <News />
       <HomeApp />
+      <ScrollToTop showUnder={160}>
+        <img src="/img/logoTixLoading.png" alt="totop" style={styleScrollToTop} />
+      </ScrollToTop>
     </div>
   )
 }

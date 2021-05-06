@@ -3,18 +3,42 @@ import React, { useEffect, useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import AppBar from '@material-ui/core/AppBar';
 import Rating from '@material-ui/lab/Rating';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-
+import { useParams } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { FAKE_AVATAR } from '../../../constants/config';
 import useStyles from './style';
 import scroll from '../../../utilities/scroll';
 import LichChieuDesktop from './LichChieuDesktop';
 import LichChieuMobile from './LichChieuMobile';
 import discussionData from '../../../constants/discussionData';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { withStyles } from "@material-ui/core"
+import Grid from '@material-ui/core/Grid';
+
+
+const RatingStyle = withStyles({
+  iconFilled: {
+    color: '#ff6d75',
+  },
+  iconHover: {
+    color: '#ff3d47',
+  },
+  iconEmpty: {
+    color: 'green',
+  }
+})(Rating);
 
 function TabPanel(props) {
   const { isMobile, children, value, index, ...other } = props;
@@ -36,7 +60,11 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [croll, setCroll] = useState(0)
+  const param = useParams() // mã phim lấy từ url trên trình duyệt
   const mot = discussionData[0]
+  const [open, setOpen] = React.useState(false);
+
+
 
   useEffect(() => {
     window.scrollTo(0, 0) // ngăn window.history.scrollRestoration = 'auto';
@@ -53,6 +81,16 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleComment = (params) => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  console.log(" param ", param.maPhim);
 
   return (
     <div className={classes.root} id="TapMovieDetail">
@@ -81,7 +119,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
       <Fade in={value === 2}>
         <TabPanel value={value} index={2}>
           <div className={classes.danhGia}>
-            <div className={classes.inputRoot}>
+            <div className={classes.inputRoot} onClick={handleComment}>
               <span className={classes.avatarReviewer}>
                 <img src={FAKE_AVATAR} alt="avatar" className={classes.avatar} />
               </span>
@@ -119,6 +157,46 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile }) {
           ))}
         </TabPanel>
       </Fade>
+
+
+      <Dialog open={open} onClose={handleClose}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+        >
+          <span>Custom empty icon</span>
+          <Rating
+            name="customized-empty"
+            defaultValue={2}
+            precision={0.5}
+            emptyIcon={<StarBorderIcon fontSize="inherit" />}
+          />
+        </Grid>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We will send updates
+            occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

@@ -29,7 +29,6 @@ export default function Index() {
     dispatch(getListSeat(param.maLichChieu))
     return () => { // xóa dữ liệu khi đóng hủy component
       dispatch({ type: RESET_DATA })
-
     }
   }, [])
 
@@ -60,6 +59,7 @@ export default function Index() {
   if (errorGetListSeatMessage) {
     return <div>{errorGetListSeatMessage}</div>
   }
+  console.log("m,ua lại ", loadingGetListSeat);
   return (
     <>
       <Loading loading={loadingGetListSeat} />

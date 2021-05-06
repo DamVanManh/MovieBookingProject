@@ -22,7 +22,7 @@ export default function Mobile({ movieDetailShowtimes: data, isMobile }) {
         </div>
         <div className={classes.gradient}>
         </div>
-        <iframe className={classes.iframe} width="100%" height="100%" src={`https://www.youtube.com/embed/${getVideoId(data.trailer)}?autoplay=0`} frameBorder="0" title="trailer movie"></iframe>
+        <iframe className={classes.iframe} width="100%" height="100%" src={`https://www.youtube.com/embed/${getVideoId(data.trailer)}`} allowFullScreen frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="trailer movie"></iframe>
         {openVideo || <img src={BtnPlay} className={classes.btnPlay} onClick={() => setopenVideo(true)} alt="play" />}
       </div>
       <div className={classes.shortInfo}>

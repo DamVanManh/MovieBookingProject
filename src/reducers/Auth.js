@@ -1,6 +1,6 @@
 // Auth Reducer: Phục vụ cho đăng nhập, đăng ký, lưu trữ thông tin user đăng nhập
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL } from './constants/Auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL, RESET_ERROR_LOGIN_REGISTER } from './constants/Auth';
 
 // lấy thông tin user đã lưu trong local trước đó nếu refesh lại trang hoặc tắt trang
 // cú pháp ? để tránh trường hợp JSON.parse(null sẽ gây lỗi)
@@ -68,6 +68,14 @@ const authReducer = (state = initialState, action) => {
         ...state,
         errorRegister: action.payload.error,
         loadingRegister: false,
+      };
+    }
+
+    case RESET_ERROR_LOGIN_REGISTER: {
+      return {
+        ...state,
+        errorRegister: null,
+        errorLogin: null,
       };
     }
 

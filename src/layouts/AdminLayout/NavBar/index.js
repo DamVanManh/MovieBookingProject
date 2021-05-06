@@ -16,7 +16,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import NavItem from './NavItem';
 import { FAKE_AVATAR } from '../../../constants/config';
