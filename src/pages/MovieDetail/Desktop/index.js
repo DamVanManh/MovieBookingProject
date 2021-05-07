@@ -13,11 +13,15 @@ import BtnPlay from '../../../components/BtnPlay';
 export default function Desktop({ movieDetailShowtimes: data }) {
   const [onClickBtnMuave, setOnClickBtnMuave] = useState(0)
   const param = useParams()
+  const [quantityComment, setQuantityComment] = useState(0)
   const { thoiLuong, danhGia } = useApiThoiLuongDanhGia(param.maPhim)
   const classes = useStyles({ bannerImg: data?.hinhAnh })
 
   const handleBtnMuaVe = () => {
     setOnClickBtnMuave(Date.now())
+  }
+  const onIncreaseQuantityComment = (value) => {
+    setQuantityComment(value)
   }
 
   return (
@@ -44,13 +48,13 @@ export default function Desktop({ movieDetailShowtimes: data }) {
               <CircularProgress variant="determinate" size="100%" value={danhGia * 10} className={classes.fabProgress} color="secondary" />
             </div>
             <div className={classes.rateStar}>
-              <Rating name="half-rating-read" value={(danhGia * 5) / 10} precision={0.5} readOnly />
+              <Rating value={(danhGia * 5) / 10} precision={0.5} readOnly />
             </div>
-            <span>31 người đánh giá</span>
+            <span>{quantityComment} người đánh giá</span>
           </div>
         </div>
       </div>
-      <Tap data={data} onClickBtnMuave={onClickBtnMuave} />
+      <Tap data={data} onClickBtnMuave={onClickBtnMuave} onIncreaseQuantityComment={onIncreaseQuantityComment} />
     </div>
   )
 }

@@ -129,7 +129,10 @@ const useStyles = makeStyles({
     left: 0,
   },
   rateStar: {
-    width: "fit-content"
+    width: "fit-content",
+    '& .MuiRating-iconEmpty': {
+      color: "rgba(255, 180, 0, 0.3)",
+    }
   },
 
 })

@@ -47,7 +47,9 @@ const formatDate = (dateIn) => { // ISODate ~ 2021-3-31
 
   const dateFull = dayToday + ', ' + date + ' tháng ' + month + ', ' + year;
 
-  return { dayToday, dateShort: dateIn, dateFull, dDMmYy: `${date}.${month}.${year}` };
+  const getTime = dateObj.getTime()
+
+  return { dayToday, dateShort: dateIn, dateFull, dDMmYy: `${date}.${month}.${year}`, getTime };
 };
 
 export default formatDate

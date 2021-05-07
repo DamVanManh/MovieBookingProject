@@ -1,5 +1,10 @@
+import { nanoid } from 'nanoid'
+
+const avtIdUser = nanoid(10)
+export { avtIdUser }
 export const BASE_URL = "https://movie0706.cybersoft.edu.vn/api"
-export const FAKE_AVATAR = "https://i.pravatar.cc/150?u=gfdsdfgjyefg5"
+export const FAKE_AVATAR = `https://i.pravatar.cc/150?u=${avtIdUser}`
+export const UNKNOW_USER = "/img/unknowUser.png"
 export const DISPLAY_MOBILE_BOOKTICKET = "(max-width:768px)"
 export const DISPLAY_MOBILE_THEATER = "(max-width:678px)"
 export const HIDDEN_SEARCHTICKET = "(max-width:992px)"

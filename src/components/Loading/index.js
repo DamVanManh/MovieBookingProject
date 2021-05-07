@@ -31,23 +31,34 @@ const useStyles = makeStyles({
 });
 
 export default function Loading() {
-  const [delay, setdelay] = useState(false)
+  const [triggerHide, setTriggerHide] = useState(false)
   const { isLazy } = useSelector((state) => state.lazyReducer)
   const { loadingMovieList } = useSelector((state) => state.movieReducer)
   const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
   const { loadingGetListSeat } = useSelector((state) => state.bookTicketReducer)
-  const { loadingMovieDetailShowtimes } = useSelector((state) => state.movieDetailReducer);
-  const loading = isLazy || loadingMovieList || loadingTheaterList || loadingGetListSeat || loadingMovieDetailShowtimes
+  const { loadingMovieDetailShowtimes } = useSelector((state) => state.movieDetailReducer)
+  const isLazyPrevious = useRef(isLazy)
+  const loading = isLazyPrevious.current || loadingMovieList || loadingTheaterList || loadingGetListSeat || loadingMovieDetailShowtimes
   const clear = useRef(null)
+
   const materialStyles = useStyles()
-  useEffect(() => {
+
+  useEffect(() => { // fix lỗi khi isLazy chuyển từ true sang false thì loadingMovieList... mất vài ms mới chuyển sang true > loadding bị giật
+    if (Number(isLazyPrevious.current) > Number(isLazy)) { // nếu isLazy chuyển từ true sang false thì delay lại chút
+      setTimeout(() => {
+        isLazyPrevious.current = isLazy
+      }, 50);
+    }
+  }, [isLazy])
+
+  useEffect(() => { // sau khi loadding = false, không ẩn liền mà chờ cho hiệu ứng scale và opacity kết thúc mới ẩn
     if (loading === false) {
       clear.current = setTimeout(() => {
-        setdelay(true)
+        setTriggerHide(true)
       }, 400);
     }
-    if (loading === true) {
-      setdelay(false)
+    if (loading === true) { // trong trường hợp component tự reload lại thì phải reset biến tạm
+      setTriggerHide(false)
     }
     return () => {
       clearTimeout(clear.current)
@@ -73,19 +84,17 @@ export default function Loading() {
   })
 
   return (
-    <div className={clsx(`${materialStyles.root}`, delay && `${materialStyles.hide}`)}>
-      <div>
-        {transitions(
-          (styles, item) => {
-            return item &&
-              <animated.div style={styles}>
-                <animated.div style={shake}>
-                  <img src={IMG_LOADING} style={{ width: 120 }} />
-                </animated.div>
+    <div className={clsx(`${materialStyles.root}`, triggerHide && `${materialStyles.hide}`)}>
+      {transitions(
+        (styles, item) => {
+          return item &&
+            <animated.div style={styles}>
+              <animated.div style={shake}>
+                <img src={IMG_LOADING} style={{ width: 120 }} />
               </animated.div>
-          }
-        )}
-      </div>
+            </animated.div>
+        }
+      )}
     </div>
   )
 }

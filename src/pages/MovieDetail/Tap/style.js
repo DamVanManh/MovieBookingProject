@@ -44,14 +44,14 @@ const useStyles = makeStyles({
     cursor: "pointer",
   },
   avatarReviewer: {
-    position: "absolute", top: "20%", left: "3%"
+    position: "absolute", top: "20%", left: "3%",
   },
   avatar: {
     height: "36px", width: "36px", borderRadius: "25px"
   },
   inputReviwer: {
     cursor: "pointer",
-    padding: "10px 10px 10px 55px",
+    padding: "10px 10px 10px 60px",
     width: "100%",
     height: "60px",
     borderRadius: "4px",
@@ -64,7 +64,10 @@ const useStyles = makeStyles({
     }
   },
   imgReviewerStar: {
-    position: "absolute", top: "30%", right: "3%"
+    position: "absolute", top: "50%", right: "3%",
+    transform: "translateY(-50%) ",
+    display: "flex",
+    margin: "auto",
   },
 
   itemDis: {
@@ -94,18 +97,58 @@ const useStyles = makeStyles({
   right: {
     textAlign: "center",
   },
-  // itemDis: {
+  btnDang: {
+    backgroundColor: '#fb4226',
+    borderColor: '#fb4226',
+    color: "#fff",
+    padding: "7px 25px",
+    margin: "0px 15px 7px 0px",
+    '&:hover': {
+      backgroundColor: '#fb4226',
+      borderColor: '#fb4226',
+    },
+  },
+  dialogContent: {
+    overflowY: "hidden",
+  },
+  textField: {
+    '& .MuiInputLabel-root': {
+      transform: "translate(18px, 29px) scale(1)",
+      color: "#4a4a4a",
+    },
+    '& label.Mui-focused': {
+      display: "none",
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'purple',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        top: 0,
+        '& legend': {
+          display: "none"
+        },
+      },
+      '&:hover fieldset': {
+        borderColor: "rgba(0, 0, 0, 0.23)",
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#fb4226',
+        boxShadow: "inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(251 66 38 / 60%)",
+        borderWidth: 1,
 
-  // },
-  // itemDis: {
-
-  // },
-  // itemDis: {
-
-  // },
-  // itemDis: {
-
-  // },
-
+      },
+      '& input': {
+        padding: "30px 20px"
+      }
+    },
+  },
+  startPopup: {
+    fontSize: "2.875rem",
+  },
+  pointPopup: {
+    color: "#7ed321",
+    fontSize: 40,
+  },
 })
 export default useStyles
