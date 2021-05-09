@@ -1,4 +1,5 @@
 import usersApi from "../../api/usersApi";
+import { nanoid } from 'nanoid'
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL, RESET_ERROR_LOGIN_REGISTER } from '../constants/Auth';
 
 export const login = (user) => {
@@ -9,7 +10,7 @@ export const login = (user) => {
     usersApi.postDangNhap(user)
       .then(result => {
         // lưu thông tin user xuống local storeage
-        localStorage.setItem("user", JSON.stringify(result.data));
+        localStorage.setItem("user", JSON.stringify({ ...result.data, avtIdUser: nanoid(10) }));
         dispatch({
           type: LOGIN_SUCCESS,
           payload: {

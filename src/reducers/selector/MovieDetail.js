@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
-
-
+import formatDate from '../../utilities/formatDate';
 
 // createSelector giúp truy cập reducer đồng thời thực hiện tính toán lọc lại dữ liệu, khi component render lại createSelector chỉ tính toán lại nếu movieDetailReducer thay đổi
 const selectMobileData = createSelector(
@@ -123,7 +122,15 @@ const selectDesktopData = (currentSelectedHeThongRapChieu) => {
   return { arrayDay, allArrayCumRapChieuFilterByDay }
 }
 
-export { selectMobileData, selectDesktopData }
+const selectCommentByMaPhimAndCommentTest = createSelector(
+  (state, maPhim) => state.movieDetailReducer.commentList.filter(item => item.dataTest || (item.maPhim === maPhim)), // nếu comment là dataTest hoặc trùng mã phim thì lấy
+  commentListFiltered => {
+    const commentList = commentListFiltered.sort((a, b) => formatDate(b.createdAt).getTime - formatDate(a.createdAt).getTime)
+    return { commentList }
+  }
+)
+
+export { selectMobileData, selectDesktopData, selectCommentByMaPhimAndCommentTest }
 
 
 // // createSelector giúp truy cập reducer đồng thời thực hiện tính toán lọc lại dữ liệu, khi component render lại createSelector chỉ tính toán lại nếu movieDetailReducer thay đổi

@@ -23,7 +23,7 @@ export default function LichChieuMobile() {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  console.log(" kiêu ", mobileData.isEmptyData);
+
   return (
     <div className={classes.root}>
       <div className={classes.listDay}>

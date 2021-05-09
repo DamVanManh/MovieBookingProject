@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
-
-const avtIdUser = nanoid(10)
+const currentUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
+const avtIdUser = currentUser ? currentUser?.avtIdUser : nanoid(10)
 export { avtIdUser }
 export const BASE_URL = "https://movie0706.cybersoft.edu.vn/api"
 export const FAKE_AVATAR = `https://i.pravatar.cc/150?u=${avtIdUser}`

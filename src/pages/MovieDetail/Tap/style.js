@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 870,
@@ -47,7 +47,14 @@ const useStyles = makeStyles({
     position: "absolute", top: "20%", left: "3%",
   },
   avatar: {
-    height: "36px", width: "36px", borderRadius: "25px"
+    display: "inline-block",
+    float: "left",
+  },
+  avatarImg: {
+    height: "36px",
+    width: "36px",
+    borderRadius: "25px",
+
   },
   inputReviwer: {
     cursor: "pointer",
@@ -83,19 +90,28 @@ const useStyles = makeStyles({
     marginBottom: 15,
   },
   infoUser: {
-    display: "flex",
-    justifyContent: "space-between"
   },
-  username: {
+  liveUser: {
     marginLeft: 10,
+    display: "inline-block",
+  },
+  userName: {
     color: "#000",
-    textTransform: "capitalize",
     fontWeight: 500,
+    fontSize: 14,
+    textTransform: "capitalize",
+  },
+  timePost: {
+    color: "#9b9b9b",
+    fontSize: 12,
   },
 
-
+  left: {
+    float: "left",
+  },
   right: {
     textAlign: "center",
+    float: "right",
   },
   btnDang: {
     backgroundColor: '#fb4226',
@@ -115,6 +131,7 @@ const useStyles = makeStyles({
     '& .MuiInputLabel-root': {
       transform: "translate(18px, 29px) scale(1)",
       color: "#4a4a4a",
+      right: 18,
     },
     '& label.Mui-focused': {
       display: "none",
@@ -150,5 +167,16 @@ const useStyles = makeStyles({
     color: "#7ed321",
     fontSize: 40,
   },
-})
+  rootcloseButton: {
+    margin: 0,
+    padding: theme.spacing(2),
+    padding: 4,
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+}))
 export default useStyles

@@ -10,7 +10,7 @@ import useApiThoiLuongDanhGia from '../../../utilities/useApiThoiLuongDanhGia';
 import Tap from '../Tap';
 import BtnPlay from '../../../components/BtnPlay';
 
-export default function Desktop({ movieDetailShowtimes: data }) {
+export default function Desktop({ movieDetailShowtimes: data, isMobile }) {
   const [onClickBtnMuave, setOnClickBtnMuave] = useState(0)
   const param = useParams()
   const [quantityComment, setQuantityComment] = useState(0)
@@ -54,7 +54,7 @@ export default function Desktop({ movieDetailShowtimes: data }) {
           </div>
         </div>
       </div>
-      <Tap data={data} onClickBtnMuave={onClickBtnMuave} onIncreaseQuantityComment={onIncreaseQuantityComment} />
+      <Tap data={data} onClickBtnMuave={onClickBtnMuave} onIncreaseQuantityComment={onIncreaseQuantityComment} isMobile={isMobile} />
     </div>
   )
 }

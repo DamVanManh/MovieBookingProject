@@ -27,7 +27,7 @@ export default function Index() {
   }
   return (
     <>
-      {  isMobile ? <Mobile movieDetailShowtimes={movieDetailShowtimes} isMobile={isMobile} /> : <Desktop movieDetailShowtimes={movieDetailShowtimes} />}
+      {  isMobile ? <Mobile movieDetailShowtimes={movieDetailShowtimes} isMobile={isMobile} /> : <Desktop movieDetailShowtimes={movieDetailShowtimes} isMobile={isMobile} />}
     </>
   )
 }
