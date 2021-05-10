@@ -38,7 +38,7 @@ export default function Desktop({ movieDetailShowtimes: data, isMobile }) {
           <div className={classes.shortInfo}>
             <p>{formatDate(data.ngayKhoiChieu?.slice(0, 10)).dDMmYy}</p>
             <p className={classes.movieName}><span className={classes.c18}>C18</span>{data.tenPhim}</p>
-            <p>{`${thoiLuong} phút - ${danhGia} Txt`} - 2D/Digital</p>
+            <p>{`${thoiLuong ?? "120"} phút - ${danhGia} Tix`} - 2D/Digital</p>
             <button className={classes.btnMuaVe} onClick={handleBtnMuaVe}>Mua vé</button>
           </div>
           <div className={classes.rate}>

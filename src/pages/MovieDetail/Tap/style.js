@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core"
+import { customScrollbar } from '../../../styles/materialUi';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -118,14 +119,14 @@ const useStyles = makeStyles(theme => ({
     borderColor: '#fb4226',
     color: "#fff",
     padding: "7px 25px",
-    margin: "0px 15px 7px 0px",
+    margin: "0px 0px 7px 0px",
     '&:hover': {
       backgroundColor: '#fb4226',
       borderColor: '#fb4226',
     },
   },
   dialogContent: {
-    overflowY: "hidden",
+    minHeight: 95,
   },
   textField: {
     '& .MuiInputLabel-root': {
@@ -167,10 +168,16 @@ const useStyles = makeStyles(theme => ({
     color: "#7ed321",
     fontSize: 40,
   },
+  dialog: {
+    "& .MuiDialog-container": {
+      "& .MuiPaper-root": {
+        ...customScrollbar
+      }
+    }
+  },
   rootcloseButton: {
     margin: 0,
-    padding: theme.spacing(2),
-    padding: 4,
+    padding: 0,
   },
   closeButton: {
     position: 'absolute',

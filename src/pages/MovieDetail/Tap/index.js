@@ -238,7 +238,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
                 </div>
                 <div className={classes.right}>
                   <p className="text-success">{item.point}</p>
-                  <Rating value={(item.point * 5) / 10} precision={0.5} readOnly />
+                  <Rating value={(item.point * 5) / 10} precision={0.5} size={isMobile ? "small" : "medium"} readOnly />
                 </div>
                 <div className="clearfix"></div>
               </div>
@@ -259,7 +259,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
       </Fade>
 
 
-      <Dialog open={openComment} onClose={handleClose} maxWidth="sm" fullWidth>
+      <Dialog open={openComment} onClose={handleClose} maxWidth="sm" fullWidth className={classes.dialog}>
         <MuiDialogTitle disableTypography className={classes.rootcloseButton} >
           <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
             <CloseIcon />
@@ -285,7 +285,6 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
           />
         </Grid>
         <DialogContent className={classes.dialogContent}>
-          <DialogContentText></DialogContentText>
           <TextField
             className={classes.textField}
             onChange={(event) => handletyping(event)}

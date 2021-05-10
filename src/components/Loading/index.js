@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     left: 0,
     backgroundColor: "#fff",
     zIndex: -1,
+    opacity: 0,
     transition: "background-color 0.5s ease-in-out",
 
     width: "100%",
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
   },
   visible: {
     zIndex: 2000,
+    opacity: 1,
   },
   image: {
     width: 120,
