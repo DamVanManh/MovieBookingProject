@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom'
 

@@ -12,11 +12,13 @@ import { DISPLAY_MOBILE_BOOKTICKET } from '../../constants/config';
 import Modal from './Modal';
 
 export default function Index() {
-  const { refreshKey, timeOut, isMobile, danhSachPhongVe: { thongTinPhim, danhSachGhe }, errorGetListSeatMessage, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
+  const { isLazy } = useSelector((state) => state.lazyReducer)
+  const { loadingGetListSeat, refreshKey, timeOut, isMobile, danhSachPhongVe: { thongTinPhim, danhSachGhe }, errorGetListSeatMessage, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
   const { currentUser } = useSelector(state => state.authReducer)
   const param = useParams()
   const dispatch = useDispatch()
   const mediaQuery = useMediaQuery(DISPLAY_MOBILE_BOOKTICKET)
+  const loading = isLazy || loadingGetListSeat
 
   useEffect(() => { // chuyển sang step 2 nếu đã nhấn đặt vé
     if (successBookingTicketMessage || errorBookTicketMessage) {
@@ -59,12 +61,12 @@ export default function Index() {
     return <div>{errorGetListSeatMessage}</div>
   }
   return (
-    <>
+    <div style={{ display: loading ? "none" : "block" }}>
       {
         isMobile ? <Mobile key={refreshKey} /> : <Desktop key={refreshKey + 1} />
       }
       <Modal />
-    </>
+    </div>
   )
 }
 

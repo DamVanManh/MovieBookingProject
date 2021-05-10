@@ -27,7 +27,9 @@ const headMenu = [{ nameLink: 'Lịch chiếu', id: "lichchieu" }, { nameLink: '
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.authReducer);
-  const { movieList } = useSelector((state) => state.movieReducer)
+  const { loadingMovieList } = useSelector((state) => state.movieReducer)
+  const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
+  const { isLazy } = useSelector((state) => state.lazyReducer)
   const dispatch = useDispatch();
   let location = useLocation();
   const history = useHistory();
@@ -35,6 +37,8 @@ export default function Header() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
   const classes = useStyles({ isDesktop, openDrawer });
+  const loading = isLazy || loadingMovieList || loadingTheaterList
+
 
   // nếu đang mở drawer mà chuyển sang màn hình lớn thì phải tự đóng lại
   useEffect(() => {
@@ -46,15 +50,16 @@ export default function Header() {
   }, [isDesktop])
 
   useEffect(() => { // clicklink > push to home > scrollTo after loading
-    if (movieList.length > 0) {
+    if (location.state && !loading) {
       setOpenDrawer(false)
-      scroller.scrollTo(location.state, {
-        duration: 800,
-        delay: 0,
-        smooth: 'easeInOutQuart'
-      })
+      setTimeout(() => {
+        scroller.scrollTo(location.state, {
+          duration: 800,
+          smooth: 'easeInOutQuart'
+        })
+      }, 500);
     }
-  }, [movieList])
+  }, [loading])
 
   const handleLogout = () => {
     setOpenDrawer(false)
@@ -82,7 +87,6 @@ export default function Header() {
       setOpenDrawer(false)
       scroller.scrollTo(id, {
         duration: 800,
-        delay: 0,
         smooth: 'easeInOutQuart'
       })
     } else history.push("/", id)

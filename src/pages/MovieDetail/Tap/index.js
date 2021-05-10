@@ -23,6 +23,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { useLocation, useHistory } from "react-router-dom";
+import { scroller } from 'react-scroll'
 
 import { FAKE_AVATAR, avtIdUser, UNKNOW_USER } from '../../../constants/config';
 import useStyles from './style';
@@ -58,7 +59,6 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
   const { currentUser } = useSelector(state => state.authReducer);
   const { loadingPostComment, postCommentObj, loadingLikeComment, likeCommentObj } = useSelector(state => state.movieDetailReducer);
   const { commentList } = useSelector(state => selectCommentByMaPhimAndCommentTest(state, param.maPhim));
-  const classes = useStyles()
   const dispatch = useDispatch()
   let location = useLocation();
   const history = useHistory();
@@ -66,7 +66,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
   const [croll, setCroll] = useState(0)
   const [openComment, setOpenComment] = useState(false);
   const [warningtext, setwarningtext] = useState(false)
-  // const [commentList, setCommentList] = useState([])
+  const [commentListDisplay, setCommentListDisplay] = useState({ comment: [], page: 5, hideBtn: false, idEnd: "" })
   const [dataComment, setdataComment] = useState({
     avtId: avtIdUser,
     username: currentUser?.hoTen,
@@ -78,6 +78,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
     createdAt: "",
     userLikeThisComment: [],
   })
+  const classes = useStyles({ hideBtn: commentListDisplay.hideBtn })
 
   // phục vụ kh nhấp btn mua vé
   useEffect(() => {
@@ -108,17 +109,39 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
     }
     setwarningtext(false)
     const currentISOString = new Date().toISOString();
-    // xử lý delay: update thông tin ảo trước khi postComment
-    // setOpenComment(false);
-    // setCommentList(commentList => [{ ...dataComment, createdAt: currentISOString, point: dataComment.point * 2 }, ...commentList])
-    // setdataComment(data => ({ ...data, post: "", point: 2.5 })) // reset data
-
     setOpenComment(false);
     dispatch(postComment({ ...dataComment, createdAt: currentISOString, point: dataComment.point * 2 }))
   }
   useEffect(() => { // mỗi khi mount component, postComment, likeComment thành công thì call api lấy comment mới
     dispatch(getComment())
   }, [postCommentObj, likeCommentObj])
+
+  useEffect(() => {
+    const comment = commentList.slice(0, commentListDisplay.page)
+    setCommentListDisplay(data => ({ ...data, comment }))
+  }, [commentList])
+
+  useEffect(() => {
+    if (commentListDisplay.idEnd) {
+      scroller.scrollTo(commentListDisplay.idEnd, {
+        duration: 800,
+        offset: -79,
+        smooth: 'easeInOutQuart',
+      })
+    }
+  }, [commentListDisplay.idEnd])
+
+  const setopenMore = () => {
+    let hideBtn = false
+    const phanDu = commentList.length % 5
+    if ((commentListDisplay.page + phanDu) === commentList.length) {
+      hideBtn = true
+    }
+    const idEnd = `idComment${commentList[commentListDisplay.page].createdAt}`
+    const page = commentListDisplay.page + 5
+    const comment = commentList.slice(0, page)
+    setCommentListDisplay(data => ({ ...data, comment, page, hideBtn, idEnd }))
+  }
 
   const handleLike = (id) => {
     if (loadingLikeComment) {
@@ -139,13 +162,6 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
       commentUserLiked.userLikeThisComment.push(currentUser.email)
       commentUserLiked.likes = commentUserLiked.likes + 1
     }
-    // const newCommentList = commentList.map(item => {
-    //   if (item.id === id) {
-    //     return commentUserLiked
-    //   } return item
-    // })
-    // setCommentList(newCommentList) // hiện giá trị ảo ngay lập tức
-
     dispatch(likeComment(id, commentUserLiked))
   }
 
@@ -186,6 +202,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
     setwarningtext(false)
   }
 
+
   return (
     <div className={classes.root} id="TapMovieDetail">
       <AppBar position="static" color="default" classes={{ root: classes.appBarRoot }}>
@@ -224,8 +241,8 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
               </span>
             </div>
           </div>
-          {commentList?.map((item, i) => (
-            <div key={`${item.avtId}${i}`} className={classes.itemDis}>
+          {commentListDisplay?.comment?.map((item) => (
+            <div key={`${item.createdAt}`} className={classes.itemDis} id={`idComment${item.createdAt}`}>
               <div className={classes.infoUser}>
                 <div className={classes.left}>
                   <span className={classes.avatar}>
@@ -255,6 +272,9 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
               </span>
             </div>
           ))}
+          <div className={classes.moreMovie}>
+            <Button variant="outlined" onClick={() => setopenMore()} className={classes.moreMovieButton}>XEM THÊM</Button>
+          </div>
         </TabPanel>
       </Fade>
 
@@ -318,3 +338,15 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
 // )
 // setdem(data => data + 1)
 
+// const newCommentList = commentList.map(item => {
+//   if (item.id === id) {
+//     return commentUserLiked
+//   } return item
+// })
+// setCommentList(newCommentList) // hiện giá trị ảo ngay lập tức
+
+
+// xử lý delay: update thông tin ảo trước khi postComment
+// setOpenComment(false);
+// setCommentList(commentList => [{ ...dataComment, createdAt: currentISOString, point: dataComment.point * 2 }, ...commentList])
+// setdataComment(data => ({ ...data, post: "", point: 2.5 })) // reset data

@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     opacity: 1,
   },
   image: {
-    width: 120,
+    width: 100,
     animation: "$shake 0.6s infinite",
     position: "relative",
   },

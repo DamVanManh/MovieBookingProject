@@ -32,7 +32,6 @@ const useStyles = makeStyles(theme => ({
     color: "#e9e9e9"
   },
   danhGia: {
-    marginTop: 40,
     marginBottom: 15,
   },
   inputRoot: {
@@ -184,6 +183,22 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },
+
+  moreMovie: {
+    margin: "30px auto",
+    textAlign: "center",
+    display: props => props.hideBtn ? "none" : "block",
+  },
+  moreMovieButton: {
+    color: "#949494",
+    borderColor: "#949494",
+    padding: "7px 25px",
+    '&:hover': {
+      backgroundColor: "#fb4226",
+      borderColor: "#fb4226",
+      color: "#fff !important"
+    },
   },
 }))
 export default useStyles
