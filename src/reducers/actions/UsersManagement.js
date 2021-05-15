@@ -1,15 +1,19 @@
 import usersApi from '../../api/usersApi';
-import { GET_USER_LIST_REQUEST, GET_USER_LIST_SUCCESS, GET_USER_LIST_FAIL, DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAIL, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL, ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAIL } from '../constants/Users';
+import {
+  GET_USER_LIST_REQUEST, GET_USER_LIST_SUCCESS, GET_USER_LIST_FAIL,
+  DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAIL, RESET_USER_LIST,
+  UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL,
+  ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAIL
+} from '../constants/UsersManagement';
 
-export const getUsersList = (values) => {
-  return (dispath) => {
-    dispath({
+export const getUsersList = () => {
+  return (dispatch) => {
+    dispatch({
       type: GET_USER_LIST_REQUEST
     })
     usersApi.getDanhSachNguoiDung()
       .then(result => {
-        // console.log("ket qua: ", result.data)
-        dispath({
+        dispatch({
           type: GET_USER_LIST_SUCCESS,
           payload: { data: result.data }
         })
@@ -17,7 +21,7 @@ export const getUsersList = (values) => {
       )
       .catch(
         error => {
-          dispath({
+          dispatch({
             type: GET_USER_LIST_FAIL,
             payload: { error: error.response.data, }
           })
@@ -27,14 +31,13 @@ export const getUsersList = (values) => {
 }
 
 export const deleteUser = (taiKhoanUser) => {
-  console.log(taiKhoanUser)
-  return (dispath) => {
-    dispath({
+  return (dispatch) => {
+    dispatch({
       type: DELETE_USER_REQUEST
     })
-    usersApi.deleteXoaNguoiDung(taiKhoanUser)
+    usersApi.deleteUser(taiKhoanUser)
       .then(result => {
-        dispath({
+        dispatch({
           type: DELETE_USER_SUCCESS,
           payload: { data: result.data }
         })
@@ -42,7 +45,7 @@ export const deleteUser = (taiKhoanUser) => {
       )
       .catch(
         error => {
-          dispath({
+          dispatch({
             type: DELETE_USER_FAIL,
             payload: { error: error.response.data, }
           })
@@ -51,16 +54,23 @@ export const deleteUser = (taiKhoanUser) => {
   }
 }
 
+export const resetUserList = () => {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_USER_LIST
+    })
+  }
+}
+
 export const putUserUpdate = (user) => {
 
-  return (dispath) => {
-    dispath({
+  return (dispatch) => {
+    dispatch({
       type: UPDATE_USER_REQUEST
     })
     usersApi.editTaiKhoan(user)
       .then(result => {
-        // console.log(result)
-        dispath({
+        dispatch({
           type: UPDATE_USER_SUCCESS,
           payload: { data: result.data }
         })
@@ -68,8 +78,7 @@ export const putUserUpdate = (user) => {
       )
       .catch(
         error => {
-          // console.log(error)
-          dispath({
+          dispatch({
             type: UPDATE_USER_FAIL,
             payload: { error: error.response.data, }
           })
@@ -78,7 +87,7 @@ export const putUserUpdate = (user) => {
   }
 }
 
-export const addUser = (user) => {
+export const postAddUser = (user) => {
   return (dispatch) => {
     dispatch({
       type: ADD_USER_REQUEST

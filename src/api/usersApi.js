@@ -18,13 +18,19 @@ const usersApi = {
     return axiosClient.get(path);
   },
 
+  // https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP01&soTrang=2&soPhanTuTrenTrang=2
+  getDanhSachNguoiDungPhanTrang: (soTrang, soPhanTuTrenTrang) => {
+    const path = "/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP09";
+    return axiosClient.get(path, { soTrang, soPhanTuTrenTrang });
+  },
+
   postThemNguoiDung: (user) => {
     const path = "/QuanLyNguoiDung/ThemNguoiDung";
 
     return axiosClient.post(path, user);
   },
 
-  deleteXoaNguoiDung: (taiKhoan) => {
+  deleteUser: (taiKhoan) => {
     const path = `/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`;
 
     return axiosClient.delete(path);
@@ -41,7 +47,6 @@ const usersApi = {
   // }
   editTaiKhoan: (user) => {
     const path = `/QuanLyNguoiDung/CapNhatThongTinNguoiDung`;
-
     return axiosClient.put(path, user);
   },
 

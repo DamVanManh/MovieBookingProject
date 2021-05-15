@@ -54,14 +54,13 @@ export default function Register() {
         <p style={{ textAlign: "center", marginBottom: "10px" }}>Đăng Ký để được nhiều ưu đãi, mua vé và bảo mật thông tin!</p>
       </div>
       <Formik
-
         initialValues={
           {
             taiKhoan: "",
             matKhau: "",
             email: "",
             soDt: "",
-            maNhom: "GP01",
+            maNhom: "GP09",
             maLoaiNguoiDung: "KhachHang",
             hoTen: "",
           }

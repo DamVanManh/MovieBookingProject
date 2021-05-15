@@ -194,10 +194,18 @@ const useStyles = makeStyles(theme => ({
     color: "#949494",
     borderColor: "#949494",
     padding: "7px 25px",
+    backgroundColor: "transparent",
     '&:hover': {
       backgroundColor: "#fb4226",
       borderColor: "#fb4226",
-      color: "#fff !important"
+      color: "#fff",
+    },
+    "@media (hover: none)": {
+      '&:hover': {
+        color: "#949494",
+        borderColor: "#949494",
+        backgroundColor: "transparent",
+      }
     },
   },
 }))

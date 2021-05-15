@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
   AppBar,
@@ -9,40 +8,27 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  makeStyles
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-import Logo from './Logo';
-// const img = '/static/images/avatars/avata_1.png'
-const useStyles = makeStyles(() => ({
-  root: {},
-  avatar: {
-    width: 60,
-    height: 60,
-  }
-}));
 
 const TopBar = ({
-  className,
   onMobileNavOpen,
   ...rest
 }) => {
-  const classes = useStyles();
   const [notifications] = useState([]);
-
   return (
 
     // đây là phần thanh ngang nằm trên cùng
     <AppBar
-      className={clsx(classes.root, className)}
       elevation={0}
+      position="static"
       {...rest}
     >
       <Toolbar>
         <RouterLink to="/">
-          <Logo />
+          <img src="/img/headTixLogo.png" alt="logo" style={{ height: 50 }} />
         </RouterLink>
 
         {/* 1 thẻ div chiếm hết khoảng trống còn lại dể dồn các icon về 2 bên */}

@@ -39,7 +39,6 @@ export default function Header() {
   const classes = useStyles({ isDesktop, openDrawer });
   const loading = isLazy || loadingMovieList || loadingTheaterList
 
-
   // nếu đang mở drawer mà chuyển sang màn hình lớn thì phải tự đóng lại
   useEffect(() => {
     if (isDesktop) {

@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core"
+import { Translate } from "@material-ui/icons";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +29,16 @@ const useStyles = makeStyles((theme) => ({
   },
   linkTobody: {
     display: props => props.isDesktop ? "block" : "none",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    [theme.breakpoints.down(899)]: {
+      left: "42%",
+    },
+    [theme.breakpoints.down(773)]: {
+      left: "39%",
+    },
   },
   link: {
     cursor: "pointer",
