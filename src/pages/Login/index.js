@@ -57,27 +57,15 @@ export default function Login() {
         >{(formikProp) => (
           <Form className="col-sm-10 mx-auto">
             <div className="form-group position-relative">
-              <label>Tài khoản</label>
+              <label>Tài khoản&nbsp;</label>
+              <ErrorMessage name="taiKhoan" render={msg => <span className="text-danger">{msg}</span>} />
               <Field type="text" className="form-control" name="taiKhoan" onChange={formikProp.handleChange} />
-              <ErrorMessage name="taiKhoan">
-                {(msg) =>
-                  <div className="alert alert-danger">
-                    {msg}
-                  </div>
-                }
-              </ErrorMessage>
             </div>
 
             <div className="form-group position-relative">
-              <label>Mật khẩu</label>
+              <label>Mật khẩu&nbsp;</label>
+              <ErrorMessage name="matKhau" render={msg => <span className="text-danger">{msg}</span>} />
               <Field type="password" className="form-control" name="matKhau" onChange={formikProp.handleChange} />
-              <ErrorMessage name="matKhau">
-                {(msg) =>
-                  <div className="alert alert-danger">
-                    {msg}
-                  </div>
-                }
-              </ErrorMessage>
             </div>
             <p className="text-success" style={{ cursor: "pointer" }} onClick={handleDangKy}>* Đăng ký</p>
             <button
@@ -86,7 +74,7 @@ export default function Login() {
               type="submit" className="btn btn-success mt-3 container" >
               Đăng nhập
                     </button>
-            {/* nếu tồn tại lỗi thì hiện lỗi */}
+            {/* error from api */}
             {errorLogin && <div className="alert alert-danger"><span> {errorLogin}</span></div>}
           </Form>
         )}</Formik>

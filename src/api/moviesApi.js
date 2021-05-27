@@ -26,17 +26,7 @@ const moviesApi = {
     return axiosClient.get(path, { param });
   },
 
-  // postImages: (fileImg, token) => {
-  //   const path = `/QuanLyPhim/UploadHinhAnhPhim`;
-  //   const config = {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   };
-  //   return axiosClient.post(path, fileImg, config);
-  // },
-
-  postThemPhim: (movie) => {
+  postThemPhimUpload: (movie) => {
     const path = `/QuanLyPhim/ThemPhimUploadHinh`;
     //trong obj movie có key hinhAnh là file nên phải chuyển sang formData
     const formData = new FormData();
@@ -46,21 +36,23 @@ const moviesApi = {
     return axiosClient.post(path, formData);
   },
 
-  postCapNhatPhim: (movie) => {
+  postCapNhatPhimUpload: (movie) => {
     const path = `/QuanLyPhim/CapNhatPhimUpload`;
     const formData = new FormData();
     for (const key in movie) {
       formData.append(key, movie[key]);
     }
-
-    console.log(formData.get("hinhAnh"));
-
+    // console.log("ngayKhoiChieu ", formData.get("ngayKhoiChieu"));
     return axiosClient.post(path, formData);
+  },
+
+  postCapNhatPhim: (movie) => {
+    const path = `/QuanLyPhim/CapNhatPhim`;
+    return axiosClient.post(path, movie);
   },
 
   deleteMovie: (maPhim) => {
     const path = `/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`;
-
     return axiosClient.delete(path);
   },
 };

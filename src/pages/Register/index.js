@@ -71,82 +71,48 @@ export default function Register() {
         {(formikProps) => (
           <Form className="col-sm-12">
             <div className="form-group">
-              <label>Tài khoản </label>
-              {/* input thay bằng Field  */}
+              <label>Tài khoản&nbsp;</label>
+              <ErrorMessage name="taiKhoan" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="taiKhoan" type="text" className="form-control"
                 onChange={formikProps.handleChange}
               />
-              <ErrorMessage name="taiKhoan">
-                {(msg) =>
-                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
-                    {msg}
-                  </div>
-                }
-              </ErrorMessage>
             </div>
             <div className="form-group">
-              <label>Mật khẩu </label>
+              <label>Mật khẩu&nbsp;</label>
+              <ErrorMessage name="matKhau" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="matKhau" type="password" className="form-control"
                 onChange={formikProps.handleChange}
               />
-              <ErrorMessage name="matKhau">
-                {(msg) =>
-                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }} >
-                    {msg}
-                  </div>
-                }
-              </ErrorMessage>
-
             </div>
             <div className="form-group">
-              <label>Họ và tên </label>
+              <label>Họ và tên&nbsp;</label>
+              <ErrorMessage name="hoTen" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="hoTen" type="text" className="form-control"
                 onChange={formikProps.handleChange}
               />
-              <ErrorMessage name="hoTen">
-                {(msg) =>
-                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
-                    {msg}
-                  </div>
-                }
-              </ErrorMessage>
-
             </div>
 
             <div className="form-group">
-              <label>Email</label>
+              <label>Email&nbsp;</label>
+              <ErrorMessage name="email" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="email" type="email" className="form-control"
                 onChange={formikProps.handleChange}
               />
-              <ErrorMessage name="email">
-                {(msg) =>
-                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
-                    {msg}
-                  </div>
-                }
-              </ErrorMessage>
-
             </div>
             <div className="form-group">
-              <label>Số điện thoại</label>
+              <label>Số điện thoại&nbsp;</label>
+              <ErrorMessage name="soDt" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="soDt" type="text" className="form-control"
                 onChange={formikProps.handleChange}
               />
-              <ErrorMessage name="soDt">
-                {(msg) =>
-                  <div className="alert alert-danger" style={{ padding: " 2px 2px" }}>
-                    {msg}
-                  </div>
-                }
-              </ErrorMessage>
             </div>
             <div className="text-center p-2">
               <button type="submit" className="btn btn-success"
                 disable={loadingRegister.toString()}>
-
                 Đăng Ký
               </button>
-              {errorRegister && <div className="alert alert-danger"><span> {errorRegister}</span></div>}
+              {/* error from api */}
+              {errorRegister && <div className="alert alert-danger"><span>{errorRegister}</span></div>}
             </div>
           </Form>
         )}

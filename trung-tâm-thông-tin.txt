@@ -1,5 +1,5 @@
 *** TÀI KHOẢN ADMIN: 
-"taiKhoan": "binh12234", "matKhau": "123",
+"taiKhoan": "chauadmin1", "matKhau": "chauadmin",
 "taiKhoan": "khai", "matKhau": "321321",
 *** banner carousel 
 1322 gái già lắm chiêu

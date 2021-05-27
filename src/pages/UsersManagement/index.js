@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 
-import { DataGrid } from '@material-ui/data-grid';
+import { GridOverlay, DataGrid } from '@material-ui/data-grid';
 import { nanoid } from 'nanoid'
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -16,7 +16,6 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import useStyles from './styles';
 import { deleteUser, getUsersList, resetUserList, putUserUpdate, postAddUser } from "../../reducers/actions/UsersManagement";
-import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 function validateEmail(email) {
@@ -26,13 +25,13 @@ function validateEmail(email) {
 
 function CustomLoadingOverlay() {
   return (
-    <div style={{ position: 'absolute', top: 0, width: '100%' }}>
-      <LinearProgress />
+    <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0, display: "flex", backgroundColor: "rgb(255 255 255 / 67%)", zIndex: 1000, }}>
+      <CircularProgress style={{ margin: "auto" }} />
     </div>
   );
 }
 
-export default function ValidateRowModelControlGrid() {
+export default function UsersManagement() {
   const [editRowsModel, setEditRowsModel] = useState({});
   const classes = useStyles();
   const [usersListDisplay, setUsersListDisplay] = useState([])
@@ -40,7 +39,7 @@ export default function ValidateRowModelControlGrid() {
   const [selectionModel, setSelectionModel] = useState([]);
   const [userListDelete, setUserListDelete] = useState({ triggerDelete: false, userListDelete: [], cancel: false })
   const [userListmodified, setUserListmodified] = useState({ triggerUpdate: false, userListmodified: [], cancel: false })
-  const { usersList, loadingUsersList, successDelete, errorDelete, loadingDelete, successUpdateUser, errorUpdateUser, loadingAddUser, successAddUser, errorAddUser } = useSelector((state) => state.usersManagementReducer);
+  const { usersList, loadingUsersList, errorUsersList, successDelete, errorDelete, loadingDelete, successUpdateUser, errorUpdateUser, loadingAddUser, successAddUser, errorAddUser } = useSelector((state) => state.usersManagementReducer);
   const dispatch = useDispatch();
   const [btnReFresh, setBtnReFresh] = useState("")
   const [sortBy, setsortBy] = useState({ field: "taiKhoan", sort: "asc" })
@@ -297,12 +296,17 @@ export default function ValidateRowModelControlGrid() {
   }
 
   const onFilter = () => {
+    function removeAccents(str) { // bỏ dấu tiếng việt
+      return str.normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+    }
     const searchUsersListDisplay = usersListDisplay.filter(user => {
-      const matchTaiKhoan = (user.taiKhoan ?? "")?.toLowerCase()?.indexOf(valueSearch.toLowerCase()) !== -1
-      const matchMatKhau = (user.matKhau ?? "")?.toLowerCase()?.indexOf(valueSearch.toLowerCase()) !== -1
-      const matchEmail = (user.email ?? "")?.toLowerCase()?.indexOf(valueSearch.toLowerCase()) !== -1
-      const matchSoDt = (user.soDt ?? "")?.toLowerCase()?.indexOf(valueSearch.toLowerCase()) !== -1
-      const matchHoTen = (user.hoTen ?? "")?.toLowerCase()?.indexOf(valueSearch.toLowerCase()) !== -1
+      const matchTaiKhoan = removeAccents((user.taiKhoan ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
+      const matchMatKhau = removeAccents((user.matKhau ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
+      const matchEmail = removeAccents((user.email ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
+      const matchSoDt = removeAccents((user.soDt ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
+      const matchHoTen = removeAccents((user.hoTen ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
       return matchTaiKhoan || matchMatKhau || matchEmail || matchSoDt || matchHoTen
     })
     return searchUsersListDisplay
@@ -319,7 +323,7 @@ export default function ValidateRowModelControlGrid() {
 
   const columns = useMemo(() => ( // cột tài khoản không được chỉnh sửa, backend dùng "taiKhoan" để định danh user
     [
-      { field: 'xoa', headerName: 'Xóa', width: 100, type: 'number', renderCell: (params) => <ButtonDelete onDeleted={handleDeleteOne} taiKhoan={params.row.taiKhoan} />, headerAlign: 'left', align: "left", headerClassName: 'custom-header', hide: addUser.toggle, },
+      { field: 'xoa', headerName: 'Xóa', width: 100, type: 'number', renderCell: (params) => <ButtonDelete onDeleted={handleDeleteOne} taiKhoan={params.row.taiKhoan} />, headerAlign: 'center', align: "center", headerClassName: 'custom-header', hide: addUser.toggle, },
       { field: 'taiKhoan', headerName: 'Tài Khoản', width: 250, editable: addUser.toggle, headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
       { field: 'matKhau', headerName: 'Mật Khẩu', width: 300, editable: true, headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
       { field: 'hoTen', headerName: 'Họ tên', width: 300, editable: true, headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
@@ -329,8 +333,13 @@ export default function ValidateRowModelControlGrid() {
       { field: 'ismodify', width: 0, type: 'boolean', headerClassName: 'custom-header', hide: true },
     ]
   ), [addUser.toggle])
+
+  if (errorUsersList) {
+    return <h1>{errorUsersList}</h1>
+  }
+
   return (
-    <div style={{ height: 700, width: '100%' }}>
+    <div style={{ height: "80vh", width: '100%' }}>
       <div className={classes.control}>
         <Button
           variant="contained"
@@ -414,7 +423,6 @@ export default function ValidateRowModelControlGrid() {
 
         // css màu cho tài khoản QuanTri hoặc KhachHang: thay đổi tên class row dựa trên giá trị prop riêng biệt của row
         getRowClassName={(params) => {
-          // const customModify = 
           return `isadmin--${params.getValue('maLoaiNguoiDung').toString()} ismodify--${params.getValue('ismodify')?.toString()}`
         }}
 
@@ -440,7 +448,7 @@ export default function ValidateRowModelControlGrid() {
         loading={loadingUsersList}
         components={{ LoadingOverlay: CustomLoadingOverlay }}
 
-        // định nghĩa kiểu search
+        // sort
         sortModel={sortModel}
       />
     </div>

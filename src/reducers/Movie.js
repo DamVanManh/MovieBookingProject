@@ -1,6 +1,11 @@
 import {
   GET_MOVIE_LIST_REQUEST, GET_MOVIE_LIST_SUCCESS, GET_MOVIE_LIST_FAIL,
-  GET_MOVIE_LISTBYDAY_REQUEST, GET_MOVIE_LISTBYDAY_SUCCESS, GET_MOVIE_LISTBYDAY_FAIL
+  DELETE_MOVIE_REQUEST, DELETE_MOVIE_SUCCESS, DELETE_MOVIE_FAIL,
+  POST_UPDATE_MOVIE_REQUEST, POST_UPDATE_MOVIE_SUCCESS, POST_UPDATE_MOVIE_FAIL,
+  UPDATE_NONEIMAGE_MOVIE_REQUEST, UPDATE_NONEIMAGE_MOVIE_SUCCESS, UPDATE_NONEIMAGE_MOVIE_FAIL,
+  GET_MOVIE_LIST_REQUEST2, GET_MOVIE_LIST_SUCCESS2, GET_MOVIE_LIST_FAIL2,
+  ADD_MOVIE_UPLOAD_REQUEST, ADD_MOVIE_UPLOAD_SUCCESS, ADD_MOVIE_UPLOAD_FAIL,
+  RESET_MOVIE_MANAGEMENT,
 } from './constants/Movie';
 
 const initialState = {
@@ -9,9 +14,25 @@ const initialState = {
   errorMovieList: null,
   movieDetail: null,
 
-  movieListByDay: [],
-  loadingMovieListByDay: false,
-  errorMovieListByDay: null,
+  movieList2: [],
+  loadingMovieList2: false,
+  errorMovieList2: null,
+
+  successDeleteMovie: "",
+  loadingDeleteMovie: false,
+  errorDeleteMovie: null,
+
+  successUpdateMovie: "",
+  loadingUpdateMovie: false,
+  errorUpdateMovie: null,
+
+  successUpdateNoneImageMovie: "",
+  loadingUpdateNoneImageMovie: false,
+  errorUpdateNoneImageMovie: null,
+
+  successAddUploadMovie: "",
+  loadingAddUploadMovie: false,
+  errorAddUploadMovie: null,
 }
 
 const movieReducer = (state = initialState, action) => {
@@ -19,7 +40,6 @@ const movieReducer = (state = initialState, action) => {
     case GET_MOVIE_LIST_REQUEST: {
       return { ...state, loadingMovieList: true, errorMovieList: null, movieDetail: null, };
     }
-
     case GET_MOVIE_LIST_SUCCESS: {
       return {
         ...state,
@@ -27,7 +47,6 @@ const movieReducer = (state = initialState, action) => {
         loadingMovieList: false
       };
     }
-
     case GET_MOVIE_LIST_FAIL: {
       return {
         ...state,
@@ -36,23 +55,117 @@ const movieReducer = (state = initialState, action) => {
       };
     }
 
-    case GET_MOVIE_LISTBYDAY_REQUEST: {
-      return { ...state, loadingMovieList: true, errorMovieList: null, movieDetail: null, };
+    case GET_MOVIE_LIST_REQUEST2: {
+      return { ...state, loadingMovieList2: true, errorMovieList2: null };
     }
-
-    case GET_MOVIE_LISTBYDAY_SUCCESS: {
+    case GET_MOVIE_LIST_SUCCESS2: {
       return {
         ...state,
-        movieList: action.payload.data,
-        loadingMovieList: false
+        movieList2: action.payload.data,
+        loadingMovieList2: false
+      };
+    }
+    case GET_MOVIE_LIST_FAIL2: {
+      return {
+        ...state,
+        errorMovieList2: action.payload.errorMovieList,
+        loadingMovieList2: false,
       };
     }
 
-    case GET_MOVIE_LISTBYDAY_FAIL: {
+    case DELETE_MOVIE_REQUEST: {
+      return { ...state, loadingDeleteMovie: true, errorDeleteMovie: null, successDeleteMovie: null, };
+    }
+    case DELETE_MOVIE_SUCCESS: {
       return {
         ...state,
-        errorMovieList: action.payload.errorMovieList,
-        loadingMovieList: false,
+        successDeleteMovie: action.payload.data,
+        loadingDeleteMovie: false
+      };
+    }
+    case DELETE_MOVIE_FAIL: {
+      return {
+        ...state,
+        errorDeleteMovie: action.payload.error,
+        loadingDeleteMovie: false,
+      };
+    }
+
+    case POST_UPDATE_MOVIE_REQUEST: {
+      return { ...state, loadingUpdateMovie: true, errorUpdateMovie: null, };
+    }
+    case POST_UPDATE_MOVIE_SUCCESS: {
+      return {
+        ...state,
+        successUpdateMovie: action.payload.data,
+        loadingUpdateMovie: false,
+      };
+    }
+    case POST_UPDATE_MOVIE_FAIL: {
+      return {
+        ...state,
+        errorUpdateMovie: action.payload.error,
+        loadingUpdateMovie: false,
+      };
+    }
+
+    case UPDATE_NONEIMAGE_MOVIE_REQUEST: {
+      return { ...state, loadingUpdateNoneImageMovie: true, errorUpdateNoneImageMovie: null, };
+    }
+    case UPDATE_NONEIMAGE_MOVIE_SUCCESS: {
+      return {
+        ...state,
+        successUpdateNoneImageMovie: action.payload.data,
+        loadingUpdateNoneImageMovie: false,
+      };
+    }
+    case UPDATE_NONEIMAGE_MOVIE_FAIL: {
+      return {
+        ...state,
+        errorUpdateNoneImageMovie: action.payload.error,
+        loadingUpdateNoneImageMovie: false,
+      };
+    }
+
+    case ADD_MOVIE_UPLOAD_REQUEST: {
+      return { ...state, loadingAddUploadMovie: true, errorAddUploadMovie: null, };
+    }
+    case ADD_MOVIE_UPLOAD_SUCCESS: {
+      return {
+        ...state,
+        successAddUploadMovie: action.payload.data,
+        loadingAddUploadMovie: false,
+      };
+    }
+    case ADD_MOVIE_UPLOAD_FAIL: {
+      return {
+        ...state,
+        errorAddUploadMovie: action.payload.error,
+        loadingAddUploadMovie: false,
+      };
+    }
+
+    case RESET_MOVIE_MANAGEMENT: {
+      return {
+        ...state,
+        loadingMovieList2: false,
+        errorMovieList2: null,
+
+        successDeleteMovie: "",
+        loadingDeleteMovie: false,
+        errorDeleteMovie: null,
+
+        successUpdateMovie: "",
+        loadingUpdateMovie: false,
+        errorUpdateMovie: null,
+
+        successUpdateNoneImageMovie: "",
+        loadingUpdateNoneImageMovie: false,
+        errorUpdateNoneImageMovie: null,
+
+        successAddUploadMovie: "",
+        loadingAddUploadMovie: false,
+        errorAddUploadMovie: null,
       };
     }
 
