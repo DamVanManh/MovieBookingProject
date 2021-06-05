@@ -14,7 +14,7 @@ const initialState = {
   errorMovieList: null,
   movieDetail: null,
 
-  movieList2: [],
+  movieList2: null,
   loadingMovieList2: false,
   errorMovieList2: null,
 

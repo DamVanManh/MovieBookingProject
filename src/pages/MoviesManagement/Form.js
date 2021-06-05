@@ -24,17 +24,17 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
 
   const handleSubmit = (movieObj) => {
     let hinhAnh = movieObj.hinhAnh
+    let fakeImage = {srcImage, maPhim: movieObj.maPhim}
     movieObj = { ...movieObj, ngayKhoiChieu: new Date(movieObj?.ngayKhoiChieu)?.toLocaleDateString('en-GB') } // backend yêu cầu định dạng: dd/mm/yyyy: input "2021-05-13", output 13/05/2021
     if (selectedPhim.maPhim) {
-      onUpdate(movieObj, hinhAnh)
+      onUpdate(movieObj, hinhAnh, fakeImage)
       return
     }
     const newMovieObj = { ...movieObj }
-    hinhAnh = srcImage
     delete newMovieObj.maPhim
     delete newMovieObj.biDanh
     delete newMovieObj.danhGia
-    onAddMovie(newMovieObj, hinhAnh)
+    onAddMovie(newMovieObj)
   }
 
   return (

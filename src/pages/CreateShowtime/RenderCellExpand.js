@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -6,7 +6,6 @@ import Popper from '@material-ui/core/Popper';
 import { isOverflown } from '@material-ui/data-grid';
 import { useStyles } from './styles';
 import Fade from '@material-ui/core/Fade';
-import Slider from '@material-ui/core/Slider';
 
 const GridCellExpand = function GridCellExpand(props) {
   const { width, value, field } = props;
@@ -17,13 +16,9 @@ const GridCellExpand = function GridCellExpand(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showFullCell, setShowFullCell] = React.useState(false);
   const [showPopper, setShowPopper] = React.useState(false);
-  const [widthImage, setwidthImage] = React.useState({ widthImage: 200, value: 20 })
 
   const handleMouseEnter = () => {
-    let isCurrentlyOverflown = isOverflown(cellValue.current);
-    if (field === "hinhAnh") {
-      isCurrentlyOverflown = true
-    }
+    const isCurrentlyOverflown = isOverflown(cellValue.current);
     setShowPopper(isCurrentlyOverflown);
     setAnchorEl(cellDiv.current);
     setShowFullCell(true);
@@ -49,11 +44,6 @@ const GridCellExpand = function GridCellExpand(props) {
     };
   }, [setShowFullCell, showFullCell]);
 
-  const handleChangeSize = (event, newValue) => {
-    let width = (200 * newValue + 12000) / 80
-    setwidthImage({ widthImage: width, value: newValue })
-  }
-
   return (
     <div
       ref={wrapper}
@@ -72,31 +62,26 @@ const GridCellExpand = function GridCellExpand(props) {
         }}
       />
       <div ref={cellValue} className="cellValue">
-        {field !== "hinhAnh" ? value :
-          <>
-            <img style={{ width: 50, height: 50, borderRadius: 4, marginRight: 15, }} src={value} alt="image" />
-            <Slider value={widthImage.value} classes={{ root: classes.rootSlider }} onChange={handleChangeSize} />
-          </>
-        }
+        {value}
       </div>
       {showPopper && (
         <Popper
           open={showFullCell && anchorEl !== null}
           anchorEl={anchorEl}
-          style={{ width: field === "hinhAnh" ? widthImage.widthImage : width, marginLeft: -17 }}
+          style={{ width, marginLeft: -17 }}
           placement="right"
           transition
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
-              {field === "hinhAnh" ? <img style={{ width: "100%", height: "100%", borderRadius: 4, }} src={value} alt="image" /> : <Paper
+              <Paper
                 elevation={1}
                 style={{ minHeight: wrapper.current.offsetHeight - 3, backgroundColor: "#00fff3" }}
               >
                 <Typography variant="body2" style={{ padding: 8 }}>
                   {value}
                 </Typography>
-              </Paper>}
+              </Paper>
             </Fade>
           )}
         </Popper>
@@ -113,7 +98,6 @@ GridCellExpand.propTypes = {
 export default function renderCellExpand(params) {
   return (
     <GridCellExpand
-      field={params.field}
       value={params.value ? params.value.toString() : ''}
       width={params.colDef.width}
     />

@@ -26,6 +26,10 @@ label {
   margin-right: 0px;
   margin-left: 0px;
 }
+/* sweetalert2 */
+.swal2-container {
+  z-index: 1200 !important;
+}
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document

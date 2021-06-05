@@ -7,12 +7,17 @@ import {
   ListItem,
   makeStyles
 } from '@material-ui/core';
+import Swal from "sweetalert2";
+import { useSelector } from 'react-redux';
+import { useLocation, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   item: {
     display: 'flex',
     paddingTop: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
+    position: "relative",
+    zIndex: 1201,
   },
   button: {
     color: theme.palette.text.secondary,
@@ -47,7 +52,30 @@ const NavItem = ({
   title,
   ...rest
 }) => {
+  const isExistUserModified = useSelector((state) => state.usersManagementReducer.isExistUserModified);
   const classes = useStyles();
+  const history = useHistory();
+  let location = useLocation();
+  const onChangePageManagement = () => {
+    if (isExistUserModified && location.pathname === "/admin/users" && href !== "/admin/users") {
+      Swal.fire({
+        title: 'Dữ liệu đã chỉnh sửa sẽ bị mất khi chuyển trang?',
+        text: "Bạn không thể hoàn nguyên!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Chuyển trang!',
+        cancelButtonText: 'Ở lại!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push(href);
+        }
+      })
+    } else {
+      history.push(href);
+    }
+  }
   return (
     <ListItem
       className={clsx(classes.item, className)}
@@ -55,10 +83,8 @@ const NavItem = ({
       {...rest}
     >
       <Button
-        activeClassName={classes.active}
-        className={classes.button}
-        component={RouterLink}
-        to={href}
+        className={clsx(classes.button, location.pathname === href && classes.active)}
+        onClick={onChangePageManagement}
       >
         {Icon && (
           <Icon

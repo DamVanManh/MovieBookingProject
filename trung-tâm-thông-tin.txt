@@ -1,6 +1,33 @@
 *** TÀI KHOẢN ADMIN: 
 "taiKhoan": "chauadmin1", "matKhau": "chauadmin",
 "taiKhoan": "khai", "matKhau": "321321",
+*** lấy thông tin: 
+{
+  "maPhim": 0,
+  "ngayChieuGioChieu": "string",
+  "maRap": 0,
+  "giaVe": 0
+}
+maLichChieu: 16909 : chứa thông tin lịch chiếu: rạp nào, ngày giờ chiếu, số ghế
+maPhim: 1329 :
+	- lấy thông tin của phim(trailer hinhAnh)
+	- LayThongTinLichChieuPhim: 
+		các thông tin của phim
+		maCumRap
+		lichChieuPhim: [{"maLichChieu": "40278","maRap": "467","tenRap": "Rạp 7","ngayChieuGioChieu": "2020-08-24T05:30:00","giaVe": 90000,"thoiLuong": 120},]
+maHeThongRap : "BHDStar", : 
+	- lấy thông tin HTR(logo HTR, tên hệ thống rạp)
+	- lấy thông tin cụm rạp(địa chỉ cụm rạp, tên và mã CR, danh sách rạp: "maRap": 451,"tenRap": "Rạp 1"
+	- LayThongTinLichChieuHeThongRap: 
+		maPhim
+		tenPhim
+		hinhAnh
+		lstLichChieuTheoPhim: [ {"maLichChieu": 40064,"maRap": "465","tenRap": "Rạp 5","ngayChieuGioChieu": "2019-09-07T10:10:00","giaVe": 100000}]
+maRap: 482
+
+"maCumRap": "bhd-star-cineplex-vincom-le-van-viet",
+"tenRap": "Rạp 2",
+
 *** banner carousel 
 1322 gái già lắm chiêu
 1337 Lừa Đểu Gặp Lừa Đảo

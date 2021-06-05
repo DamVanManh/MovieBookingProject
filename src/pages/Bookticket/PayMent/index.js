@@ -136,7 +136,7 @@ export default function PayMent() {
         {/* phone */}
         <div className={classes.payMentItem}>
           <label className={classes.labelPhone} >Phone</label>
-          <input type="text" name="phone" ref={phoneRef} onFocus={onFocus} onBlur={onBlur} value={dataSubmit.values.phone} className={classes.fillInPhone} onChange={onChange} autoComplete="off" />
+          <input type="number" name="phone" ref={phoneRef} onFocus={onFocus} onBlur={onBlur} value={dataSubmit.values.phone} className={classes.fillInPhone} onChange={onChange} autoComplete="off" />
           <p className={classes.error}>{dataSubmit.errors.phone}</p>
         </div>
 

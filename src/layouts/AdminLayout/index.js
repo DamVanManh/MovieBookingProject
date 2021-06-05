@@ -11,6 +11,7 @@ export default function AdminLayout(props) {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width:768px)');
   return (
+    // package notistack
     <SnackbarProvider maxSnack={3}>
       <TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
       <div className="row">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import { DataGrid, GridToolbar, GridOverlay } from '@material-ui/data-grid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,19 +34,20 @@ export default function MoviesManagement() {
   const { movieList2, loadingMovieList2, loadingDeleteMovie, errorDeleteMovie, successDeleteMovie, successUpdateMovie, errorUpdateMovie, loadingUpdateMovie, loadingAddUploadMovie, successAddUploadMovie, errorAddUploadMovie, loadingUpdateNoneImageMovie, successUpdateNoneImageMovie, errorUpdateNoneImageMovie } = useSelector((state) => state.movieReducer);
   const dispatch = useDispatch();
   const newImageUpdate = useRef("")
+  const callApiChangeImageSuccess = useRef(false)
   const [valueSearch, setValueSearch] = useState("")
   const clearSetSearch = useRef(0)
   const [openModal, setOpenModal] = React.useState(false);
   const selectedPhim = useRef(null)
-  const [forceMount, setForceMount] = useState("")
   useEffect(() => {
-    dispatch(getMovieListManagement())
+    if (!movieList2 || successUpdateMovie || successUpdateNoneImageMovie || successDeleteMovie || successAddUploadMovie) {
+      dispatch(getMovieListManagement())
+    }
     return () => dispatch(resetMoviesManagement())
   }, [successUpdateMovie, successUpdateNoneImageMovie, successDeleteMovie, successAddUploadMovie])
 
   useEffect(() => {
     if (movieList2) {
-      console.log("danh sách phim ", movieList2);
       let newMovieListDisplay
       newMovieListDisplay = movieList2.map(movie => ({ ...movie, xoa: "", id: movie.maPhim, }))
       setMovieListDisplay(newMovieListDisplay)
@@ -65,9 +66,11 @@ export default function MoviesManagement() {
 
   useEffect(() => {
     if (successUpdateMovie || successUpdateNoneImageMovie) {
+      callApiChangeImageSuccess.current = true
       enqueueSnackbar(`Update thành công phim: ${successUpdateMovie.tenPhim ?? ""}${successUpdateNoneImageMovie.tenPhim ?? ""}`, { variant: 'success', })
     }
     if (errorUpdateMovie || errorUpdateNoneImageMovie) {
+      callApiChangeImageSuccess.current = false
       enqueueSnackbar(`${errorUpdateMovie ?? ""}${errorUpdateNoneImageMovie ?? ""}`, { variant: 'error', })
     }
     dispatch(resetMoviesManagement())
@@ -86,7 +89,7 @@ export default function MoviesManagement() {
   // xóa một phim
   const handleDeleteOne = (maPhim) => {
     if (loadingDeleteMovie) { // nếu click xóa liên tục một user
-      return
+      return undefined
     }
     dispatch(deleteMovie(maPhim))
   }
@@ -95,28 +98,25 @@ export default function MoviesManagement() {
     setOpenModal(true)
   }
 
-  const onUpdate = (movieObj, srcImage) => {
+  const onUpdate = (movieObj, hinhAnh, fakeImage) => {
     if (loadingUpdateMovie || loadingUpdateNoneImageMovie) {
-      return
+      return undefined
     }
     setOpenModal(false);
-    newImageUpdate.current = srcImage
-    if (typeof srcImage === "string") { // nếu dùng updateMovieUpload sẽ bị reset danhGia về 10
+    newImageUpdate.current = fakeImage
+    if (typeof hinhAnh === "string") { // nếu dùng updateMovieUpload sẽ bị reset danhGia về 10
+      const movieUpdate = movieListDisplay.find(movie => movie.maPhim === fakeImage.maPhim) // lẩy ra url gốc, tránh gửi base64 tới backend
+      movieObj.hinhAnh = movieUpdate.hinhAnh
       dispatch(updateMovie(movieObj))
       return undefined
     }
-    if (typeof srcImage === "object") {
-      console.log("set ma mới ", movieObj.maPhim);
-      setForceMount(movieObj.maPhim)
-    }
     dispatch(updateMovieUpload(movieObj))
   }
-  const onAddMovie = (movieObj, hinhAnh) => {
+  const onAddMovie = (movieObj) => {
     if (loadingAddUploadMovie) {
-      return
+      return undefined
     }
     setOpenModal(false);
-    newImageUpdate.current = hinhAnh
     dispatch(addMovieUpload(movieObj))
   }
   const handleAddMovie = () => {
@@ -148,32 +148,39 @@ export default function MoviesManagement() {
         .replace(/[\u0300-\u036f]/g, '')
         .replace(/đ/g, 'd').replace(/Đ/g, 'D');
     }
-    const searchMovieListDisplay = movieListDisplay.filter(movie => {
+    let searchMovieListDisplay = movieListDisplay.filter(movie => {
       const matchTenPhim = removeAccents((movie.tenPhim ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
       const matchMoTa = removeAccents((movie.moTa ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
       const matchNgayKhoiChieu = removeAccents((movie.ngayKhoiChieu ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
       return matchTenPhim || matchMoTa || matchNgayKhoiChieu
     })
-    console.log("refresh tới đây ", searchMovieListDisplay);
+    if (newImageUpdate.current && callApiChangeImageSuccess.current) { // hiển thị hình bằng base64 thay vì url, lỗi react không hiển thị đúng hình mới cập nhật(đã cập hình thanh công nhưng url backend trả về giữ nguyên đường dẫn)
+      searchMovieListDisplay = searchMovieListDisplay.map(movie => {
+        if (movie.maPhim === newImageUpdate.current.maPhim) {
+          return { ...movie, hinhAnh: newImageUpdate.current.srcImage }
+        }
+        return movie
+      })
+    }
     return searchMovieListDisplay
   }
 
   const columns =
     [
       { field: 'xoa', headerName: 'Hành Động', width: 130, renderCell: (params) => <Action onEdit={handleEdit} onDeleted={handleDeleteOne} phimItem={params.row} />, headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
-      { field: 'tenPhim', headerName: 'Tên phim', width: 250, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: params => <RenderCellExpand params={params} /> },
+      { field: 'tenPhim', headerName: 'Tên phim', width: 250, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: RenderCellExpand },
       {
         field: 'trailer', headerName: 'Trailer', width: 130, renderCell: (params) => <div style={{ display: "inline-block" }}>
           <ThumbnailYoutube urlYoutube={params.row.trailer} />
         </div>, headerAlign: 'center', align: "center", headerClassName: 'custom-header',
       },
-      { field: 'hinhAnh', headerName: 'Hình ảnh', width: 200, headerAlign: 'center', align: "center", headerClassName: 'custom-header', renderCell: params => <RenderCellExpand forceMount={forceMount} params={params} /> },
-      { field: 'moTa', headerName: 'Mô Tả', width: 200, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: params => <RenderCellExpand params={params} /> },
+      { field: 'hinhAnh', headerName: 'Hình ảnh', width: 200, headerAlign: 'center', align: "center", headerClassName: 'custom-header', renderCell: RenderCellExpand },
+      { field: 'moTa', headerName: 'Mô Tả', width: 200, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: RenderCellExpand },
       { field: 'ngayKhoiChieu', headerName: 'Ngày khởi chiếu', width: 160, type: 'date', headerAlign: 'center', align: "center", headerClassName: 'custom-header', valueFormatter: (params) => params.value.slice(0, 10), },
       { field: 'danhGia', headerName: 'Đánh giá', width: 120, headerAlign: 'center', align: "center", headerClassName: 'custom-header', },
       { field: 'maPhim', hide: true, width: 130 },
       { field: 'maNhom', hide: true, width: 130 },
-      { field: 'biDanh', hide: true, width: 200, renderCell: params => <RenderCellExpand params={params} /> },
+      { field: 'biDanh', hide: true, width: 200, renderCell: RenderCellExpand },
     ]
 
   return (

@@ -62,7 +62,7 @@ const useStyle = makeStyles({
 
   // popup menu
   menu: props => ({ maxHeight: 300, ...props.customScrollbar }),
-  'menu__item': {
+  menu__item: {
     width: '100%',
     minHeight: "auto",
     display: 'block',

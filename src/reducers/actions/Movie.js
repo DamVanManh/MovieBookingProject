@@ -92,7 +92,6 @@ export const updateMovieUpload = (phimObj) => {
       })
       .catch(
         error => {
-          console.log("updateMovieUpload ", error);
           dispatch({
             type: POST_UPDATE_MOVIE_FAIL,
             payload: { error: error.response.data }

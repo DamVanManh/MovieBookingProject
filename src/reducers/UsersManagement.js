@@ -2,10 +2,11 @@ import {
   GET_USER_LIST_REQUEST, GET_USER_LIST_SUCCESS, GET_USER_LIST_FAIL,
   DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAIL, RESET_USER_LIST,
   UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL,
-  ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAIL
+  ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAIL,
+  SET_IS_EXIST_USER_MODIFIED,
 } from './constants/UsersManagement';
 const initialState = {
-  usersList: [],
+  usersList: null,
   loadingUsersList: false,
   errorUsersList: null,
 
@@ -20,6 +21,8 @@ const initialState = {
   successAddUser: null,
   loadingAddUser: false,
   errorAddUser: null,
+
+  isExistUserModified: false,
 
 }
 
@@ -101,6 +104,11 @@ const usersManagementReducer = (state = initialState, action) => {
       return {
         ...state, loadingAddUser: false, errorAddUser: action.payload.error, successAddUser: null
       }
+    }
+
+    case SET_IS_EXIST_USER_MODIFIED: {
+      state.isExistUserModified = action.payload.isExistUserModified
+      return state
     }
     default:
       return state;

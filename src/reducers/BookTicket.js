@@ -1,7 +1,9 @@
 import {
   BOOK_TICKET_REQUEST, BOOK_TICKET_SUCCESS, BOOK_TICKET_FAIL, GET_LISTSEAT_REQUEST,
   GET_LISTSEAT_SUCCESS, GET_LISTSEAT_FAIL, CHANGE_LISTSEAT, RESET_DATA, SET_DATA_PAYMENT,
-  SET_READY_PAYMENT, TIMEOUT, SET_ISMOBILE, SET_STEP, INIT_DATA, RESET_ALERT_OVER10, SET_ALERT_OVER10
+  SET_READY_PAYMENT, TIMEOUT, SET_ISMOBILE, SET_STEP, INIT_DATA, RESET_ALERT_OVER10, SET_ALERT_OVER10,
+  CREATE_SHOWTIME_REQUEST, CREATE_SHOWTIME_SUCCESS, CREATE_SHOWTIME_FAIL,
+  RESET_CREATE_SHOWTIME,
 } from './constants/BookTicket';
 
 const initialState = {
@@ -37,6 +39,10 @@ const initialState = {
   loadingBookingTicket: false,
   successBookingTicketMessage: null,
   errorBookTicketMessage: null,
+
+  loadingCreateShowtime: false,
+  successCreateShowtime: null,
+  errorCreateShowtime: null,
 }
 
 const bookTicketReducer = (state = initialState, action) => {
@@ -91,7 +97,7 @@ const bookTicketReducer = (state = initialState, action) => {
     case RESET_DATA: {
       return {
         ...state,
-        danhSachPhongVe:{},
+        danhSachPhongVe: {},
         paymentMethod: '',
         isSelectedSeat: false,
         listSeatSelected: [],
@@ -175,6 +181,35 @@ const bookTicketReducer = (state = initialState, action) => {
         ...state,
         isMobile: action.payload.isMobile,
       }
+    }
+
+    case CREATE_SHOWTIME_REQUEST: {
+      return {
+        ...state,
+        loadingCreateShowtime: true,
+        errorCreateShowtime: null,
+      }
+    }
+    case CREATE_SHOWTIME_SUCCESS: {
+      return {
+        ...state,
+        successCreateShowtime: action.payload.data,
+        loadingCreateShowtime: false,
+      }
+    }
+    case CREATE_SHOWTIME_FAIL: {
+      return {
+        ...state,
+        errorCreateShowtime: action.payload.error,
+        loadingCreateShowtime: false,
+      }
+    }
+
+    case RESET_CREATE_SHOWTIME: {
+      state.loadingCreateShowtime = false
+      state.successCreateShowtime = null
+      state.errorCreateShowtime = null
+      return state
     }
 
     default:

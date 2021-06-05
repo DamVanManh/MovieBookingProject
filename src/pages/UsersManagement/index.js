@@ -15,7 +15,7 @@ import InputBase from '@material-ui/core/InputBase';
 import EditIcon from '@material-ui/icons/Edit';
 
 import useStyles from './styles';
-import { deleteUser, getUsersList, resetUserList, putUserUpdate, postAddUser } from "../../reducers/actions/UsersManagement";
+import { deleteUser, getUsersList, resetUserList, putUserUpdate, postAddUser, setStatusIsExistUserModified } from "../../reducers/actions/UsersManagement";
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 function validateEmail(email) {
@@ -48,17 +48,26 @@ export default function UsersManagement() {
   const [addUser, setaddUser] = useState({ data: [{ id: nanoid(6), taiKhoan: "", matKhau: "", hoTen: "", email: "", soDt: "", maLoaiNguoiDung: false, }], toggle: false, readyAdd: false, isFilledIn: false })
 
   useEffect(() => { // get list user lần đầu
-    dispatch(getUsersList())
+    if (!usersList) {
+      dispatch(getUsersList())
+    }
     return () => dispatch(resetUserList())
   }, [])
   useEffect(() => { // xóa hoặc update thành công thì refresh list user
     if (successDelete || successUpdateUser || btnReFresh || successAddUser) {
       dispatch(getUsersList())
     }
-  }, [successDelete, successUpdateUser, btnReFresh, successAddUser]) //
+  }, [successDelete, successUpdateUser, btnReFresh, successAddUser])
+  useEffect(() => {
+    if (userListmodified.userListmodified.length || addUser.isFilledIn) {
+      dispatch(setStatusIsExistUserModified(true))
+    } else {
+      dispatch(setStatusIsExistUserModified(false))
+    }
+  }, [userListmodified.userListmodified, addUser.isFilledIn])
 
   useEffect(() => { // dispatch(getUsersList()) thành công thì thêm props vào item để hiển thị theo yêu cầu DataGrid
-    if (usersList.length) {
+    if (usersList?.length) {
       let newUsersListDisplay
       if (userListmodified.userListmodified.length) { // nếu nhấn cancel và vẫn còn một số user chưa update thì giữ lại data dang chỉnh sửa
         const userListmodifiedRest = userListmodified.userListmodified
@@ -171,6 +180,7 @@ export default function UsersManagement() {
   )
 
   // handleEditCellChangeCommitted thực thi mỗi khi cell change được commit(không lỗi validation)
+  // so sánh với giá trị trước khi chỉnh sửa, nếu khác biệt thì thêm user vào danh sách chuẩn bị update, nếu không khác biệt thì xóa khỏi danh sách hoặc không làm gì
   const handleEditCellChangeCommitted = useCallback(
     ({ id, field, props: { value } }) => {
       if (addUser.toggle) {
@@ -323,12 +333,12 @@ export default function UsersManagement() {
 
   const columns = useMemo(() => ( // cột tài khoản không được chỉnh sửa, backend dùng "taiKhoan" để định danh user
     [
-      { field: 'xoa', headerName: 'Xóa', width: 100, type: 'number', renderCell: (params) => <ButtonDelete onDeleted={handleDeleteOne} taiKhoan={params.row.taiKhoan} />, headerAlign: 'center', align: "center", headerClassName: 'custom-header', hide: addUser.toggle, },
-      { field: 'taiKhoan', headerName: 'Tài Khoản', width: 250, editable: addUser.toggle, headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
-      { field: 'matKhau', headerName: 'Mật Khẩu', width: 300, editable: true, headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
-      { field: 'hoTen', headerName: 'Họ tên', width: 300, editable: true, headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
-      { field: 'email', headerName: 'Email', width: 300, editable: true, headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
-      { field: 'soDt', headerName: 'Số điện thoại', width: 200, editable: true, type: 'number', headerAlign: 'left', align: "left", headerClassName: 'custom-header', },
+      { field: 'xoa', headerName: 'Xóa', width: 100, renderCell: (params) => <ButtonDelete onDeleted={handleDeleteOne} taiKhoan={params.row.taiKhoan} />, headerAlign: 'center', align: "center", headerClassName: 'custom-header', hide: addUser.toggle, },
+      { field: 'taiKhoan', headerName: 'Tài Khoản', width: 250, editable: addUser.toggle, headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
+      { field: 'matKhau', headerName: 'Mật Khẩu', width: 300, editable: true, headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
+      { field: 'hoTen', headerName: 'Họ tên', width: 300, editable: true, headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
+      { field: 'email', headerName: 'Email', width: 300, editable: true, headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
+      { field: 'soDt', headerName: 'Số điện thoại', width: 200, editable: true, type: 'number', headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
       { field: 'maLoaiNguoiDung', headerName: 'isAdmin', width: 145, editable: true, type: 'boolean', headerAlign: 'center', align: "center", headerClassName: 'custom-header', },
       { field: 'ismodify', width: 0, type: 'boolean', headerClassName: 'custom-header', hide: true },
     ]

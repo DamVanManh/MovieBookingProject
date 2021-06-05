@@ -23,6 +23,7 @@ const theatersApi = {
     const path = `/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maHeThongRap}`;
     return axiosClient.get(path);
   },
+
 };
 
 export default theatersApi;

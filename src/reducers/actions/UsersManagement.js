@@ -3,7 +3,8 @@ import {
   GET_USER_LIST_REQUEST, GET_USER_LIST_SUCCESS, GET_USER_LIST_FAIL,
   DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAIL, RESET_USER_LIST,
   UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL,
-  ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAIL
+  ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAIL,
+  SET_IS_EXIST_USER_MODIFIED,
 } from '../constants/UsersManagement';
 
 export const getUsersList = () => {
@@ -105,6 +106,14 @@ export const postAddUser = (user) => {
           payload: { error: error.response.data }
         })
       })
+  }
+}
 
+export const setStatusIsExistUserModified = (isExistUserModified) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_IS_EXIST_USER_MODIFIED,
+      payload: { isExistUserModified }
+    })
   }
 }
