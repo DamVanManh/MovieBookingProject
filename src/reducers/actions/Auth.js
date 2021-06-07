@@ -10,7 +10,7 @@ export const login = (user) => {
     usersApi.postDangNhap(user)
       .then(result => {
         // lưu thông tin user xuống local storeage
-        localStorage.setItem("user", JSON.stringify({ ...result.data, avtIdUser: nanoid(10) }));
+        localStorage.setItem("user", JSON.stringify({ ...result.data, avtIdUser: result.data.taiKhoan }));
         dispatch({
           type: LOGIN_SUCCESS,
           payload: {

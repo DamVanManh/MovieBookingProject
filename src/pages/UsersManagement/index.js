@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 
-import { GridOverlay, DataGrid } from '@material-ui/data-grid';
+import { DataGrid } from '@material-ui/data-grid';
 import { nanoid } from 'nanoid'
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';

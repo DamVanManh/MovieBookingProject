@@ -4,6 +4,7 @@ import {
   UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL,
   ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAIL,
   SET_IS_EXIST_USER_MODIFIED,
+  GET_INFO_USER_REQUEST, GET_INFO_USER_SUCCESS, GET_INFO_USER_FAIL,
 } from './constants/UsersManagement';
 const initialState = {
   usersList: null,
@@ -24,6 +25,9 @@ const initialState = {
 
   isExistUserModified: false,
 
+  successInfoUser: null,
+  loadingInfoUser: false,
+  errorInfoUser: null,
 }
 
 const usersManagementReducer = (state = initialState, action) => {
@@ -109,6 +113,24 @@ const usersManagementReducer = (state = initialState, action) => {
     case SET_IS_EXIST_USER_MODIFIED: {
       state.isExistUserModified = action.payload.isExistUserModified
       return state
+    }
+
+    case GET_INFO_USER_REQUEST: {
+      return { ...state, loadingInfoUser: true, errorInfoUser: null };
+    }
+    case GET_INFO_USER_SUCCESS: {
+      return {
+        ...state,
+        successInfoUser: action.payload.data,
+        loadingInfoUser: false
+      };
+    }
+    case GET_INFO_USER_FAIL: {
+      return {
+        ...state,
+        errorInfoUser: action.payload.error,
+        loadingInfoUser: false,
+      };
     }
     default:
       return state;

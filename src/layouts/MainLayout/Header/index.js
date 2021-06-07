@@ -50,7 +50,6 @@ export default function Header() {
 
   useEffect(() => { // clicklink > push to home > scrollTo after loading
     if (location.state && !loading) {
-      setOpenDrawer(false)
       setTimeout(() => {
         scroller.scrollTo(location.state, {
           duration: 800,
@@ -82,13 +81,21 @@ export default function Header() {
     history.push("/")
   }
   const handleClickLink = (id) => {
+    setOpenDrawer(false)
     if (location.pathname === "/") {
-      setOpenDrawer(false)
+
       scroller.scrollTo(id, {
         duration: 800,
         smooth: 'easeInOutQuart'
       })
-    } else history.push("/", id)
+    } else {
+      history.push("/", id)
+    }
+  }
+
+  const handleUser = () => {
+    history.push("/taikhoan")
+    setOpenDrawer(false);
   }
 
   const handleDrawerOpen = () => {
@@ -97,6 +104,7 @@ export default function Header() {
   const handleDrawerClose = () => {
     setOpenDrawer(false);
   };
+
 
   return (
 
@@ -128,7 +136,7 @@ export default function Header() {
           <div className={classes.user}>
             {currentUser ?
               <List disablePadding className={classes.auth}>
-                <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }}>
+                <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide) }} onClick={handleUser}>
                   <ListItemIcon classes={{ root: classes.icon }}>
                     <Avatar alt="avatar" className={classes.avatar} src={FAKE_AVATAR} />
                   </ListItemIcon>
@@ -181,7 +189,7 @@ export default function Header() {
       >
         <div className={classes.drawerHeader}>
           {currentUser ?
-            <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide, classes.hover) }}>
+            <ListItem button classes={{ root: clsx(classes.itemAuth, classes.divide, classes.hover) }} onClick={handleUser}>
               <ListItemIcon classes={{ root: classes.icon }}>
                 <Avatar alt="avatar" className={classes.avatar} src={FAKE_AVATAR} />
               </ListItemIcon>

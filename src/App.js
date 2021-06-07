@@ -14,15 +14,18 @@ const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
 // guards
 const AdminRoute = lazy(() => import('./guards/AdminRoute'));
 const CheckoutRoute = lazy(() => import('./guards/CheckoutRoute'));
+const UserProfileRoute = lazy(() => import('./guards/UserProfileRoute'));
 // page
 const Homepage = lazy(() => import('./pages/Homepage'));
 const MovieDetail = lazy(() => import('./pages/MovieDetail'));
+const UserProfile = lazy(() => import('./pages/UserProfile'));
 const BookTickets = lazy(() => import('./pages/Bookticket'));
 const UsersManagement = lazy(() => import('./pages/UsersManagement'));
 const MoviesManagement = lazy(() => import('./pages/MoviesManagement'));
 const CreateShowtime = lazy(() => import('./pages/CreateShowtime'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -47,11 +50,12 @@ function App() {
           <Switch>
 
             {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
-            <Route exact path={["/", "/phim/:maPhim"]}>
+            <Route exact path={["/", "/phim/:maPhim", "/taikhoan"]}>
               <Switch >
                 <MainLayout >
                   <Route exact path="/" component={Homepage} />
                   <Route exact path="/phim/:maPhim" component={MovieDetail} />
+                  <UserProfileRoute exact path="/taikhoan" component={UserProfile} />
                 </MainLayout>
               </Switch>
             </Route>
@@ -80,7 +84,8 @@ function App() {
             </Route>
 
             {/* khi người dùng nhập sai địa chỉ ví dụ localhost:3002/fdsf thì tự động chuyển sang trang home*/}
-            <Redirect to="/" />
+            {/* <Redirect to="/" />NotFoundView */}
+            <Route component={NotFound} />
           </Switch>
         </Suspense>
       </MuiThemeProvider>

@@ -3,12 +3,11 @@ import React, { useEffect } from 'react';
 import MovieIcon from '@material-ui/icons/Movie';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -94,9 +93,7 @@ export default function NavBar({ onMobileClose, openMobile }) {
 
         <Avatar
           className={classes.avatar}
-          // component={RouterLink}
           src={user.avatar}
-        // to="/app/account"
         />
         <Typography
           className={classes.name}
@@ -118,7 +115,7 @@ export default function NavBar({ onMobileClose, openMobile }) {
       <Box p={2}>
         <List>
           {items.map((item) => (
-            // NavItem hiện thị ra icon và title, dùng NavLink link tới nơi bạn click
+            // NavItem hiện thị ra icon và title
             <NavItem
               href={item.href}
               key={item.title}

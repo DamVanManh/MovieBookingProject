@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getMovieList } from '../../reducers/actions/Movie';
 import { getTheaters } from '../../reducers/actions/Theater';
@@ -14,10 +14,16 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Homepage() {
   const dispatch = useDispatch();
+  const { movieList } = useSelector((state) => state.movieReducer);
+  const { theaterList } = useSelector((state) => state.theaterReducer);
 
   useEffect(() => {
-    dispatch(getMovieList())
-    dispatch(getTheaters())
+    if (!movieList.length) {
+      dispatch(getMovieList())
+    }
+    if (!theaterList.length) {
+      dispatch(getTheaters())
+    }
   }, [])
 
   return (

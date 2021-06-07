@@ -25,7 +25,7 @@ import Swal from "sweetalert2";
 import { useLocation, useHistory } from "react-router-dom";
 import { scroller } from 'react-scroll'
 
-import { FAKE_AVATAR, avtIdUser, UNKNOW_USER } from '../../../constants/config';
+import { FAKE_AVATAR, UNKNOW_USER } from '../../../constants/config';
 import useStyles from './style';
 import scroll from '../../../utilities/scroll';
 import LichChieuDesktop from './LichChieuDesktop';
@@ -68,7 +68,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
   const [warningtext, setwarningtext] = useState(false)
   const [commentListDisplay, setCommentListDisplay] = useState({ comment: [], page: 5, hideBtn: false, idEnd: "" })
   const [dataComment, setdataComment] = useState({
-    avtId: avtIdUser,
+    avtId: currentUser?.taiKhoan,
     username: currentUser?.hoTen,
     point: 2.5,
     post: "",
@@ -99,19 +99,6 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
     }
   }, [commentList])
 
-  const handlePostComment = () => {
-    if (loadingPostComment) {
-      return
-    }
-    if (dataComment.post.length < 61) { // nếu comment quá ngắn
-      setwarningtext(true)
-      return
-    }
-    setwarningtext(false)
-    const currentISOString = new Date().toISOString();
-    setOpenComment(false);
-    dispatch(postComment({ ...dataComment, createdAt: currentISOString, point: dataComment.point * 2 }))
-  }
   useEffect(() => { // mỗi khi mount component, postComment, likeComment thành công thì call api lấy comment mới
     dispatch(getComment())
   }, [postCommentObj, likeCommentObj])
@@ -130,6 +117,20 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
       })
     }
   }, [commentListDisplay.idEnd])
+
+  const handlePostComment = () => {
+    if (loadingPostComment) {
+      return
+    }
+    if (dataComment.post.length < 61) { // nếu comment quá ngắn
+      setwarningtext(true)
+      return
+    }
+    setwarningtext(false)
+    const currentISOString = new Date().toISOString();
+    setOpenComment(false);
+    dispatch(postComment({ ...dataComment, createdAt: currentISOString, point: dataComment.point * 2 }))
+  }
 
   const setopenMore = () => {
     let hideBtn = false

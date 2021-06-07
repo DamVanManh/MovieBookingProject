@@ -3,7 +3,7 @@ const currentUser = localStorage.getItem("user") ? JSON.parse(localStorage.getIt
 const avtIdUser = currentUser ? currentUser?.avtIdUser : nanoid(10)
 export { avtIdUser }
 export const BASE_URL = "https://movie0706.cybersoft.edu.vn/api"
-export const FAKE_AVATAR = `https://i.pravatar.cc/150?u=${avtIdUser}`
+export const FAKE_AVATAR = `https://i.pravatar.cc/300?u=${avtIdUser}`
 export const UNKNOW_USER = "/img/unknowUser.png"
 export const DISPLAY_MOBILE_BOOKTICKET = "(max-width:768px)"
 export const DISPLAY_MOBILE_THEATER = "(max-width:678px)"
