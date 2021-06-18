@@ -1,5 +1,4 @@
 import { makeStyles } from "@material-ui/core"
-import { Translate } from "@material-ui/icons";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({

@@ -11,6 +11,8 @@ import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { FAKE_AVATAR } from '../../constants/config';
 import { getInfoUser, putUserUpdate, resetUserList } from "../../reducers/actions/UsersManagement";
@@ -24,6 +26,8 @@ const useStyles = makeStyles(theme => ({
   },
   field: {
     maxWidth: 500,
+    paddingRight: 24,
+    paddingLeft: 24,
   },
   password: {
     position: "relative"
@@ -37,14 +41,14 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, isDesktop, ...other } = props;
   return (
     <div
       hidden={value !== index}
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box style={{ padding: isDesktop ? "24px" : "24px 0px 0px" }}>
           {children}
         </Box>
       )}
@@ -59,6 +63,8 @@ TabPanel.propTypes = {
 };
 
 export default function Index() {
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
   const classes = useStyles();
   const dispatch = useDispatch();
   const { successInfoUser, loadingInfoUser } = useSelector((state) => state.usersManagementReducer);
@@ -133,7 +139,6 @@ export default function Index() {
       settypePassword("password")
     }
   }
-
   return (
     <div className="bootstrap snippet mb-4">
       <br />
@@ -144,16 +149,16 @@ export default function Index() {
             <h1>{successInfoUser?.taiKhoan}</h1>
           </div><br />
           <ul className="list-group">
-            <li className="list-group-item text-muted">Activity</li>
-            <li className="list-group-item text-right"><span className="float-left"><strong>Posts</strong></span>{dataShort.posts}</li>
-            <li className="list-group-item text-right"><span className="float-left"><strong>Like Posts</strong></span>{dataShort.likePosts}</li>
-            <li className="list-group-item text-right"><span className="float-left"><strong>Ticket</strong></span>{dataShort.ticket}</li>
-            <li className="list-group-item text-right"><span className="float-left"><strong>Total $</strong></span>{dataShort.total}</li>
+            <li className="list-group-item text-muted">Hoạt động</li>
+            <li className="list-group-item text-right"><span className="float-left"><strong>Bình luận</strong></span>{dataShort.posts}</li>
+            <li className="list-group-item text-right"><span className="float-left"><strong>Bình luận được thích </strong></span>{dataShort.likePosts}</li>
+            <li className="list-group-item text-right"><span className="float-left"><strong>Số lần thanh toán</strong></span>{dataShort.ticket}</li>
+            <li className="list-group-item text-right"><span className="float-left"><strong>Tổng tiền $</strong></span>{dataShort.total}</li>
           </ul>
         </div>
-        <div className="col-sm-9 pt-3">
+        <div className={`col-sm-9 py-3 px-0`}>
           <AppBar className={classes.appBar} position="static" >
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+            <Tabs value={value} onChange={handleChange} centered={!isDesktop}>
               <Tab label="Thông tin tài khoản" />
               <Tab label="Thông tin đặt vé" />
             </Tabs>
@@ -161,13 +166,13 @@ export default function Index() {
           <TabPanel value={value} index={0}>
             <Formik
               initialValues={{
-                taiKhoan: successInfoUser?.taiKhoan,
-                matKhau: successInfoUser?.matKhau,
-                email: successInfoUser?.email,
-                soDt: successInfoUser?.soDT,
+                taiKhoan: successInfoUser?.taiKhoan ?? "",
+                matKhau: successInfoUser?.matKhau ?? "",
+                email: successInfoUser?.email ?? "",
+                soDt: successInfoUser?.soDT ?? "",
                 maNhom: "GP09",
                 maLoaiNguoiDung: "KhachHang",
-                hoTen: successInfoUser?.hoTen,
+                hoTen: successInfoUser?.hoTen ?? "",
               }}
               enableReinitialize // cho phép cập nhật giá trị initialValues
               validationSchema={updateUserSchema}
@@ -188,7 +193,7 @@ export default function Index() {
                     onChange={props.handleChange}
                   />
                   <div className={classes.eye} onClick={handleToggleHinePassword}>
-                    {typePassword === "password" ? <i class="fa fa-eye-slash"></i> : <i class="fa fa-eye"></i>}
+                    {typePassword === "password" ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
                   </div>
                 </div>
                 <div className="form-group">
@@ -219,16 +224,16 @@ export default function Index() {
               </Form>
             )}</Formik>
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={1} isDesktop={isDesktop}>
             <table className="table table-striped">
               <thead>
                 <tr>
                   <th scope="col">Stt</th>
-                  <th scope="col">Tên Phim</th>
-                  <th scope="col">Thời lượng phim</th>
+                  <th scope="col">Tên phim</th>
+                  {isDesktop && <th scope="col">Thời lượng phim</th>}
                   <th scope="col">Ngày đặt</th>
                   <th scope="col">Số lượng ghế</th>
-                  <th scope="col">Giá vé(vnđ)</th>
+                  {isDesktop && <th scope="col">Giá vé(vnđ)</th>}
                   <th scope="col">Tổng tiền(vnđ)</th>
                 </tr>
               </thead>
@@ -237,10 +242,10 @@ export default function Index() {
                   <tr key={sticket.maVe}>
                     <th scope="row">{i + 1}</th>
                     <td>{sticket.tenPhim}</td>
-                    <td>{sticket.thoiLuongPhim}</td>
+                    {isDesktop && <td>{sticket.thoiLuongPhim}</td>}
                     <td>{new Date(sticket.ngayDat).toLocaleString()}</td>
                     <td>{sticket.danhSachGhe.length}</td>
-                    <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe)}</td>
+                    {isDesktop && <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe)}</td>}
                     <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe * sticket.danhSachGhe.length)}</td>
                   </tr>
                 )).reverse()}

@@ -12,7 +12,7 @@ import './movie.scss'
 function MovieItem({ movie }) {
   const classes = useStyles({ bg: movie.hinhAnh });
   const history = useHistory();
-  const { thoiLuong, danhGia } = useApiThoiLuongDanhGia(movie.maPhim)
+  const { thoiLuong } = useApiThoiLuongDanhGia(movie.maPhim)
 
   return (
     <div style={{
@@ -36,7 +36,7 @@ function MovieItem({ movie }) {
               <p><span className="c18">C18</span>{movie.tenPhim}</p>
             </div>
             <p className="pt-2">
-              {thoiLuong ? <span className="text_info">{thoiLuong} phút - Tix {danhGia}</span> : <span className="text_info">Tix {danhGia}</span>}
+              {thoiLuong ? <span className="text_info">{thoiLuong} phút - Tix {movie.danhGia}</span> : <span className="text_info">Tix {movie.danhGia}</span>}
             </p>
           </div>
           <div className="film__button">

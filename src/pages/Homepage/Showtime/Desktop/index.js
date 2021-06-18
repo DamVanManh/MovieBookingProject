@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import MovieItem from './MovieItem';
 import useStyles from './style';
 
-export function SampleNextArrow(props) {
+export function NextArrow(props) {
   const classes = useStyles();
   const { onClick } = props;
   return (
@@ -14,7 +14,7 @@ export function SampleNextArrow(props) {
   );
 }
 
-export function SamplePrevArrow(props) {
+export function PrevArrow(props) {
   const classes = useStyles();
   const { onClick } = props;
   return (
@@ -22,7 +22,7 @@ export function SamplePrevArrow(props) {
   );
 }
 
-export default function SimpleTabs({ arrayData, value }) {
+export default function Desktop({ arrayData, value }) {
   const classes = useStyles();
   const settings = {
     className: "center",
@@ -31,8 +31,8 @@ export default function SimpleTabs({ arrayData, value }) {
     speed: 500,
     rows: 2,
     slidesPerRow: 4,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />
   };
   return (
     <div className={classes.container}>

@@ -14,7 +14,7 @@ function AdminRoute(props) {
         }
         return <Redirect to='/' />
       }
-      return <Redirect to='/login' />
+      return <Redirect to='/dangnhap' />
     }} />
   )
 }

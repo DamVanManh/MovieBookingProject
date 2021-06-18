@@ -49,7 +49,7 @@ export default function Header() {
   }, [isDesktop])
 
   useEffect(() => { // clicklink > push to home > scrollTo after loading
-    if (location.state && !loading) {
+    if (location.state) {
       setTimeout(() => {
         scroller.scrollTo(location.state, {
           duration: 800,
@@ -57,7 +57,7 @@ export default function Header() {
         })
       }, 500);
     }
-  }, [loading])
+  }, [location.pathname])
 
   const handleLogout = () => {
     setOpenDrawer(false)

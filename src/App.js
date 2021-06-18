@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import ModalTrailer from './components/ModalTrailer';
@@ -51,13 +51,11 @@ function App() {
 
             {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
             <Route exact path={["/", "/phim/:maPhim", "/taikhoan"]}>
-              <Switch >
-                <MainLayout >
-                  <Route exact path="/" component={Homepage} />
-                  <Route exact path="/phim/:maPhim" component={MovieDetail} />
-                  <UserProfileRoute exact path="/taikhoan" component={UserProfile} />
-                </MainLayout>
-              </Switch>
+              <MainLayout >
+                <Route exact path="/" component={Homepage} />
+                <Route exact path="/phim/:maPhim" component={MovieDetail} />
+                <UserProfileRoute exact path="/taikhoan" component={UserProfile} />
+              </MainLayout>
             </Route>
 
             <CheckoutRoute exact path="/datve/:maLichChieu" component={BookTickets} />
@@ -65,21 +63,17 @@ function App() {
             {/* component trong này chỉ cho phép truy cập khi tài khoản là admin */}
             <Route exact path={["/admin/users", "/admin/movies", "/admin/showtimes"]}>
               <AdminLayout >
-                <Switch >
-                  <AdminRoute exact path='/admin/users' component={UsersManagement} />
-                  <AdminRoute exact path='/admin/movies' component={MoviesManagement} />
-                  <AdminRoute exact path='/admin/showtimes' component={CreateShowtime} />
-                </Switch>
+                <AdminRoute exact path='/admin/users' component={UsersManagement} />
+                <AdminRoute exact path='/admin/movies' component={MoviesManagement} />
+                <AdminRoute exact path='/admin/showtimes' component={CreateShowtime} />
               </AdminLayout>
             </Route>
 
             {/* component hiển thị bên trong route này luôn có giao diện AuthLayout */}
             <Route exact path={["/dangnhap", "/dangky"]}>
               <AuthLayout >
-                <Switch >
-                  <Route exact path="/dangnhap" component={Login} />
-                  <Route exact path="/dangky" component={Register} />
-                </Switch>
+                <Route exact path="/dangnhap" component={Login} />
+                <Route exact path="/dangky" component={Register} />
               </AuthLayout>
             </Route>
 

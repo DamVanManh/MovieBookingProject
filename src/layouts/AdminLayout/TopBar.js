@@ -12,15 +12,24 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
+import Tooltip from '@material-ui/core/Tooltip';
+import { useDispatch } from 'react-redux';
+
+import { LOGOUT } from '../../reducers/constants/Auth';
 
 const TopBar = ({
   onMobileNavOpen,
   ...rest
 }) => {
   const [notifications] = useState([]);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch({ type: LOGOUT })
+  }
   return (
 
-    // đây là phần thanh ngang nằm trên cùng
+    // đây là phần header trên cùng
     <AppBar
       elevation={0}
       position="static"
@@ -45,9 +54,11 @@ const TopBar = ({
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit">
-            <InputIcon />
-          </IconButton>
+          <Tooltip title="Đăng xuất">
+            <IconButton color="inherit" onClick={() => dispatch({ type: LOGOUT })}>
+              <InputIcon />
+            </IconButton>
+          </Tooltip>
         </Hidden>
 
         {/* cái icon menu */}

@@ -66,7 +66,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
   const [croll, setCroll] = useState(0)
   const [openComment, setOpenComment] = useState(false);
   const [warningtext, setwarningtext] = useState(false)
-  const [commentListDisplay, setCommentListDisplay] = useState({ comment: [], page: 5, hideBtn: false, idEnd: "" })
+  const [commentListDisplay, setCommentListDisplay] = useState({ comment: [], page: 5, hideBtn: false, idScrollTo: "" })
   const [dataComment, setdataComment] = useState({
     avtId: currentUser?.taiKhoan,
     username: currentUser?.hoTen,
@@ -109,14 +109,14 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
   }, [commentList])
 
   useEffect(() => {
-    if (commentListDisplay.idEnd) {
-      scroller.scrollTo(commentListDisplay.idEnd, {
+    if (commentListDisplay.idScrollTo) {
+      scroller.scrollTo(commentListDisplay.idScrollTo, {
         duration: 800,
         offset: -79,
         smooth: 'easeInOutQuart',
       })
     }
-  }, [commentListDisplay.idEnd])
+  }, [commentListDisplay.idScrollTo])
 
   const handlePostComment = () => {
     if (loadingPostComment) {
@@ -134,14 +134,17 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
 
   const setopenMore = () => {
     let hideBtn = false
-    const phanDu = commentList.length % 5
-    if ((commentListDisplay.page + phanDu) === commentList.length) {
+    let addComment = commentList.length % 5
+    if (commentList.length % 5 === 0) {
+      addComment = 5
+    }
+    if ((commentListDisplay.page + addComment) === commentList.length) {
       hideBtn = true
     }
-    const idEnd = `idComment${commentList[commentListDisplay.page].createdAt}`
+    const idScrollTo = `idComment${commentList[commentListDisplay.page].createdAt}`
     const page = commentListDisplay.page + 5
     const comment = commentList.slice(0, page)
-    setCommentListDisplay(data => ({ ...data, comment, page, hideBtn, idEnd }))
+    setCommentListDisplay(data => ({ ...data, comment, page, hideBtn, idScrollTo }))
   }
 
   const handleLike = (id) => {

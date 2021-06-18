@@ -8,12 +8,14 @@ import SeatIcon from '@material-ui/icons/CallToActionRounded';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import { useStyles, ColorlibConnector } from './style';
 import { FAKE_AVATAR } from '../../../../constants/config';
 import { SET_STEP } from '../../../../reducers/constants/BookTicket'
 
 export default function Stepcheckout() {
+  const history = useHistory();
   const dispatch = useDispatch()
   const classes = useStyles();
   const { isReadyPayment, activeStep } = useSelector(state => state.bookTicketReducer);
@@ -46,6 +48,9 @@ export default function Stepcheckout() {
       </div>
     );
   }
+  const handleUser = () => {
+    history.push("/taikhoan")
+  }
 
   return (
     <div className={classes.root}>
@@ -56,7 +61,7 @@ export default function Stepcheckout() {
           </Step>
         ))}
       </Stepper>
-      <div className={classes.account}>
+      <div className={classes.account} onClick={handleUser}>
         <img src={FAKE_AVATAR} alt="avatar" className={classes.avatar} />
         <p className={classes.hoTen}>{currentUser.hoTen}</p>
       </div>

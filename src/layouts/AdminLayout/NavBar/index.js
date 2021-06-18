@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import MovieIcon from '@material-ui/icons/Movie';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -16,6 +16,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import NavItem from './NavItem';
 import { FAKE_AVATAR } from '../../../constants/config';
@@ -57,6 +58,7 @@ const useStyles = makeStyles(() => ({
 export default function NavBar({ onMobileClose, openMobile }) {
   const classes = useStyles();
   const location = useLocation();
+  const history = useHistory();
   const { currentUser } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
@@ -71,6 +73,10 @@ export default function NavBar({ onMobileClose, openMobile }) {
     jobTitle: 'Senior Developer',
     name: currentUser?.hoTen,
   };
+
+  const handleUser = () => {
+    history.push("/taikhoan")
+  }
 
 
   // đây là nội dung cột bên trái
@@ -90,11 +96,13 @@ export default function NavBar({ onMobileClose, openMobile }) {
         flexDirection="column"
         p={2} // padding 2
       >
-
-        <Avatar
-          className={classes.avatar}
-          src={user.avatar}
-        />
+        <Tooltip title="Thông tin tài khoản">
+          <Avatar
+            className={classes.avatar}
+            src={user.avatar}
+            onClick={handleUser}
+          />
+        </Tooltip>
         <Typography
           className={classes.name}
           color="textPrimary"

@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 16,
   },
   account: {
+    cursor: "pointer",
     textAlign: 'center',
     textTransform: "uppercase",
     flex: "0 0 150px",

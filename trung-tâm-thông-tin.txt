@@ -1,6 +1,5 @@
 *** TÀI KHOẢN ADMIN: 
-"taiKhoan": "chauadmin1", "matKhau": "chauadmin",
-"taiKhoan": "khai", "matKhau": "321321",
+"taiKhoan": "111111", "matKhau": "buigiaan123",
 *** lấy thông tin: 
 {
   "maPhim": 0,
@@ -8,9 +7,32 @@
   "maRap": 0,
   "giaVe": 0
 }
+
+The King's Man bị lỗi
+http://localhost:3000/phim/3056
+
 maLichChieu: 16909 : chứa thông tin lịch chiếu: rạp nào, ngày giờ chiếu, số ghế
 maPhim: 1329 :
-	- lấy thông tin của phim(trailer hinhAnh)
+	- lấy thông tin của phim:
+		"maPhim": 1329,
+		"tenPhim": "Bố Già",
+		"biDanh": "bo-gia",
+		"trailer": "https://www.youtube.com/embed/jluSu8Rw6YE",
+		"hinhAnh": "http://movie0706.cybersoft.edu.vn/hinhanh/bo-gia_gp01.jpg",
+		"moTa": "Tui Chưa Coi Nên Chưa Biết",
+		"maNhom": "GP01",
+		"ngayKhoiChieu": "2021-04-03T00:00:00",
+		"danhGia": 10,
+		"lichChieu": [
+			{"thongTinRap": {"maRap": 482, "tenRap": "Rạp 2","maCumRap": "bhd-star-cineplex-vincom-le-van-viet", "tenCumRap": "BHD Star Cineplex - Vincom Lê Văn Việt","maHeThongRap": "BHDStar","tenHeThongRap": "BHD Star Cineplex"},
+			"maLichChieu": 16909,
+			"maRap": 482,
+			"maPhim": 1329,
+			"tenPhim": "Bố Già",
+			"ngayChieuGioChieu": "2019-01-01T10:10:00",
+			"giaVe": 75000,
+			"thoiLuong": 120
+			},,,,]
 	- LayThongTinLichChieuPhim: 
 		các thông tin của phim
 		maCumRap
@@ -23,10 +45,49 @@ maHeThongRap : "BHDStar", :
 		tenPhim
 		hinhAnh
 		lstLichChieuTheoPhim: [ {"maLichChieu": 40064,"maRap": "465","tenRap": "Rạp 5","ngayChieuGioChieu": "2019-09-07T10:10:00","giaVe": 100000}]
+		// them vào tenCumRap, diaChi, tenPhim, maPhim, logo
 maRap: 482
-
 "maCumRap": "bhd-star-cineplex-vincom-le-van-viet",
 "tenRap": "Rạp 2",
+
+maLichChieu: 42870
+logo: "http://movie0706.cybersoft.edu.vn/hinhanh/megags.png"
+tenHeThongRap: "MegaGS"
+tenCumRap: "MegaGS - Cao Thắng"
+diaChi: "19 Cao Thắng, Q.3"
+tenRap: "Rạp 3"
+maRap: "903"
+maPhim: 1352
+tenPhim: "Radioactive 2"
+ngayChieuGioChieu: "2021-04-30T22:40:00"
+giaVe: 150000
+
+
+"taiKhoan": "hnammad7",
+  "matKhau": "hnammad7",
+  "email": "hnammad@gmail.com",
+  "soDT": "3564658244",
+  "maNhom": "GP01",
+  "loaiNguoiDung": null,
+  "hoTen": "dam van manh",
+  
+  
+   "taiKhoan": "string",
+  "matKhau": "string",
+  "email": "string",
+  "soDt": "string",
+  "maNhom": "string",
+  "maLoaiNguoiDung": "string",
+  "hoTen": "string"
+
+accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiaG5hbW1hZDciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJLaGFjaEhhbmciLCJuYmYiOjE2MjI5NTIwODcsImV4cCI6MTYyMjk1NTY4N30.EfPDu1E43HyFrxMOqFeXpI-Ezp4vU81OZurHtW-bsPc"
+avtIdUser: "l17oZJkJV1"
+email: "hnammad@gmail.com"
+hoTen: "dam van manh"
+maLoaiNguoiDung: "KhachHang"
+maNhom: "GP01"
+soDT: "3564658244"
+taiKhoan: "hnammad7"
 
 *** banner carousel 
 1322 gái già lắm chiêu
