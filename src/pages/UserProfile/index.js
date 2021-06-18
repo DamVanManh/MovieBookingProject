@@ -228,7 +228,7 @@ export default function Index() {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Stt</th>
+                  {isDesktop && <th scope="col">Stt</th>}
                   <th scope="col">Tên phim</th>
                   {isDesktop && <th scope="col">Thời lượng phim</th>}
                   <th scope="col">Ngày đặt</th>
@@ -240,7 +240,7 @@ export default function Index() {
               <tbody>
                 {successInfoUser?.thongTinDatVe.map((sticket, i) => (
                   <tr key={sticket.maVe}>
-                    <th scope="row">{i + 1}</th>
+                    {isDesktop && <th scope="row">{i + 1}</th>}
                     <td>{sticket.tenPhim}</td>
                     {isDesktop && <td>{sticket.thoiLuongPhim}</td>}
                     <td>{new Date(sticket.ngayDat).toLocaleString()}</td>
