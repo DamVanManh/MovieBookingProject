@@ -9,5 +9,10 @@ const useStyles = makeStyles({
     marginBottom: 5,
     fontWeight: 500,
   },
+  groupTime: {
+    display: 'flex',
+    flexWrap: "wrap",
+    gap: 10,
+  }
 });
 export default useStyles

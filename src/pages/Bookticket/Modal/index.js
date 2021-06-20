@@ -7,7 +7,7 @@ import Dialog from '@material-ui/core/Dialog'
 import Button from '@material-ui/core/Button'
 
 import useStyles from './style'
-import { RESET_DATA, RESET_ALERT_OVER10 } from '../../../reducers/constants/BookTicket'
+import { RESET_DATA_BOOKTICKET, RESET_ALERT_OVER10 } from '../../../reducers/constants/BookTicket'
 import { getListSeat } from '../../../reducers/actions/BookTicket'
 import { colorTheater } from '../../../constants/theaterData'
 import ResultBookticket from '../ResultBookticket'
@@ -24,10 +24,10 @@ export default function Modal() {
     if (successBookingTicketMessage) {
       dispatch(getListSeat(param.maLichChieu))
     }
-    dispatch({ type: RESET_DATA })
+    dispatch({ type: RESET_DATA_BOOKTICKET })
   }
   const handleTimeOut = () => {
-    dispatch({ type: RESET_DATA })
+    dispatch({ type: RESET_DATA_BOOKTICKET })
     dispatch(getListSeat(param.maLichChieu))
   }
   const handleAlertOver10 = () => {
@@ -35,7 +35,7 @@ export default function Modal() {
   }
 
   const handleCombackHome = () => {
-    dispatch({ type: RESET_DATA })
+    dispatch({ type: RESET_DATA_BOOKTICKET })
     history.push('/')
   }
 
@@ -45,7 +45,7 @@ export default function Modal() {
       {(timeOut && !isBookticket) && // không thông báo hết giờ khi đã có kết quả đặt vé
         <div className={classes.padding}>
           <p>Đã hết thời gian giữ ghế. Vui lòng thực hiện đơn hàng trong thời hạn 5 phút.
-      <span className={classes.txtClick} onClick={handleTimeOut}>Đặt vé lại</span></p>
+            <span className={classes.txtClick} onClick={handleTimeOut}>Đặt vé lại</span></p>
         </div>
       }
       {(alertOver10 && !timeOut) && // ẩn thông báo quá 10 ghế khi time out
@@ -67,7 +67,7 @@ export default function Modal() {
             </Button>
             <Button classes={{ root: classes.btnResult }} onClick={handleCombackHome} >
               Quay về trang chủ
-          </Button>
+            </Button>
           </div>
         </>
       }

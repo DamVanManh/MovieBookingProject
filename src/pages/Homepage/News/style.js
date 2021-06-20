@@ -20,6 +20,25 @@ const useStyle = makeStyles(theme => ({
     backgroundColor: 'transparent',
     color: 'black',
     boxShadow: 'none',
+    '& .MuiTabs-indicator': {
+      height: 0, // ẩn gạch dưới
+    }
+  },
+
+  tabButton: {
+    opacity: 1,
+    color: "#000",
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    '& > span': {
+      transition: "all 0.2s",
+      '&:hover': {
+        fontSize: "16px",
+      },
+    }
+  },
+
+  tabSelected: {
+    color: "#fa5238",
   },
 
   news: {

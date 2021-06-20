@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab'
 import useStyles from './style'
 import RightSection from './RightSection';
 
-export default function HeThongRap({ data }) {
+export default function LichChieuDesktop({ data }) {
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);

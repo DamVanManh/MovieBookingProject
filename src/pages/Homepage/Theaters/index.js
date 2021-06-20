@@ -29,7 +29,7 @@ export default function HeThongRap() {
   return (
     <div id="cumrap">
       <Seperate />
-      <div className={classes.theater}>{/* div root theater */}
+      <div className={classes.theater}>
         <Tabs
           variant={isMobileTheater ? "scrollable" : 'standard'}
           scrollButtons="on"
@@ -38,7 +38,7 @@ export default function HeThongRap() {
           onChange={handleChangeHeThongRap}
           classes={{ indicator: classes.tabs__indicator, root: classes.taps }}
         >
-          {theaterList.map((theater) => (<Tab disableRipple classes={{ root: classes.tap, selected: classes['tap--selected'], textColorInherit: classes.textColorInherit }} key={theater.maHeThongRap} label={<img style={{ width: '50px', height: '50px' }} src={theater.logo} alt="theaterLogo" />} />))}
+          {theaterList.map((theater) => (<Tab disableRipple classes={{ root: classes.tap, textColorInherit: classes.textColorInherit }} key={theater.maHeThongRap} label={<img style={{ width: '50px', height: '50px' }} src={theater.logo} alt="theaterLogo" />} />))}
         </Tabs>
         {theaterList.map((theater, index) => (valueHeThongRap === index && <LstCumRap lstCumRap={theater.lstCumRap} color={colorTheater[theater.lstCumRap[0].tenCumRap.slice(0, 3).toUpperCase()]} maHeThongRap={theater.maHeThongRap} key={theater.maHeThongRap} isMobileTheater={isMobileTheater} />))}
       </div >

@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'transparent',
     color: 'black',
     boxShadow: 'none',
+    '& .MuiTabs-indicator': {
+      height: 0, // ẩn gạch dưới
+    }
   },
   field: {
     maxWidth: 500,
@@ -37,7 +40,22 @@ const useStyles = makeStyles(theme => ({
     top: 31,
     right: 9,
     cursor: "pointer",
-  }
+  },
+  tabButton: {
+    opacity: 1,
+    color: "#000",
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    '& > span': {
+      transition: "all 0.2s",
+      '&:hover': {
+        fontSize: "18px",
+      },
+    }
+  },
+
+  tabSelected: {
+    color: "#fa5238",
+  },
 }))
 
 function TabPanel(props) {
@@ -132,12 +150,17 @@ export default function Index() {
     }
     dispatch(putUserUpdate(user))
   }
-  const handleToggleHinePassword = () => {
+  const handleToggleHidePassword = () => {
     if (typePassword === "password") {
       settypePassword("text")
     } else {
       settypePassword("password")
     }
+  }
+  const getIdSeat = (danhSachGhe) => {
+    return danhSachGhe.reduce((listSeat, seat) => {
+      return [...listSeat, seat.tenGhe]
+    }, []).join(", ")
   }
   return (
     <div className="bootstrap snippet mb-4">
@@ -145,7 +168,7 @@ export default function Index() {
       <div className="row">
         <div className="col-sm-3">
           <div className="text-center">
-            <img src={FAKE_AVATAR} className="avatar rounded-circle img-thumbnail" alt="avatar" />
+            <img src={FAKE_AVATAR} className={`avatar rounded-circle img-thumbnail ${isDesktop ? "w-100" : "w-50"}`} alt="avatar" />
             <h1>{successInfoUser?.taiKhoan}</h1>
           </div><br />
           <ul className="list-group">
@@ -159,8 +182,8 @@ export default function Index() {
         <div className={`col-sm-9 py-3 px-0`}>
           <AppBar className={classes.appBar} position="static" >
             <Tabs value={value} onChange={handleChange} centered={!isDesktop}>
-              <Tab label="Thông tin tài khoản" />
-              <Tab label="Thông tin đặt vé" />
+              <Tab disableRipple classes={{ root: classes.tabButton, selected: classes.tabSelected }} label="Thông tin tài khoản" />
+              <Tab disableRipple classes={{ root: classes.tabButton, selected: classes.tabSelected }} label="Lịch sử đặt vé" />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
@@ -192,8 +215,8 @@ export default function Index() {
                   <Field name="matKhau" type={typePassword} className="form-control"
                     onChange={props.handleChange}
                   />
-                  <div className={classes.eye} onClick={handleToggleHinePassword}>
-                    {typePassword === "password" ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+                  <div className={classes.eye} onClick={handleToggleHidePassword}>
+                    {typePassword !== "password" ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
                   </div>
                 </div>
                 <div className="form-group">
@@ -224,28 +247,32 @@ export default function Index() {
               </Form>
             )}</Formik>
           </TabPanel>
-          <TabPanel value={value} index={1} isDesktop={isDesktop}>
+          <TabPanel value={value} index={1} style={{ overflow: "scroll" }} isDesktop={isDesktop}>
             <table className="table table-striped">
               <thead>
                 <tr>
-                  {isDesktop && <th scope="col">Stt</th>}
+                  <th scope="col">Stt</th>
                   <th scope="col">Tên phim</th>
-                  {isDesktop && <th scope="col">Thời lượng phim</th>}
+                  <th scope="col">Thời lượng phim</th>
                   <th scope="col">Ngày đặt</th>
-                  <th scope="col">Số lượng ghế</th>
-                  {isDesktop && <th scope="col">Giá vé(vnđ)</th>}
+                  <th scope="col">Tên Rạp</th>
+                  <th scope="col">Mã vé</th>
+                  <th scope="col">Tên ghế</th>
+                  <th scope="col">Giá vé(vnđ)</th>
                   <th scope="col">Tổng tiền(vnđ)</th>
                 </tr>
               </thead>
               <tbody>
                 {successInfoUser?.thongTinDatVe.map((sticket, i) => (
                   <tr key={sticket.maVe}>
-                    {isDesktop && <th scope="row">{i + 1}</th>}
+                    <th scope="row">{i + 1}</th>
                     <td>{sticket.tenPhim}</td>
-                    {isDesktop && <td>{sticket.thoiLuongPhim}</td>}
-                    <td>{new Date(sticket.ngayDat).toLocaleString()}</td>
-                    <td>{sticket.danhSachGhe.length}</td>
-                    {isDesktop && <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe)}</td>}
+                    <td>{sticket.thoiLuongPhim}</td>
+                    <td>{new Date(sticket.ngayDat).toLocaleDateString()}, {new Date(sticket.ngayDat).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</td>
+                    <td>{sticket.danhSachGhe[0].tenHeThongRap}, {sticket.danhSachGhe[0].tenRap}</td>
+                    <td>{sticket.maVe}</td>
+                    <td>{getIdSeat(sticket.danhSachGhe)}</td>
+                    <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe)}</td>
                     <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe * sticket.danhSachGhe.length)}</td>
                   </tr>
                 )).reverse()}

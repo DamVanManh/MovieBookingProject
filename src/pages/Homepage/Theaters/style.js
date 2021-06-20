@@ -23,11 +23,8 @@ const useStyles = makeStyles({
     margin: 'auto',
     ...props.underLine,
   }),
-  "tap--selected": {
-    opacity: 1,
-  },
   textColorInherit: {
-    opacity: 0.5,
+    opacity: 0.3,
     '&:hover': {
       transition: "all .2s",
       opacity: 1,

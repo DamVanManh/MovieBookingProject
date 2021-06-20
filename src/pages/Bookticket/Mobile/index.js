@@ -9,7 +9,7 @@ import ListSeat from '../ListSeat';
 import PayMent from '../PayMent';
 import { bookTicket } from '../../../reducers/actions/BookTicket'
 import ResultBookticket from '../ResultBookticket';
-import { RESET_DATA, SET_STEP } from '../../../reducers/constants/BookTicket'
+import { RESET_DATA_BOOKTICKET, SET_STEP } from '../../../reducers/constants/BookTicket'
 import { getListSeat } from '../../../reducers/actions/BookTicket'
 
 export default function Mobile() {
@@ -23,7 +23,7 @@ export default function Mobile() {
   const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ']
 
   const handleCombackHome = () => {
-    dispatch({ type: RESET_DATA })
+    dispatch({ type: RESET_DATA_BOOKTICKET })
     history.push('/')
   }
 
@@ -46,13 +46,17 @@ export default function Mobile() {
     }
     if (activeStep === 2) {
       if (successBookingTicketMessage) {
-        dispatch({ type: RESET_DATA })
+        dispatch({ type: RESET_DATA_BOOKTICKET })
         dispatch(getListSeat(param.maLichChieu))
       }
       if (errorBookTicketMessage) {
-        dispatch({ type: RESET_DATA })
+        dispatch({ type: RESET_DATA_BOOKTICKET })
       }
     }
+  }
+
+  const handleUser = () => {
+    history.push("/taikhoan")
   }
 
   const getContentBtn = () => {
@@ -81,7 +85,7 @@ export default function Mobile() {
             {(activeStep === i) && <p className={classes.stepName}>{`${String(i + 1)}. ${label}`}</p>}
           </Fragment>
         ))}
-        <img src={FAKE_AVATAR} alt="avatar" className={classes.avatar} />
+        <img onClick={handleUser} src={FAKE_AVATAR} alt="avatar" className={classes.avatar} />
       </section>
 
       {/* empty */}

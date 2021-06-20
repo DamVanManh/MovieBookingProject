@@ -4,6 +4,9 @@ export default function UseThoiLuongDanhGia(maLichChieu) {
   const [data, setData] = useState({ diaChi: 'loading...' })
   const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`
   useEffect(() => {
+    if (!maLichChieu) {
+      return
+    }
     let getInfoFlimCancel = Axios.CancelToken.source(); // Axios cung cấp, để cancel gọi api khi component bị hủy(bấm chuyển cụm rạp khác)
     const loadData = async () => {
       try { // bắt lỗi khi get API, nếu có lỗi thì vào catch

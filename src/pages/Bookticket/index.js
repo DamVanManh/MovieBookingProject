@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { getListSeat } from '../../reducers/actions/BookTicket'
-import { SET_ISMOBILE, INIT_DATA, RESET_DATA, SET_STEP } from '../../reducers/constants/BookTicket';
+import { SET_ISMOBILE, INIT_DATA, RESET_DATA_BOOKTICKET, SET_STEP } from '../../reducers/constants/BookTicket';
 import Mobile from './Mobile';
 import Desktop from './Desktop';
 import { DISPLAY_MOBILE_BOOKTICKET } from '../../constants/config';
@@ -29,7 +29,7 @@ export default function Index() {
   useEffect(() => { // lấy thongTinPhim và danhSachGhe
     dispatch(getListSeat(param.maLichChieu))
     return () => { // xóa dữ liệu khi đóng hủy component
-      dispatch({ type: RESET_DATA })
+      dispatch({ type: RESET_DATA_BOOKTICKET })
     }
   }, [])
 

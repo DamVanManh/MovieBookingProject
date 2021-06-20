@@ -37,9 +37,9 @@ export default function SimpleTabs() {
       <div className={classes.content}>
         <AppBar className={classes.appBar} position="static" >
           <Tabs centered value={value} onChange={handleChange}>
-            <Tab label="Điện Ảnh 24h" />
-            <Tab label="Review" />
-            <Tab label="Khuyến Mãi" />
+            <Tab disableRipple classes={{ root: classes.tabButton, selected: classes.tabSelected }} label="Điện Ảnh 24h" />
+            <Tab disableRipple classes={{ root: classes.tabButton, selected: classes.tabSelected }} label="Review" />
+            <Tab disableRipple classes={{ root: classes.tabButton, selected: classes.tabSelected }} label="Khuyến Mãi" />
           </Tabs>
         </AppBar>
         <Fade timeout={400} in={value === 0}>

@@ -53,7 +53,6 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-
 export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncreaseQuantityComment }) {
   const param = useParams() // mã phim lấy từ url trên trình duyệt
   const { currentUser } = useSelector(state => state.authReducer);
@@ -223,7 +222,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
       </AppBar>
       <Fade timeout={400} in={valueTab === 0}>
         <TabPanel value={valueTab} index={0} isMobile={isMobile}>
-          {isMobile ? <LichChieuMobile /> : <LichChieuDesktop data={data} isMobile={isMobile} />}
+          {isMobile ? <LichChieuMobile /> : <LichChieuDesktop data={data} />}
         </TabPanel>
       </Fade>
       <Fade timeout={400} in={valueTab === 1}>

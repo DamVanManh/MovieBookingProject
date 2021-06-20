@@ -36,6 +36,4 @@ function returnRandomItem() {
 }
 const dataFakeImgTheater = []
 
-const diaChiCumRap = []
-
 export { colorTheater, logoTheater, returnRandomItem, dataFakeImgTheater };

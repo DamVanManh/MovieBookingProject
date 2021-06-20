@@ -5,7 +5,7 @@ import BtnGoToCheckOut from '../../../../../components/BtnGoToCheckOut';
 import useStyles from './style'
 
 export default function LstGioChieu(props) {
-  const { lstLichChieuTheoPhim } = props;
+  const { lstLichChieuTheoPhim, isMobileTheater } = props;
   const classes = useStyles()
   const mangChiChuaNgay = lstLichChieuTheoPhim.map(item => {  // tạo mảng mới chỉ chứa ngày
     return item.ngayChieuGioChieu.slice(0, 10);// item là "2020-12-17" cắt ra từ 2020-12-17T10:10:00
@@ -27,11 +27,14 @@ export default function LstGioChieu(props) {
       {MangNgayKhongTrungLap.map(date => (
         <Fragment key={date}>
           <p className={classes.ngayChieu}>{formatDate(date).dateFull}</p> {/*in ra ngày hiện tại*/}
-          {filterByDay(date).map(lichChieuTheoPhim => (
-            <Fragment key={lichChieuTheoPhim.maLichChieu} >
-              <BtnGoToCheckOut lichChieuTheoPhim={lichChieuTheoPhim} />
-            </Fragment>
-          ))}
+          <div className={classes.groupTime}>
+            {filterByDay(date).map(lichChieuTheoPhim => (
+              <Fragment key={lichChieuTheoPhim.maLichChieu}>
+                <BtnGoToCheckOut lichChieuTheoPhim={lichChieuTheoPhim} />
+              </Fragment>
+            ))}
+          </div>
+
         </Fragment>
       ))
       }

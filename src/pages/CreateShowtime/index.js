@@ -192,7 +192,7 @@ export default function MoviesManagement() {
     const obj = new Date(date)
     const openGiave = data.setGiaVe ? false : true
     setSelectedDate(obj.toLocaleString())
-    setData(data => ({ ...data, openCtr: { ...data.openCtr, giaVe: openGiave }, ngayChieuGioChieu: `${obj.getDate().toString().padStart(2, 0)}/${obj.getMonth().toString().padStart(2, 0)}/${obj.getFullYear()} ${obj.getHours().toString().padStart(2, 0)}:${obj.getMinutes().toString().padStart(2, 0)}:00` }))
+    setData(data => ({ ...data, openCtr: { ...data.openCtr, giaVe: openGiave }, ngayChieuGioChieu: `${obj.getDate().toString().padStart(2, 0)}/${(obj.getMonth() + 1).toString().padStart(2, 0)}/${obj.getFullYear()} ${obj.getHours().toString().padStart(2, 0)}:${obj.getMinutes().toString().padStart(2, 0)}:00` }))
   }
 
   const handleSelectGiaVe = (e) => {
@@ -205,6 +205,7 @@ export default function MoviesManagement() {
     if (loadingCreateShowtime) {
       return
     }
+    console.log(`ngay đã chọn`, data.ngayChieuGioChieu)
     dispatch(createShowtime({ maPhim: data.setPhim, ngayChieuGioChieu: data.ngayChieuGioChieu, maRap: data.maRap, giaVe: data.setGiaVe }))// Ngày chiếu phải có định dạng dd/MM/yyyy hh:mm:ss
   }
 

@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 import { withStyles } from '@material-ui/core/styles';
-import { underLine } from '../../styles/materialUi';
+import { underLine } from '../../../../../styles/materialUi';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
@@ -12,23 +12,20 @@ const useStyles = makeStyles({
     overflowY: "hidden",
     ...underLine
   },
-  topInfo: {
-    paddingBottom: 20,
-    cursor: "pointer",
-  },
   imgTheater: {
     width: 50,
     float: "left",
     display: "inline-block",
     border: "1px solid #ebebec",
   },
-  wrapInfo: {
-    paddingLeft: 4
-  },
 
-  digital: {
-    marginBottom: 5,
+  phim__text: {
+    paddingLeft: "15px", paddingTop: "6px",
+    width: "calc(100% - 50px)",
+  },
+  phim__text_name: {
     fontWeight: 500,
+    textTransform: "capitalize",
   },
 
 });

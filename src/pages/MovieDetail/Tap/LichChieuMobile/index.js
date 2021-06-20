@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useSelector } from 'react-redux';
-
-
 import { useStyles, Accordion, AccordionSummary, AccordionDetails } from './style'
+
 import formatDate from '../../../../utilities/formatDate';
 import ItemCumRap from '../../../../components/ItemCumRap';
 import { selectMobileData } from '../../../../reducers/selector/MovieDetail';

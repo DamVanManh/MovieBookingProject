@@ -2,10 +2,6 @@ import { makeStyles } from "@material-ui/core"
 const useStyles = makeStyles((theme) => ({
   carousel: {
     position: 'relative',
-    display: "block",
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    }
   },
   itemSlider: {
     position: 'relative'
@@ -29,7 +25,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#d8d8d8 !important",
     cursor: "pointer",
     transition: "all .2s",
-    '&:hover': { color: '#fb4226 !important' }
+    '&:hover': { color: '#fb4226 !important' },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
 
 }))

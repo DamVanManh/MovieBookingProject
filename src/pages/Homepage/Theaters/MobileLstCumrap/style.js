@@ -1,21 +1,16 @@
 import { makeStyles } from "@material-ui/core"
 import { withStyles } from '@material-ui/core/styles';
-import { underLine } from '../../styles/materialUi';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  rootCumRap: {
+    overflow: "auto",
+    maxHeight: 400,
+    direction: "rtl",
+  },
 
-  cumRapItem: {
-    transition: "height .2s",
-    overflowY: "hidden",
-    ...underLine
-  },
-  topInfo: {
-    paddingBottom: 20,
-    cursor: "pointer",
-  },
   imgTheater: {
     width: 50,
     float: "left",
@@ -23,18 +18,14 @@ const useStyles = makeStyles({
     border: "1px solid #ebebec",
   },
   wrapInfo: {
-    paddingLeft: 4
+    paddingLeft: 3
   },
 
-  digital: {
-    marginBottom: 5,
-    fontWeight: 500,
-  },
-
-});
+}));
 
 const Accordion = withStyles({
   root: {
+    border: '1px solid rgba(0, 0, 0, .125)',
     boxShadow: 'none',
     '&:not(:last-child)': {
       borderBottom: 0,
@@ -51,6 +42,7 @@ const Accordion = withStyles({
 
 const AccordionSummary = withStyles({
   root: {
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
     marginBottom: -1,
     minHeight: 56,
     '&$expanded': {
@@ -72,10 +64,8 @@ const AccordionSummary = withStyles({
 
 const AccordionDetails = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
-    gap: "10px",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    padding: 0,
+    flexDirection: "column"
   },
 }))(MuiAccordionDetails);
 
