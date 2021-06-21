@@ -4,8 +4,7 @@ import formatDate from '../../../../../utilities/formatDate'
 import BtnGoToCheckOut from '../../../../../components/BtnGoToCheckOut';
 import useStyles from './style'
 
-export default function LstGioChieu(props) {
-  const { lstLichChieuTheoPhim, isMobileTheater } = props;
+export default function LstGioChieu({ lstLichChieuTheoPhim }) {
   const classes = useStyles()
   const mangChiChuaNgay = lstLichChieuTheoPhim.map(item => {  // tạo mảng mới chỉ chứa ngày
     return item.ngayChieuGioChieu.slice(0, 10);// item là "2020-12-17" cắt ra từ 2020-12-17T10:10:00

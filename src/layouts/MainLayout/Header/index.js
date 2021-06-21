@@ -19,6 +19,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { useHistory, useLocation } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import { scroller } from 'react-scroll'
+import { nanoid } from 'nanoid'
 
 import { LOGOUT } from '../../../reducers/constants/Auth';
 import useStyles from './style'
@@ -43,7 +44,6 @@ export default function Header() {
       }
     }
   }, [isDesktop])
-
   useEffect(() => { // clicklink > push to home > scrollTo after loading
     if (location.state) {
       setTimeout(() => {
@@ -74,18 +74,19 @@ export default function Header() {
       })
       return
     }
-    history.push("/")
+    history.push("/", "")
   }
   const handleClickLink = (id) => {
     setOpenDrawer(false)
     if (location.pathname === "/") {
-
       scroller.scrollTo(id, {
         duration: 800,
         smooth: 'easeInOutQuart'
       })
     } else {
-      history.push("/", id)
+      setTimeout(() => {
+        history.push("/", id)
+      }, 300);
     }
   }
 
@@ -181,7 +182,7 @@ export default function Header() {
         classes={{
           paper: classes.drawerPaper,
         }}
-
+        transitionDuration={300}
       >
         <div className={classes.drawerHeader}>
           {currentUser ?

@@ -20,14 +20,14 @@ export default function RightSection({ currentSelectedHeThongRapChieu }) {
         {desktopData?.arrayDay?.map((day, i) => (
           <div className={classes.dayItem} key={day} style={{ color: i === indexSelected ? "#fb4226" : "#000" }} onClick={() => handleSelectDay(i)}>
             <p>{formatDate(day).dayToday}</p>
-            <p style={{ fontSize: i === indexSelected ? "18px" : "16px" }}>{formatDate(day).dDMmYy}</p>
+            <p style={{ fontSize: i === indexSelected ? "18px" : "16px", transition: "all .2s" }}>{formatDate(day).dDMmYy}</p>
           </div>
         ))}
       </div>
       {desktopData?.allArrayCumRapChieuFilterByDay?.map((arrayCumRapChieuFilterByDay, i) =>
         <div style={{ display: indexSelected === i ? "block" : "none" }} key={i}>
           {arrayCumRapChieuFilterByDay.map((item) => (
-            <ItemCumRap key={item.tenCumRap} tenCumRap={item.tenCumRap} maLichChieu={item.maLichChieu} lichChieuPhim={item.lichChieuPhim} />
+            <ItemCumRap key={item.tenCumRap} tenCumRap={item.tenCumRap} maLichChieu={item.maLichChieu} lichChieuPhim={item.lichChieuPhim} defaultExpanded={true} />
           ))}
         </div>
       )}

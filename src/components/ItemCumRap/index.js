@@ -6,13 +6,13 @@ import BtnGoToCheckOut from '../BtnGoToCheckOut'
 import TenCumRap from '../TenCumRap'
 import { useStyles, Accordion, AccordionSummary, AccordionDetails } from './style'
 
-export default function ItemCumRap({ tenCumRap, maLichChieu, lichChieuPhim, diaChi, isMobile }) {
+export default function ItemCumRap({ tenCumRap, maLichChieu, lichChieuPhim, diaChi, defaultExpanded }) {
   const classes = useStyles()
 
   return (
     <>
       <div className={classes.cumRapItem} >
-        <Accordion key={tenCumRap} square defaultExpanded={false}>
+        <Accordion key={tenCumRap} square defaultExpanded={defaultExpanded ?? false}>
           <AccordionSummary>
             <FakeImgTheater nameTheater={tenCumRap} imgStyle={classes.imgTheater} />
             <div className={classes.wrapInfo} >

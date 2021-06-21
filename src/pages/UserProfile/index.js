@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     '& > span': {
       transition: "all 0.2s",
       '&:hover': {
-        fontSize: "18px",
+        fontSize: "15px",
       },
     }
   },
@@ -247,7 +247,7 @@ export default function Index() {
               </Form>
             )}</Formik>
           </TabPanel>
-          <TabPanel value={value} index={1} style={{ overflow: "scroll" }} isDesktop={isDesktop}>
+          <TabPanel value={value} index={1} style={{ overflow: "auto" }} isDesktop={isDesktop}>
             <table className="table table-striped">
               <thead>
                 <tr>

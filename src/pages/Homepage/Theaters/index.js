@@ -11,6 +11,7 @@ import useStyles from './style'
 import { underLine } from '../../../styles/materialUi'
 import { colorTheater } from '../../../constants/theaterData'
 import Seperate from '../../../components/Seperate'
+import MobileLstCumrap from './MobileLstCumrap'
 
 export default function HeThongRap() {
   const theme = useTheme();
@@ -18,10 +19,6 @@ export default function HeThongRap() {
   const { theaterList, errorTheaterList } = useSelector((state) => state.theaterReducer);
   const [valueHeThongRap, setValueHeThongRap] = React.useState(0);
   const classes = useStyles({ isMobileTheater, underLine });
-
-  const handleChangeHeThongRap = (e, indexSelected) => {
-    setValueHeThongRap(indexSelected);
-  };
 
   if (errorTheaterList) {
     return <div>{errorTheaterList}</div>
@@ -33,17 +30,23 @@ export default function HeThongRap() {
         <Tabs
           variant={isMobileTheater ? "scrollable" : 'standard'}
           scrollButtons="on"
-          orientation={`${isMobileTheater ? "horizontal" : "vertical"}`}
-          value={valueHeThongRap} // giúp nhận diện tap đã click
-          onChange={handleChangeHeThongRap}
+          orientation={isMobileTheater ? "horizontal" : "vertical"}
+          value={valueHeThongRap}
           classes={{ indicator: classes.tabs__indicator, root: classes.taps }}
         >
-          {theaterList.map((theater) => (<Tab disableRipple classes={{ root: classes.tap, textColorInherit: classes.textColorInherit }} key={theater.maHeThongRap} label={<img style={{ width: '50px', height: '50px' }} src={theater.logo} alt="theaterLogo" />} />))}
+          {theaterList.map((theater, index) => (<Tab onClick={() => setValueHeThongRap(index)} disableRipple classes={{ root: classes.tap, textColorInherit: classes.textColorInherit }} key={theater.maHeThongRap} label={<img style={{ width: '50px', height: '50px' }} src={theater.logo} alt="theaterLogo" />} />))}
         </Tabs>
-        {theaterList.map((theater, index) => (valueHeThongRap === index && <LstCumRap lstCumRap={theater.lstCumRap} color={colorTheater[theater.lstCumRap[0].tenCumRap.slice(0, 3).toUpperCase()]} maHeThongRap={theater.maHeThongRap} key={theater.maHeThongRap} isMobileTheater={isMobileTheater} />))}
+        {theaterList.map((theater, index2) => (
+          <div hidden={valueHeThongRap !== index2} key={theater.maHeThongRap} className={classes.cumRap}>
+            {isMobileTheater ? <MobileLstCumrap lstCumRap={theater.lstCumRap} /> :
+              <LstCumRap
+                lstCumRap={theater.lstCumRap}
+                color={colorTheater[theater.lstCumRap[0].tenCumRap.slice(0, 3).toUpperCase()]}
+                maHeThongRap={theater.maHeThongRap}
+              />
+            }
+          </div>))}
       </div >
     </div>
   );
 }
-
-

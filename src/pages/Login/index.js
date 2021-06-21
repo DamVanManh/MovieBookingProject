@@ -76,13 +76,13 @@ export default function Login() {
           <Form className="col-sm-10 mx-auto">
             <div className="form-group position-relative">
               <label>Tài khoản&nbsp;</label>
-              <ErrorMessage name="taiKhoan" render={msg => <span className="text-danger">{msg}</span>} />
+              <ErrorMessage name="taiKhoan" render={msg => <small className="text-danger">{msg}</small>} />
               <Field type="text" className="form-control" name="taiKhoan" onChange={formikProp.handleChange} />
             </div>
 
             <div className="form-group position-relative">
               <label>Mật khẩu&nbsp;</label>
-              <ErrorMessage name="matKhau" render={msg => <span className="text-danger">{msg}</span>} />
+              <ErrorMessage name="matKhau" render={msg => <small className="text-danger">{msg}</small>} />
               <Field type={typePassword} className="form-control" name="matKhau" onChange={formikProp.handleChange} />
               <div className={classes.eye} onClick={handleToggleHidePassword}>
                 {typePassword === "password" ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i>}

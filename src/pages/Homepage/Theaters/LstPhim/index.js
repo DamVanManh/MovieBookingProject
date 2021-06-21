@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import useStyles from './style'
 
 import ThoiLuongDanhGia from '../../../../components/ThoiLuongDanhGia/thoiLuongDanhGia'
@@ -6,10 +6,10 @@ import { customScrollbar } from '../../../../styles/materialUi'
 import { underLine } from '../../../../styles/materialUi'
 import LstNgayChieu from './LstNgayChieu/'
 
-export default function Index(props) {
-  const classes = useStyles({ customScrollbar, underLine, isMobileTheater: props.isMobileTheater });
+function Index(props) {
+  const classes = useStyles({ customScrollbar, underLine });
   return (
-    <div className={classes.lstPhim}>{/* div root danh sách phim */}
+    <div className={classes.lstPhim} hidden={props.hidden}>{/* div root danh sách phim */}
       {props.lstPhim.map(phim => (
         <div className={classes.phim} key={phim.maPhim}>
           <div className={classes.phim__info}>{/* div thong tin phim */}
@@ -27,3 +27,4 @@ export default function Index(props) {
     </div>
   )
 }
+export default memo(Index)

@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
   lstPhim: props => ({
-    flex: props.isMobileTheater ? "300px" : "calc(100% - 30% - 92px)",
+    flex: "60%",
     height: "705px",
     overflowY: 'auto',
     borderLeft: "1px solid #ebebec",

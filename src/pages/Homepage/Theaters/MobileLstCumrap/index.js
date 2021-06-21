@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useStyles, Accordion, AccordionSummary, AccordionDetails } from './style'
@@ -8,17 +8,17 @@ import Address from '../../../../components/ItemCumRap/Address';
 
 import FakeImgTheater from '../../../../components/FakeImgTheater/fakeImgTheater';
 
-export default function MobileLstCumRap({ lstCumRap, isMobileTheater }) {
+function MobileLstCumRap({ lstCumRap }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState("");
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
+  const [expanded, setExpanded] = React.useState(false);
+  const handleChange = (index) => (event, newExpanded) => {
+    setExpanded(newExpanded ? index : false);
   };
 
   return (
     <div className={classes.rootCumRap}>
-      {lstCumRap?.map(item => (
-        <Accordion key={item.tenCumRap} style={{ direction: "ltr" }} square expanded={expanded === item.tenCumRap} onChange={handleChange(item.tenCumRap)}>
+      {lstCumRap?.map((item, index) => (
+        <Accordion key={item.tenCumRap} style={{ direction: "ltr" }} square expanded={expanded === index} onChange={handleChange(index)}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <FakeImgTheater nameTheater={item.tenCumRap} imgStyle={classes.imgTheater} />
             <div className={classes.wrapInfo} >
@@ -28,8 +28,8 @@ export default function MobileLstCumRap({ lstCumRap, isMobileTheater }) {
             <div style={{ clear: "both" }}></div>
           </AccordionSummary>
           <AccordionDetails >
-            {item.danhSachPhim.map((phim) => (
-              <ItemPhim key={phim.tenPhim} isMobileTheater={isMobileTheater} phim={phim} />
+            {(expanded === index && expanded !== false) && item.danhSachPhim.map((phim) => (
+              <ItemPhim key={phim.tenPhim} phim={phim} />
             ))}
           </AccordionDetails>
         </Accordion>
@@ -37,3 +37,4 @@ export default function MobileLstCumRap({ lstCumRap, isMobileTheater }) {
     </div>
   )
 }
+export default memo(MobileLstCumRap)

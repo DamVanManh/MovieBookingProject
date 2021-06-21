@@ -1,13 +1,16 @@
 import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
+  flexCumRap: {
+    display: 'flex',
+  },
   lstCumRap: props => ({
-    flex: "30%",
+    flex: "40%",
     overflowY: 'auto',
+    height: 705,
     overflowX: 'hidden',
-    maxHeight: props.isMobileTheater && 300,
     borderLeft: "1px solid #ebebec",
-    borderBottom: props.isMobileTheater ? '3px solid #ebebec' : 'none',
+    borderBottom: 'none',
     ...props.customScrollbar,
   }),
 
