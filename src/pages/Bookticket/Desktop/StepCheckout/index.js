@@ -22,13 +22,13 @@ export default function Stepcheckout() {
   const { currentUser } = useSelector(state => state.authReducer);
   const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ'];
 
-  useEffect(() => { // chuyển hiển thị step khi sãn sàng đặt vé
-    if (isReadyPayment) {
-      dispatch({ type: SET_STEP, payload: { activeStep: 1, }, })
-    } else {
-      dispatch({ type: SET_STEP, payload: { activeStep: 0, }, })
-    }
-  }, [isReadyPayment])
+  // useEffect(() => { // chuyển hiển thị step khi sãn sàng đặt vé
+  //   if (isReadyPayment) {
+  //     dispatch({ type: SET_STEP, payload: { activeStep: 1, }, })
+  //   } else {
+  //     dispatch({ type: SET_STEP, payload: { activeStep: 0, }, })
+  //   }
+  // }, [isReadyPayment])
 
   function StepIcon(props) {
     const { active, completed } = props;

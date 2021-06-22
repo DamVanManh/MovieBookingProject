@@ -60,12 +60,12 @@ const useStyles = makeStyles({
 });
 
 export default function Loading() {
-  const { isLazy } = useSelector((state) => state.lazyReducer)
+  const { isLazy, isLoadingBackToHome } = useSelector((state) => state.lazyReducer)
   const { loadingMovieList } = useSelector((state) => state.movieReducer)
   const { loadingTheaterList } = useSelector((state) => state.theaterReducer)
   const { loadingGetListSeat } = useSelector((state) => state.bookTicketReducer)
   const { loadingMovieDetailShowtimes } = useSelector((state) => state.movieDetailReducer)
-  const loading = isLazy || loadingMovieList || loadingTheaterList || loadingGetListSeat || loadingMovieDetailShowtimes
+  const loading = isLazy || loadingMovieList || loadingTheaterList || loadingGetListSeat || loadingMovieDetailShowtimes || isLoadingBackToHome
   const loadingPrevious = useRef(loading)
   const clear = useRef(null)
   const [loadingOut, setloadingOut] = useState(false)

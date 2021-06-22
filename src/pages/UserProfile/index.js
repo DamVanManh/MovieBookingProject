@@ -13,6 +13,9 @@ import Swal from "sweetalert2";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import NavigationIcon from '@material-ui/icons/Navigation';
+import Fab from '@material-ui/core/Fab';
+import { useHistory } from "react-router-dom";
 
 import { FAKE_AVATAR } from '../../constants/config';
 import { getInfoUser, putUserUpdate, resetUserList } from "../../reducers/actions/UsersManagement";
@@ -29,8 +32,8 @@ const useStyles = makeStyles(theme => ({
   },
   field: {
     maxWidth: 500,
-    paddingRight: 24,
-    paddingLeft: 24,
+    paddingRight: 16,
+    paddingLeft: 16,
   },
   password: {
     position: "relative"
@@ -60,7 +63,10 @@ const useStyles = makeStyles(theme => ({
     '& td': {
       whiteSpace: "nowrap"
     }
-  }
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
 }))
 
 function TabPanel(props) {
@@ -86,6 +92,7 @@ TabPanel.propTypes = {
 };
 
 export default function Index() {
+  const history = useHistory();
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
   const classes = useStyles();
@@ -140,6 +147,7 @@ export default function Index() {
     }
   }, [successUpdateUser])
 
+  console.log("successInfoUser ", successInfoUser);
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   const updateUserSchema = yup.object().shape({
     taiKhoan: yup.string().required("*Tài khoản không được bỏ trống !"),
@@ -174,8 +182,16 @@ export default function Index() {
         <div className="col-sm-3">
           <div className="text-center">
             <img src={FAKE_AVATAR} className={`avatar rounded-circle img-thumbnail ${isDesktop ? "w-100" : "w-50"}`} alt="avatar" />
-            <h1>{successInfoUser?.taiKhoan}</h1>
-          </div><br />
+            <h1 className="my-2">{successInfoUser?.taiKhoan}</h1>
+          </div>
+          {currentUser.maLoaiNguoiDung === "QuanTri" &&
+            <div className="text-center mb-2">
+              <Fab variant="extended" color="primary" onClick={() => history.push("/admin/users")}>
+                <NavigationIcon className={classes.extendedIcon} />
+                Tới trang quản trị
+              </Fab>
+            </div>
+          }
           <ul className="list-group">
             <li className="list-group-item text-muted">Hoạt động</li>
             <li className="list-group-item text-right"><span className="float-left"><strong>Bình luận</strong></span>{dataShort.posts}</li>
@@ -252,7 +268,7 @@ export default function Index() {
               </Form>
             )}</Formik>
           </TabPanel>
-          <TabPanel value={value} index={1} isDesktop={isDesktop}>
+          <TabPanel value={value} index={1} style={{ padding: isDesktop ? "0px 0px" : "0px 16px" }} isDesktop={isDesktop}>
             <div className="table-responsive">
               <table className="table table-striped table-hover table-bordered">
                 <thead>

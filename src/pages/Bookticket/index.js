@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { getListSeat } from '../../reducers/actions/BookTicket'
-import { SET_ISMOBILE, INIT_DATA, RESET_DATA_BOOKTICKET, SET_STEP } from '../../reducers/constants/BookTicket';
+import { SET_ISMOBILE, INIT_DATA, RESET_DATA_BOOKTICKET, } from '../../reducers/constants/BookTicket';
 import Mobile from './Mobile';
 import Desktop from './Desktop';
 import { DISPLAY_MOBILE_BOOKTICKET } from '../../constants/config';
@@ -13,18 +13,12 @@ import Modal from './Modal';
 
 export default function Index() {
   const { isLazy } = useSelector((state) => state.lazyReducer)
-  const { loadingGetListSeat, refreshKey, timeOut, isMobile, danhSachPhongVe: { thongTinPhim, danhSachGhe }, errorGetListSeatMessage, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
+  const { loadingGetListSeat, refreshKey, timeOut, isMobile, danhSachPhongVe: { thongTinPhim, danhSachGhe }, errorGetListSeatMessage } = useSelector(state => state.bookTicketReducer)
   const { currentUser } = useSelector(state => state.authReducer)
   const param = useParams()
   const dispatch = useDispatch()
   const mediaQuery = useMediaQuery(DISPLAY_MOBILE_BOOKTICKET)
   const loading = isLazy || loadingGetListSeat
-
-  useEffect(() => { // chuyển sang step 2 nếu đã nhấn đặt vé
-    if (successBookingTicketMessage || errorBookTicketMessage) {
-      dispatch({ type: SET_STEP, payload: { activeStep: 2, } })
-    }
-  }, [successBookingTicketMessage, errorBookTicketMessage])
 
   useEffect(() => { // lấy thongTinPhim và danhSachGhe
     dispatch(getListSeat(param.maLichChieu))

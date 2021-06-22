@@ -19,15 +19,16 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { useHistory, useLocation } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import { scroller } from 'react-scroll'
-import { nanoid } from 'nanoid'
 
 import { LOGOUT } from '../../../reducers/constants/Auth';
 import useStyles from './style'
 import { FAKE_AVATAR } from '../../../constants/config';
+import { LOADING_BACKTO_HOME } from '../../../reducers/constants/Lazy';
 const headMenu = [{ nameLink: 'Lịch chiếu', id: "lichchieu" }, { nameLink: 'Cụm rạp', id: "cumrap" }, { nameLink: 'Tin tức', id: "tintuc" }, { nameLink: 'Ứng dụng', id: "ungdung" }]
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.authReducer);
+  const { isLoadingBackToHome } = useSelector((state) => state.lazyReducer);
   const dispatch = useDispatch();
   let location = useLocation();
   const history = useHistory();
@@ -44,16 +45,17 @@ export default function Header() {
       }
     }
   }, [isDesktop])
+
   useEffect(() => { // clicklink > push to home > scrollTo after loading
-    if (location.state) {
+    if (!isLoadingBackToHome) {
       setTimeout(() => {
         scroller.scrollTo(location.state, {
           duration: 800,
           smooth: 'easeInOutQuart'
         })
-      }, 500);
+      }, 200);
     }
-  }, [location.pathname])
+  }, [isLoadingBackToHome])
 
   const handleLogout = () => {
     setOpenDrawer(false)
@@ -74,7 +76,10 @@ export default function Header() {
       })
       return
     }
-    history.push("/", "")
+    dispatch({ type: LOADING_BACKTO_HOME })
+    setTimeout(() => {
+      history.push("/", "")
+    }, 50);
   }
   const handleClickLink = (id) => {
     setOpenDrawer(false)
@@ -84,9 +89,10 @@ export default function Header() {
         smooth: 'easeInOutQuart'
       })
     } else {
+      dispatch({ type: LOADING_BACKTO_HOME })
       setTimeout(() => {
         history.push("/", id)
-      }, 300);
+      }, 50);
     }
   }
 

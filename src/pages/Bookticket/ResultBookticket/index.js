@@ -42,7 +42,7 @@ export default function SuccessBooking() {
       <div>
         <div>
           <h3 className={classes.infoResult_label}>Thông tin đặt vé</h3>
-          <table className={classes.table}>
+          <table className={`${classes.table} table`}>
             <tbody>
               <tr>
                 <td valign='top' >Họ tên:</td>

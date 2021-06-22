@@ -11,6 +11,7 @@ import {
 } from '../constants/Movie';
 
 export const getMovieList = () => {
+
   return (dispatch) => {
     dispatch({
       type: GET_MOVIE_LIST_REQUEST

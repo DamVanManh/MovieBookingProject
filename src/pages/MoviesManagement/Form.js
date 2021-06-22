@@ -24,7 +24,7 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
 
   const handleSubmit = (movieObj) => {
     let hinhAnh = movieObj.hinhAnh
-    let fakeImage = {srcImage, maPhim: movieObj.maPhim}
+    let fakeImage = { srcImage, maPhim: movieObj.maPhim }
     movieObj = { ...movieObj, ngayKhoiChieu: new Date(movieObj?.ngayKhoiChieu)?.toLocaleDateString('en-GB') } // backend yêu cầu định dạng: dd/mm/yyyy: input "2021-05-13", output 13/05/2021
     if (selectedPhim.maPhim) {
       onUpdate(movieObj, hinhAnh, fakeImage)
@@ -57,12 +57,12 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
         <div className="form-group">
           <label>Tên phim&nbsp;</label>
           <ErrorMessage name="tenPhim" render={msg => <span className="text-danger">{msg}</span>} />
-          <Field name="tenPhim" className="form-control" onChange={formikProp.handleChange} />
+          <Field name="tenPhim" className="form-control" />
         </div>
         <div className="form-group">
           <label>Trailer&nbsp;</label>
           <ErrorMessage name="trailer" render={msg => <span className="text-danger">{msg}</span>} />
-          <Field name="trailer" className="form-control" onChange={formikProp.handleChange} />
+          <Field name="trailer" className="form-control" />
         </div>
         <div className="form-group">
           <label>Hình ảnh&nbsp;</label>
@@ -82,7 +82,7 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
         <div className="form-group">
           <label>Mô tả&nbsp;</label>
           <ErrorMessage name="moTa" render={msg => <span className="text-danger">{msg}</span>} />
-          <Field as="textarea" name="moTa" className="form-control" onChange={formikProp.handleChange} />
+          <Field as="textarea" name="moTa" className="form-control" />
         </div>
         <div className="form-group">
           <label>Ngày khởi chiếu&nbsp;</label>
@@ -91,7 +91,6 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
             type="date"
             name="ngayKhoiChieu"
             className="form-control"
-            onChange={formikProp.handleChange}
           />
         </div>
         <div className="form-group" hidden={selectedPhim.maPhim ? false : true}>

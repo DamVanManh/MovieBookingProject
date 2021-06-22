@@ -11,6 +11,7 @@ import { bookTicket } from '../../../reducers/actions/BookTicket'
 import ResultBookticket from '../ResultBookticket';
 import { RESET_DATA_BOOKTICKET, SET_STEP } from '../../../reducers/constants/BookTicket'
 import { getListSeat } from '../../../reducers/actions/BookTicket'
+import { LOADING_BACKTO_HOME } from '../../../reducers/constants/Lazy';
 
 export default function Mobile() {
   const { activeStep, isSelectedSeat, listSeatSelected, isReadyPayment, maLichChieu, danhSachVe, taiKhoanNguoiDung, loadingBookingTicket, successBookingTicketMessage, errorBookTicketMessage } = useSelector(state => state.bookTicketReducer)
@@ -24,9 +25,11 @@ export default function Mobile() {
 
   const handleCombackHome = () => {
     dispatch({ type: RESET_DATA_BOOKTICKET })
-    history.push('/')
+    dispatch({ type: LOADING_BACKTO_HOME })
+    setTimeout(() => {
+      history.push("/")
+    }, 50);
   }
-
   const handleNext = () => {
     if (activeStep === 0) {
       dispatch({ type: SET_STEP, payload: { activeStep: 1, }, })
@@ -34,7 +37,7 @@ export default function Mobile() {
     // chỉ thực hiện dispatch đặt vé một lần
     if ((activeStep === 1) && isReadyPayment && !loadingBookingTicket && !successBookingTicketMessage && !errorBookTicketMessage) {
       dispatch(bookTicket({ maLichChieu, danhSachVe, taiKhoanNguoiDung }))
-      dispatch({ type: SET_STEP, payload: { activeStep: 2, }, })
+      // dispatch({ type: SET_STEP, payload: { activeStep: 2 } })
     }
     if (activeStep === 2) {
       handleCombackHome()

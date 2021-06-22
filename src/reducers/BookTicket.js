@@ -83,14 +83,12 @@ const bookTicketReducer = (state = initialState, action) => {
 
     // selecting seat
     case CHANGE_LISTSEAT: {
-      const activeStep = action.payload.activeStep === 0 ? 0 : state.activeStep
       return {
         ...state,
         listSeat: action.payload.listSeat,
         isSelectedSeat: action.payload.isSelectedSeat,
         listSeatSelected: action.payload.listSeatSelected,
         danhSachVe: action.payload.danhSachVe,
-        activeStep,
         amount: action.payload.amount,
       }
     }
@@ -99,6 +97,7 @@ const bookTicketReducer = (state = initialState, action) => {
         ...state,
         danhSachPhongVe: {},
         paymentMethod: '',
+        isReadyPayment: false,
         isSelectedSeat: false,
         listSeatSelected: [],
         timeOut: false,
@@ -157,6 +156,7 @@ const bookTicketReducer = (state = initialState, action) => {
         ...state,
         successBookingTicketMessage: action.payload.data,
         loadingBookingTicket: false,
+        activeStep: 2,
       }
     }
     case BOOK_TICKET_FAIL: {
@@ -164,6 +164,7 @@ const bookTicketReducer = (state = initialState, action) => {
         ...state,
         errorBookTicketMessage: action.payload.error,
         loadingBookingTicket: false,
+        activeStep: 2,
       }
     }
 

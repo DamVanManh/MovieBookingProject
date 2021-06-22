@@ -42,6 +42,7 @@ export default function Register() {
 
   const handleSubmit = (user) => {
     // trường hợp nào thì cho đăng ký(return true): loadingRegister=false và responseRegister=null
+    console.log(`user`, user)
     if (!loadingRegister && !responseRegister) {
       dispatch(register(user))
     }
@@ -61,7 +62,7 @@ export default function Register() {
             email: "",
             soDt: "",
             maNhom: "GP09",
-            maLoaiNguoiDung: "KhachHang",
+            maLoaiNguoiDung: "KhachHang", // điền QuanTri backend cũng áp dụng KhachHang
             hoTen: "",
           }
         }
@@ -74,21 +75,18 @@ export default function Register() {
               <label>Tài khoản&nbsp;</label>
               <ErrorMessage name="taiKhoan" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="taiKhoan" type="text" className="form-control"
-                onChange={formikProps.handleChange}
               />
             </div>
             <div className="form-group">
               <label>Mật khẩu&nbsp;</label>
               <ErrorMessage name="matKhau" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="matKhau" type="password" className="form-control"
-                onChange={formikProps.handleChange}
               />
             </div>
             <div className="form-group">
               <label>Họ và tên&nbsp;</label>
               <ErrorMessage name="hoTen" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="hoTen" type="text" className="form-control"
-                onChange={formikProps.handleChange}
               />
             </div>
 
@@ -96,16 +94,27 @@ export default function Register() {
               <label>Email&nbsp;</label>
               <ErrorMessage name="email" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="email" type="email" className="form-control"
-                onChange={formikProps.handleChange}
               />
             </div>
             <div className="form-group">
               <label>Số điện thoại&nbsp;</label>
               <ErrorMessage name="soDt" render={msg => <span className="text-danger">{msg}</span>} />
               <Field name="soDt" type="text" className="form-control"
-                onChange={formikProps.handleChange}
               />
             </div>
+            {/* <div className="form-group">
+              <label>Loại tài khoản&nbsp;</label>
+              <div>
+                <label>
+                  <Field type="radio" name="maLoaiNguoiDung" value="KhachHang" />
+                  Khách Hàng
+                </label>
+                <label>
+                  <Field type="radio" name="maLoaiNguoiDung" value="QuanTri" />
+                  Quản Trị
+                </label>
+              </div>
+            </div> */}
             <div className="text-center p-2">
               <button type="submit" className="btn btn-success"
                 disable={loadingRegister.toString()}>

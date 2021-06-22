@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useStyles from './style'
 import Slider from "react-slick"
+import { useDispatch } from 'react-redux';
 
 import openNewTap from '../../../utilities/openNewTap';
+import { LOADING_BACKTO_HOME_COMPLETED } from '../../../reducers/constants/Lazy';
 
 export default function HomeApp() {
+  const dispatch = useDispatch();
   const settings = {
     infinite: true,
     slidesToShow: 1,
@@ -15,6 +18,11 @@ export default function HomeApp() {
   }
   const textDecoration = { textDecoration: "underline" }
   const classes = useStyles()
+
+  useEffect(() => { // xác nhận đã load thành công component cuối cùng và tắt component loading
+    dispatch({ type: LOADING_BACKTO_HOME_COMPLETED })
+  })
+
   return (
     <div id="ungdung">
       <div className={classes.mobileApp}>

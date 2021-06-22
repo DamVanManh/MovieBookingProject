@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import { makeStyles } from "@material-ui/core"
-import { Redirect, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 
 import logoTix from "../Register/logo/logoTix.png"
 import { login, resetErrorLoginRegister } from '../../reducers/actions/Auth'
+import { LOADING_BACKTO_HOME } from '../../reducers/constants/Lazy';
 
 const useStyles = makeStyles(theme => ({
   eye: {
@@ -16,6 +17,12 @@ const useStyles = makeStyles(theme => ({
     right: 9,
     cursor: "pointer",
     color: '#000',
+  },
+  logoTix: {
+    width: "209px", marginBottom: "13px", cursor: "pointer", display: "block", marginLeft: "auto", marginRight: "auto"
+  },
+  text: {
+    textAlign: "center", marginBottom: "30px"
   }
 }))
 export default function Login() {
@@ -25,18 +32,22 @@ export default function Login() {
   const history = useHistory();
   const [typePassword, settypePassword] = useState("password")
   const classes = useStyles();
-  useEffect(() => {
+
+  useEffect(() => {// đăng nhập thành công thì quay về trang trước đó
+    if (currentUser) {
+      if (location.state === "/") { // nếu trang trước đó là "/" thì phải hiện loading do trang home mất nhiều thời gian tải
+        dispatch({ type: LOADING_BACKTO_HOME })
+        setTimeout(() => {
+          history.push("/")
+        }, 50);
+        return undefined
+      }
+      history.push(location.state)
+    }
     return () => {
       dispatch(resetErrorLoginRegister())
     }
-  }, [])
-
-  if (currentUser) {
-    if (!location.state) {
-      location.state = "/"
-    }
-    return <Redirect to={location.state} />
-  }
+  }, [currentUser])
 
   const signinUserSchema = yup.object().shape({
     taiKhoan: yup.string().required("*Tài khoản không được bỏ trống !"),
@@ -60,8 +71,8 @@ export default function Login() {
   return (
     <div className="text-light" style={{ padding: "60px 32px 30px" }} >
       <div className="container" >
-        <img src={logoTix} alt="logoTix" style={{ width: "209px", marginBottom: "60px", cursor: "pointer", display: "block", marginLeft: "auto", marginRight: "auto" }} />
-        <p style={{ textAlign: "center", marginBottom: "30px" }}>Đăng nhập để được nhiều ưu đãi, mua vé và bảo mật thông tin!</p>
+        <img src={logoTix} alt="logoTix" className={classes.logoTix} />
+        <p className={classes.text}>Đăng nhập để được nhiều ưu đãi, mua vé và bảo mật thông tin!</p>
       </div>
       <div>
         <Formik
@@ -72,18 +83,18 @@ export default function Login() {
           }}
           validationSchema={signinUserSchema}
           onSubmit={handleSubmit}
-        >{(formikProp) => (
+        >{() => (
           <Form className="col-sm-10 mx-auto">
             <div className="form-group position-relative">
               <label>Tài khoản&nbsp;</label>
               <ErrorMessage name="taiKhoan" render={msg => <small className="text-danger">{msg}</small>} />
-              <Field type="text" className="form-control" name="taiKhoan" onChange={formikProp.handleChange} />
+              <Field type="text" className="form-control" name="taiKhoan" />
             </div>
 
             <div className="form-group position-relative">
               <label>Mật khẩu&nbsp;</label>
               <ErrorMessage name="matKhau" render={msg => <small className="text-danger">{msg}</small>} />
-              <Field type={typePassword} className="form-control" name="matKhau" onChange={formikProp.handleChange} />
+              <Field type={typePassword} className="form-control" name="matKhau" />
               <div className={classes.eye} onClick={handleToggleHidePassword}>
                 {typePassword === "password" ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i>}
               </div>

@@ -61,10 +61,7 @@ export default function ListSeat() {
       return danhSachVe
     }, [])
     // cập nhật biến kiểm tra đã có ghế nào được chọn chưa
-    // const isSelectedSeat = newListSeat.some((seat) => seat.selected)
     const isSelectedSeat = newListSeatSelected.length > 0 ? true : false
-    // chuyển sang step 0 nếu không có ghế nào được chọn
-    const newActiveStep = isSelectedSeat ? 1 : 0
     // tính lại tổng tiền
     const amount = newListSeat?.reduce((amount, seat) => {
       if (seat.selected) {
@@ -79,7 +76,6 @@ export default function ListSeat() {
         isSelectedSeat,
         listSeatSelected: newListSeatSelected,
         danhSachVe,
-        activeStep: newActiveStep,
         amount,
       }
     })

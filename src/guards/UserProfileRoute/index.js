@@ -13,7 +13,7 @@ function UserProfileRoute(props) {
       return (
         <Redirect
           to={{
-            pathname: "/dangnhap",
+            pathname: "/dangnhap", // đang ở /taikhoan nếu nhấn đăng xuất thì về /dangnhap, truyền state là "/" > nếu nhấn X trong dang nhap thì về home, dang nhap thanh cong thì ve /taikhoan
             state: "/taikhoan",
           }}
         />

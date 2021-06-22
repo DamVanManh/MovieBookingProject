@@ -28,7 +28,7 @@ function MobileLstCumRap({ lstCumRap }) {
             <div style={{ clear: "both" }}></div>
           </AccordionSummary>
           <AccordionDetails >
-            {item.danhSachPhim.map((phim) => (
+            {(expanded === index) && item.danhSachPhim.map((phim) => (
               <ItemPhim key={phim.tenPhim} phim={phim} />
             ))}
           </AccordionDetails>

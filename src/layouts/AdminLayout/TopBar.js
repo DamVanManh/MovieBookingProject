@@ -14,18 +14,23 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Tooltip from '@material-ui/core/Tooltip';
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import { LOGOUT } from '../../reducers/constants/Auth';
-
+import { LOADING_BACKTO_HOME } from '../../reducers/constants/Lazy';
 const TopBar = ({
   onMobileNavOpen,
   ...rest
 }) => {
   const [notifications] = useState([]);
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const handleLogout = () => {
-    dispatch({ type: LOGOUT })
+  const handleClickLogo = () => {
+    dispatch({ type: LOADING_BACKTO_HOME })
+    setTimeout(() => {
+      history.push("/", "")
+    }, 50);
   }
   return (
 
@@ -36,9 +41,9 @@ const TopBar = ({
       {...rest}
     >
       <Toolbar>
-        <RouterLink to="/">
+        <div onClick={handleClickLogo} style={{ cursor: "pointer" }}>
           <img src="/img/headTixLogo.png" alt="logo" style={{ height: 50 }} />
-        </RouterLink>
+        </div>
 
         {/* 1 thẻ div chiếm hết khoảng trống còn lại dể dồn các icon về 2 bên */}
         <Box flexGrow={1} />
@@ -84,15 +89,3 @@ TopBar.propTypes = {
 
 export default TopBar;
 
-
-
-
-// import React from 'react'
-
-// export default function TopBar() {
-//   return (
-//     <div>
-//       phần trên cùng
-//     </div>
-//   )
-// }
