@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { useStyles, Accordion, AccordionSummary, AccordionDetails } from './style'
 import ThoiLuongDanhGia from '../../../../../components/ThoiLuongDanhGia/thoiLuongDanhGia';
 import LstNgayChieu from '../../LstPhim/LstNgayChieu';
 
-function ItemPhim({ phim, }) {
+function ItemPhim({ phim }) {
   const { hinhAnh, tenPhim, maPhim, lstLichChieuTheoPhim } = phim
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false);
@@ -28,4 +28,4 @@ function ItemPhim({ phim, }) {
     </>
   )
 }
-export default ItemPhim
+export default memo(ItemPhim)

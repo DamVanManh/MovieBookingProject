@@ -56,6 +56,11 @@ const useStyles = makeStyles(theme => ({
   tabSelected: {
     color: "#fa5238",
   },
+  td: {
+    '& td': {
+      whiteSpace: "nowrap"
+    }
+  }
 }))
 
 function TabPanel(props) {
@@ -247,37 +252,40 @@ export default function Index() {
               </Form>
             )}</Formik>
           </TabPanel>
-          <TabPanel value={value} index={1} style={{ overflow: "auto" }} isDesktop={isDesktop}>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Stt</th>
-                  <th scope="col">Tên phim</th>
-                  <th scope="col">Thời lượng phim</th>
-                  <th scope="col">Ngày đặt</th>
-                  <th scope="col">Tên Rạp</th>
-                  <th scope="col">Mã vé</th>
-                  <th scope="col">Tên ghế</th>
-                  <th scope="col">Giá vé(vnđ)</th>
-                  <th scope="col">Tổng tiền(vnđ)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {successInfoUser?.thongTinDatVe.map((sticket, i) => (
-                  <tr key={sticket.maVe}>
-                    <th scope="row">{i + 1}</th>
-                    <td>{sticket.tenPhim}</td>
-                    <td>{sticket.thoiLuongPhim}</td>
-                    <td>{new Date(sticket.ngayDat).toLocaleDateString()}, {new Date(sticket.ngayDat).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</td>
-                    <td>{sticket.danhSachGhe[0].tenHeThongRap}, {sticket.danhSachGhe[0].tenRap}</td>
-                    <td>{sticket.maVe}</td>
-                    <td>{getIdSeat(sticket.danhSachGhe)}</td>
-                    <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe)}</td>
-                    <td>{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe * sticket.danhSachGhe.length)}</td>
+          <TabPanel value={value} index={1} isDesktop={isDesktop}>
+            <div className="table-responsive">
+              <table className="table table-striped table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Stt</th>
+                    <th scope="col">Tên phim</th>
+                    <th scope="col">Thời lượng phim</th>
+                    <th scope="col">Ngày đặt</th>
+                    <th scope="col">Tên Rạp</th>
+                    <th scope="col">Mã vé</th>
+                    <th scope="col">Tên ghế</th>
+                    <th scope="col">Giá vé(vnđ)</th>
+                    <th scope="col">Tổng tiền(vnđ)</th>
                   </tr>
-                )).reverse()}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {successInfoUser?.thongTinDatVe.map((sticket, i) => (
+                    <tr key={sticket.maVe} className={classes.td}>
+                      <th scope="row">{i + 1}</th>
+                      <td >{sticket.tenPhim}</td>
+                      <td >{sticket.thoiLuongPhim}</td>
+                      <td >{new Date(sticket.ngayDat).toLocaleDateString()}, {new Date(sticket.ngayDat).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</td>
+                      <td >{sticket.danhSachGhe[0].tenHeThongRap}, {sticket.danhSachGhe[0].tenRap}</td>
+                      <td >{sticket.maVe}</td>
+                      <td >{getIdSeat(sticket.danhSachGhe)}</td>
+                      <td >{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe)}</td>
+                      <td >{new Intl.NumberFormat('it-IT', { style: 'decimal' }).format(sticket.giaVe * sticket.danhSachGhe.length)}</td>
+                    </tr>
+                  )).reverse()}
+                </tbody>
+              </table>
+            </div>
+
           </TabPanel>
         </div>
       </div>
