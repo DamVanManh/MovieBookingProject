@@ -14,7 +14,6 @@ const moviesApi = {
 
   //lấy thông tin của 1 phim, bao gồm 1 mảng lichChieu<obj> không phân biệt cụm rạp
   getDanhSachPhimTheoNgay: (maNhom, tuNgay, denNgay) => {
-    // const path = `/QuanLyPhim/LayDanhSachPhimTheoNgay?maNhom=GP09&tuNgay=${tuNgay}&denNgay=${denNgay}`;
     const path = `/QuanLyPhim/LayDanhSachPhimTheoNgay`;
     return axiosClient.get(path, { maNhom, tuNgay, denNgay });
   },
@@ -42,7 +41,6 @@ const moviesApi = {
     for (const key in movie) {
       formData.append(key, movie[key]);
     }
-    // console.log("ngayKhoiChieu ", formData.get("ngayKhoiChieu"));
     return axiosClient.post(path, formData);
   },
 

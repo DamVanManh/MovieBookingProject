@@ -71,9 +71,10 @@ export const deleteMovie = (maPhim) => {
       })
       .catch(
         error => {
+          const message = error?.response?.data ? error.response.data : "Xóa thành công nhưng backend return error"
           dispatch({
             type: DELETE_MOVIE_FAIL,
-            payload: { error: error.response.data }
+            payload: { error: message }
           })
         })
   }

@@ -39,9 +39,9 @@ const formatDate = (dateIn) => { // ISODate ~ 2021-3-31
     dayToday = "Hôm nay";
   }
 
-  const date = dateObj.getDate();
+  const date = `0${dateObj.getDate()}`.slice(-2);
 
-  const month = dateObj.getMonth() + 1;
+  const month = `0${dateObj.getMonth() + 1}`.slice(-2);
 
   const year = dateObj.getFullYear();
 
@@ -49,7 +49,7 @@ const formatDate = (dateIn) => { // ISODate ~ 2021-3-31
 
   const getTime = dateObj.getTime()
 
-  return { dayToday, dateShort: dateIn, dateFull, dDMmYy: `${date}.${month}.${year}`, getTime };
+  return { dayToday, dateShort: dateIn, dateFull, YyMmDd: `${year}.${month}.${date}`, getTime };
 };
 
 export default formatDate

@@ -101,7 +101,7 @@ export default function MoviesManagement() {
                 maPhim: phim.maPhim,
                 tenPhim: phim.tenPhim,
                 id: lichChieu.maLichChieu,
-                ngayChieuGioChieu: new Date(lichChieu.ngayChieuGioChieu),
+                ngayChieuGioChieu: `${lichChieu.ngayChieuGioChieu.slice(0, 10)}, ${lichChieu.ngayChieuGioChieu.slice(11, 16)}`
               }]
             }, [])
             ]
@@ -191,7 +191,7 @@ export default function MoviesManagement() {
   const handleDateChange = (date) => {
     const obj = new Date(date)
     const openGiave = data.setGiaVe ? false : true
-    setSelectedDate(obj.toLocaleString())
+    setSelectedDate(`${obj.getFullYear()}-${(obj.getMonth() + 1).toString().padStart(2, 0)}-${obj.getDate().toString().padStart(2, 0)}, ${obj.getHours().toString().padStart(2, 0)}:${obj.getMinutes().toString().padStart(2, 0)}`)
     setData(data => ({ ...data, openCtr: { ...data.openCtr, giaVe: openGiave }, ngayChieuGioChieu: `${obj.getDate().toString().padStart(2, 0)}/${(obj.getMonth() + 1).toString().padStart(2, 0)}/${obj.getFullYear()} ${obj.getHours().toString().padStart(2, 0)}:${obj.getMinutes().toString().padStart(2, 0)}:00` }))
   }
 
@@ -205,8 +205,7 @@ export default function MoviesManagement() {
     if (loadingCreateShowtime) {
       return
     }
-    console.log(`ngay đã chọn`, data.ngayChieuGioChieu)
-    dispatch(createShowtime({ maPhim: data.setPhim, ngayChieuGioChieu: data.ngayChieuGioChieu, maRap: data.maRap, giaVe: data.setGiaVe }))// Ngày chiếu phải có định dạng dd/MM/yyyy hh:mm:ss
+    dispatch(createShowtime({ maPhim: data.setPhim, ngayChieuGioChieu: data.ngayChieuGioChieu, maRap: data.maRap, giaVe: data.setGiaVe }))// ngayChieuGioChieu phải có định dạng dd/MM/yyyy hh:mm:ss
   }
 
 
@@ -246,7 +245,7 @@ export default function MoviesManagement() {
       { field: 'logo', hide: true, width: 130 },
       {
         field: 'tenHeThongRap', headerName: 'Hệ thống rạp', width: 130, renderCell: (params) => <Tooltip title={params.row.tenHeThongRap}>
-          <img style={{ maxWidth: "100%", height: "100%", borderRadius: 4, marginRight: 15, }} src={params.row.logo} alt="image" />
+          <img style={{ maxWidth: "100%", height: "100%", borderRadius: 4, marginRight: 15, }} src={params.row.logo} alt="logo hệ thống rạp" />
         </Tooltip>, headerAlign: 'center', align: "center", headerClassName: 'custom-header',
       },
       { field: 'tenCumRap', headerName: 'Tên Cụm Rạp', width: 300, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: RenderCellExpand },
@@ -255,7 +254,7 @@ export default function MoviesManagement() {
       { field: 'maRap', headerName: 'Mã rạp', hide: true, width: 130 },
       { field: 'maPhim', headerName: 'Mã phim', hide: true, width: 130 },
       { field: 'tenPhim', headerName: 'Tên phim', width: 250, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: RenderCellExpand },
-      { field: 'ngayChieuGioChieu', headerName: 'Ngày chiếu giờ chiếu', width: 200, type: 'dateTime', headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
+      { field: 'ngayChieuGioChieu', headerName: 'Ngày chiếu giờ chiếu', width: 200, type: 'dateTime', headerAlign: 'center', align: "left", headerClassName: 'custom-header' },
       { field: 'giaVe', headerName: 'Giá vé(vnđ)', width: 130, type: 'number', headerAlign: 'center', align: "center", headerClassName: 'custom-header', },
     ]
 
@@ -352,7 +351,7 @@ export default function MoviesManagement() {
               open={data.openCtr.ngayChieuGioChieu}
               onClose={handleCloseNgayChieuGioChieu}
               onOpen={handleOpenNgayChieuGioChieu}
-              inputValue={selectedDate ? selectedDate : "Chọn ngày, giờ chiếu"}
+              inputValue={selectedDate ? selectedDate : "Chọn ngày, giờ chiếu"} // hiển thị ngày đã chọn
               invalidDateMessage={""}
               onChange={handleDateChange}
             />
@@ -409,9 +408,8 @@ export default function MoviesManagement() {
         pageSize={25}
         rowsPerPageOptions={[10, 25, 50]}
         loading={loadingTheaterList2}
-        components={{ LoadingOverlay: CustomLoadingOverlay }}
+        components={{ LoadingOverlay: CustomLoadingOverlay, Toolbar: GridToolbar, }}
         sortModel={[{ field: 'tenHeThongRap', sort: 'asc', },]}
-        components={{ Toolbar: GridToolbar, }}
       />
     </div>
   );

@@ -74,7 +74,7 @@ const movieReducer = (state = initialState, action) => {
     }
 
     case DELETE_MOVIE_REQUEST: {
-      return { ...state, loadingDeleteMovie: true, errorDeleteMovie: null, successDeleteMovie: null, };
+      return { ...state, loadingDeleteMovie: true, errorDeleteMovie: null, };
     }
     case DELETE_MOVIE_SUCCESS: {
       return {

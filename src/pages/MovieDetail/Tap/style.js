@@ -41,7 +41,6 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     cursor: "pointer",
     width: "100%",
-    cursor: "pointer",
   },
   avatarReviewer: {
     position: "absolute", top: "20%", left: "3%",

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
@@ -7,28 +7,18 @@ import StepLabel from '@material-ui/core/StepLabel';
 import SeatIcon from '@material-ui/icons/CallToActionRounded';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 import { useStyles, ColorlibConnector } from './style';
 import { FAKE_AVATAR } from '../../../../constants/config';
-import { SET_STEP } from '../../../../reducers/constants/BookTicket'
 
 export default function Stepcheckout() {
   const history = useHistory();
-  const dispatch = useDispatch()
   const classes = useStyles();
-  const { isReadyPayment, activeStep } = useSelector(state => state.bookTicketReducer);
+  const { activeStep } = useSelector(state => state.bookTicketReducer);
   const { currentUser } = useSelector(state => state.authReducer);
   const steps = ['CHỌN GHẾ', 'THANH TOÁN', 'KẾT QUẢ ĐẶT VÉ'];
-
-  // useEffect(() => { // chuyển hiển thị step khi sãn sàng đặt vé
-  //   if (isReadyPayment) {
-  //     dispatch({ type: SET_STEP, payload: { activeStep: 1, }, })
-  //   } else {
-  //     dispatch({ type: SET_STEP, payload: { activeStep: 0, }, })
-  //   }
-  // }, [isReadyPayment])
 
   function StepIcon(props) {
     const { active, completed } = props;

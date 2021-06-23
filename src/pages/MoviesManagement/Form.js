@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import { ThemeProvider } from "@material-ui/styles";
+import FormControl from '@material-ui/core/FormControl';
+import { materialTheme } from './styles';
+import { useStyles } from './styles';
+
 export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
+  const classes = useStyles();
   const [srcImage, setSrcImage] = useState(selectedPhim?.hinhAnh)
   const setThumbnailPreviews = (e) => {
     let file = e.target;
@@ -25,7 +36,7 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
   const handleSubmit = (movieObj) => {
     let hinhAnh = movieObj.hinhAnh
     let fakeImage = { srcImage, maPhim: movieObj.maPhim }
-    movieObj = { ...movieObj, ngayKhoiChieu: new Date(movieObj?.ngayKhoiChieu)?.toLocaleDateString('en-GB') } // backend yêu cầu định dạng: dd/mm/yyyy: input "2021-05-13", output 13/05/2021
+    movieObj = { ...movieObj, ngayKhoiChieu: movieObj.ngayKhoiChieu.toLocaleDateString('en-GB') }
     if (selectedPhim.maPhim) {
       onUpdate(movieObj, hinhAnh, fakeImage)
       return
@@ -47,7 +58,7 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
         hinhAnh: selectedPhim.hinhAnh,
         moTa: selectedPhim.moTa,
         maNhom: 'GP09',
-        ngayKhoiChieu: selectedPhim?.ngayKhoiChieu?.slice(0, 10),
+        ngayKhoiChieu: selectedPhim?.ngayKhoiChieu ? new Date(selectedPhim.ngayKhoiChieu) : new Date(),
         danhGia: selectedPhim.danhGia,
       }}
       validationSchema={movieSchema}
@@ -87,16 +98,22 @@ export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
         <div className="form-group">
           <label>Ngày khởi chiếu&nbsp;</label>
           <ErrorMessage name="ngayKhoiChieu" render={msg => <span className="text-danger">{msg}</span>} />
-          <Field
-            type="date"
-            name="ngayKhoiChieu"
-            className="form-control"
-          />
+          <FormControl className={classes.formControl} focused={false}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <ThemeProvider theme={materialTheme}>
+                <KeyboardDatePicker
+                  value={formikProp.values.ngayKhoiChieu}
+                  onChange={date => formikProp.setFieldValue('ngayKhoiChieu', date)}
+                  format="yyyy-MM-dd"
+                />
+              </ThemeProvider>
+            </MuiPickersUtilsProvider>
+          </FormControl>
         </div>
         <div className="form-group" hidden={selectedPhim.maPhim ? false : true}>
           <label>Đánh giá&nbsp;</label>
           <ErrorMessage name="danhGia" render={msg => <span className="text-danger">{msg}</span>} />
-          <Field name="danhGia" type="number" className="form-control" onChange={formikProp.handleChange} />
+          <Field name="danhGia" type="number" className="form-control" />
         </div>
         <button type="submit" className="form-control">Submit</button>
       </Form>

@@ -11,13 +11,13 @@ import Slider from '@material-ui/core/Slider';
 const GridCellExpand = function GridCellExpand(props) {
   const { width, value, field } = props;
   const classes = useStyles({ field });
-  const wrapper = React.useRef(null);
-  const cellDiv = React.useRef(null);
-  const cellValue = React.useRef(null);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [showFullCell, setShowFullCell] = React.useState(false);
-  const [showPopper, setShowPopper] = React.useState(false);
-  const [widthImage, setwidthImage] = React.useState({ widthImage: 200, value: 20 })
+  const wrapper = useRef(null);
+  const cellDiv = useRef(null);
+  const cellValue = useRef(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [showFullCell, setShowFullCell] = useState(false);
+  const [showPopper, setShowPopper] = useState(false);
+  const [widthImage, setwidthImage] = useState({ widthImage: 200, value: 20 })
 
   const handleMouseEnter = () => {
     let isCurrentlyOverflown = isOverflown(cellValue.current);
@@ -33,7 +33,7 @@ const GridCellExpand = function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!showFullCell) {
       return undefined;
     }
@@ -74,7 +74,7 @@ const GridCellExpand = function GridCellExpand(props) {
       <div ref={cellValue} className="cellValue">
         {field !== "hinhAnh" ? value :
           <>
-            <img style={{ width: 50, height: 50, borderRadius: 4, marginRight: 15, }} src={value} alt="image" />
+            <img style={{ width: 50, height: 50, borderRadius: 4, marginRight: 15, }} src={value} alt="poster movie" />
             <Slider value={widthImage.value} classes={{ root: classes.rootSlider }} onChange={handleChangeSize} />
           </>
         }
@@ -89,7 +89,7 @@ const GridCellExpand = function GridCellExpand(props) {
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
-              {field === "hinhAnh" ? <img style={{ width: "100%", height: "100%", borderRadius: 4, }} src={value} alt="image" /> : <Paper
+              {field === "hinhAnh" ? <img style={{ width: "100%", height: "100%", borderRadius: 4, }} src={value} alt="poster movie" /> : <Paper
                 elevation={1}
                 style={{ minHeight: wrapper.current.offsetHeight - 3, backgroundColor: "#00fff3" }}
               >

@@ -90,7 +90,7 @@ export default function Loading() {
   return (
     <div className={clsx(`${materialStyles.root}`, (loading || loadingPrevious.current) && `${materialStyles.visible}`)}>
       <div className={clsx((loading || loadingPrevious.current) && `${materialStyles.itemIn}`, loadingOut && `${materialStyles.itemOut}`)}>
-        <img src={IMG_LOADING} className={materialStyles.image} />
+        <img src={IMG_LOADING} className={materialStyles.image} alt="logo" />
       </div>
     </div>
   )

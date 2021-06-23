@@ -254,7 +254,7 @@ export default function UsersManagement() {
         setUserListmodified(data => ({ ...data, userListmodified: newUserListmodified }))
       }
     },
-    [editRowsModel, usersListDisplay, usersList, userListmodified, addUser],
+    [usersListDisplay, usersList, userListmodified, addUser],
   )
 
   const handleRefreshUserListResetChanged = () => {

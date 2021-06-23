@@ -31,7 +31,7 @@ export default function MoviesManagement() {
   const [movieListDisplay, setMovieListDisplay] = useState([])
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-  const { movieList2, loadingMovieList2, loadingDeleteMovie, errorDeleteMovie, successDeleteMovie, successUpdateMovie, errorUpdateMovie, loadingUpdateMovie, loadingAddUploadMovie, successAddUploadMovie, errorAddUploadMovie, loadingUpdateNoneImageMovie, successUpdateNoneImageMovie, errorUpdateNoneImageMovie } = useSelector((state) => state.movieReducer);
+  let { movieList2, loadingMovieList2, loadingDeleteMovie, errorDeleteMovie, successDeleteMovie, successUpdateMovie, errorUpdateMovie, loadingUpdateMovie, loadingAddUploadMovie, successAddUploadMovie, errorAddUploadMovie, loadingUpdateNoneImageMovie, successUpdateNoneImageMovie, errorUpdateNoneImageMovie } = useSelector((state) => state.movieReducer);
   const dispatch = useDispatch();
   const newImageUpdate = useRef("")
   const callApiChangeImageSuccess = useRef(false)
@@ -40,28 +40,30 @@ export default function MoviesManagement() {
   const [openModal, setOpenModal] = React.useState(false);
   const selectedPhim = useRef(null)
   useEffect(() => {
-    if (!movieList2 || successUpdateMovie || successUpdateNoneImageMovie || successDeleteMovie || successAddUploadMovie) {
+    if (!movieList2 || successUpdateMovie || successUpdateNoneImageMovie || successDeleteMovie || errorDeleteMovie || successAddUploadMovie) {
       dispatch(getMovieListManagement())
     }
     return () => dispatch(resetMoviesManagement())
-  }, [successUpdateMovie, successUpdateNoneImageMovie, successDeleteMovie, successAddUploadMovie])
+  }, [successUpdateMovie, successUpdateNoneImageMovie, successDeleteMovie, errorDeleteMovie, successAddUploadMovie]) // khi vừa thêm phim mới xong mà xóa liên backend sẽ báo lỗi xóa không được nhưng thực chất đã xóa thành công > errorDeleteMovie nhưng vẫn tiến hành làm mới lại danh sách
 
   useEffect(() => {
     if (movieList2) {
-      let newMovieListDisplay
-      newMovieListDisplay = movieList2.map(movie => ({ ...movie, xoa: "", id: movie.maPhim, }))
+      let newMovieListDisplay = movieList2.map(movie => ({ ...movie, hanhDong: "", id: movie.maPhim, }))
       setMovieListDisplay(newMovieListDisplay)
     }
   }, [movieList2])
 
   useEffect(() => { // delete movie xong thì thông báo
+    if (errorDeleteMovie === "Xóa thành công nhưng backend return error") {
+      successDeleteMovie = "Xóa thành công !"
+    }
     if (successDeleteMovie) {
       enqueueSnackbar(successDeleteMovie, { variant: 'success', })
+      return
     }
     if (errorDeleteMovie) {
       enqueueSnackbar(errorDeleteMovie, { variant: 'error', })
     }
-    dispatch(resetMoviesManagement())
   }, [errorDeleteMovie, successDeleteMovie])
 
   useEffect(() => {
@@ -73,7 +75,6 @@ export default function MoviesManagement() {
       callApiChangeImageSuccess.current = false
       enqueueSnackbar(`${errorUpdateMovie ?? ""}${errorUpdateNoneImageMovie ?? ""}`, { variant: 'error', })
     }
-    dispatch(resetMoviesManagement())
   }, [successUpdateMovie, errorUpdateMovie, successUpdateNoneImageMovie, errorUpdateNoneImageMovie])
 
   useEffect(() => {
@@ -83,15 +84,13 @@ export default function MoviesManagement() {
     if (errorAddUploadMovie) {
       enqueueSnackbar(errorAddUploadMovie, { variant: 'error', })
     }
-    dispatch(resetMoviesManagement())
   }, [successAddUploadMovie, errorAddUploadMovie])
 
   // xóa một phim
   const handleDeleteOne = (maPhim) => {
-    if (loadingDeleteMovie) { // nếu click xóa liên tục một user
-      return undefined
+    if (!loadingDeleteMovie) { // nếu click xóa liên tục một user
+      dispatch(deleteMovie(maPhim))
     }
-    dispatch(deleteMovie(maPhim))
   }
   const handleEdit = (phimItem) => {
     selectedPhim.current = phimItem
@@ -113,11 +112,10 @@ export default function MoviesManagement() {
     dispatch(updateMovieUpload(movieObj))
   }
   const onAddMovie = (movieObj) => {
-    if (loadingAddUploadMovie) {
-      return undefined
+    if (!loadingAddUploadMovie) {
+      dispatch(addMovieUpload(movieObj))
     }
     setOpenModal(false);
-    dispatch(addMovieUpload(movieObj))
   }
   const handleAddMovie = () => {
     const emtySelectedPhim = {
@@ -167,7 +165,7 @@ export default function MoviesManagement() {
 
   const columns =
     [
-      { field: 'xoa', headerName: 'Hành Động', width: 130, renderCell: (params) => <Action onEdit={handleEdit} onDeleted={handleDeleteOne} phimItem={params.row} />, headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
+      { field: 'hanhDong', headerName: 'Hành Động', width: 130, renderCell: (params) => <Action onEdit={handleEdit} onDeleted={handleDeleteOne} phimItem={params.row} />, headerAlign: 'center', align: "left", headerClassName: 'custom-header', },
       { field: 'tenPhim', headerName: 'Tên phim', width: 250, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: RenderCellExpand },
       {
         field: 'trailer', headerName: 'Trailer', width: 130, renderCell: (params) => <div style={{ display: "inline-block" }}>

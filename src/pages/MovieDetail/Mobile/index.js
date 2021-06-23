@@ -26,7 +26,7 @@ export default function Mobile({ movieDetailShowtimes: data, isMobile }) {
         {openVideo || <img src={BtnPlay} className={classes.btnPlay} onClick={() => setopenVideo(true)} alt="play" />}
       </div>
       <div className={classes.shortInfo}>
-        <p>{formatDate(data.ngayKhoiChieu?.slice(0, 10)).dDMmYy}</p>
+        <p>{formatDate(data.ngayKhoiChieu?.slice(0, 10)).YyMmDd}</p>
         <p className={classes.movieName}><span className={classes.c18}>C18</span>{data.tenPhim}</p>
         <p>{`${thoiLuong ?? "120"} phút - ${danhGia} Tix`} - 2D/Digital</p>
       </div>

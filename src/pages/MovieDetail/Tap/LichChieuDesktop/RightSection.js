@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import useStyles from './style'
 import formatDate from '../../../../utilities/formatDate';
@@ -7,7 +7,7 @@ import { selectDesktopData } from '../../../../reducers/selector/MovieDetail';
 
 export default function RightSection({ currentSelectedHeThongRapChieu }) {
   const [indexSelected, setindexSelected] = useState(0)
-  const [desktopData, setselectDesktopData] = useState(selectDesktopData(currentSelectedHeThongRapChieu))
+  const desktopData = useMemo(() => selectDesktopData(currentSelectedHeThongRapChieu))
   const classes = useStyles()
 
   const handleSelectDay = (i) => {
@@ -20,7 +20,7 @@ export default function RightSection({ currentSelectedHeThongRapChieu }) {
         {desktopData?.arrayDay?.map((day, i) => (
           <div className={classes.dayItem} key={day} style={{ color: i === indexSelected ? "#fb4226" : "#000" }} onClick={() => handleSelectDay(i)}>
             <p>{formatDate(day).dayToday}</p>
-            <p style={{ fontSize: i === indexSelected ? "18px" : "16px", transition: "all .2s" }}>{formatDate(day).dDMmYy}</p>
+            <p style={{ fontSize: i === indexSelected ? "18px" : "16px", transition: "all .2s" }}>{formatDate(day).YyMmDd}</p>
           </div>
         ))}
       </div>

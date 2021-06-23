@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useLocation, useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from "@material-ui/core"
@@ -55,12 +55,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function AuthLayout(props) {
   const classes = useStyles();
-  let params = useParams();
-  let match = useRouteMatch();
   let location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log(`match `, match)
   const handleClose = () => { // nhấn nút X
     if (location.state?.slice(0, 5) === "/phim") { // chỉ duy nhất trang chitietphim là quay lại ngay, còn lại đều về home
       history.push(location.state)

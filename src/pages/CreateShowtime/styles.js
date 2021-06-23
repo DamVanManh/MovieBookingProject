@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => {
         },
       },
       '& .MuiDataGrid-colCellCheckbox': {
-        backgroundColor: "red",
         width: 48,
         height: 55,
         minWidth: 48,

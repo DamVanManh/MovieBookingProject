@@ -30,7 +30,7 @@ export default function LichChieuMobile() {
         {mobileData.arrayHeThongRapChieuFilterByDay?.map((item, i) => (
           <div className={classes.dayItem} key={item.date} style={{ color: i === indexSelected ? "#fb4226" : "#000" }} onClick={() => handleSelectDay(i)}>
             <p>{formatDate(item.date).dayToday}</p>
-            <p style={{ fontSize: i === indexSelected ? "18px" : "16px", transition: "all .2s" }}>{formatDate(item.date).dDMmYy}</p>
+            <p style={{ fontSize: i === indexSelected ? "18px" : "16px", transition: "all .2s" }}>{formatDate(item.date).YyMmDd}</p>
           </div>
         ))}
       </div>

@@ -4,6 +4,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { createMuiTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -123,6 +124,24 @@ const useStyles = makeStyles((theme) => {
       width: 60,
       verticalAlign: "middle",
     },
+    formControl: {
+      display: "block",
+      width: "100%",
+      height: "calc(1.5em + .75rem + 2px)",
+      padding: ".375rem .75rem",
+      fontSize: "1rem",
+      fontWeight: 400,
+      lineHeight: 1.5,
+      color: "#495057",
+      backgroundColor: "#fff",
+      backgroundClip: "padding-box",
+      border: "1px solid #ced4da",
+      borderRadius: ".25rem",
+      transition: "border-color .15s ease-in-out,box-shadow .15s ease-in-out",
+      '& > div': {
+        display: "block"
+      }
+    }
   };
 });
 
@@ -154,10 +173,59 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
+const materialTheme = createMuiTheme({
+  overrides: {
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: '#fb4226',
+      },
+    },
+    MuiPickerDTTabs: {
+      tabs: {
+        backgroundColor: '#fb4226',
+      },
+    },
+    MuiPickersDay: {
+      day: {
+        color: '#fb4226',
+      },
+      daySelected: {
+        backgroundColor: '#fb4226',
+      },
+    },
+    MuiButton: {
+      textPrimary: {
+        color: '#fb4226',
+      }
+    },
+    PrivateTabIndicator: {
+      colorSecondary: {
+        backgroundColor: '#3f51b5',
+      }
+    },
+    MuiInputBase: {
+      input: {
+        padding: "3px 0 2px",
+      },
+    },
+    MuiInput: {
+      underline: {
+        display: "flex",
+        '&:before': {
+          content: ""
+        },
+        '&:after': {
+          content: ""
+        }
+      }
+    },
+  },
+})
+
 const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
 
-export { useStyles, DialogContent, DialogTitle }
+export { useStyles, DialogContent, DialogTitle, materialTheme }
