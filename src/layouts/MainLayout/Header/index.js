@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import clsx from 'clsx';
-import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,6 +11,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -33,8 +33,8 @@ export default function Header() {
   let location = useLocation();
   const history = useHistory();
   const theme = useTheme()
-  const [openDrawer, setOpenDrawer] = useState(false);
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+  const [openDrawer, setOpenDrawer] = useState(false);
   const classes = useStyles({ isDesktop, openDrawer });
 
   // nếu đang mở drawer mà chuyển sang màn hình lớn thì phải tự đóng lại

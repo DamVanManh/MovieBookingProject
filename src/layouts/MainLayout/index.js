@@ -35,15 +35,20 @@ export default function MainLayout(props) {
   const loading = isLazy || loadingMovieList || loadingTheaterList
 
   return (
-    <div style={{ display: loading ? "none" : "block" }}>
-      <Header />
-      <div className={classes.top}></div>
-      {props.children}
-      <Footer />
-      <ScrollToTop showUnder={160}>
-        <img src="/img/logoTixLoading.png" alt="totop" className={classes.styleScrollToTop} />
-      </ScrollToTop>
-    </div>
+    // style={{ display: loading ? "none" : "block" }}
+    <>
+      {!loading &&
+        <div>
+          <Header />
+          <div className={classes.top}></div>
+          {props.children}
+          <Footer />
+          <ScrollToTop showUnder={160}>
+            <img src="/img/logoTixLoading.png" alt="totop" className={classes.styleScrollToTop} />
+          </ScrollToTop>
+        </div>}
+    </>
+
   )
 }
 

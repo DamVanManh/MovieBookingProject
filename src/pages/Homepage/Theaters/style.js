@@ -17,8 +17,7 @@ const useStyles = makeStyles({
     flexBasis: "calc(100% - 92px)"
   },
   tabs__indicator: {
-    backgroundColor: '#fa5238',
-    boxShadow: "0 -3px 10px 0 #fb4226",
+    backgroundColor: 'transparent',
   },
   tap: props => ({
     padding: 20,

@@ -189,10 +189,15 @@ export default function MoviesManagement() {
   }
 
   const handleDateChange = (date) => {
-    const obj = new Date(date)
+    setSelectedDate(date)
+    if (date !== "Invalid Date") {
+      const obj = new Date(date)
+      setData(data => ({ ...data, ngayChieuGioChieu: `${obj.getDate().toString().padStart(2, 0)}/${(obj.getMonth() + 1).toString().padStart(2, 0)}/${obj.getFullYear()} ${obj.getHours().toString().padStart(2, 0)}:${obj.getMinutes().toString().padStart(2, 0)}:00` }))
+    }
+  }
+  const handleDateAccept = () => {
     const openGiave = data.setGiaVe ? false : true
-    setSelectedDate(`${obj.getFullYear()}-${(obj.getMonth() + 1).toString().padStart(2, 0)}-${obj.getDate().toString().padStart(2, 0)}, ${obj.getHours().toString().padStart(2, 0)}:${obj.getMinutes().toString().padStart(2, 0)}`)
-    setData(data => ({ ...data, openCtr: { ...data.openCtr, giaVe: openGiave }, ngayChieuGioChieu: `${obj.getDate().toString().padStart(2, 0)}/${(obj.getMonth() + 1).toString().padStart(2, 0)}/${obj.getFullYear()} ${obj.getHours().toString().padStart(2, 0)}:${obj.getMinutes().toString().padStart(2, 0)}:00` }))
+    setData(data => ({ ...data, openCtr: { ...data.openCtr, giaVe: openGiave } }))
   }
 
   const handleSelectGiaVe = (e) => {
@@ -351,9 +356,13 @@ export default function MoviesManagement() {
               open={data.openCtr.ngayChieuGioChieu}
               onClose={handleCloseNgayChieuGioChieu}
               onOpen={handleOpenNgayChieuGioChieu}
-              inputValue={selectedDate ? selectedDate : "Chọn ngày, giờ chiếu"} // hiển thị ngày đã chọn
-              invalidDateMessage={""}
+              inputValue={selectedDate ? null : "Chọn ngày, giờ chiếu"} // khi chưa chọn thì "Chọn ngày, giờ chiếu" ghi đè lên value, khi đã chọn ngày thì return null để value={selectedDate} hiển thị ngày đã chọn
+              invalidDateMessage={selectedDate ? 'Invalid Date Format' : ""} // bỏ qua lỗi nếu selectedDate = null
+              value={selectedDate} // giá trị truyền vào là obj date hoặc string chỉ ngày giờ đúng chuẩn có thể convert > tùy thuộc vào thư viện ngày tháng đang dùng(đang dùng date-fns)
               onChange={handleDateChange}
+              format="yyyy-MM-dd, HH:mm" // HH:mm ~ 23:10, hh:mm là ~ 11:10 PM
+              onAccept={handleDateAccept}
+              ampm={false}
             />
           </ThemeProvider>
         </MuiPickersUtilsProvider>

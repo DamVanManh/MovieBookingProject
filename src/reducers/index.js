@@ -9,6 +9,8 @@ import modalTrailerReducer from "./ModalTrailer";
 import lazyReducer from "./Lazy";
 
 const rootReducer = combineReducers({
-  authReducer, movieReducer, usersManagementReducer, theaterReducer, bookTicketReducer, movieDetailReducer, modalTrailerReducer, lazyReducer
+  authReducer, movieReducer, usersManagementReducer,
+  theaterReducer, bookTicketReducer, movieDetailReducer,
+  modalTrailerReducer, lazyReducer,
 });
 export default rootReducer;

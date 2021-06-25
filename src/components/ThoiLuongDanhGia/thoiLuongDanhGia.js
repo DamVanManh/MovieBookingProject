@@ -11,7 +11,7 @@ export default function ThoiLuongDanhGia(props) {
   return (
     <>
       <span style={{ style }}>
-        {`${thoiLuong} phút - Điểm Tix ${danhGia}`}
+        {`${thoiLuong ?? "120"} phút - Điểm Tix ${danhGia}`}
       </span>
     </>
   )

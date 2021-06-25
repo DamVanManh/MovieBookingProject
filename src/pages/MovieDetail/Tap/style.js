@@ -27,6 +27,23 @@ const useStyles = makeStyles(theme => ({
     color: "#fb4226",
     fontSize: 18,
   },
+  noname: {
+    '& .MuiBox-root': {
+      paddingTop: props => props.isMobile ? 0 : 24,
+    }
+  },
+  detailMovie: {
+    fontSize: 14,
+  },
+  contentTitle: {
+    width: "30%",
+    fontWeight: 500,
+    fontSize: 15,
+  },
+  contentInfo: {
+    width: "70%",
+    paddingLeft: 10,
+  },
 
   movieDetail: {
     color: "#e9e9e9"
@@ -124,13 +141,14 @@ const useStyles = makeStyles(theme => ({
     },
   },
   dialogContent: {
-    minHeight: 95,
+    minHeight: props => props.isMobile ? 70 : 95,
   },
   textField: {
     '& .MuiInputLabel-root': {
       transform: "translate(18px, 29px) scale(1)",
       color: "#4a4a4a",
       right: 18,
+      top: props => props.isMobile ? -15 : 0,
     },
     '& label.Mui-focused': {
       display: "none",
@@ -155,16 +173,16 @@ const useStyles = makeStyles(theme => ({
 
       },
       '& input': {
-        padding: "30px 20px"
+        padding: props => props.isMobile ? "20px 20px" : "30px 20px",
       }
     },
   },
-  startPopup: {
-    fontSize: "2.875rem",
+  starPopup: {
+    fontSize: props => props.isMobile ? 27 : 40,
   },
   pointPopup: {
     color: "#7ed321",
-    fontSize: 40,
+    fontSize: props => props.isMobile ? 27 : 40,
   },
   dialog: {
     "& .MuiDialog-container": {

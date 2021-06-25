@@ -16,7 +16,7 @@ export default function AdminLayout(props) {
     return <>{props.children}</>
   }
   return (
-    // package notistack
+    // package notistack: popup thông báo nhỏ gọn
     <SnackbarProvider maxSnack={3}>
       <TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
       <div className="row">

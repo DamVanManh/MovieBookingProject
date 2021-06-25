@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core"
+import { customScrollbar } from '../../../../styles/materialUi';
 const useStyle = makeStyles({
   // search bar
   search: {
@@ -18,6 +19,79 @@ const useStyle = makeStyles({
 
     alignItems: "center",
   },
+  itemFirst: {
+    padding: '1%',
+    flex: "30%",
+    '&:after': {
+      content: "''",
+      position: "absolute",
+      right: "0",
+      height: "62%",
+      top: "50%",
+      transform: "translateY(-50%)",
+      borderRight: "1px solid",
+      borderRightColor: "rgba(238,238,238,.88)"
+    },
+    '& > div': {
+      width: "auto !important",
+    },
+  },
+
+  textField: {
+    '& > div': {
+      marginTop: 0,
+      paddingBottom: "0px !important",
+      '& > input': {
+        padding: "18px 0px !important",
+        paddingLeft: "20px !important",
+        fontSize: 14,
+      },
+      '&:before': {
+        borderBottom: "none !important"
+      },
+      '&:after': {
+        borderBottom: "none"
+      },
+      '& > div:hover:not(.Mui-disabled):before': {
+        borderBottom: 'none',
+      },
+    },
+    '& > label': {
+      color: "#000",
+      fontSize: 14,
+      top: -3,
+      left: 20,
+      display: props => props.openPhim ? "none" : "block"
+    },
+    '& > label.Mui-focused': {
+      display: "none"
+    },
+  },
+  popupIndicator: {
+    '& > span': {
+      marginTop: 0,
+      '& > svg': {
+        color: "rgba(0, 0, 0, 0.3)",
+        fontSize: "19px !important",
+      },
+    },
+  },
+  listbox: {
+    ...customScrollbar,
+    '& .MuiAutocomplete-option[aria-selected="true"]': {
+      backgroundColor: "#fb422685",
+      color: "#fff",
+    }
+  },
+  paper: {
+    boxShadow: "0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)",
+  },
+  noOptions: {
+    color: "#000",
+    fontSize: 14,
+    padding: "9.5px 20px 9.5px 20px",
+  },
+
   search__item: {
     color: 'black',
     padding: '1%',
@@ -37,7 +111,7 @@ const useStyle = makeStyles({
       '& ~ svg': {
         fontSize: 19,
         color: 'rgba(0, 0, 0, 0.3)',
-        top: '36%',
+        top: '33%',
       }
     },
     '&:after': {
@@ -54,14 +128,13 @@ const useStyle = makeStyles({
   'search__item--first': {
     flex: '30%',
     paddingLeft: '2%',
-
   },
   'search__item--next': {
     flex: "calc(70% / 4)",
   },
 
   // popup menu
-  menu: props => ({ maxHeight: 300, ...props.customScrollbar }),
+  menu: { maxHeight: 300, ...customScrollbar },
   menu__item: {
     width: '100%',
     minHeight: "auto",
@@ -86,7 +159,7 @@ const useStyle = makeStyles({
     },
   },
   'menu__item--selected': {
-    backgroundColor: "#fb4226 !important",
+    backgroundColor: "#fb422685 !important",
     color: "#fff",
     '& li ~ li': {
       color: '#fff',
@@ -97,7 +170,7 @@ const useStyle = makeStyles({
     backgroundColor: '#fb4226',
     margin: 'auto',
     '&:hover': {
-      backgroundColor: "#b30000",
+      backgroundColor: "#d01414",
     },
     '&:focus': {
       outline: "none",

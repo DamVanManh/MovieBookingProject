@@ -1,14 +1,18 @@
 /*
 - isLazy: khi Suspense(trong App) return về component thì isLazy = true, khi Suspense unmount component thì isLazy = false,
-- khi có một component nào gọi api thì set loading = trư > kích hoạt loading
+- khi có một component nào gọi api thì set loading = true > cần kích hoạt loading
 - dùng useRef để lưu lại giá trị trước đó của loading, từ đó biết được loading chuyển trạng thái từ true > false hay ngượi lại
 - muốn kích hoạt lại một keyframes phải đổi giá trị key(khai niệm trong react), hoặc move class chứa keyframes ra và thêm vào lại
 */
 import React, { useEffect, useRef, useState } from 'react'
+
 import { makeStyles } from "@material-ui/core"
-import { IMG_LOADING } from '../../constants/config';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { IMG_LOADING } from '../../constants/config';
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +36,7 @@ const useStyles = makeStyles({
     opacity: 1,
   },
   image: {
-    width: 100,
+    width: props => props.isDesktop ? 250 : 100,
     animation: "$shake 0.6s infinite",
     position: "relative",
   },
@@ -69,13 +73,15 @@ export default function Loading() {
   const loadingPrevious = useRef(loading)
   const clear = useRef(null)
   const [loadingOut, setloadingOut] = useState(false)
-  const materialStyles = useStyles()
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+  const materialStyles = useStyles({ isDesktop })
 
   useEffect(() => { // nếu loading chuyển từ true sang false thì set loadingOut và delay reset loadingOut
     if (Number(loadingPrevious.current) < Number(loading)) { // loading từ false > true
       loadingPrevious.current = true
     }
-    if (Number(loadingPrevious.current) > Number(loading)) { // nếu loading chuyển từ true sang false
+    if (Number(loadingPrevious.current) > Number(loading)) { // nếu loading chuyển từ true sang false: 
       setloadingOut(true)
       clear.current = setTimeout(() => {
         loadingPrevious.current = false  // reset
@@ -88,6 +94,7 @@ export default function Loading() {
   }, [loading])
 
   return (
+    // nếu loading hoặc loadingPrevious là true thì hiện component loading
     <div className={clsx(`${materialStyles.root}`, (loading || loadingPrevious.current) && `${materialStyles.visible}`)}>
       <div className={clsx((loading || loadingPrevious.current) && `${materialStyles.itemIn}`, loadingOut && `${materialStyles.itemOut}`)}>
         <img src={IMG_LOADING} className={materialStyles.image} alt="logo" />

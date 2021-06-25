@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Axios from "axios";
 export default function UseThoiLuongDanhGia(maPhim) {
-  const [data, setData] = useState({ thoiLuong: '120', danhGia: 'loading...' })
+  const [data, setData] = useState({ thoiLuong: '120', danhGia: '10' })
   const url = `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`
   useEffect(() => {
     let getInfoFlimCancel = Axios.CancelToken.source(); // Axios cung cấp, để cancel gọi api khi component bị hủy(bấm chuyển cụm rạp khác)
@@ -16,7 +16,7 @@ export default function UseThoiLuongDanhGia(maPhim) {
         });
       } catch (error) { // vào đây khi có lỗi get api hoặc khi cancel thành công
         if (Axios.isCancel(error)) { // cancel request thành công
-          console.log("AxiosCancel: caught cancel");
+          // console.log("AxiosCancel: caught cancel");
         } else {
           throw error; // báo lỗi get api
         }

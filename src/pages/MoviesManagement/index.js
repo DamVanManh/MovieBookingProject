@@ -191,7 +191,7 @@ export default function MoviesManagement() {
           onClick={handleAddMovie}
           disabled={loadingAddUploadMovie}
           startIcon={<AddBoxIcon />}
-        >Add movie</Button>
+        >thêm phim</Button>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />

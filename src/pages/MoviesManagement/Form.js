@@ -15,11 +15,12 @@ import { useStyles } from './styles';
 export default function FormInput({ selectedPhim, onUpdate, onAddMovie }) {
   const classes = useStyles();
   const [srcImage, setSrcImage] = useState(selectedPhim?.hinhAnh)
+
   const setThumbnailPreviews = (e) => {
     let file = e.target;
     var reader = new FileReader();
     reader.readAsDataURL(file.files[0]);
-    reader.onload = function () {
+    reader.onload = function () { // sau khi thực hiên xong lênh trên thì set giá trị có được
       setSrcImage(reader.result)
     };
   }

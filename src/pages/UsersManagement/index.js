@@ -359,7 +359,7 @@ export default function UsersManagement() {
           startIcon={userListDelete.triggerDelete === false ? <DeleteIcon /> : <CircularProgress size={20} color="inherit" />}
           onClick={handleDeleteMultiple}
         >
-          {userListDelete.triggerDelete === false ? "Delete" : "Cancel"} {userListDelete.userListDelete.length} user selected
+          {userListDelete.triggerDelete === false ? "xóa" : "ngừng xóa"} {userListDelete.userListDelete.length} user đã chọn
         </Button>
         <Button
           variant="contained"
@@ -369,7 +369,7 @@ export default function UsersManagement() {
           onClick={handleUpdateMultiple}
           startIcon={userListmodified.triggerUpdate === false ? <CloudUploadIcon /> : <CircularProgress size={20} color="inherit" />}
         >
-          {userListmodified.triggerUpdate === false ? "Update" : "Cancel"} {userListmodified.userListmodified.length} user changed
+          {userListmodified.triggerUpdate === false ? "cập nhật" : "hủy cập nhật"} {userListmodified.userListmodified.length} user đã sửa
         </Button>
         <Button
           variant="contained"
@@ -377,7 +377,7 @@ export default function UsersManagement() {
           className={classes.button}
           onClick={handleRefreshUserListResetChanged}
           startIcon={<CachedIcon />}
-        >Refresh &amp; reset modified</Button>
+        >làm mới dữ liệu</Button>
         <br />
         <Button
           variant="contained"
@@ -398,7 +398,7 @@ export default function UsersManagement() {
           className={classes.userModified}
           onClick={() => setsortBy({ field: "ismodify", sort: "desc" })}
         >
-          User modified
+          User đã chỉnh sửa
         </Button>
         <Button
           variant="contained"
@@ -407,7 +407,7 @@ export default function UsersManagement() {
           onClick={handleToggleAddUser}
           disabled={addUser.toggle ? (addUser.isFilledIn ? (addUser.readyAdd ? false : true) : false) : false}
           startIcon={addUser.toggle ? (addUser.isFilledIn ? <PersonAddIcon /> : <EditIcon />) : <PersonAddIcon />}
-        >{addUser.toggle ? (addUser.isFilledIn ? "Add user" : "manage user") : "Add user"}</Button>
+        >{addUser.toggle ? (addUser.isFilledIn ? "thêm user" : "quản lý user") : "thêm user"}</Button>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
@@ -418,7 +418,6 @@ export default function UsersManagement() {
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
-            inputProps={{ 'aria-label': 'search' }}
             onChange={(evt) => handleInputSearchChange(evt.target.value)}
           />
         </div>

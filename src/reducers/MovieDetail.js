@@ -14,7 +14,7 @@ const initialState = {
   loadingCommentList: false,
   errorCommentList: null,
 
-  postCommentObj: {},
+  postCommentObj: null,
   loadingPostComment: false,
   errorPostComment: null,
 

@@ -24,6 +24,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { useLocation, useHistory } from "react-router-dom";
 import { scroller } from 'react-scroll'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { FAKE_AVATAR, UNKNOW_USER } from '../../../constants/config';
 import useStyles from './style';
@@ -32,6 +33,7 @@ import LichChieuDesktop from './LichChieuDesktop';
 import LichChieuMobile from './LichChieuMobile';
 import { getComment, postComment, likeComment } from '../../../reducers/actions/MovieDetail';
 import { selectCommentByMaPhimAndCommentTest } from '../../../reducers/selector/MovieDetail';
+import formatDate from '../../../utilities/formatDate';
 import moment from 'moment';
 import 'moment/locale/vi';
 moment.locale('vi');
@@ -77,7 +79,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
     createdAt: "",
     userLikeThisComment: [],
   })
-  const classes = useStyles({ hideBtn: commentListDisplay.hideBtn })
+  const classes = useStyles({ hideBtn: commentListDisplay.hideBtn, isMobile })
 
   // phục vụ kh nhấp btn mua vé
   useEffect(() => {
@@ -100,6 +102,9 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
 
   useEffect(() => { // mỗi khi mount component, postComment, likeComment thành công thì call api lấy comment mới
     dispatch(getComment())
+    if (postCommentObj) { // reset text comment
+      setdataComment(data => ({ ...data, post: "" }))
+    }
   }, [postCommentObj, likeCommentObj])
 
   useEffect(() => {
@@ -226,12 +231,48 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
         </TabPanel>
       </Fade>
       <Fade timeout={400} in={valueTab === 1}>
-        <TabPanel value={valueTab} index={1}>
-          <div className="text-light"><p>{data.moTa}</p></div>
+        <TabPanel value={valueTab} index={1} className={classes.noname}>
+          <div className={`row text-white ${classes.detailMovie}`}>
+            <div className="col-sm-6 col-xs-12">
+              <div className="row mb-2">
+                <p className={`float-left ${classes.contentTitle}`}>Ngày công chiếu</p>
+                <p className={`float-left ${classes.contentInfo}`}>{formatDate(data.ngayKhoiChieu?.slice(0, 10)).YyMmDd}</p>
+              </div>
+              <div className="row mb-2">
+                <p className={`float-left ${classes.contentTitle}`}>Đạo diễn</p>
+                <p className={`float-left ${classes.contentInfo}`}> Adam Wingard </p>
+              </div>
+              <div className="row mb-2">
+                <p className={`float-left ${classes.contentTitle}`}>Diễn viên</p>
+                <p className={`float-left ${classes.contentInfo}`}>Kyle Chandler, Rebecca Hall, Eiza González, Millie Bobby Brown</p>
+              </div>
+              <div className="row mb-2">
+                <p className={`float-left ${classes.contentTitle}`}>Thể Loại</p>
+                <p className={`float-left ${classes.contentInfo}`}>hành động, giả tưởng, ly kỳ, thần thoại</p>
+              </div>
+              <div className="row mb-2">
+                <p className={`float-left ${classes.contentTitle}`}>Định dạng</p>
+                <p className={`float-left ${classes.contentInfo}`}>2D/Digital</p>
+              </div>
+              <div className="row mb-2">
+                <p className={`float-left ${classes.contentTitle}`}>Quốc Gia SX</p>
+                <p className={`float-left ${classes.contentInfo}`}>Mỹ</p>
+              </div>
+            </div>
+            <div className="col-sm-6 col-xs-12">
+              <div className="row mb-2">
+                <p className={`float-left ${classes.contentTitle}`}>Nội dung</p>
+              </div>
+              <div className="row mb-2">
+                <p>{data.moTa}</p>
+              </div>
+            </div>
+          </div>
+
         </TabPanel>
       </Fade>
       <Fade timeout={400} in={valueTab === 2}>
-        <TabPanel value={valueTab} index={2}>
+        <TabPanel value={valueTab} index={2} className={classes.noname}>
           <div className={classes.danhGia}>
             <div className={classes.inputRoot} onClick={handleClickComment}>
               <span className={classes.avatarReviewer}>
@@ -243,6 +284,9 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
                 <Rating value={5} size={isMobile ? "small" : "medium"} readOnly />
               </span>
             </div>
+          </div>
+          <div className="text-center mb-2 text-white" hidden={!loadingPostComment && !loadingLikeComment}>
+            <CircularProgress size={20} color="inherit" />
           </div>
           {commentListDisplay?.comment?.map((item) => (
             <div key={`${item.createdAt}`} className={classes.itemDis} id={`idComment${item.createdAt}`}>
@@ -300,7 +344,7 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
             size="large"
             precision={0.5}
             value={dataComment.point}
-            className={classes.startPopup}
+            className={classes.starPopup}
             emptyIcon={<StarBorderIcon fontSize="inherit" />}
             onChange={(event, newValue) => {
               setdataComment(data => ({ ...data, point: newValue }));

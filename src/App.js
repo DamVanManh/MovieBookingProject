@@ -1,11 +1,12 @@
 import { Suspense, lazy } from 'react';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import ModalTrailer from './components/ModalTrailer';
 import TriggerLoadingLazy from './components/TriggerLoadingLazy';
 import Loading from './components/Loading';
+import { theme } from './constants/config';
 
 // layout
 const MainLayout = lazy(() => import('./layouts/MainLayout'));
@@ -26,18 +27,6 @@ const CreateShowtime = lazy(() => import('./pages/CreateShowtime'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 678,
-      md: 736,
-      lg: 768,
-      xl: 992
-    }
-  }
-});
 
 function App() {
   return (
@@ -77,8 +66,7 @@ function App() {
               </AuthLayout>
             </Route>
 
-            {/* khi người dùng nhập sai địa chỉ ví dụ localhost:3002/fdsf thì tự động chuyển sang trang home*/}
-            {/* <Redirect to="/" />NotFoundView */}
+            {/* khi người dùng nhập sai địa chỉ ví dụ localhost:3002/fdsf thì tự động chuyển sang trang NotFound*/}
             <Route component={NotFound} />
           </Switch>
         </Suspense>

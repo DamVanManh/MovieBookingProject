@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
     textAlign: "left",
     fontSize: 12,
+    opacity: .3,
     "&:hover": {
       opacity: 1,
     },

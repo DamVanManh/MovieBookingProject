@@ -69,7 +69,7 @@ export default function SuccessBooking() {
               </tr>
             </tbody>
           </table>
-          {successBookingTicketMessage && <p className={classes.noteresult}>Mã vé sẽ được gửi qua số điện thoại và email đặt vé của bạn !</p>}
+          {successBookingTicketMessage && <p className={classes.noteresult}>Kiểm tra lại vé đã mua trong thông tin tài khoản của bạn !</p>}
         </div>
       </div>
     </div>

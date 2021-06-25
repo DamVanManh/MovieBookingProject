@@ -1,4 +1,6 @@
 import { nanoid } from 'nanoid'
+import { createMuiTheme } from '@material-ui/core/styles';
+
 const currentUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
 const avtIdUser = currentUser ? currentUser?.avtIdUser : nanoid(10)
 export { avtIdUser }
@@ -17,3 +19,14 @@ export const DATE_END_DANGCHIEU = "2020-12-01"
 export const DATE_BEGIN_SAPCHIEU = "2020-12-02"
 export const DATE_END_SAPCHIEU = (new Date()).toISOString()?.slice(0, 10)
 
+export const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 678,
+      md: 736,
+      lg: 768,
+      xl: 992
+    }
+  }
+});
