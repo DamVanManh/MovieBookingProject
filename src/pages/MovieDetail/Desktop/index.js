@@ -16,6 +16,7 @@ export default function Desktop({ movieDetailShowtimes: data, isMobile }) {
   const [quantityComment, setQuantityComment] = useState(0)
   const { thoiLuong, danhGia } = useApiThoiLuongDanhGia(param.maPhim)
   const classes = useStyles({ bannerImg: data?.hinhAnh })
+  const [imageNotFound, setImageNotFound] = useState(false)
 
   const handleBtnMuaVe = () => {
     setOnClickBtnMuave(Date.now())
@@ -30,10 +31,14 @@ export default function Desktop({ movieDetailShowtimes: data, isMobile }) {
         <div className={classes.gradient}>
         </div>
         <div className={classes.bannerBlur}>
+          {imageNotFound && <div className={classes.withOutImage}></div>}
         </div>
         <div className={classes.topInfo}>
           <div className={classes.imgTrailer}>
             <BtnPlay urlYoutube={data?.trailer} />
+            {/* xử lý khi url hình bị lỗi */}
+            <img src={data.hinhAnh} alt="poster" style={{ display: "none" }} onError={(e) => { e.target.onerror = null; setImageNotFound(true) }} />
+            {imageNotFound && <div className={classes.withOutImage}></div>}
           </div>
           <div className={classes.shortInfo}>
             <p>{formatDate(data.ngayKhoiChieu?.slice(0, 10)).YyMmDd}</p>

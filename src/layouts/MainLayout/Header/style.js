@@ -65,8 +65,20 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 10,
     minWidth: "fit-content",
     "&:hover": {
-      backgroundColor: "transparent"
-    }
+      backgroundColor: "transparent",
+      "& .MuiTypography-root": {
+        color: "#fb4226",
+      },
+      "& .MuiListItemIcon-root": {
+        color: "#fb4226",
+      }
+    },
+    "& .MuiTypography-root": {
+      transition: "all .2s",
+    },
+    "& .MuiListItemIcon-root": {
+      transition: "all .2s",
+    },
   },
   hover: {
     "&:hover": {

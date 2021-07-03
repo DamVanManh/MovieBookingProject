@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   desktop: {
     // color: "#e9e9e9",
     backgroundColor: "rgb(10, 32, 41)",
@@ -135,5 +135,21 @@ const useStyles = makeStyles({
     }
   },
 
-})
+  withOutImage: {
+    borderRadius: 4,
+    width: "100%", height: "100%",
+    animationName: `$myEffect`,
+    animationDuration: "3s",
+    animationTimingFunction: `${theme.transitions.easing.easeInOut}`,
+    animationIterationCount: "infinite",
+    background: "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
+    backgroundSize: "400% 400%",
+  },
+  "@keyframes myEffect": {
+    "0%": { backgroundPosition: "0% 50%" },
+    "50%": { backgroundPosition: "100% 50%" },
+    "100%": { backgroundPosition: "0% 50%" },
+  },
+
+}))
 export default useStyles
