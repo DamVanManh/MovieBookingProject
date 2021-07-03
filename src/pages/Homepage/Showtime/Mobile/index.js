@@ -30,7 +30,7 @@ export default function Mobile({ arrayData, value }) {
     return (
       list?.map((item) => (
         <div className={classes.movieItem} key={item.maPhim}>
-          <div className={classes.movieContent} onClick={() => history.push(`/phim/${item.maPhim}`)}>
+          <div className={classes.movieContent} onClick={() => history.push(`/phim/${item.maPhim}`, { comingMovie: value.value })}>
             <div className={classes.bgImg} style={{ backgroundImage: `url(${item.hinhAnh})` }}></div>
             <BlockRating danhGia={item.danhGia} />
             <span className={classes.c18}>C18</span>

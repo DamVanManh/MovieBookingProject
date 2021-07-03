@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useParams } from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useLocation } from "react-router-dom";
 
 import useStyles from './style';
 import formatDate from '../../../utilities/formatDate';
@@ -17,6 +18,7 @@ export default function Desktop({ movieDetailShowtimes: data, isMobile }) {
   const { thoiLuong, danhGia } = useApiThoiLuongDanhGia(param.maPhim)
   const classes = useStyles({ bannerImg: data?.hinhAnh })
   const [imageNotFound, setImageNotFound] = useState(false)
+  let location = useLocation();
 
   const handleBtnMuaVe = () => {
     setOnClickBtnMuave(Date.now())
@@ -44,7 +46,7 @@ export default function Desktop({ movieDetailShowtimes: data, isMobile }) {
             <p>{formatDate(data.ngayKhoiChieu?.slice(0, 10)).YyMmDd}</p>
             <p className={classes.movieName}><span className={classes.c18}>C18</span>{data.tenPhim}</p>
             <p>{`${thoiLuong ?? "120"} phút - ${danhGia} Tix`} - 2D/Digital</p>
-            <button className={classes.btnMuaVe} onClick={handleBtnMuaVe}>Mua vé</button>
+            <button className={classes.btnMuaVe} onClick={handleBtnMuaVe}>{location.state?.comingMovie ? "Thông tin phim" : "Mua vé"}</button>
           </div>
           <div className={classes.rate}>
             <div className={classes.circular}>

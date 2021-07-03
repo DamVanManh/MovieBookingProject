@@ -210,7 +210,6 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
     setwarningtext(false)
   }
 
-
   return (
     <div className={classes.root} id="TapMovieDetail">
       <AppBar position="static" color="default" classes={{ root: classes.appBarRoot }}>
@@ -220,18 +219,19 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
           centered
           classes={{ indicator: classes.indicator }}
         >
-          <Tab disableRipple label="Lịch Chiếu" classes={{ selected: classes.selectedTap, root: classes.tapRoot }} />
-          <Tab disableRipple label="Nội Dung" classes={{ selected: classes.selectedTap, root: classes.tapRoot }} />
+          {/* ẩn đi Lịch Chiếu nếu nhấn vào chi tiết phim bên tab sắp chiếu, (!location.state.comingMovie ? true : "") > cú pháp này sẽ return "" thay vì undefined > tránh lỗi material-ui */}
+          {(!location.state?.comingMovie ? true : "") && <Tab disableRipple label="Lịch Chiếu" classes={{ selected: classes.selectedTap, root: classes.tapRoot }} />}
+          <Tab disableRipple label="Thông Tin" classes={{ selected: classes.selectedTap, root: classes.tapRoot }} />
           <Tab disableRipple label="Đánh Giá" classes={{ selected: classes.selectedTap, root: classes.tapRoot }} />
         </Tabs>
       </AppBar>
-      <Fade timeout={400} in={valueTab === 0}>
-        <TabPanel value={valueTab} index={0} isMobile={isMobile}>
+      <Fade timeout={400} in={valueTab === (location.state?.comingMovie ? "hide" : 0)}>
+        <TabPanel value={valueTab} index={(location.state?.comingMovie ? "hide" : 0)} isMobile={isMobile}>
           {isMobile ? <LichChieuMobile /> : <LichChieuDesktop data={data} />}
         </TabPanel>
       </Fade>
-      <Fade timeout={400} in={valueTab === 1}>
-        <TabPanel value={valueTab} index={1} className={classes.noname}>
+      <Fade timeout={400} in={valueTab === (location.state?.comingMovie ? 0 : 1)}>
+        <TabPanel value={valueTab} index={(location.state?.comingMovie ? 0 : 1)} className={classes.noname}>
           <div className={`row text-white ${classes.detailMovie}`}>
             <div className="col-sm-6 col-xs-12">
               <div className="row mb-2">
@@ -271,8 +271,8 @@ export default function CenteredTabs({ data, onClickBtnMuave, isMobile, onIncrea
 
         </TabPanel>
       </Fade>
-      <Fade timeout={400} in={valueTab === 2}>
-        <TabPanel value={valueTab} index={2} className={classes.noname}>
+      <Fade timeout={400} in={valueTab === (location.state?.comingMovie ? 1 : 2)}>
+        <TabPanel value={valueTab} index={(location.state?.comingMovie ? 1 : 2)} className={classes.noname}>
           <div className={classes.danhGia}>
             <div className={classes.inputRoot} onClick={handleClickComment}>
               <span className={classes.avatarReviewer}>

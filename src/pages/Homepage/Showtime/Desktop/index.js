@@ -52,6 +52,7 @@ export default function Desktop({ arrayData, value }) {
               <div className="px-1 align-top" key={movie.maPhim}>
                 <MovieItem
                   movie={movie}
+                  comingMovie
                 />
               </div>
             )

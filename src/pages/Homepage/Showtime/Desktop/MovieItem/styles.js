@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles((theme) => ({
-
+const useStyles = makeStyles({
   addbg: {
     backgroundImage: props => `url(${props.bg})`,
     backgroundRepeat: "no-repeat",
@@ -10,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "147.9%",
     borderRadius: 4,
   },
-
-}))
+})
 
 export default useStyles
