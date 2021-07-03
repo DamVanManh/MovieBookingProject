@@ -24,6 +24,8 @@ import { LOGOUT } from '../../../reducers/constants/Auth';
 import useStyles from './style'
 import { FAKE_AVATAR } from '../../../constants/config';
 import { LOADING_BACKTO_HOME } from '../../../reducers/constants/Lazy';
+import { getMovieList } from '../../../reducers/actions/Movie';
+import { getTheaters } from '../../../reducers/actions/Theater';
 const headMenu = [{ nameLink: 'Lịch chiếu', id: "lichchieu" }, { nameLink: 'Cụm rạp', id: "cumrap" }, { nameLink: 'Tin tức', id: "tintuc" }, { nameLink: 'Ứng dụng', id: "ungdung" }]
 
 export default function Header() {
@@ -69,11 +71,8 @@ export default function Header() {
   }
   const handleClickLogo = () => {
     if (location.pathname === "/") {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      })
+      dispatch(getMovieList())
+      dispatch(getTheaters())
       return
     }
     dispatch({ type: LOADING_BACKTO_HOME })
