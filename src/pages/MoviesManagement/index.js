@@ -10,6 +10,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Dialog from '@material-ui/core/Dialog';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import RenderCellExpand from './RenderCellExpand';
+import slugify from 'slugify';
 
 import { useStyles, DialogContent, DialogTitle } from './styles';
 import { getMovieListManagement, deleteMovie, updateMovieUpload, resetMoviesManagement, updateMovie, addMovieUpload } from "../../reducers/actions/Movie";
@@ -140,16 +141,11 @@ export default function MoviesManagement() {
     }, 500);
   }
 
-  const onFilter = () => { // dùng useCallback
-    function removeAccents(str) { // bỏ dấu tiếng việt
-      return str.normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd').replace(/Đ/g, 'D');
-    }
+  const onFilter = () => { // dùng useCallback, slugify bỏ dấu tiếng việt
     let searchMovieListDisplay = movieListDisplay.filter(movie => {
-      const matchTenPhim = removeAccents((movie.tenPhim ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchMoTa = removeAccents((movie.moTa ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchNgayKhoiChieu = removeAccents((movie.ngayKhoiChieu ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
+      const matchTenPhim = slugify((movie.tenPhim ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchMoTa = slugify((movie.moTa ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchNgayKhoiChieu = slugify((movie.ngayKhoiChieu ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
       return matchTenPhim || matchMoTa || matchNgayKhoiChieu
     })
     if (newImageUpdate.current && callApiChangeImageSuccess.current) { // hiển thị hình bằng base64 thay vì url, lỗi react không hiển thị đúng hình mới cập nhật(đã cập hình thanh công nhưng url backend trả về giữ nguyên đường dẫn)
@@ -180,7 +176,7 @@ export default function MoviesManagement() {
       { field: 'maNhom', hide: true, width: 130 },
       { field: 'biDanh', hide: true, width: 200, renderCell: RenderCellExpand },
     ]
-
+  const modifySlugify = { lower: true, locale: 'vi' }
   return (
     <div style={{ height: "80vh", width: '100%' }}>
       <div className={classes.control}>

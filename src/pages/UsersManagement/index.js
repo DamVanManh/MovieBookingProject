@@ -13,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import EditIcon from '@material-ui/icons/Edit';
+import slugify from 'slugify';
 
 import useStyles from './styles';
 import { deleteUser, getUsersList, resetUserList, putUserUpdate, postAddUser, setStatusIsExistUserModified } from "../../reducers/actions/UsersManagement";
@@ -306,17 +307,12 @@ export default function UsersManagement() {
   }
 
   const onFilter = () => {
-    function removeAccents(str) { // bỏ dấu tiếng việt
-      return str.normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd').replace(/Đ/g, 'D');
-    }
     const searchUsersListDisplay = usersListDisplay.filter(user => {
-      const matchTaiKhoan = removeAccents((user.taiKhoan ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchMatKhau = removeAccents((user.matKhau ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchEmail = removeAccents((user.email ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchSoDt = removeAccents((user.soDt ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchHoTen = removeAccents((user.hoTen ?? "")?.toLowerCase())?.indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
+      const matchTaiKhoan = slugify((user.taiKhoan ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchMatKhau = slugify((user.matKhau ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchEmail = slugify((user.email ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchSoDt = slugify((user.soDt ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchHoTen = slugify((user.hoTen ?? ""), modifySlugify)?.indexOf(slugify(valueSearch, modifySlugify)) !== -1
       return matchTaiKhoan || matchMatKhau || matchEmail || matchSoDt || matchHoTen
     })
     return searchUsersListDisplay
@@ -343,6 +339,8 @@ export default function UsersManagement() {
       { field: 'ismodify', width: 0, type: 'boolean', headerClassName: 'custom-header', hide: true },
     ]
   ), [addUser.toggle])
+
+  const modifySlugify = { lower: true, locale: 'vi' }
 
   if (errorUsersList) {
     return <h1>{errorUsersList}</h1>

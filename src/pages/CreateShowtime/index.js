@@ -19,6 +19,7 @@ import {
   KeyboardDateTimePicker,
 } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles";
+import slugify from 'slugify';
 
 import { useStyles, materialTheme } from './styles';
 import { getMovieListManagement } from "../../reducers/actions/Movie";
@@ -213,8 +214,6 @@ export default function MoviesManagement() {
     dispatch(createShowtime({ maPhim: data.setPhim, ngayChieuGioChieu: data.ngayChieuGioChieu, maRap: data.maRap, giaVe: data.setGiaVe }))// ngayChieuGioChieu phải có định dạng dd/MM/yyyy hh:mm:ss
   }
 
-
-
   const handleInputSearchChange = (props) => {
     clearTimeout(clearSetSearch.current);
     clearSetSearch.current = setTimeout(() => {
@@ -223,22 +222,17 @@ export default function MoviesManagement() {
   }
 
   const onFilter = () => {
-    function removeAccents(str) { // bỏ dấu tiếng việt
-      return str.normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd').replace(/Đ/g, 'D');
-    }
     const searchLichChieuDisplay = lichChieuDisplay.filter(lichChieu => {
-      const matchTenHeThongRap = removeAccents((lichChieu?.tenHeThongRap ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchTenCumRap = removeAccents((lichChieu?.tenCumRap ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchDiaChi = removeAccents((lichChieu?.diaChi ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchTenRap = removeAccents((lichChieu?.tenRap ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchTenPhim = removeAccents((lichChieu?.tenPhim ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchNgayChieuGioChieu = removeAccents((lichChieu?.ngayChieuGioChieu.toLocaleString() ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchGiaVe = removeAccents((lichChieu?.giaVe.toString() ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchMaPhim = removeAccents((lichChieu?.maPhim.toString() ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchMaRap = removeAccents((lichChieu?.maRap.toString() ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
-      const matchMalichChieu = removeAccents((lichChieu?.maLichChieu.toString() ?? "").toLowerCase()).indexOf(removeAccents(valueSearch.toLowerCase())) !== -1
+      const matchTenHeThongRap = slugify((lichChieu?.tenHeThongRap ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchTenCumRap = slugify((lichChieu?.tenCumRap ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchDiaChi = slugify((lichChieu?.diaChi ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchTenRap = slugify((lichChieu?.tenRap ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchTenPhim = slugify((lichChieu?.tenPhim ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchNgayChieuGioChieu = slugify((lichChieu?.ngayChieuGioChieu.toLocaleString() ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchGiaVe = slugify((lichChieu?.giaVe.toString() ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchMaPhim = slugify((lichChieu?.maPhim.toString() ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchMaRap = slugify((lichChieu?.maRap.toString() ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
+      const matchMalichChieu = slugify((lichChieu?.maLichChieu.toString() ?? ""), modifySlugify).indexOf(slugify(valueSearch, modifySlugify)) !== -1
       return matchTenHeThongRap || matchTenCumRap || matchDiaChi || matchTenRap || matchTenPhim || matchNgayChieuGioChieu || matchGiaVe || matchMaPhim || matchMaRap || matchMalichChieu
     })
     return searchLichChieuDisplay
@@ -275,6 +269,7 @@ export default function MoviesManagement() {
       horizontal: 'left',
     },
   }
+  const modifySlugify = { lower: true, locale: 'vi' }
 
   return (
     <div style={{ height: "80vh", width: '100%' }}>
