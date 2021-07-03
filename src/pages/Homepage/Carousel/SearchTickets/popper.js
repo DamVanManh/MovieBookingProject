@@ -4,7 +4,7 @@ import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   popper: {
     position: 'relative',
     zIndex: 1,
@@ -34,7 +34,22 @@ const useStyles = makeStyles(() => ({
     borderRadius: 4,
     color: "#fff",
     border: "none",
-  }
+  },
+  withOutImage: {
+    borderRadius: 4,
+    width: 200, height: 200 * 1.5,
+    animationName: `$myEffect`,
+    animationDuration: "3s",
+    animationTimingFunction: `${theme.transitions.easing.easeInOut}`,
+    animationIterationCount: "infinite",
+    background: "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
+    backgroundSize: "400% 400%",
+  },
+  "@keyframes myEffect": {
+    "0%": { backgroundPosition: "0% 50%" },
+    "50%": { backgroundPosition: "100% 50%" },
+    "100%": { backgroundPosition: "0% 50%" },
+  },
 }));
 
 export default function CustomPopper(props) {
@@ -45,14 +60,18 @@ export default function CustomPopper(props) {
   const [widthImage, setwidthImage] = useState(200)
   const temporaryAnchorEl = React.useRef(null)
   const history = useHistory();
+  const [imageNotFound, setImageNotFound] = useState(false)
   useEffect(() => {// nếu hình có dạng chữ nhật thì cho rộng ra
     let mounted = true;
     const img = new Image();
     img.src = phim.hinhAnh;
     img.onload = function () { // sau khi phân tích hình ảnh xong
-      if ((this.width >= this.height) && mounted) {
+      if ((this.width > this.height) && mounted) {
         setwidthImage(350)
+      } else if ((this.width === this.height) && mounted) {
+        setwidthImage(250)
       }
+
     }
     setAnchorEl(temporaryAnchorEl.current);
     return () => {
@@ -88,7 +107,8 @@ export default function CustomPopper(props) {
         >
           <div>
             <div style={{ position: "relative" }}>
-              <img src={phim.hinhAnh} alt="poster" className={classes.image} style={{ width: widthImage }} />
+              <img src={phim.hinhAnh} alt="poster" className={classes.image} style={{ width: widthImage }} onError={(e) => { e.target.onerror = null; e.target.style.display = "none"; setImageNotFound(true) }} />
+              {imageNotFound && <div className={classes.withOutImage}></div>}
               <div className={classes.info}>
                 <p>{`120 phút - Điểm Tix ${phim.danhGia}`}</p>
               </div>

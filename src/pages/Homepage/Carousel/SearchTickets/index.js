@@ -31,6 +31,7 @@ export default function SearchStickets() {
     rapRender: [],
     cumRapChieuData: [],
     startRequest: false, // lựa chọn giữa hiện thị "đang tìm" hay "không tìm thấy"
+    errorCallApi: "",
 
     // handleSelectRap
     setRap: '',
@@ -101,7 +102,10 @@ export default function SearchStickets() {
           ...data, rapRender, cumRapChieuData,
         }));
       }
-    )
+    ).catch(error => {
+      console.log(" lỗi call api");
+      setData(data => ({ ...data, errorCallApi: error?.response?.data }))
+    })
   };
   // sau khi click chọn Rạp, cần lấy ra prop lichChieuPhim của Rạp đã chọn > lọc ra ngày chiếu để hiển thị
   // input: tenCumRap, cumRapChieuData
@@ -220,7 +224,7 @@ export default function SearchStickets() {
           IconComponent={ExpandMoreIcon}
           MenuProps={menuProps}
         >
-          <MenuItem value='' style={{ display: data.rapRender.length > 0 ? 'none' : 'block' }} classes={{ root: classes.menu__item }}>{data.setPhim ? `${data.startRequest ? 'Đang tìm rạp' : 'Chưa có lịch chiếu, vui lòng chọn phim khác'}` : 'Vui lòng chọn phim'}</MenuItem>
+          <MenuItem value='' style={{ display: data.rapRender.length > 0 ? 'none' : 'block' }} classes={{ root: classes.menu__item }}>{data.setPhim ? `${data.startRequest ? (data.errorCallApi ? data.errorCallApi : 'Đang tìm rạp') : 'Chưa có lịch chiếu, vui lòng chọn phim khác'}` : 'Vui lòng chọn phim'}</MenuItem>
           {data.rapRender.map(item => (<MenuItem value={item} key={item} classes={{ root: classes.menu__item, selected: classes['menu__item--selected'] }}>
             {item}
           </MenuItem>))}
