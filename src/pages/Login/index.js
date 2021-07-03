@@ -60,12 +60,12 @@ export default function Login() {
   const handleDangKy = () => {
     history.push("/dangky", location.state)
   }
-  const handleToggleHidePassword = () => {
-    if (typePassword === "password") {
-      settypePassword("text")
-    } else {
-      settypePassword("password")
-    }
+
+  const handleHold = () => {
+    settypePassword("text")
+  }
+  const handleRelease = () => {
+    settypePassword("password")
   }
 
   return (
@@ -95,8 +95,8 @@ export default function Login() {
               <label>Mật khẩu&nbsp;</label>
               <ErrorMessage name="matKhau" render={msg => <small className="text-danger">{msg}</small>} />
               <Field type={typePassword} className="form-control" name="matKhau" />
-              <div className={classes.eye} onClick={handleToggleHidePassword}>
-                {typePassword === "password" ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i>}
+              <div className={classes.eye} onMouseDown={handleHold} onMouseUp={handleRelease}>
+                {typePassword === "password" ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
               </div>
             </div>
             <p className="text-success" style={{ cursor: "pointer" }} onClick={handleDangKy}>* Đăng ký</p>
