@@ -5,6 +5,8 @@ import { useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import logoTix from "../Register/logo/logoTix.png"
 import { login, resetErrorLoginRegister } from '../../reducers/actions/Auth'
@@ -32,6 +34,8 @@ export default function Login() {
   const history = useHistory();
   const [typePassword, settypePassword] = useState("password")
   const classes = useStyles();
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
   useEffect(() => {// đăng nhập thành công thì quay về trang trước đó
     if (currentUser) {
@@ -62,10 +66,26 @@ export default function Login() {
   }
 
   const handleHold = () => {
+    if (!isDesktop) {
+      return
+    }
     settypePassword("text")
   }
   const handleRelease = () => {
+    if (!isDesktop) {
+      return
+    }
     settypePassword("password")
+  }
+  const handleShowPassword = () => {
+    if (isDesktop) {
+      return
+    }
+    if (typePassword === "password") {
+      settypePassword("text")
+    } else {
+      settypePassword("password")
+    }
   }
 
   return (
@@ -95,8 +115,8 @@ export default function Login() {
               <label>Mật khẩu&nbsp;</label>
               <ErrorMessage name="matKhau" render={msg => <small className="text-danger">{msg}</small>} />
               <Field type={typePassword} className="form-control" name="matKhau" />
-              <div className={classes.eye} onMouseDown={handleHold} onMouseUp={handleRelease}>
-                {typePassword === "password" ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+              <div className={classes.eye} onMouseDown={handleHold} onMouseUp={handleRelease} onClick={handleShowPassword}>
+                {typePassword === "password" ? <i className={isDesktop ? "fa fa-eye-slash" : "fa fa-eye"}></i> : <i className={isDesktop ? "fa fa-eye" : "fa fa-eye-slash"}></i>}
               </div>
             </div>
             <p className="text-success" style={{ cursor: "pointer" }} onClick={handleDangKy}>* Đăng ký</p>

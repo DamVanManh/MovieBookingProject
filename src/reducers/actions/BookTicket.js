@@ -21,7 +21,7 @@ export const getListSeat = (maLichChieu) => {
         error => {
           dispatch({
             type: GET_LISTSEAT_FAIL,
-            payload: { error: error.message }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -46,7 +46,7 @@ export const bookTicket = (data) => {
         error => {
           dispatch({
             type: BOOK_TICKET_FAIL,
-            payload: { error: error.message }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
 
         }
@@ -72,7 +72,7 @@ export const createShowtime = (data) => {
         error => {
           dispatch({
             type: CREATE_SHOWTIME_FAIL,
-            payload: { error: error.response.data }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
 
         }

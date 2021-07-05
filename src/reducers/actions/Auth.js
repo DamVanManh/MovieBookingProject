@@ -23,7 +23,7 @@ export const login = (user) => {
           dispatch({
             type: LOGIN_FAIL,
             payload: {
-              error: error.response.data,
+              error: error.response?.data ? error.response.data : error.message,
             }
           })
         }
@@ -60,7 +60,7 @@ export const register = (user) => {
           dispatch({
             type: REGISTER_FAIL,
             payload: {
-              error: error.response.data,
+              error: error.response?.data ? error.response.data : error.message,
             }
           })
         }

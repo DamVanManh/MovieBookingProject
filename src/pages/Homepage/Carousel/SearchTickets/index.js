@@ -102,10 +102,13 @@ export default function SearchStickets() {
           ...data, rapRender, cumRapChieuData,
         }));
       }
-    ).catch(error => {
-      console.log(" lỗi call api");
-      setData(data => ({ ...data, errorCallApi: error?.response?.data }))
-    })
+    ).catch(function (error) {
+      if (error.response) {
+        setData(data => ({ ...data, errorCallApi: error.response.data }))
+      } else if (error.request) {
+        setData(data => ({ ...data, errorCallApi: error.message }))
+      }
+    });
   };
   // sau khi click chọn Rạp, cần lấy ra prop lichChieuPhim của Rạp đã chọn > lọc ra ngày chiếu để hiển thị
   // input: tenCumRap, cumRapChieuData

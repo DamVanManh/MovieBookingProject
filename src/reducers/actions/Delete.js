@@ -18,7 +18,7 @@ export const deleteUser = (values) => {
         error => {
           dispath({
             type: DELETE_USER_FAIL,
-            payload: { error: error.response.data, }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )

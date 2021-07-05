@@ -22,7 +22,7 @@ export const getTheaters = () => {
         error => {
           dispatch({
             type: GET_THEATERS_SHOWTIME_FAIL,
-            payload: { errorTheaterList: error.response.data, }
+            payload: { errorTheaterList: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -46,7 +46,7 @@ export const getTheaters2 = () => {
         error => {
           dispatch({
             type: GET_THEATERS_SHOWTIME_FAIL2,
-            payload: { errorTheaterList2: error.response.data, }
+            payload: { errorTheaterList2: error.response?.data ? error.response.data : error.message, }
           })
         }
       )

@@ -25,7 +25,7 @@ export const getUsersList = () => {
         error => {
           dispatch({
             type: GET_USER_LIST_FAIL,
-            payload: { error: error.response.data, }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -49,7 +49,7 @@ export const deleteUser = (taiKhoanUser) => {
         error => {
           dispatch({
             type: DELETE_USER_FAIL,
-            payload: { error: error.response.data, }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -82,7 +82,7 @@ export const putUserUpdate = (user) => {
         error => {
           dispatch({
             type: UPDATE_USER_FAIL,
-            payload: { error: error.response.data, }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -104,7 +104,7 @@ export const postAddUser = (user) => {
       .catch(error => {
         dispatch({
           type: ADD_USER_FAIL,
-          payload: { error: error.response.data }
+          payload: { error: error.response?.data ? error.response.data : error.message, }
         })
       })
   }
@@ -139,7 +139,7 @@ export const getInfoUser = (user) => {
           dispatch({
             type: GET_INFO_USER_FAIL,
             payload: {
-              error: error.response.data,
+              error: error.response?.data ? error.response.data : error.message,
             }
           })
         }

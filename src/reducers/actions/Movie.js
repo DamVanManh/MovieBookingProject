@@ -28,7 +28,7 @@ export const getMovieList = () => {
         error => {
           dispatch({
             type: GET_MOVIE_LIST_FAIL,
-            payload: { errorMovieList: error.response.data, }
+            payload: { errorMovieList: error.response?.data ? error.response.data : error.message, }
           })
         })
   }
@@ -51,7 +51,7 @@ export const getMovieListManagement = () => {
         error => {
           dispatch({
             type: GET_MOVIE_LIST_FAIL2,
-            payload: { errorMovieList: error.response.data, }
+            payload: { errorMovieList: error.response?.data ? error.response.data : error.message, }
           })
         })
   }
@@ -96,7 +96,7 @@ export const updateMovieUpload = (phimObj) => {
         error => {
           dispatch({
             type: POST_UPDATE_MOVIE_FAIL,
-            payload: { error: error.response.data }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         })
   }
@@ -117,7 +117,7 @@ export const updateMovie = (phimObj) => {
         error => {
           dispatch({
             type: UPDATE_NONEIMAGE_MOVIE_FAIL,
-            payload: { error: error.response.data }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         })
   }
@@ -139,7 +139,7 @@ export const addMovieUpload = (movieObj) => {
         error => {
           dispatch({
             type: ADD_MOVIE_UPLOAD_FAIL,
-            payload: { error: error.response.data }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         })
   }

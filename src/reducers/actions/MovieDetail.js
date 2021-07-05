@@ -24,7 +24,7 @@ export const getMovieShowtimes = (movieId) => {
         error => {
           dispatch({
             type: GET_MOVIE_SHOWTIMES_FAIL,
-            payload: { error: error.message, }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -48,7 +48,7 @@ export const getComment = () => {
         error => {
           dispatch({
             type: GET_COMMENT_FAIL,
-            payload: { error: error.message }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -73,7 +73,7 @@ export const postComment = (objComment) => {
         error => {
           dispatch({
             type: POST_COMMENT_FAIL,
-            payload: { error: error.message }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
@@ -97,7 +97,7 @@ export const likeComment = (id, commentUserLiked) => {
         error => {
           dispatch({
             type: LIKE_COMMENT_FAIL,
-            payload: { error: error.message }
+            payload: { error: error.response?.data ? error.response.data : error.message, }
           })
         }
       )
