@@ -11,6 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import RenderCellExpand from './RenderCellExpand';
 import slugify from 'slugify';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { useStyles, DialogContent, DialogTitle } from './styles';
 import { getMovieListManagement, deleteMovie, updateMovieUpload, resetMoviesManagement, updateMovie, addMovieUpload } from "../../reducers/actions/Movie";
@@ -40,6 +41,7 @@ export default function MoviesManagement() {
   const clearSetSearch = useRef(0)
   const [openModal, setOpenModal] = React.useState(false);
   const selectedPhim = useRef(null)
+  const isMobile = useMediaQuery('(max-width:768px)');
   useEffect(() => {
     if (!movieList2 || successUpdateMovie || successUpdateNoneImageMovie || successDeleteMovie || errorDeleteMovie || successAddUploadMovie) {
       dispatch(getMovieListManagement())
@@ -168,7 +170,7 @@ export default function MoviesManagement() {
           <ThumbnailYoutube urlYoutube={params.row.trailer} />
         </div>, headerAlign: 'center', align: "center", headerClassName: 'custom-header',
       },
-      { field: 'hinhAnh', headerName: 'Hình ảnh', width: 200, headerAlign: 'center', align: "center", headerClassName: 'custom-header', renderCell: RenderCellExpand },
+      { field: 'hinhAnh', headerName: 'Hình ảnh', width: 200, headerAlign: 'center', align: "center", headerClassName: 'custom-header', renderCell: (params) => RenderCellExpand(params, isMobile) },
       { field: 'moTa', headerName: 'Mô Tả', width: 200, headerAlign: 'center', align: "left", headerClassName: 'custom-header', renderCell: RenderCellExpand },
       { field: 'ngayKhoiChieu', headerName: 'Ngày khởi chiếu', width: 160, type: 'date', headerAlign: 'center', align: "center", headerClassName: 'custom-header', valueFormatter: (params) => params.value.slice(0, 10), },
       { field: 'danhGia', headerName: 'Đánh giá', width: 120, headerAlign: 'center', align: "center", headerClassName: 'custom-header', },

@@ -9,7 +9,7 @@ import Fade from '@material-ui/core/Fade';
 import Slider from '@material-ui/core/Slider';
 
 const GridCellExpand = function GridCellExpand(props) {
-  const { width, value, field } = props;
+  const { width, value, field, isMobile } = props;
   const classes = useStyles({ field });
   const wrapper = useRef(null);
   const cellDiv = useRef(null);
@@ -58,8 +58,10 @@ const GridCellExpand = function GridCellExpand(props) {
     <div
       ref={wrapper}
       className={classes.rootCellExpand}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={isMobile ? null : handleMouseEnter}
+      onMouseLeave={isMobile ? null : handleMouseLeave}
+      onFocus={isMobile ? handleMouseEnter : null}
+      onBlur={isMobile ? handleMouseEnter : null}
     >
       <div
         ref={cellDiv}
@@ -73,10 +75,12 @@ const GridCellExpand = function GridCellExpand(props) {
       />
       <div ref={cellValue} className="cellValue">
         {field !== "hinhAnh" ? value :
-          <>
-            <img style={{ width: 50, height: 50, borderRadius: 4, marginRight: 15, }} src={value} alt="poster movie" />
+          <div className={classes.contentImage}>
+            <div className={classes.divImage}>
+              <img className={classes.image} src={value} alt="poster movie" />
+            </div>
             <Slider value={widthImage.value} classes={{ root: classes.rootSlider }} onChange={handleChangeSize} />
-          </>
+          </div>
         }
       </div>
       {showPopper && (
@@ -116,6 +120,7 @@ export default function renderCellExpand(params) {
       field={params.field}
       value={params.value ? params.value.toString() : ''}
       width={params.colDef.width}
+      isMobile={params.isMobile}
     />
   );
 }

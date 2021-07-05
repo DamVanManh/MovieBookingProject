@@ -120,8 +120,19 @@ const useStyles = makeStyles((theme) => {
         textOverflow: 'ellipsis',
       },
     },
+    contentImage: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: "space-between",
+    },
+    divImage: {
+      flex: "50%",
+    },
+    image: {
+      width: "auto", maxWidth: 50, height: 50, borderRadius: 4,
+    },
     rootSlider: {
-      width: 60,
+      flex: "50%",
       verticalAlign: "middle",
     },
     formControl: {
