@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
   lstPhim: props => ({
-    flex: "60%",
+    flex: "0 0 60%",
     height: "705px",
     overflowY: 'auto',
     borderLeft: "1px solid #ebebec",

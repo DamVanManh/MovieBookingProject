@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     display: 'flex',
   },
   lstCumRap: props => ({
-    flex: "40%",
+    flex: "0 0 40%",
     overflowY: 'auto',
     height: 705,
     overflowX: 'hidden',
