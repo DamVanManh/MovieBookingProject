@@ -12,8 +12,6 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CustomPopper from "./popper";
-import { useDispatch } from "react-redux";
-import SearchIcon from "@material-ui/icons/Search";
 
 import theatersApi from "../../../../api/theatersApi";
 import useStyles from "./styles";
@@ -25,7 +23,6 @@ export default function SearchStickets() {
     (state) => state.movieReducer
   );
   const history = useHistory();
-  const dispatch = useDispatch();
   const down992px = useMediaQuery(HIDDEN_SEARCHTICKET);
   const [data, setData] = useState({
     // handleSelectPhim
@@ -51,6 +48,8 @@ export default function SearchStickets() {
 
     // handleOpen
     openCtr: { phim: false, rap: false, ngayXem: false, suatChieu: false },
+    // element:
+    rootElementPopup: null,
   });
   const [topPopup, setTopPopup] = useState(false);
   const classes = useStyles({
@@ -62,15 +61,26 @@ export default function SearchStickets() {
   // popup item phim lật như thế nào(lên hay xuống) thì set các popup khác lật như thế ấy, item phim dùng popper, item còn lại dùng popover
   useEffect(() => {
     let mounted = true;
+    if (!data.openCtr.phim) {
+      return undefined;
+    }
     setTimeout(() => {
-      const placementPopup = document
-        .querySelector('div[role="presentation"].MuiAutocomplete-popper')
-        ?.getAttribute("x-placement");
-      if (placementPopup === "bottom" && mounted) {
+      const placementPopup = document.querySelector(
+        'div[role="presentation"].MuiAutocomplete-popper'
+      );
+      if (placementPopup?.getAttribute("x-placement") === "bottom" && mounted) {
         setTopPopup(false);
-      } else if (placementPopup === "top" && mounted) {
+      } else if (
+        placementPopup?.getAttribute("x-placement") === "top" &&
+        mounted
+      ) {
         setTopPopup(true);
       }
+      // đưa elememt xuống popup thứ hai để định vị Popper
+      setData((data) => ({
+        ...data,
+        rootElementPopup: placementPopup,
+      }));
     }, 50);
     return () => {
       mounted = false;
@@ -78,7 +88,10 @@ export default function SearchStickets() {
   }, [data.openCtr.phim]);
 
   const handleOpenPhim = () => {
-    setData((data) => ({ ...data, openCtr: { ...data.openCtr, phim: true } }));
+    setData((data) => ({
+      ...data,
+      openCtr: { ...data.openCtr, phim: true },
+    }));
   };
   const handleOpenRap = () => {
     setData((data) => ({ ...data, openCtr: { ...data.openCtr, rap: true } }));
@@ -290,6 +303,7 @@ export default function SearchStickets() {
               phim={phim}
               setNewPhim={setNewPhim}
               currentPhimPopup={currentPhimPopup}
+              rootElementPopup={data.rootElementPopup}
             />
           )}
           popupIcon={<ExpandMoreIcon />}

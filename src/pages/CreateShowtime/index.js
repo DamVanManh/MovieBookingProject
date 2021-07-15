@@ -33,9 +33,7 @@ import { getTheaters2 } from "../../reducers/actions/Theater";
 function CustomLoadingOverlay() {
   return (
     <GridOverlay>
-      <div style={{ position: "absolute", top: 0, width: "100%" }}>
-        <CircularProgress style={{ margin: "auto" }} />
-      </div>
+      <CircularProgress style={{ margin: "auto" }} />
     </GridOverlay>
   );
 }
@@ -48,7 +46,7 @@ export default function MoviesManagement() {
   );
   const { loadingCreateShowtime, successCreateShowtime, errorCreateShowtime } =
     useSelector((state) => state.bookTicketReducer);
-  const { movieList2 } = useSelector((state) => state.movieReducer);
+  const movieList2 = useSelector((state) => state.movieReducer.movieList2);
   const dispatch = useDispatch();
   const [valueSearch, setValueSearch] = useState("");
   const clearSetSearch = useRef(0);
@@ -217,11 +215,12 @@ export default function MoviesManagement() {
     const hinhAnhPhimSelected = movieList2.find(
       (item) => item.maPhim === e.target.value
     ).hinhAnh;
+    const isOpenHeThongRap = data.setHeThongRap ? false : true;
     setData((data) => ({
       ...data,
       setPhim: e.target.value,
       startRequest: true,
-      openCtr: { ...data.openCtr, heThongRap: true },
+      openCtr: { ...data.openCtr, heThongRap: isOpenHeThongRap },
       hinhAnhPhimSelected,
     }));
     theatersApi.getThongTinHeThongRap(e.target.value).then((result) => {
@@ -506,7 +505,7 @@ export default function MoviesManagement() {
     <div style={{ height: "80vh", width: "100%" }}>
       <div className={classes.backgroundImg}>
         <div className="row">
-          <div className="col-6">
+          <div className="col-6 px-0 px-md-3">
             <FormControl
               className={classes.search__item}
               focused={false}
@@ -547,7 +546,7 @@ export default function MoviesManagement() {
               </Select>
             </FormControl>
           </div>
-          <div className="col-6">
+          <div className="col-6 px-0 px-md-3">
             <FormControl
               className={classes.search__item}
               focused={false}
@@ -600,7 +599,7 @@ export default function MoviesManagement() {
               </Select>
             </FormControl>
           </div>
-          <div className="col-6">
+          <div className="col-6 px-0 px-md-3">
             <FormControl
               className={classes.search__item}
               focused={false}
@@ -650,7 +649,7 @@ export default function MoviesManagement() {
               </Select>
             </FormControl>
           </div>
-          <div className="col-6">
+          <div className="col-6 px-0 px-md-3">
             <FormControl
               className={classes.search__item}
               focused={false}
@@ -694,7 +693,7 @@ export default function MoviesManagement() {
               </Select>
             </FormControl>
           </div>
-          <div className="col-6">
+          <div className="col-6 px-0 px-md-3">
             <FormControl
               className={classes.search__item}
               focused={false}
@@ -720,7 +719,7 @@ export default function MoviesManagement() {
               </MuiPickersUtilsProvider>
             </FormControl>
           </div>
-          <div className="col-6">
+          <div className="col-6 px-0 px-md-3">
             <FormControl
               className={classes.search__item}
               focused={false}
@@ -758,28 +757,34 @@ export default function MoviesManagement() {
       </div>
 
       <div className={classes.control}>
-        <Button
-          disabled={!isReadyTaoLichChieu}
-          classes={{
-            root: classes.btn,
-            disabled: classes.btnDisabled,
-          }}
-          onClick={handleTaoLichChieu}
-        >
-          Tạo Lịch Chiếu
-        </Button>
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
+        <div className="row">
+          <div className={`col-12 col-md-6 ${classes.itemCtro}`}>
+            <Button
+              disabled={!isReadyTaoLichChieu}
+              classes={{
+                root: classes.btn,
+                disabled: classes.btnDisabled,
+              }}
+              onClick={handleTaoLichChieu}
+            >
+              Tạo Lịch Chiếu
+            </Button>
           </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            onChange={(evt) => handleInputSearchChange(evt.target.value)}
-          />
+          <div className={`col-12 col-md-6 ${classes.itemCtro}`}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                onChange={(evt) => handleInputSearchChange(evt.target.value)}
+              />
+            </div>
+          </div>
         </div>
       </div>
       <DataGrid

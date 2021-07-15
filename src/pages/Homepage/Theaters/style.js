@@ -12,11 +12,9 @@ const useStyles = makeStyles({
   taps: {
     // dường line phần chia khi horizontal
     borderBottom: "none",
-    // flex: "0 0 92px",
     minWidth: 92,
   },
   cumRap: {
-    // flex: "0 0 calc(100% - 92px)"
     minWidth: "calc(100% - 92px)",
   },
   tabs__indicator: {

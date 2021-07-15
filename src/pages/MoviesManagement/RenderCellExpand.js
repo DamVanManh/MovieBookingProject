@@ -1,15 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import { isOverflown } from '@material-ui/data-grid';
-import { useStyles } from './styles';
-import Fade from '@material-ui/core/Fade';
-import Slider from '@material-ui/core/Slider';
+import React, { useState, useRef } from "react";
+
+import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import { isOverflown } from "@material-ui/data-grid";
+import { useStyles } from "./styles";
+import Fade from "@material-ui/core/Fade";
+import Slider from "@material-ui/core/Slider";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const GridCellExpand = function GridCellExpand(props) {
-  const { width, value, field, isMobile } = props;
+  const { width, value, field } = props;
   const classes = useStyles({ field });
   const wrapper = useRef(null);
   const cellDiv = useRef(null);
@@ -17,90 +19,95 @@ const GridCellExpand = function GridCellExpand(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [showFullCell, setShowFullCell] = useState(false);
   const [showPopper, setShowPopper] = useState(false);
-  const [widthImage, setwidthImage] = useState({ widthImage: 200, value: 20 })
+  const [widthImage, setwidthImage] = useState({ widthImage: 200, value: 20 });
+  const isMobile = useMediaQuery("(max-width:768px)");
 
-  const handleMouseEnter = () => {
-    let isCurrentlyOverflown = isOverflown(cellValue.current);
-    if (field === "hinhAnh") {
-      isCurrentlyOverflown = true
-    }
+  const handleMouseEnter = (e) => {
+    let isCurrentlyOverflown =
+      field === "hinhAnh" ? true : isOverflown(cellValue.current);
+    let elementAL = isMobile ? document.querySelector("body") : cellDiv.current;
     setShowPopper(isCurrentlyOverflown);
-    setAnchorEl(cellDiv.current);
+    setAnchorEl(elementAL);
     setShowFullCell(true);
   };
-
   const handleMouseLeave = () => {
     setShowFullCell(false);
   };
 
-  useEffect(() => {
-    if (!showFullCell) {
-      return undefined;
+  const handleChangeSize = (e, newValue) => {
+    if (e.cancelable) {
+      // fix Ignored attempt to cancel a touchstart event with cancelable=false, for example because scrolling is in progress and cannot be interrupted.
+      e.preventDefault();
     }
-    function handleKeyDown(nativeEvent) {
-      // IE11, Edge (prior to using Bink?) use 'Esc'
-      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
-        setShowFullCell(false);
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [setShowFullCell, showFullCell]);
-
-  const handleChangeSize = (event, newValue) => {
-    let width = (200 * newValue + 12000) / 80
-    setwidthImage({ widthImage: width, value: newValue })
-  }
+    let width = (200 * newValue + 12000) / 80;
+    setwidthImage({ widthImage: width, value: newValue });
+  };
 
   return (
     <div
       ref={wrapper}
       className={classes.rootCellExpand}
-      onMouseEnter={isMobile ? null : handleMouseEnter}
-      onMouseLeave={isMobile ? null : handleMouseLeave}
-      onFocus={isMobile ? handleMouseEnter : null}
-      onBlur={isMobile ? handleMouseEnter : null}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div
         ref={cellDiv}
         style={{
           height: 1,
           width,
-          display: 'block',
-          position: 'absolute',
+          display: "block",
+          position: "absolute",
           top: 0,
         }}
       />
       <div ref={cellValue} className="cellValue">
-        {field !== "hinhAnh" ? value :
+        {field !== "hinhAnh" ? (
+          value
+        ) : (
           <div className={classes.contentImage}>
             <div className={classes.divImage}>
               <img className={classes.image} src={value} alt="poster movie" />
             </div>
-            <Slider value={widthImage.value} classes={{ root: classes.rootSlider }} onChange={handleChangeSize} />
+            <Slider
+              value={widthImage.value}
+              classes={{ root: classes.rootSlider }}
+              onChange={handleChangeSize}
+            />
           </div>
-        }
+        )}
       </div>
       {showPopper && (
         <Popper
           open={showFullCell && anchorEl !== null}
           anchorEl={anchorEl}
-          style={{ width: field === "hinhAnh" ? widthImage.widthImage : width, marginLeft: -17 }}
-          placement="right"
+          style={{
+            width: field === "hinhAnh" ? widthImage.widthImage : width,
+            marginLeft: -17,
+          }}
+          placement={isMobile ? "right-start" : "right"}
           transition
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
-              {field === "hinhAnh" ? <img style={{ width: "100%", height: "100%", borderRadius: 4, }} src={value} alt="poster movie" /> : <Paper
-                elevation={1}
-                style={{ minHeight: wrapper.current.offsetHeight - 3, backgroundColor: "#00fff3" }}
-              >
-                <Typography variant="body2" style={{ padding: 8 }}>
-                  {value}
-                </Typography>
-              </Paper>}
+              {field === "hinhAnh" ? (
+                <img
+                  style={{ width: "100%", height: "100%", borderRadius: 4 }}
+                  src={value}
+                  alt="poster movie"
+                />
+              ) : (
+                <Paper
+                  elevation={1}
+                  style={{
+                    minHeight: wrapper.current.offsetHeight - 3,
+                    backgroundColor: "#00fff3",
+                  }}
+                >
+                  <Typography variant="body2" style={{ padding: 8 }}>
+                    {value}
+                  </Typography>
+                </Paper>
+              )}
             </Fade>
           )}
         </Popper>
@@ -118,9 +125,8 @@ export default function renderCellExpand(params) {
   return (
     <GridCellExpand
       field={params.field}
-      value={params.value ? params.value.toString() : ''}
+      value={params.value ? params.value.toString() : ""}
       width={params.colDef.width}
-      isMobile={params.isMobile}
     />
   );
 }

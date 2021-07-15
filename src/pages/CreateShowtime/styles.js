@@ -68,15 +68,15 @@ const useStyles = makeStyles((theme) => {
 
     search: {
       verticalAlign: "bottom",
-      display: "inline-block",
       position: "relative",
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.info.light, 0.15),
       "&:hover": {
         backgroundColor: fade(theme.palette.info.light, 0.25),
       },
-      marginLeft: theme.spacing(1),
-      width: "auto",
+      [theme.breakpoints.down("md")]: {
+        marginTop: 11,
+      },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
@@ -88,15 +88,14 @@ const useStyles = makeStyles((theme) => {
     },
     inputRoot: {
       color: "inherit",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
+      display: "flex",
     },
     inputInput: {
       padding: "8.5px 8.5px 8.5px 0px",
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
-      },
     },
 
     rootTrailer: {
@@ -138,7 +137,7 @@ const useStyles = makeStyles((theme) => {
 
     search__item: {
       color: "black",
-      padding: 11,
+      padding: 16,
       "& > div > div": {
         textShadow:
           "2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff",
@@ -219,11 +218,19 @@ const useStyles = makeStyles((theme) => {
       marginTop: 11,
     },
     control: {
-      margin: "22px 26px 8px",
-      verticalAlign: "baseline",
+      margin: "11px 0",
+    },
+    itemCtro: {
+      paddingRight: 16,
+      paddingLeft: 16,
+      [theme.breakpoints.up("md")]: {
+        paddingRight: 32,
+        paddingLeft: 32,
+      },
     },
     btn: {
       // css áp dụng khi disabled = false
+      width: "100%",
       backgroundColor: "#fb4226",
       "&:hover": {
         backgroundColor: "#b30000",
