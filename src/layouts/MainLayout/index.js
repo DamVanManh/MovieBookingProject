@@ -2,7 +2,6 @@ import React from "react";
 
 import ScrollToTop from "react-scroll-up";
 import { makeStyles } from "@material-ui/core";
-import { useSelector } from "react-redux";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -27,28 +26,19 @@ const useStyles = makeStyles((theme) => ({
 export default function MainLayout(props) {
   const classes = useStyles();
 
-  const { isLazy } = useSelector((state) => state.lazyReducer);
-  const { loadingMovieList } = useSelector((state) => state.movieReducer);
-  const { loadingTheaterList } = useSelector((state) => state.theaterReducer);
-  const loading = isLazy || loadingMovieList || loadingTheaterList;
-
   return (
-    <>
-      {!loading && ( // chỉ khi loadding xong mơi cho hiển thị
-        <div>
-          <Header />
-          <div className={classes.top}></div>
-          {props.children}
-          <Footer />
-          <ScrollToTop showUnder={160}>
-            <img
-              src="/img/logoTixLoading.png"
-              alt="totop"
-              className={classes.styleScrollToTop}
-            />
-          </ScrollToTop>
-        </div>
-      )}
-    </>
+    <div>
+      <Header />
+      <div className={classes.top}></div>
+      {props.children}
+      <Footer />
+      <ScrollToTop showUnder={160}>
+        <img
+          src="/img/logoTixLoading.png"
+          alt="totop"
+          className={classes.styleScrollToTop}
+        />
+      </ScrollToTop>
+    </div>
   );
 }

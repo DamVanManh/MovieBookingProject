@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Login, register, and book tickets
 - Admin features: CRUD users, movies
 - Responsive mobile and desktop
-- Making a Progressive Web App with Create React App
+- Implement a Progressive Web App with Create React App
 ## Technologies:
 React Hooks, Material-UI, Redux, Redux-thunk, Axios, Bootstrap 4(Css)
 ## live demo

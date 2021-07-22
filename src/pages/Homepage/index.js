@@ -9,7 +9,7 @@ import Carousel from "./Carousel";
 import HomeApp from "./HomeApp";
 import Theaters from "./Theaters";
 import Showtime from "./Showtime";
-import "slick-carousel/slick/slick.css"; // npm install slick-carousel --save
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function Homepage() {

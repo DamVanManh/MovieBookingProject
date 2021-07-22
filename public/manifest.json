@@ -1,6 +1,6 @@
 {
-  "short_name": "booking movie",
-  "name": "booking movie",
+  "short_name": "Movie Tickets",
+  "name": "Movie Tickets",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "favicon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "favicon.png",
       "type": "image/png",
       "sizes": "512x512"
     }

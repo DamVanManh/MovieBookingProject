@@ -30,71 +30,65 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   return (
-      <BrowserRouter>
-        <MuiThemeProvider theme={theme}>
-          {/* component nằm trong BrowserRouter nhưng nằm ngoài Switch sẽ luôn được hiển thị */}
-          <Loading />
-          <ModalTrailer />
-          {/* trong khi đang tải component(được yêu cầu từ url), TriggerLoadingLazy được Suspense return, sau khi tải xong TriggerLoadingLazy bị unmount */}
-          <Suspense fallback={<TriggerLoadingLazy />}>
-            <Switch>
-              {/* component hiển thị bên trong route này luôn có giao diện MainLayout( header và footer) */}
-              <Route exact path={["/", "/phim/:maPhim", "/taikhoan"]}>
-                <MainLayout>
-                  <Route exact path="/" component={Homepage} />
-                  <Route exact path="/phim/:maPhim" component={MovieDetail} />
-                  <UserProfileRoute
-                    exact
-                    path="/taikhoan"
-                    component={UserProfile}
-                  />
-                </MainLayout>
-              </Route>
+    <BrowserRouter>
+      <MuiThemeProvider theme={theme}>
+        <Loading />
+        <ModalTrailer />
+        <Suspense fallback={<TriggerLoadingLazy />}>
+          <Switch>
+            <Route exact path={["/", "/phim/:maPhim", "/taikhoan"]}>
+              <MainLayout>
+                <Route exact path="/" component={Homepage} />
+                <Route exact path="/phim/:maPhim" component={MovieDetail} />
+                <UserProfileRoute
+                  exact
+                  path="/taikhoan"
+                  component={UserProfile}
+                />
+              </MainLayout>
+            </Route>
 
-              <CheckoutRoute
-                exact
-                path="/datve/:maLichChieu"
-                component={BookTickets}
-              />
+            <CheckoutRoute
+              exact
+              path="/datve/:maLichChieu"
+              component={BookTickets}
+            />
 
-              {/* component trong này chỉ cho phép truy cập khi tài khoản là admin */}
-              <Route
-                exact
-                path={["/admin/users", "/admin/movies", "/admin/showtimes"]}
-              >
-                <AdminLayout>
-                  <AdminRoute
-                    exact
-                    path="/admin/users"
-                    component={UsersManagement}
-                  />
-                  <AdminRoute
-                    exact
-                    path="/admin/movies"
-                    component={MoviesManagement}
-                  />
-                  <AdminRoute
-                    exact
-                    path="/admin/showtimes"
-                    component={CreateShowtime}
-                  />
-                </AdminLayout>
-              </Route>
+            <Route
+              exact
+              path={["/admin/users", "/admin/movies", "/admin/showtimes"]}
+            >
+              <AdminLayout>
+                <AdminRoute
+                  exact
+                  path="/admin/users"
+                  component={UsersManagement}
+                />
+                <AdminRoute
+                  exact
+                  path="/admin/movies"
+                  component={MoviesManagement}
+                />
+                <AdminRoute
+                  exact
+                  path="/admin/showtimes"
+                  component={CreateShowtime}
+                />
+              </AdminLayout>
+            </Route>
 
-              {/* component hiển thị bên trong route này luôn có giao diện AuthLayout */}
-              <Route exact path={["/dangnhap", "/dangky"]}>
-                <AuthLayout>
-                  <Route exact path="/dangnhap" component={Login} />
-                  <Route exact path="/dangky" component={Register} />
-                </AuthLayout>
-              </Route>
+            <Route exact path={["/dangnhap", "/dangky"]}>
+              <AuthLayout>
+                <Route exact path="/dangnhap" component={Login} />
+                <Route exact path="/dangky" component={Register} />
+              </AuthLayout>
+            </Route>
 
-              {/* khi người dùng nhập sai địa chỉ ví dụ localhost:3002/fdsf thì tự động chuyển sang trang NotFound*/}
-              <Route component={NotFound} />
-            </Switch>
-          </Suspense>
-        </MuiThemeProvider>
-      </BrowserRouter>
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
+      </MuiThemeProvider>
+    </BrowserRouter>
   );
 }
 

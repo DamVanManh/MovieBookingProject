@@ -140,7 +140,7 @@ const useStyles = makeStyles((theme) => {
       padding: 16,
       "& > div > div": {
         textShadow:
-          "2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff",
+          "1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
         color: "#fb4226",
         fontSize: 14,
         padding: "18px 0px",
@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme) => {
         "& > input": {
           // text select date
           textShadow:
-            "2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff",
+            "1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
         },
         "&:before": {
           borderColor: "transparent",

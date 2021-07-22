@@ -1,12 +1,25 @@
 import {
-  GET_MOVIE_LIST_REQUEST, GET_MOVIE_LIST_SUCCESS, GET_MOVIE_LIST_FAIL,
-  DELETE_MOVIE_REQUEST, DELETE_MOVIE_SUCCESS, DELETE_MOVIE_FAIL,
-  POST_UPDATE_MOVIE_REQUEST, POST_UPDATE_MOVIE_SUCCESS, POST_UPDATE_MOVIE_FAIL,
-  UPDATE_NONEIMAGE_MOVIE_REQUEST, UPDATE_NONEIMAGE_MOVIE_SUCCESS, UPDATE_NONEIMAGE_MOVIE_FAIL,
-  GET_MOVIE_LIST_REQUEST2, GET_MOVIE_LIST_SUCCESS2, GET_MOVIE_LIST_FAIL2,
-  ADD_MOVIE_UPLOAD_REQUEST, ADD_MOVIE_UPLOAD_SUCCESS, ADD_MOVIE_UPLOAD_FAIL,
+  GET_MOVIE_LIST_REQUEST,
+  GET_MOVIE_LIST_SUCCESS,
+  GET_MOVIE_LIST_FAIL,
+  DELETE_MOVIE_REQUEST,
+  DELETE_MOVIE_SUCCESS,
+  DELETE_MOVIE_FAIL,
+  POST_UPDATE_MOVIE_REQUEST,
+  POST_UPDATE_MOVIE_SUCCESS,
+  POST_UPDATE_MOVIE_FAIL,
+  UPDATE_NONEIMAGE_MOVIE_REQUEST,
+  UPDATE_NONEIMAGE_MOVIE_SUCCESS,
+  UPDATE_NONEIMAGE_MOVIE_FAIL,
+  GET_MOVIE_LIST_REQUEST2,
+  GET_MOVIE_LIST_SUCCESS2,
+  GET_MOVIE_LIST_FAIL2,
+  ADD_MOVIE_UPLOAD_REQUEST,
+  ADD_MOVIE_UPLOAD_SUCCESS,
+  ADD_MOVIE_UPLOAD_FAIL,
   RESET_MOVIE_MANAGEMENT,
-} from './constants/Movie';
+  SAVE_BEFOREINSTALLPROMPT_EVENT,
+} from "./constants/Movie";
 
 const initialState = {
   movieList: [],
@@ -33,18 +46,25 @@ const initialState = {
   successAddUploadMovie: "",
   loadingAddUploadMovie: false,
   errorAddUploadMovie: null,
-}
+
+  saveBeforeinstallpromptEvent: null,
+};
 
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MOVIE_LIST_REQUEST: {
-      return { ...state, loadingMovieList: true, errorMovieList: null, movieDetail: null, };
+      return {
+        ...state,
+        loadingMovieList: true,
+        errorMovieList: null,
+        movieDetail: null,
+      };
     }
     case GET_MOVIE_LIST_SUCCESS: {
       return {
         ...state,
         movieList: action.payload.data,
-        loadingMovieList: false
+        loadingMovieList: false,
       };
     }
     case GET_MOVIE_LIST_FAIL: {
@@ -62,7 +82,7 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         movieList2: action.payload.data,
-        loadingMovieList2: false
+        loadingMovieList2: false,
       };
     }
     case GET_MOVIE_LIST_FAIL2: {
@@ -74,13 +94,13 @@ const movieReducer = (state = initialState, action) => {
     }
 
     case DELETE_MOVIE_REQUEST: {
-      return { ...state, loadingDeleteMovie: true, errorDeleteMovie: null, };
+      return { ...state, loadingDeleteMovie: true, errorDeleteMovie: null };
     }
     case DELETE_MOVIE_SUCCESS: {
       return {
         ...state,
         successDeleteMovie: action.payload.data,
-        loadingDeleteMovie: false
+        loadingDeleteMovie: false,
       };
     }
     case DELETE_MOVIE_FAIL: {
@@ -92,7 +112,7 @@ const movieReducer = (state = initialState, action) => {
     }
 
     case POST_UPDATE_MOVIE_REQUEST: {
-      return { ...state, loadingUpdateMovie: true, errorUpdateMovie: null, };
+      return { ...state, loadingUpdateMovie: true, errorUpdateMovie: null };
     }
     case POST_UPDATE_MOVIE_SUCCESS: {
       return {
@@ -110,7 +130,11 @@ const movieReducer = (state = initialState, action) => {
     }
 
     case UPDATE_NONEIMAGE_MOVIE_REQUEST: {
-      return { ...state, loadingUpdateNoneImageMovie: true, errorUpdateNoneImageMovie: null, };
+      return {
+        ...state,
+        loadingUpdateNoneImageMovie: true,
+        errorUpdateNoneImageMovie: null,
+      };
     }
     case UPDATE_NONEIMAGE_MOVIE_SUCCESS: {
       return {
@@ -128,7 +152,11 @@ const movieReducer = (state = initialState, action) => {
     }
 
     case ADD_MOVIE_UPLOAD_REQUEST: {
-      return { ...state, loadingAddUploadMovie: true, errorAddUploadMovie: null, };
+      return {
+        ...state,
+        loadingAddUploadMovie: true,
+        errorAddUploadMovie: null,
+      };
     }
     case ADD_MOVIE_UPLOAD_SUCCESS: {
       return {
@@ -169,8 +197,12 @@ const movieReducer = (state = initialState, action) => {
       };
     }
 
+    case SAVE_BEFOREINSTALLPROMPT_EVENT: {
+      state.saveBeforeinstallpromptEvent = action.payload.event;
+      return state;
+    }
     default:
       return state;
   }
-}
+};
 export default movieReducer;

@@ -111,7 +111,6 @@ export default function Login() {
           initialValues={{
             taiKhoan: "",
             matKhau: "",
-            saveAccount: true,
           }}
           validationSchema={signinUserSchema}
           onSubmit={handleSubmit}

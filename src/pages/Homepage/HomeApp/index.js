@@ -1,13 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import useStyles from "./style";
 import Slider from "react-slick";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import openNewTap from "../../../utilities/openNewTap";
-import { LOADING_BACKTO_HOME_COMPLETED } from "../../../reducers/constants/Lazy";
+import { saveBeforeinstallpromptEvent } from "../../../reducers/actions/Movie";
 
 export default function HomeApp() {
-  const dispatch = useDispatch();
   const settings = {
     infinite: true,
     slidesToShow: 1,
@@ -19,45 +17,39 @@ export default function HomeApp() {
   const textDecoration = { textDecoration: "underline" };
   const classes = useStyles();
   const deferredPrompt = useRef(null);
-
-  console.log("component load lại ");
+  const dispatch = useDispatch();
+  const event = useSelector(
+    (state) => state.movieReducer.saveBeforeinstallpromptEvent
+  );
 
   useEffect(() => {
-    // xác nhận đã load thành công component cuối cùng và tắt component loading
-    dispatch({ type: LOADING_BACKTO_HOME_COMPLETED });
-
-    // Code to handle install prompt on desktop
-
-    // let deferredPrompt;
-    const addBtn = document.querySelector(".btn.btn-danger");
-    // addBtn.style.display = "none";
-    console.log("btn hiện tại: ", addBtn);
     window.addEventListener("beforeinstallprompt", (e) => {
-      console.log("đã run beforeinstallprompt, hiện e: ", e);
       // Prevent Chrome 67 and earlier from automatically showing the prompt
       e.preventDefault();
       // Stash the event so it can be triggered later.
       deferredPrompt.current = e;
-      // Update UI to notify the user they can add to home screen
-      // addBtn.style.display = "block";
-
-      addBtn.addEventListener("click", () => {
-        // hide our user interface that shows our A2HS button
-        // addBtn.style.display = "none";
-        // Show the prompt
-        deferredPrompt.current.prompt();
-        // Wait for the user to respond to the prompt
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === "accepted") {
-            console.log("User accepted the A2HS prompt");
-          } else {
-            console.log("User dismissed the A2HS prompt");
-          }
-          deferredPrompt.current = null;
-        });
-      });
     });
-  });
+    return () => {
+      // nếu chuyển url thì deferredPrompt bị mất nên phải lưu lại
+      // Stash the event so it can be triggered later.
+      dispatch(saveBeforeinstallpromptEvent(deferredPrompt.current));
+    };
+  }, []);
+
+  const installPWA = () => {
+    const eventPrompt = deferredPrompt.current ?? event;
+    // Show the prompt
+    eventPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    eventPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the A2HS prompt");
+      } else {
+        console.log("User dismissed the A2HS prompt");
+      }
+      deferredPrompt.current = null;
+    });
+  };
 
   return (
     <div id="ungdung">
@@ -77,7 +69,10 @@ export default function HomeApp() {
                     rạp và đổi quà hấp dẫn.
                   </p>
                   <br />
-                  <button className="btn btn-danger">
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => installPWA()}
+                  >
                     Cài đặt Progressive App!
                   </button>
                   <br />

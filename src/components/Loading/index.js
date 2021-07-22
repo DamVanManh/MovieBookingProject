@@ -11,7 +11,7 @@
 - muốn kích hoạt lại một keyframes phải đổi giá trị key(khai niệm trong react), hoặc move class chứa keyframes ra và thêm vào lại
 - mỗi lần quay về home vì mất một thời gian mới return component(mặc dù đã tải sẵn code + data) > để tạo loading thì:
   + khi click thì dispatch isLoadingBackToHome là true trong reducer Lazy để kích hoạt loading
-  + bên trong component page > Homepage > Homeapp kích hoạt loading xong nếu component render xong
+  + bên trong component page > Homepage > Carousel kích hoạt loading xong nếu component render xong
 - do cùng một element không thể có 2 animation cùng lúc lên phải tách ra thành 2 div, 1 div shake, một div fade
 - khi fadeOut kết thúc thì cần ẩn đi loadding > bắt sự kiện animationend, sau đó xóa addEventListener để không bắt animationend của fadeIn
 
@@ -82,9 +82,6 @@ export default function Loading() {
   const loadingMovieList = useSelector(
     (state) => state.movieReducer.loadingMovieList
   );
-  const loadingTheaterList = useSelector(
-    (state) => state.theaterReducer.loadingTheaterList
-  );
   const loadingGetListSeat = useSelector(
     (state) => state.bookTicketReducer.loadingGetListSeat
   );
@@ -94,7 +91,6 @@ export default function Loading() {
   const loading =
     isLazy ||
     loadingMovieList ||
-    loadingTheaterList ||
     loadingGetListSeat ||
     loadingMovieDetailShowtimes ||
     isLoadingBackToHome;
@@ -115,19 +111,6 @@ export default function Loading() {
     effectFadeOut: controlEffect.effectFadeOut,
   });
 
-  // console.log(
-  //   "hiên thị: ",
-  //   loading,
-  //   isLazy,
-  //   loadingMovieList,
-  //   loadingTheaterList,
-  //   loadingGetListSeat,
-  //   loadingMovieDetailShowtimes,
-  //   isLoadingBackToHome,
-  //   controlEffect.visible,
-  //   controlEffect.effectFadeIn,
-  //   controlEffect.effectFadeOut
-  // );
   useEffect(() => {
     // loadding chuyển từ false sang true
     if (Number(loadingPrevious.current) < Number(loading)) {
