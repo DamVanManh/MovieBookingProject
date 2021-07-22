@@ -1,4 +1,4 @@
-# Movie Tickets
+# Movie Tickets(clone tix.vn)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Features:
 - Filter for better search movie and ticket, comment on the movie detail page
