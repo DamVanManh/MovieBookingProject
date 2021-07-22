@@ -1,4 +1,4 @@
-# MovieBookingProject
+# Movie Tickets
 ## Features:
 - Filter for better search movie and ticket, comment on the movie detail page
 - Login, register, and book tickets
