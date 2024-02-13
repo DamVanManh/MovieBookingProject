@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import { isOverflown } from '@material-ui/data-grid';
-import { useStyles } from './styles';
-import Fade from '@material-ui/core/Fade';
+import React from "react";
+import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import { useStyles } from "./styles";
+import Fade from "@material-ui/core/Fade";
 
 const GridCellExpand = function GridCellExpand(props) {
   const { width, value, field } = props;
@@ -34,13 +33,13 @@ const GridCellExpand = function GridCellExpand(props) {
     }
     function handleKeyDown(nativeEvent) {
       // IE11, Edge (prior to using Bink?) use 'Esc'
-      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
+      if (nativeEvent.key === "Escape" || nativeEvent.key === "Esc") {
         setShowFullCell(false);
       }
     }
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [setShowFullCell, showFullCell]);
 
@@ -56,8 +55,8 @@ const GridCellExpand = function GridCellExpand(props) {
         style={{
           height: 1,
           width,
-          display: 'block',
-          position: 'absolute',
+          display: "block",
+          position: "absolute",
           top: 0,
         }}
       />
@@ -76,7 +75,10 @@ const GridCellExpand = function GridCellExpand(props) {
             <Fade {...TransitionProps} timeout={350}>
               <Paper
                 elevation={1}
-                style={{ minHeight: wrapper.current.offsetHeight - 3, backgroundColor: "#00fff3" }}
+                style={{
+                  minHeight: wrapper.current.offsetHeight - 3,
+                  backgroundColor: "#00fff3",
+                }}
               >
                 <Typography variant="body2" style={{ padding: 8 }}>
                   {value}
@@ -90,6 +92,13 @@ const GridCellExpand = function GridCellExpand(props) {
   );
 };
 
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
+
 GridCellExpand.propTypes = {
   value: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
@@ -98,7 +107,7 @@ GridCellExpand.propTypes = {
 export default function renderCellExpand(params) {
   return (
     <GridCellExpand
-      value={params.value ? params.value.toString() : ''}
+      value={params.value ? params.value.toString() : ""}
       width={params.colDef.width}
     />
   );

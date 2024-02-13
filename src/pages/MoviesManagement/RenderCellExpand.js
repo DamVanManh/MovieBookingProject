@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
-import { isOverflown } from "@material-ui/data-grid";
 import { useStyles } from "./styles";
 import Fade from "@material-ui/core/Fade";
 import Slider from "@material-ui/core/Slider";
@@ -120,6 +119,13 @@ GridCellExpand.propTypes = {
   value: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
 };
+
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
 
 export default function renderCellExpand(params) {
   return (
