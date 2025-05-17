@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 const moviesApi = {
   //lấy thông tin toàn bộ danh sách phim
   getDanhSachPhim: () => {
-    const path = "/QuanLyPhim/LayDanhSachPhim?maNhom=GP09";
+    const path = "/QuanLyPhim/LayDanhSachPhim?maNhom=GP13";
     return axiosClient.get(path);
   },
 

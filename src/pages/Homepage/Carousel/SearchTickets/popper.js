@@ -22,9 +22,11 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff !important",
     position: "absolute",
     left: "50%",
-    bottom: 10,
+    bottom: "50%",
     transform: "translateX(-50%)",
     width: "fit-content",
+    "-webkit-backdrop-filter": "blur(30px)",
+    backdropFilter: "blur(30px)",
   },
   btnMovieDetail: {
     position: "absolute",
@@ -130,6 +132,8 @@ export default function CustomPopper(props) {
               <div className={classes.info}>
                 <p>{`120 phút - Điểm Tix ${phim.danhGia}`}</p>
               </div>
+              <br></br>
+              <br></br>
               <button
                 className={classes.btnMovieDetail}
                 onClick={() => history.push(`/phim/${phim.maPhim}`)}
